@@ -11,8 +11,10 @@ Skill para arrancar projetos com clientes. Conduz uma descoberta guiada, uma per
 ## Instalação
 
 ```bash
-npx skills@latest add <ORG>/<REPO> --skill start-project-with-trust
+npx skills@latest add ClaudioBap/start-project-with-trust --skill start-project-with-trust
 ```
+
+O repositório é privado: para instalar, precisas de acesso a ele no GitHub, e de ter sessão iniciada no git ou no GitHub CLI (`gh auth login`).
 
 O instalador deteta os agentes que tens. Para escolher um diretamente, junta `-a claude-code` (ou outro agente). Para instalar para o teu utilizador em vez de no projeto atual, junta `-g`.
 
