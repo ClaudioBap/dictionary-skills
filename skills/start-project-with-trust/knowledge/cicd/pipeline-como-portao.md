@@ -1,0 +1,27 @@
+---
+id: cicd/pipeline-como-portao
+titulo: "Pipeline como portão"
+seccao: "CI/CD e ferramentas"
+paginas: [45]
+fonte: Dicionario-Boas-Praticas.pdf
+verificado_em: 2026-11-03
+---
+
+# Pipeline como portão
+
+**Resumo:** O pipeline é a única porta para produção, com fases ordenadas por custo.
+
+## Conteúdo
+
+- O pipeline é a única porta para produção: se falha, nada avança; sem passos manuais que se esqueçam.
+- Fases por ordem de custo: lint → testes rápidos → testes de integração → build → deploy → smoke test.
+- Falhar cedo e barato; cada fase prova algo antes da seguinte.
+
+**Para uma skill:** não há caminho para produção que não passe pelo pipeline.
+
+## Ver também
+
+- [CI como portão do deploy](../seguranca/ci-como-portao-do-deploy.md) (Segurança)
+- [Branch protegida e promoção controlada](../governacao/branch-protegida-e-promocao-controlada.md) (Governação e processo)
+
+Fonte: pág. 45 (Dicionario-Boas-Praticas.pdf)
