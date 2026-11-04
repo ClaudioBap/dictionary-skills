@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:03:32Z",
+  "atualizado_em": "2026-11-04T02:07:05Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -20,7 +20,11 @@
     "https://asvs.owasp.org/": "2026-11-04",
     "https://api-security.owasp.org/": "2026-11-04",
     "https://csrc.nist.gov/": "2026-11-04",
-    "https://www.enisa.europa.eu/": "2026-11-04"
+    "https://www.enisa.europa.eu/": "2026-11-04",
+    "https://www.edpb.europa.eu/": "2026-11-04",
+    "https://www.edpb.europa.eu/sme-data-protection-guide/home_en": "2026-11-04",
+    "https://www.cnpd.pt/": "2026-11-04",
+    "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en": "2026-11-04"
   },
   "noticias": [
     {
