@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:26:25Z",
+  "atualizado_em": "2026-11-04T02:28:45Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -49,7 +49,13 @@
     "https://docs.pact.io/": "2026-11-04",
     "https://www.rfc-editor.org/": "2026-11-04",
     "https://www.postgresql.org/news.rss": "2026-11-04",
-    "https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases": "2026-11-04"
+    "https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases": "2026-11-04",
+    "https://www.python.org/downloads/": "2026-11-04",
+    "https://docs.astral.sh/ruff/": "2026-11-04",
+    "https://mypy.readthedocs.io/en/stable/getting_started.html": "2026-11-04",
+    "https://docs.pytest.org/en/stable/explanation/goodpractices.html": "2026-11-04",
+    "https://blog.python.org/": "2026-11-04",
+    "https://pyfound.blogspot.com/": "2026-11-04"
   },
   "noticias": [
     {
