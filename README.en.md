@@ -103,7 +103,9 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
 
 It does not get around sites that block automated access: in those cases it asks you to open the page and paste the content, or records the source as unread.
 
-To maintain the shared base, work on a git clone of this repository (`gh repo clone ClaudioBap/dictionary-skills`), not on the installed copy. To maintain only your personal knowledge, the installed skill is enough.
+To maintain the shared base, work on a git clone of this repository (`gh repo clone ClaudioBap/dictionary-skills`), not on the installed copy. If you only installed the skills, it runs in **local mode**: it goes through the same sources as the shared base, but stores the changes in your personal knowledge without touching the installed copy (which `npx skills update` would replace).
+
+When it opens, `start-project-with-trust` shows the date of the last shared-base update and of your local knowledge. If the more recent one is over 3 months old, it asks whether you want to run `/update-knowledge` before starting, noting that the changes stay in your local knowledge and that the update uses tokens.
 
 ## Installation
 
@@ -113,12 +115,13 @@ Requirements:
 - Git.
 - An agent that supports skills, for example Claude Code, Codex, Cursor or GitHub Copilot.
 
-Both skills:
+Every skill in the collection, with a single command:
 
 ```bash
-npx skills@latest add ClaudioBap/dictionary-skills --skill start-project-with-trust
-npx skills@latest add ClaudioBap/dictionary-skills --skill update-knowledge
+npx skills@latest add ClaudioBap/dictionary-skills --skill '*'
 ```
+
+Skills added to the collection later are picked up by the same command. To install just one, replace `'*'` with its name, for example `--skill start-project-with-trust`.
 
 - Without options, the skill is installed in the current project and only shows up in sessions opened in that folder. To have it in every project, add `-g`.
 - The installer detects the agents you have. To pick one directly, add `-a claude-code` (or another agent).
@@ -179,8 +182,7 @@ To update the knowledge:
 ## Updating the skills
 
 ```bash
-npx skills@latest update start-project-with-trust
-npx skills@latest update update-knowledge
+npx skills@latest update
 ```
 
 ## Contributing
@@ -206,5 +208,6 @@ skills/update-knowledge/
 ├── FONTES.md       personal sources
 ├── pendentes.md    medium-confidence changes awaiting a decision
 ├── CHANGELOG.md
+├── fontes-verificadas.json   date of the last local update and of each source checked
 └── knowledge/      entries and ATUALIZACOES.md per section
 ```

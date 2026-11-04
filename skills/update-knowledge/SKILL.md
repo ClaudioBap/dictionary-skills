@@ -42,15 +42,16 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/dictionary-skills`, e não na cópia instalada pelo `npx`.
    - Se o diretório atual (ou um pai) tiver `skills/start-project-with-trust/knowledge/`, usa-o.
    - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/dictionary-skills`.
-   - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou a skill), ou se pediu `pessoal`, salta a base partilhada e faz só o passo 5 «Conhecimento pessoal».
-2. Confirma que a cópia está limpa (`git status`) e faz `git pull`.
+   - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou as skills), trabalha em **modo local**: as fontes da base partilhada leem-se na cópia instalada, sem a alterar, e o que se encontrar vai para o conhecimento pessoal. Ver «Modo local», no passo 5.
+   - Se pediu `pessoal`, salta a base partilhada e faz só o passo 5, com as fontes pessoais.
+2. Com a cópia git, confirma que está limpa (`git status`) e faz `git pull`.
 3. Lê:
    - `knowledge/FONTES.md`: o registo por tema e a secção «A vigiar»;
    - `knowledge/INDEX.md`: a taxonomia;
    - `knowledge/PENDENTES.md`: as novidades de confiança `media` à espera de decisão;
    - `fontes-verificadas.json`, na pasta desta skill: a data a partir da qual procurar em cada fonte. Sem data, usa a última data do `CHANGELOG.md`.
 
-Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório, em `skills/start-project-with-trust/knowledge/`.
+Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório, em `skills/start-project-with-trust/knowledge/`. Em modo local, `knowledge/` é a cópia instalada, em `../start-project-with-trust/knowledge/` relativo à pasta deste `SKILL.md`.
 
 ## 1. Procurar novidades
 
@@ -132,7 +133,16 @@ As rejeitadas também têm uma linha no `CHANGELOG.md`, marcada como rejeitada, 
 
 ## 5. Conhecimento pessoal
 
-Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizador em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), criado pela skill `start-project-with-trust` com as fontes do tipo de trabalho dessa pessoa. Se a pasta não existir, diz-o e salta este passo.
+Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizador em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), criado pela skill `start-project-with-trust` com as fontes do tipo de trabalho dessa pessoa. Se a pasta não existir (por exemplo, numa primeira instalação), cria-a com `perfil.md`, `FONTES.md`, `CHANGELOG.md` e `pendentes.md` só com o título, e diz ao utilizador onde fica e para que serve.
+
+### Modo local
+
+Para quem só instalou as skills, sem cópia git do repositório. A cópia instalada nunca se altera, porque o próximo `npx skills update` a substituiria. Nesse modo:
+
+- **Fontes:** além das pessoais, percorre as de `knowledge/FONTES.md` da cópia instalada, incluindo os pontos «A vigiar», com as regras do passo 1. Procura a partir da data de cada fonte em `~/.start-project-with-trust/fontes-verificadas.json`; se lá não estiver, a de `fontes-verificadas.json` desta skill, que vem com a instalação.
+- **Aplicar:** como no ponto 3 abaixo, sempre no conhecimento pessoal.
+- **Novas entradas, correções e fontes novas** não se aplicam à base partilhada. Diz ao utilizador que as pode propor ao repositório com os modelos de issue (ver `CONTRIBUTING.md`).
+- Não corre os passos 2 a 4 (`PENDENTES.md` e `CHANGELOG.md` partilhados, verificadores, commit e push).
 
 1. **Validações pendentes.** Lê `pendentes.md`. Para cada novidade lá registada, pergunta ao utilizador se entra: se sim, aplica-a como em 2; se não, regista-a como rejeitada no `CHANGELOG.md` pessoal. Tira-a de `pendentes.md` em ambos os casos.
 2. **Procurar.** Para cada fonte de `FONTES.md` pessoal (e de `perfil.md`, se indicar temas sem fonte), procura novidades desde a última verificação, com as mesmas regras do passo 1: data como a fonte a indica, sem contornar bloqueios e com os mesmos níveis de confiança.
@@ -140,7 +150,7 @@ Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizad
    - `alta`: acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa, sem pedir aprovação;
    - `media`: não altera nada; regista-a em `pendentes.md` (data, título, fonte, motivo da confiança) para o utilizador decidir na corrida seguinte;
    - `baixa`: ignora.
-4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal.
+4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal. Em qualquer modo, grava em `~/.start-project-with-trust/fontes-verificadas.json` (mesmo formato do desta skill) a data de hoje em `atualizado_em` e, em modo local, a data de cada fonte da base partilhada verificada. A `start-project-with-trust` usa esta data para saber há quanto tempo o conhecimento não é atualizado.
 4a. **Arquivar.** A mesma regra de um ano da base partilhada: as linhas com «Adicionado a» há mais de 12 meses passam para `ATUALIZACOES-ARQUIVO.md` da secção, sem se apagarem.
 5. **Nunca partilhar.** O conhecimento pessoal não vai para o repositório da skill, nem para o `CHANGELOG.md` partilhado, e não tem commit nem push.
 

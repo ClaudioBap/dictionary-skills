@@ -62,6 +62,15 @@ O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva f
 ## Início
 
 1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Se o utilizador não disser o nome do projeto, pergunta-o.
+1a. **Conhecimento em dia.** Sempre que a skill abre, vê duas datas:
+   - a última atualização da base partilhada: `atualizado_em` de `../update-knowledge/fontes-verificadas.json` (a skill `update-knowledge` instalada ao lado desta); se não existir, a data mais recente de `knowledge/CHANGELOG.md`;
+   - a última atualização local: `atualizado_em` de `~/.start-project-with-trust/fontes-verificadas.json`, se existir.
+
+   Diz ao utilizador as duas datas. Se a mais recente tiver mais de 3 meses, pergunta, no formato da Fase 1, se quer atualizar o conhecimento a partir das fontes antes de começar, e explica que:
+   - as novidades ficam no conhecimento local dele (`~/.start-project-with-trust/`) e esta skill usa-as no plano, para tirar o máximo proveito;
+   - a atualização gasta tokens antes de o desenvolvimento do projeto começar.
+
+   Se aceitar, pede-lhe que corra `/update-knowledge` e depois volte a chamar esta skill, que retoma o projeto onde ficou. Se recusar, continua com o conhecimento que há. Com menos de 3 meses, não perguntes.
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
 3a. **Conhecimento pessoal.** Se `~/.start-project-with-trust/` existe, lê `perfil.md` e `FONTES.md` para saberes que tipos de trabalho e que fontes o utilizador já tem. Se não existe, cria a pasta com `perfil.md`, `FONTES.md` e `CHANGELOG.md` vazios (só com o título) e diz ao utilizador onde fica e para que serve.
@@ -119,7 +128,7 @@ Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os t
 
 ## Fase 2 — Plano com o que temos
 
-1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
+1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, incluindo os `ATUALIZACOES.md` pessoais (onde ficam as novidades das fontes da base partilhada encontradas em modo local), e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
 1a. **Atalhos antes do código.** Para cada necessidade funcional (tickets, contratos, faturação, CRM, conteúdos, dashboards, formulários, automações…):
    - procura em `knowledge/plataformas/` uma plataforma que a cubra, toda ou em parte, e como se liga ao resto (API, webhooks, MCP);
    - se lá não houver nenhuma adequada, pesquisa nas fontes oficiais (site, documentação ou repositório do próprio projeto) plataformas open source que a cubram. Cita cada URL e marca o resultado como *(pesquisa de <data>, fora de knowledge/)*. Nunca apresentes como oficial um servidor MCP da comunidade;

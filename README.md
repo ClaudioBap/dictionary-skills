@@ -101,7 +101,9 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
 
 Não contorna sites que bloqueiam o acesso automático: nesses casos pede que abras a página e coles o conteúdo, ou regista a fonte como não lida.
 
-Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/dictionary-skills`) e não na cópia instalada. Para manter só o conhecimento pessoal, basta tê-la instalada.
+Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/dictionary-skills`) e não na cópia instalada. Quem só instalou as skills corre-a em **modo local**: percorre as mesmas fontes da base partilhada, mas guarda as novidades no conhecimento pessoal, sem alterar a cópia instalada (que o `npx skills update` substituiria).
+
+Ao abrir, a `start-project-with-trust` mostra a data da última atualização da base partilhada e a do conhecimento local. Se a mais recente tiver mais de 3 meses, pergunta se queres correr `/update-knowledge` antes de começar, avisando que as novidades ficam no teu conhecimento local e que a atualização gasta tokens.
 
 ## Instalação
 
@@ -111,12 +113,13 @@ Requisitos:
 - Git.
 - Um agente compatível com skills, por exemplo Claude Code, Codex, Cursor ou GitHub Copilot.
 
-As duas skills:
+Todas as skills da coleção, com um só comando:
 
 ```bash
-npx skills@latest add ClaudioBap/dictionary-skills --skill start-project-with-trust
-npx skills@latest add ClaudioBap/dictionary-skills --skill update-knowledge
+npx skills@latest add ClaudioBap/dictionary-skills --skill '*'
 ```
+
+As skills que se juntarem à coleção entram neste comando sem mudar nada. Para instalar só uma, troca `'*'` pelo nome, por exemplo `--skill start-project-with-trust`.
 
 - Sem opções, a skill fica instalada no projeto atual e só aparece nas sessões abertas nessa pasta. Para a teres em todos os projetos, junta `-g`.
 - O instalador deteta os agentes que tens. Para escolher um diretamente, junta `-a claude-code` (ou outro agente).
@@ -177,8 +180,7 @@ Para atualizar o conhecimento:
 ## Atualizar as skills
 
 ```bash
-npx skills@latest update start-project-with-trust
-npx skills@latest update update-knowledge
+npx skills@latest update
 ```
 
 ## Contribuir
@@ -204,5 +206,6 @@ skills/update-knowledge/
 ├── FONTES.md       fontes pessoais
 ├── pendentes.md    novidades de confiança média à espera de decisão
 ├── CHANGELOG.md
+├── fontes-verificadas.json   data da última atualização local e de cada fonte verificada
 └── knowledge/      entradas e ATUALIZACOES.md por secção
 ```
