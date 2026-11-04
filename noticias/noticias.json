@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:10:22Z",
+  "atualizado_em": "2026-11-04T02:13:18Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -29,7 +29,12 @@
     "https://learn.microsoft.com/en-us/azure/well-architected/reliability/": "2026-11-04",
     "https://learn.microsoft.com/en-us/azure/architecture/patterns/": "2026-11-04",
     "https://grafana.com/docs/k6/latest/": "2026-11-04",
-    "https://docs.locust.io/en/stable/": "2026-11-04"
+    "https://docs.locust.io/en/stable/": "2026-11-04",
+    "https://www.w3.org/WAI/standards-guidelines/wcag/": "2026-11-04",
+    "https://developer.mozilla.org/en-US/docs/Web": "2026-11-04",
+    "https://design-system.service.gov.uk/": "2026-11-04",
+    "https://www.gov.uk/service-manual": "2026-11-04",
+    "https://www.nngroup.com/articles/": "2026-11-04"
   },
   "noticias": [
     {
@@ -240,6 +245,22 @@
       "confianca_motivo": "Fonte oficial, lida só em parte: o pormenor vem de uma revisão automática e a cheat sheet não é indicada.",
       "estado": "em-validacao",
       "alteracao": null
+    },
+    {
+      "tema": "design",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-30-nngroup-ux-fabricas-de-software-com-agentes",
+      "titulo": "O papel da UX em fábricas de software com agentes",
+      "resumo": "A Nielsen Norman Group analisa o manual de desenvolvimento com IA publicado pela Anthropic em agosto de 2026 e propõe seis práticas imediatas para equipas de UX, entre elas definir quando é obrigatória uma revisão de UX e acrescentar sinais de dificuldade do utilizador à monitorização. É um artigo de análise, sem dados de investigação.",
+      "fonte_nome": "Nielsen Norman Group",
+      "fonte_url": "https://www.nngroup.com/articles/ux-agentic-software-factories/",
+      "data_lancamento": "2026-10-30",
+      "confianca": "media",
+      "confianca_motivo": "Fonte do registo, lida diretamente e com data, mas é um artigo de opinião sem dados de investigação.",
+      "estado": "em-validacao",
+      "alteracao": null,
+      "imagem": null,
+      "video": null
     }
   ]
 }
