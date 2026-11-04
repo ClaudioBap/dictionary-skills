@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T09:01:33Z",
+  "atualizado_em": "2026-11-04T09:03:26Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -105,7 +105,11 @@
     "https://www.conventionalcommits.org/en/v1.0.0/": "2026-11-04",
     "https://aws.amazon.com/security/security-bulletins/rss/feed/": "2026-11-04",
     "https://azure.microsoft.com/en-us/updates": "2026-11-04",
-    "https://aws.amazon.com/new/": "2026-11-04"
+    "https://aws.amazon.com/new/": "2026-11-04",
+    "https://www.finops.org/framework/principles/": "2026-11-04",
+    "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html": "2026-11-04",
+    "https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/": "2026-11-04",
+    "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html": "2026-11-04"
   },
   "noticias": [
     {
