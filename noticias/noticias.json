@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:58:23Z",
+  "atualizado_em": "2026-11-04T09:01:33Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -102,7 +102,10 @@
     "https://github.blog/changelog/feed/": "2026-11-04",
     "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets": "2026-11-04",
     "https://semver.org/": "2026-11-04",
-    "https://www.conventionalcommits.org/en/v1.0.0/": "2026-11-04"
+    "https://www.conventionalcommits.org/en/v1.0.0/": "2026-11-04",
+    "https://aws.amazon.com/security/security-bulletins/rss/feed/": "2026-11-04",
+    "https://azure.microsoft.com/en-us/updates": "2026-11-04",
+    "https://aws.amazon.com/new/": "2026-11-04"
   },
   "noticias": [
     {
@@ -603,6 +606,114 @@
         "tipo": "atualizacao",
         "ficheiro": "docker/ATUALIZACOES.md"
       },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-03-aws-redshift-jdbc-rce",
+      "titulo": "Amazon Redshift JDBC Driver: execução remota de código antes da 2.3.0",
+      "resumo": "O Redshift JDBC Driver anterior à 2.3.0 podia carregar classes arbitrárias a partir de parâmetros do URL JDBC. Atualizar para a 2.3.0 e não construir URLs JDBC a partir de dados não confiáveis.",
+      "fonte_nome": "AWS Security Bulletins",
+      "fonte_url": "https://aws.amazon.com/security/security-bulletins/rss/2026-168-aws/",
+      "data_lancamento": "2026-11-03",
+      "confianca": "alta",
+      "confianca_motivo": "Boletim oficial, lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "nuvem/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-03-aws-babelfish-escalada",
+      "titulo": "Babelfish for PostgreSQL: escalada de privilégios",
+      "resumo": "Várias versões do Babelfish for PostgreSQL permitem a utilizadores autenticados escalar privilégios. Corrigido nas 4.10, 5.6 e 6.1 ou posteriores, sem alternativa temporária.",
+      "fonte_nome": "AWS Security Bulletins",
+      "fonte_url": "https://aws.amazon.com/security/security-bulletins/rss/2026-165-aws/",
+      "data_lancamento": "2026-11-03",
+      "confianca": "alta",
+      "confianca_motivo": "Boletim oficial, lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "nuvem/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-aws-serverless-mcp-path-traversal",
+      "titulo": "AWS Serverless MCP Server: path traversal antes da v0.2.1",
+      "resumo": "O AWS Serverless MCP Server anterior à v0.2.1 permite ler e substituir ficheiros JSON fora da pasta prevista. Atualizar para a v0.2.1.",
+      "fonte_nome": "AWS Security Bulletins",
+      "fonte_url": "https://aws.amazon.com/security/security-bulletins/rss/2026-164-aws/",
+      "data_lancamento": "2026-11-02",
+      "confianca": "alta",
+      "confianca_motivo": "Boletim oficial, lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "nuvem/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-30-aws-kernel-linux-tcp-ipv4",
+      "titulo": "Kernel Linux: use-after-free no TCP IPv4",
+      "resumo": "Uma falha no TCP IPv4 do kernel Linux permite falhas e corrupção de memória, com execução remota demonstrada contra MPTCP. Na AWS, as instâncias Linux autogeridas devem atualizar o kernel e reiniciar; nós EKS e ECS têm AMI nova; Lambda não exige ação.",
+      "fonte_nome": "AWS Security Bulletins",
+      "fonte_url": "https://aws.amazon.com/security/security-bulletins/rss/2026-160-aws/",
+      "data_lancamento": "2026-10-30",
+      "confianca": "alta",
+      "confianca_motivo": "Boletim oficial, lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "nuvem/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-azure-retirada-defender-iot-ot",
+      "titulo": "Retirada: segurança OT no Microsoft Defender for IoT",
+      "resumo": "A Microsoft anunciou a retirada deste serviço. A página da atualização não pôde ser lida, por isso a data de retirada e a alternativa recomendada não estão confirmadas.",
+      "fonte_nome": "Azure updates",
+      "fonte_url": "https://azure.microsoft.com/updates?id=576255",
+      "data_lancamento": "2026-11-02",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial, mas só o título do feed; a página veio vazia na leitura automática.",
+      "estado": "em-validacao",
+      "alteracao": null,
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "nuvem",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-azure-retirada-fluid-relay",
+      "titulo": "Retirada: Azure Fluid Relay",
+      "resumo": "A Microsoft anunciou a retirada deste serviço. A página da atualização não pôde ser lida, por isso a data de retirada e a alternativa recomendada não estão confirmadas.",
+      "fonte_nome": "Azure updates",
+      "fonte_url": "https://azure.microsoft.com/updates?id=570498",
+      "data_lancamento": "2026-11-02",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial, mas só o título do feed; a página veio vazia na leitura automática.",
+      "estado": "em-validacao",
+      "alteracao": null,
       "imagem": null,
       "video": null
     }
