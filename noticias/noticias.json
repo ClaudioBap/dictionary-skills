@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T09:06:25Z",
+  "atualizado_em": "2026-11-04T09:08:27Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -117,7 +117,11 @@
     "https://letsencrypt.org/2026/10/07/64-day-certs": "2026-11-04",
     "https://cabforum.org/working-groups/server/baseline-requirements/requirements/": "2026-11-04",
     "https://developers.cloudflare.com/waf/managed-rules/": "2026-11-04",
-    "https://www.cloudflare.com/zero-trust/products/access/": "2026-11-04"
+    "https://www.cloudflare.com/zero-trust/products/access/": "2026-11-04",
+    "https://www.openssh.org/releasenotes.html": "2026-11-04",
+    "https://www.openssh.org/security.html": "2026-11-04",
+    "https://tailscale.com/kb/1193/tailscale-ssh": "2026-11-04",
+    "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview": "2026-11-04"
   },
   "noticias": [
     {
