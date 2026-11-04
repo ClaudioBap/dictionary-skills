@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:23:05Z",
+  "atualizado_em": "2026-11-04T02:26:25Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -47,7 +47,9 @@
     "https://spec.openapis.org/oas/latest.html": "2026-11-04",
     "https://graphql.org/learn/security/": "2026-11-04",
     "https://docs.pact.io/": "2026-11-04",
-    "https://www.rfc-editor.org/": "2026-11-04"
+    "https://www.rfc-editor.org/": "2026-11-04",
+    "https://www.postgresql.org/news.rss": "2026-11-04",
+    "https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases": "2026-11-04"
   },
   "noticias": [
     {
@@ -309,6 +311,60 @@
       "alteracao": {
         "tipo": "atualizacao",
         "ficheiro": "seo/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "base-de-dados",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-psqlodbc-18-00-0006-seguranca",
+      "titulo": "psqlodbc 18.00.0006 corrige várias falhas de segurança",
+      "resumo": "O projeto psqlodbc lançou a versão 18.00.0006 para corrigir várias falhas de segurança. O anúncio não indica os CVE nem as versões afetadas; os pormenores estão no changelog do projeto.",
+      "fonte_nome": "PostgreSQL News",
+      "fonte_url": "https://www.postgresql.org/about/news/security-release-for-psqlodbc-3431/",
+      "data_lancamento": "2026-11-02",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial com data, mas o anúncio não detalha as falhas e o changelog não foi lido.",
+      "estado": "em-validacao",
+      "alteracao": null,
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "base-de-dados",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-31-e-maj-5-0-1-seguranca",
+      "titulo": "E-Maj 5.0.1 corrige escalada para superuser",
+      "resumo": "O E-Maj 5.0.1 corrige uma vulnerabilidade presente em todas as versões anteriores que permitia a alguns utilizadores obter privilégios de superuser. Os autores recomendam atualizar o mais depressa possível.",
+      "fonte_nome": "PostgreSQL News",
+      "fonte_url": "https://www.postgresql.org/about/news/e-maj-501-major-security-update-3425/",
+      "data_lancamento": "2026-10-31",
+      "confianca": "alta",
+      "confianca_motivo": "Anúncio dos próprios autores, lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "base-de-dados/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "base-de-dados",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-28-postgresql-anonymizer-3-3-seguranca",
+      "titulo": "PostgreSQL Anonymizer 3.3 corrige 12 vulnerabilidades críticas",
+      "resumo": "O PostgreSQL Anonymizer 3.3 corrige 12 vulnerabilidades críticas que permitiam obter privilégios de superuser ou deixar utilizadores mascarados ler dados pessoais. Todos os utilizadores devem atualizar e mudar o parâmetro anon.salt.",
+      "fonte_nome": "PostgreSQL News",
+      "fonte_url": "https://www.postgresql.org/about/news/postgresql-anonymizer-33-major-security-update-3423/",
+      "data_lancamento": "2026-10-28",
+      "confianca": "alta",
+      "confianca_motivo": "Anúncio dos próprios autores (Dalibo), lido por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "base-de-dados/ATUALIZACOES.md"
       },
       "imagem": null,
       "video": null
