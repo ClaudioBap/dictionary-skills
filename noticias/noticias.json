@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:41:28Z",
+  "atualizado_em": "2026-11-04T08:43:52Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -71,7 +71,14 @@
     "https://nodejs.org/en/blog/vulnerability": "2026-11-04",
     "https://nodejs.org/en/about/previous-releases": "2026-11-04",
     "https://github.com/nodejs/Release": "2026-11-04",
-    "https://github.blog/changelog/label/npm/": "2026-11-04"
+    "https://github.blog/changelog/label/npm/": "2026-11-04",
+    "https://code.claude.com/docs/en/hooks": "2026-11-04",
+    "https://code.claude.com/docs/en/memory": "2026-11-04",
+    "https://pre-commit.com/": "2026-11-04",
+    "https://agents.md/": "2026-11-04",
+    "https://diataxis.fr/": "2026-11-04",
+    "https://adr.github.io/": "2026-11-04",
+    "https://keepachangelog.com/en/1.1.0/": "2026-11-04"
   },
   "noticias": [
     {
@@ -438,6 +445,44 @@
       "alteracao": {
         "tipo": "atualizacao",
         "ficheiro": "csharp/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "estrutura",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-03-claude-code-hooks-onfailure-block",
+      "titulo": "Claude Code: hooks do Agent SDK podem bloquear quando falham",
+      "resumo": "No Claude Code 2.1.317, as callbacks de hooks do Agent SDK aceitam onFailure: \"block\", para que uma callback que falhe bloqueie a ação em vez de a deixar seguir.",
+      "fonte_nome": "Claude Code releases",
+      "fonte_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.317",
+      "data_lancamento": "2026-11-03",
+      "confianca": "alta",
+      "confianca_motivo": "Notas de lançamento oficiais, lidas diretamente, com data.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "estrutura/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "estrutura",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-31-claude-code-hooks-powershell-codigo-2",
+      "titulo": "Claude Code: hooks em PowerShell voltam a bloquear com código 2",
+      "resumo": "O Claude Code 2.1.316 corrige hooks em PowerShell que não bloqueavam com o código de saída 2 quando o comando começava por uma conversão de tipo, param, using ou um atributo.",
+      "fonte_nome": "Claude Code releases",
+      "fonte_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.316",
+      "data_lancamento": "2026-10-31",
+      "confianca": "alta",
+      "confianca_motivo": "Notas de lançamento oficiais, lidas diretamente, com data.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "estrutura/ATUALIZACOES.md"
       },
       "imagem": null,
       "video": null
