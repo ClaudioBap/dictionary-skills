@@ -80,6 +80,7 @@ Reference files:
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): every entry, by section.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): the official sources for each section and the «A vigiar» (watch) list: deadlines and limits checked on every update, such as TLS certificate lifetimes or free hosting plans.
 - `<section>/ATUALIZACOES.md`: each section's updates, by category and date, without changing the text of the entries. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
+- `PENDENTES.md`: medium-confidence changes awaiting a decision.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): every change, with source, release date, confidence and who approved it.
 
 ## update-knowledge
@@ -92,7 +93,7 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
    | Confidence | When | What happens |
    |---|---|---|
    | High | Primary official source, read directly, with a date | Goes into the section's `ATUALIZACOES.md` |
-   | Medium | Official source but indirect, partly read or undated | Waits for review and only goes in once approved |
+   | Medium | Official source but indirect, partly read or undated | Stays in `PENDENTES.md` until you decide whether it goes in |
    | Low | Unofficial source | Never changes the knowledge |
 
    New entries, corrections to the text and new sources always require approval, one at a time.
@@ -194,7 +195,7 @@ skills/start-project-with-trust/
 ├── PERGUNTAS.md    fixed list of mandatory questions
 ├── modelos/        document templates
 ├── scripts/        checkers (plan, delivery, publishing) and goal loop hooks
-└── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md, and one ATUALIZACOES.md and one ATUALIZACOES-ARQUIVO.md per section)
+└── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md, PENDENTES.md, and one ATUALIZACOES.md and one ATUALIZACOES-ARQUIVO.md per section)
 skills/update-knowledge/
 ├── SKILL.md        finding updates, confidence flow, publishing and personal knowledge
 ├── fontes-verificadas.json   date each source was last checked

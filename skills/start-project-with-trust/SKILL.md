@@ -25,7 +25,7 @@ Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos
 - `knowledge/<secção>/<slug>.md`: entradas com a mesma estrutura das da base partilhada, e `knowledge/<secção>/ATUALIZACOES.md` para as novidades;
 - `CHANGELOG.md`: uma linha por alteração, só de acrescentar.
 
-O conhecimento pessoal nunca é enviado para o repositório da skill nem para as notícias do site. Só leva fontes públicas e práticas gerais: nada de nomes, dados ou segredos de clientes. A skill `update-knowledge` mantém-no atualizado.
+O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva fontes públicas e práticas gerais: nada de nomes, dados ou segredos de clientes. A skill `update-knowledge` mantém-no atualizado.
 
 ## Regras em todas as fases
 
