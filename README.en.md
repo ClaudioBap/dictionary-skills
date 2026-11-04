@@ -1,8 +1,8 @@
-# StartProjectWithTrust
+# Dictionary Skills
 
 [Versão em português](README.md)
 
-Skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two:
+A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two:
 
 - **`start-project-with-trust`** takes a client project from the first conversation to a verified delivery: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
 - **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level.
@@ -103,7 +103,7 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
 
 It does not get around sites that block automated access: in those cases it asks you to open the page and paste the content, or records the source as unread.
 
-To maintain the shared base, work on a git clone of this repository (`gh repo clone ClaudioBap/start-project-with-trust`), not on the installed copy. To maintain only your personal knowledge, the installed skill is enough.
+To maintain the shared base, work on a git clone of this repository (`gh repo clone ClaudioBap/dictionary-skills`), not on the installed copy. To maintain only your personal knowledge, the installed skill is enough.
 
 ## Installation
 
@@ -116,8 +116,8 @@ Requirements:
 Both skills:
 
 ```bash
-npx skills@latest add ClaudioBap/start-project-with-trust --skill start-project-with-trust
-npx skills@latest add ClaudioBap/start-project-with-trust --skill update-knowledge
+npx skills@latest add ClaudioBap/dictionary-skills --skill start-project-with-trust
+npx skills@latest add ClaudioBap/dictionary-skills --skill update-knowledge
 ```
 
 - Without options, the skill is installed in the current project and only shows up in sessions opened in that folder. To have it in every project, add `-g`.

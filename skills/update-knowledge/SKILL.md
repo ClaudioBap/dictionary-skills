@@ -39,9 +39,9 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 
 ## 0. Preparar
 
-1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/start-project-with-trust`, e não na cópia instalada pelo `npx`.
+1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/dictionary-skills`, e não na cópia instalada pelo `npx`.
    - Se o diretório atual (ou um pai) tiver `skills/start-project-with-trust/knowledge/`, usa-o.
-   - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/start-project-with-trust`.
+   - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/dictionary-skills`.
    - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou a skill), ou se pediu `pessoal`, salta a base partilhada e faz só o passo 5 «Conhecimento pessoal».
 2. Confirma que a cópia está limpa (`git status`) e faz `git pull`.
 3. Lê:

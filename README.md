@@ -1,8 +1,8 @@
-# StartProjectWithTrust
+# Dictionary Skills
 
 [English version](README.en.md)
 
-Skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas:
+Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas:
 
 - **`start-project-with-trust`** conduz um projeto de cliente da primeira conversa à entrega verificada: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
 - **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou e aplica-o segundo o nível de confiança.
@@ -101,7 +101,7 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
 
 Não contorna sites que bloqueiam o acesso automático: nesses casos pede que abras a página e coles o conteúdo, ou regista a fonte como não lida.
 
-Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/start-project-with-trust`) e não na cópia instalada. Para manter só o conhecimento pessoal, basta tê-la instalada.
+Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/dictionary-skills`) e não na cópia instalada. Para manter só o conhecimento pessoal, basta tê-la instalada.
 
 ## Instalação
 
@@ -114,8 +114,8 @@ Requisitos:
 As duas skills:
 
 ```bash
-npx skills@latest add ClaudioBap/start-project-with-trust --skill start-project-with-trust
-npx skills@latest add ClaudioBap/start-project-with-trust --skill update-knowledge
+npx skills@latest add ClaudioBap/dictionary-skills --skill start-project-with-trust
+npx skills@latest add ClaudioBap/dictionary-skills --skill update-knowledge
 ```
 
 - Sem opções, a skill fica instalada no projeto atual e só aparece nas sessões abertas nessa pasta. Para a teres em todos os projetos, junta `-g`.
