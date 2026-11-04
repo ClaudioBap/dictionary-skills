@@ -18,9 +18,9 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - O **resumo** condensa o texto da própria entrada, sem informação nova. O **conteúdo** segue o PDF; só se corrigiram quebras de linha e hifenização da extração.
 - «Ver também» liga entradas que o PDF repete ou relaciona noutras secções. A escolha das ligações é editorial.
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
-- **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/` e `acesso-remoto/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
+- **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 24 secções; 238 entradas do PDF em 237 ficheiros; 41 entradas fora do PDF; 278 ficheiros de entrada no total.
+- Totais: 25 secções; 238 entradas do PDF em 237 ficheiros; 48 entradas fora do PDF; 285 ficheiros de entrada no total.
 
 ## Secções
 
@@ -374,3 +374,13 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Inventário de acessos, sem segredos](acesso-remoto/inventario-de-acessos-sem-segredos.md) — Cada projeto mantém um inventário de quem acede a que servidor, por que via e com que método, revisto com regularidade, com as chaves e passwords guardadas num cofre e nunca no inventário. *(fora do PDF)*
 - [RDP protegido](acesso-remoto/rdp-protegido.md) — O RDP não fica aberto diretamente à Internet: passa por um RD Gateway com MFA ou por um serviço como o Azure Bastion, e exige sempre Network Level Authentication. *(fora do PDF)*
 - [SSH endurecido](acesso-remoto/ssh-endurecido.md) — No SSH entra-se só com chave (Ed25519, de preferência numa chave de hardware FIDO) ou certificado, nunca com password, sem login direto de root, só para os utilizadores autorizados e com o OpenSSH sempre na versão mais recente. *(fora do PDF)*
+
+### 25. [Plataformas para adotar antes de construir](plataformas/README.md) — ⚠️ fora do PDF (7 entradas)
+
+- [Adotar antes de construir](plataformas/adotar-antes-de-construir.md) — Para cada necessidade funcional procura-se primeiro uma plataforma open source que a resolva e a forma de a ligar ao resto (API, webhooks ou MCP); desenvolver de raiz é uma opção a comparar, não o ponto de partida. *(fora do PDF)*
+- [Automação e integração (n8n, Node-RED)](plataformas/automacao-e-integracao.md) — Para ligar plataformas sem código à medida, o Node-RED (Apache 2.0) é open source e corre em qualquer lado; o n8n tem nós MCP oficiais e cloud, mas usa uma licença que o próprio projeto não chama open source. *(fora do PDF)*
+- [BI e dashboards (Metabase, Superset)](plataformas/bi-e-dashboards.md) — Para relatórios e dashboards sobre dados que já existem, o Metabase (AGPLv3 na edição open source) e o Apache Superset (Apache 2.0) evitam escrever ecrãs de relatório à mão; os dois têm API REST, alertas por webhook e servidor MCP oficial. *(fora do PDF)*
+- [CMS e headless (WordPress, Directus, Strapi)](plataformas/cms-e-headless.md) — Para sites e conteúdos, o WordPress (GPLv2+) é o CMS clássico com API REST; o Strapi (MIT, fora do `ee/`) e o Directus (licença MSCL, com restrições) são headless, com REST, GraphQL, webhooks e servidor MCP oficial. *(fora do PDF)*
+- [ERP e CRM (Odoo, Dolibarr)](plataformas/erp-e-crm.md) — Para faturação, clientes, stocks e contabilidade, o Dolibarr (GPLv3) é totalmente open source, com API REST e webhooks; o Odoo tem uma edição Community (LGPLv3) e uma Enterprise proprietária, API JSON-2 e servidor MCP oficial. *(fora do PDF)*
+- [Formulários e inquéritos (LimeSurvey)](plataformas/formularios-e-inqueritos.md) — Para inquéritos e formulários, o LimeSurvey (GPLv2+) corre em servidor próprio ou na cloud do projeto e integra-se pela API RemoteControl 2 (JSON-RPC); não tem webhooks nativos nem servidor MCP oficial. *(fora do PDF)*
+- [Tickets, ativos e contratos (GLPI, Zammad)](plataformas/tickets-ativos-e-contratos.md) — Para helpdesk, inventário e gestão de contratos, o GLPI (GPLv3) cobre os três e tem API REST, webhooks e servidor MCP oficial; o Zammad (AGPLv3) é só helpdesk, com API REST e webhooks. *(fora do PDF)*

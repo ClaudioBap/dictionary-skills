@@ -24,7 +24,18 @@
 
 **Recomendação:** _por definir_
 
-### D3 — Execução em paralelo
+### D3 — Adotar ou construir
+
+**Responde a:** _por definir_ <!-- normalmente P1, P5 e P10 -->
+
+<!-- Para cada necessidade funcional: adotar plataforma open source, ligar plataformas (API, webhooks, MCP, automação), adotar e estender, ou desenvolver de raiz (knowledge/plataformas/ e «Plataformas candidatas» de plano.md). -->
+
+| Opção | Custo | Benefício | Risco | Base no conhecimento |
+|-------|-------|-----------|-------|----------------------|
+
+**Recomendação:** _por definir_
+
+### D4 — Execução em paralelo
 
 **Responde a:** _por definir_ <!-- normalmente P7 (prazo) e P8 (orçamento) -->
 

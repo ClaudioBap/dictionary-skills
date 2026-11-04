@@ -8,17 +8,17 @@ As pistas «Liga a» indicam as pastas de `knowledge/` a consultar na Fase 2.
 
 | ID | Tema | Pergunta | Liga a |
 |----|------|----------|--------|
-| P1 | O quê | O que se quer construir ou resolver, numa frase? | — |
+| P1 | O quê | O que se quer construir ou resolver, numa frase? | `plataformas/` |
 | P2 | Porquê | Que problema ou oportunidade motiva o projeto? | — |
 | P3 | Sucesso | Como se mede que o projeto correu bem? | `fiabilidade/`, `custo/` |
 | P4 | Para quem | Quem são os utilizadores e os interessados? | `design/` |
 | P5 | Âmbito | O que fica dentro do projeto e o que fica explicitamente fora? | — |
-| P6 | Situação atual | O que já existe: sistemas, dados, documentação? | `estrutura/`, `base-de-dados/` |
+| P6 | Situação atual | O que já existe: sistemas, dados, documentação? | `estrutura/`, `base-de-dados/`, `plataformas/` |
 | P7 | Prazo | Há datas fixas ou marcos? | `governacao/` |
 | P8 | Orçamento | Qual é o limite de orçamento e o modelo de custo aceitável? | `custo/`, `nuvem/` |
 | P9 | Recursos | Que equipa, competências, infraestrutura e licenças estão disponíveis? | `infraestrutura/`, `nuvem/`, `cicd/` |
 | P15 | Acesso remoto | Há servidores ou máquinas a que alguém precisa de aceder remotamente (SSH ou RDP)? Quem, a partir de onde e por que via? | `acesso-remoto/`, `infraestrutura/` |
-| P10 | Restrições técnicas | Há tecnologia imposta ou proibida? | `python/`, `java/`, `csharp/`, `javascript/`, `node/`, `docker/`, `api/` |
+| P10 | Restrições técnicas | Há tecnologia imposta ou proibida? | `python/`, `java/`, `csharp/`, `javascript/`, `node/`, `docker/`, `api/`, `plataformas/` |
 | P11 | Dados e conformidade | Há dados pessoais ou sensíveis? Há exigências de RGPD ou de jurisdição? | `privacidade/`, `soberania/`, `seguranca/` |
 | P12 | Riscos | O que pode correr mal, e o que seria inaceitável? | `seguranca/`, `fiabilidade/` |
 | P13 | Decisão | Quem aprova as decisões do projeto, e como? | `governacao/` |

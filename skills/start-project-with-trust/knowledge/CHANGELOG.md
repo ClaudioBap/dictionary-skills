@@ -29,3 +29,19 @@ Registo **append-only** de cada alteração aprovada a `knowledge/`: o quê, por
 | 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/acesso-por-identidade-sem-portas-abertas.md | ver a entrada | — | alta | Cláudio Baptista |
 | 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/inventario-de-acessos-sem-segredos.md | ver a entrada | — | alta | Cláudio Baptista |
 | 2026-11-04 | Registo de fontes e «A vigiar» da secção Acesso remoto (versão do OpenSSH) | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
+| 2026-11-04 | Nova secção «Plataformas para adotar antes de construir» (7 entradas: processo e catálogo de tickets, ERP/CRM, automação, CMS, BI e formulários, com API, webhooks e MCP), a pedido do utilizador | plataformas/ | Sites e documentação oficiais (GLPI, Zammad, Odoo, Dolibarr, n8n, Node-RED, WordPress, Directus, Strapi, Metabase, Superset, LimeSurvey) | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/adotar-antes-de-construir.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/tickets-ativos-e-contratos.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/erp-e-crm.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/automacao-e-integracao.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/cms-e-headless.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/bi-e-dashboards.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Plataformas | plataformas/formularios-e-inqueritos.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Registo de fontes e «A vigiar» da secção Plataformas (MCP oficiais, licenças) | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
+| 2026-11-04 | Retirado de «A vigiar» o ponto dos pesos do exame Claude Certified Architect: a certificação (Foundations e avançado) é base de referência e não se pesquisa | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
+| 2026-11-04 | Novo ficheiro de atualizações da secção IA, por categoria; atualização: fast mode do Opus 4.8 descontinuado, removido a 2026-11-30 | ia/ATUALIZACOES.md | [Claude Platform: fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) | 2026-10-30 | alta | Cláudio Baptista |
+| 2026-11-04 | Atualização: Usage and Cost Analytics API em beta; Usage and Cost API passa a legacy | ia/ATUALIZACOES.md | [Claude Platform release notes](https://platform.claude.com/docs/en/release-notes/overview) | 2026-10-29 | alta | Cláudio Baptista |
+| 2026-11-04 | Atualização: pedido máximo de 128 MB na Messages API e Token Counting API (só Claude API de primeira parte) | ia/ATUALIZACOES.md | [Claude Platform: API overview](https://platform.claude.com/docs/en/api/overview) | 2026-10-28 | alta | Cláudio Baptista |
+| 2026-11-04 | Atualização (categoria OpenAI): GPT-6 Rosalind, acesso restrito, e adenda ao system card | ia/ATUALIZACOES.md | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog); [Deployment Safety Hub](https://deploymentsafety.openai.com/gpt-rosalind-6) | 2026-10-30 | alta | Cláudio Baptista |
+| 2026-11-04 | Atualização (categoria OpenAI): nova versão do GPT-6 Luna (29/10), adenda ao system card | ia/ATUALIZACOES.md | [Deployment Safety Hub](https://deploymentsafety.openai.com/gpt-6-luna-october-28-2026-addendum) | 2026-10-29 | alta | Cláudio Baptista |
+| 2026-11-04 | Atualização (categoria OpenAI): até 500 USD/mês em créditos de API para ChatGPT Pro e Business | ia/ATUALIZACOES.md | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | 2026-10-28 | alta | Cláudio Baptista |

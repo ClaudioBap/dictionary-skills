@@ -10,6 +10,9 @@ _por definir_
 | # | Responde a | Necessidade | Ação | Recurso (P9) | Base no conhecimento | Critério de sucesso |
 |---|------------|-------------|------|--------------|----------------------|---------------------|
 
+## Plataformas candidatas
+<!-- Passo 1a da Fase 2: plataformas que cobrem necessidades (knowledge/plataformas/ ou pesquisa com URL oficial), o que cobrem, o que falta e como se ligam (API, webhooks, MCP). «Nenhuma encontrada» também é resposta. -->
+
 ## Lacunas
 <!-- Boas práticas que exigem recursos que o cliente não declarou. Cada uma gera uma pergunta em objetivo.md. -->
 

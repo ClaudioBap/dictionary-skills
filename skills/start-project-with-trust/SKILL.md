@@ -27,6 +27,29 @@ Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos
 - **O estado vive em ficheiro.** Depois de cada resposta, atualiza os documentos em `arranque/<projeto>/` antes de fazer a pergunta seguinte.
 - **Não saltar fases.** Cada fase termina com validação do utilizador.
 - **Nunca respondes pelo utilizador.** Validações, pressupostos aceites e a confirmação final só se marcam quando o utilizador os deu na própria mensagem.
+- **Sem marcas de escrita de IA no que se entrega.** Código, textos da interface, documentação, mensagens de commit e conteúdos do projeto têm de parecer escritos por uma pessoa da equipa:
+  - sem travessões (— ou –) a ligar frases: usa vírgula, ponto, dois pontos ou parênteses;
+  - sem ponto médio (·) nem outros símbolos decorativos como separadores;
+  - sem emojis em interfaces, logs, comentários ou commits, salvo se o design do cliente os pedir;
+  - títulos com maiúscula só na primeira palavra e nos nomes próprios;
+  - sem fórmulas feitas («é importante notar», «em suma», «não só… mas também», «robusto», «perfeito», «sem complicações») nem enumerações de três só por ritmo;
+  - negrito só onde ajuda a ler, listas só quando há de facto itens;
+  - comentários no código só onde explicam o porquê; nada de narrar o que a linha seguinte faz;
+  - alinhamento e formatação de quem formata o projeto (formatter e linter do repositório), sem alinhar à mão com espaços nem desenhar caixas em ASCII;
+  - sem aberturas e fechos de assistente («Claro!», «Ótima pergunta», «Se precisares de mais alguma coisa…») nem resumos finais que repetem o que já foi dito;
+  - sem a construção «não é X, é Y», sem perguntas retóricas seguidas da resposta («O resultado? …») e sem reticências de suspense;
+  - sem palavras de brochura: «crucial», «fundamental», «poderoso», «intuitivo», «de ponta», «potenciar», «elevar», «desbloquear», «mergulhar», «jornada», «ecossistema», «panorama», «no mundo atual», «em constante evolução»;
+  - sem ressalvas em cascata («pode potencialmente», «de certa forma») nem pontos de exclamação em texto técnico;
+  - sem itens de lista todos no formato «**Termo:** explicação» quando uma frase normal chega;
+  - sem setas (→) nem símbolos (✓, ✨, 🚀) em texto do produto, títulos ou botões;
+  - frases de comprimento variado, sem paralelismos perfeitos nem títulos com dois pontos e subtítulo («Gestão: simples e eficaz»);
+  - uma só variante da língua: em português de Portugal, nada de «você», «tela», «arquivo», «usuário»; e as aspas da convenção do projeto, sem misturar «» com “”;
+  - no código: nomes que dizem o que a coisa é (nada de `data`, `result`, `handleStuff`), sem comentário de cabeçalho em todas as funções, sem `try/catch` que só regista e relança, sem verificações para casos impossíveis, sem logs como «✅ Done!»;
+  - nos commits: mensagem curta no estilo do repositório, sem emojis nem listas longas;
+  - nada de texto de exemplo em produção («Lorem ipsum», «John Doe») nem números ou estatísticas inventados.
+
+  Antes de entregar, relê o texto à procura destes padrões.
+- **Adotar antes de construir.** Antes de propores desenvolvimento, procura uma plataforma que já resolva a necessidade, ou uma forma de ligar plataformas que sirva de atalho (API, webhooks, MCP, automação). Open source primeiro. Desenvolver de raiz é uma das opções, nunca a única. Se o utilizador preferir desenvolver, segue o desenvolvimento normal.
 
 ## Início
 
@@ -86,6 +109,10 @@ Opções, da mais barata à mais cara:
 ## Fase 2 — Plano com o que temos
 
 1. Lê `knowledge/INDEX.md` e escolhe as entradas relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
+1a. **Atalhos antes do código.** Para cada necessidade funcional (tickets, contratos, faturação, CRM, conteúdos, dashboards, formulários, automações…):
+   - procura em `knowledge/plataformas/` uma plataforma que a cubra, toda ou em parte, e como se liga ao resto (API, webhooks, MCP);
+   - se lá não houver nenhuma adequada, pesquisa nas fontes oficiais (site, documentação ou repositório do próprio projeto) plataformas open source que a cubram. Cita cada URL e marca o resultado como *(pesquisa de <data>, fora de knowledge/)*. Nunca apresentes como oficial um servidor MCP da comunidade;
+   - regista os candidatos em `plano.md`, na secção «Plataformas candidatas», com o que cobrem, o que falta e como se ligam. A escolha entre adotar e construir é feita na Fase 3.
 2. Para cada necessidade, escreve em `plano.md`:
    - em «Responde a», os IDs das perguntas de `objetivo.md` (P/S) cujas respostas pedem esta ação. Uma ação que não responde a nenhum pedido não entra no plano;
    - a ação a tomar;
@@ -111,6 +138,13 @@ Escreve `custo-beneficio.md` com quatro partes:
      - como se protege a área de administração (SSO e MFA à frente da aplicação).
 
      Se o projeto não tem exposição pública, a decisão regista-o e justifica. As condições dos planos gratuitos (uso comercial, limites, dados fora da UE) entram na coluna «Risco».
+   - **Decisão obrigatória: adotar ou construir.** Responde a P1, P5 e P10 e decide, para cada necessidade funcional, entre estas opções, da mais barata à mais cara:
+     - adotar uma plataforma open source (self-hosted ou na cloud do próprio projeto);
+     - ligar plataformas que já existem por API, webhooks ou MCP, ou com uma ferramenta de automação;
+     - adotar e estender com código só no que falta;
+     - desenvolver de raiz.
+
+     Na coluna «Risco» entram a licença (por exemplo, uma licença que não é OSI ou que restringe o uso comercial), a dependência do fornecedor e a manutenção das atualizações. Se não houver candidatos, a decisão regista a pesquisa feita e recomenda desenvolver. Base: `knowledge/plataformas/`.
    - **Decisão obrigatória: execução em paralelo.** Inclui sempre uma decisão sobre quantas sessões Claude correm em paralelo. As opções vão de tudo sequencial (mais barato em tokens, mais lento) a várias sessões em paralelo (mais tokens, menos tempo). Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
 2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz quatro coisas:
    - coordena a ordem do trabalho;

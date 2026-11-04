@@ -304,6 +304,32 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Tailscale SSH](https://tailscale.com/kb/1193/tailscale-ssh) | SSH por identidade na tailnet, check mode e gravação |
 | [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | cofre e ciclo de vida dos segredos |
 
+## [Plataformas para adotar antes de construir](plataformas/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [GLPI (releases)](https://github.com/glpi-project/glpi/releases) | versões do GLPI |
+| [GLPI AI 2.0](https://www.glpi-project.org/en/glpi-ai-2-0-plugin/) | servidor MCP oficial e condições de subscrição |
+| [Preços GLPI Network](https://www.glpi-project.org/en/pricing/) | preços da cloud GLPI |
+| [Zammad (releases)](https://zammad.com/en/product/releases/7-2-2) | versões do Zammad |
+| [Licenças Odoo](https://www.odoo.com/documentation/20.0/legal/licenses.html) | Community LGPLv3 e Enterprise |
+| [Odoo MCP](https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html) | servidor MCP oficial e requisitos |
+| [Preços Odoo](https://www.odoo.com/pricing) | planos e o que inclui a API externa |
+| [Dolibarr (releases)](https://github.com/Dolibarr/dolibarr/releases) | versões e estado do MCP experimental |
+| [Licença n8n](https://docs.n8n.io/privacy-and-security/sustainable-use-license) | licença fair-code e limites de uso |
+| [Preços n8n](https://n8n.io/pricing/) | planos da cloud |
+| [Node-RED (releases)](https://github.com/node-red/node-red/releases) | versões do Node-RED |
+| [WordPress MCP Adapter](https://github.com/WordPress/mcp-adapter) | pacote MCP oficial do WordPress |
+| [Licença Directus](https://directus.com/mscl) | MSCL e passagem a GPL |
+| [Directus MCP](https://directus.com/docs/guides/ai/mcp) | servidor MCP integrado |
+| [Strapi MCP](https://docs.strapi.io/cms/features/strapi-mcp-server) | servidor MCP integrado |
+| [Preços Strapi Cloud](https://strapi.io/pricing-cloud) | preços da cloud (não lida: bloqueia acesso automático) |
+| [Metabase MCP](https://www.metabase.com/docs/latest/ai/mcp) | servidor MCP oficial |
+| [Preços Metabase](https://www.metabase.com/pricing/) | planos da cloud |
+| [Superset MCP](https://superset.apache.org/admin-docs/6.1.0/configuration/mcp-server/) | servidor MCP integrado |
+| [LimeSurvey RemoteControl 2](https://www.limesurvey.org/manual/RemoteControl_2_API) | API JSON-RPC |
+| [Preços LimeSurvey](https://www.limesurvey.org/pricing) | planos da cloud |
+
 ## [Construir com IA (Claude e Anthropic)](ia/README.md)
 
 | Fonte | Para quê |
@@ -332,7 +358,6 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 
 | Tema | O que vigiar | Onde |
 |---|---|---|
-| IA | Pesos dos domínios do exame Claude Certified Architect: mantêm-se os do PDF (27/18/20/20/15) até haver fonte oficial; guias revistos previstos para 17/11/2026 | [https://anthropic-partners.skilljar.com/page/faq-certifications](https://anthropic-partners.skilljar.com/page/faq-certifications) |
 | IA | Se a OpenAI lança cursos ou certificação equivalentes; se sim, trazer toda a informação | [https://academy.openai.com/](https://academy.openai.com/) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
 | Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
@@ -344,3 +369,5 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Publicação | Regras geridas WAF disponíveis no plano Free da Cloudflare | [https://developers.cloudflare.com/waf/managed-rules/](https://developers.cloudflare.com/waf/managed-rules/) |
 | Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |
 | Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6 a 2026-10-06; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |
+| Plataformas | Servidores MCP oficiais: novos projetos com MCP, saída do modo experimental no Dolibarr, MCP oficial no Zammad, Node-RED e LimeSurvey | [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/) |
+| Plataformas | Mudanças de licença (n8n, Directus, Strapi ee/, Odoo Enterprise) | [https://opensource.org/licenses](https://opensource.org/licenses) |

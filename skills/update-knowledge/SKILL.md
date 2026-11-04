@@ -9,11 +9,15 @@ disable-model-invocation: true
 
 # Atualizar o conhecimento
 
-Esta skill nunca altera nada sem aprovação explícita do utilizador, alteração a alteração.
+Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo o resto exige aprovação explícita do utilizador, alteração a alteração.
 
 ## Regras
 
-- **Nunca alterar sem aprovação explícita**, uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta.
+- **Fluxo por confiança** (só para atualizações, ver «Níveis de confiança»):
+  - `alta`: entra diretamente no ficheiro de atualizações da secção (`<secção>/ATUALIZACOES.md`), na categoria certa, sem pedir aprovação;
+  - `media`: vai para validação (`estado: em-validacao` em `noticias.json`); os visitantes do site votam e o admin decide se entra no ficheiro de atualizações;
+  - `baixa`: no máximo notícia, assinalada.
+- **Nunca alterar sem aprovação explícita** o resto (novas entradas, correções, fontes novas), uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta.
 - **Nunca inventar.**
   - Cada novidade tem fonte (URL) e data de lançamento tal como a fonte a indica.
   - Se a fonte não indicar data, escreve «data não indicada» e a confiança fica, no máximo, `media`.
@@ -28,8 +32,8 @@ Esta skill nunca altera nada sem aprovação explícita do utilizador, alteraç�
 
 | Nível | Quando |
 |---|---|
-| `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. |
-| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. |
+| `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. **Entra diretamente no `ATUALIZACOES.md` da secção.** |
+| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Vai para validação: votos dos visitantes e decisão final do admin.** |
 | `baixa` | Fonte não oficial ou da comunidade, ou informação sem fonte verificável. **Nunca altera o conhecimento**: no máximo entra no site como notícia, assinalada. |
 
 ## 0. Preparar
@@ -58,7 +62,12 @@ Quando há muitas fontes, podes dividir a leitura por subagentes, um por tema, c
 
 **Filtrar.** Fica só o que muda uma boa prática, uma versão, um preço, um prazo, uma regra ou uma recomendação. O que é marketing, um caso de cliente ou um evento sem consequência para o conhecimento entra no máximo como notícia para o site, se o utilizador quiser.
 
-## 2. Propor, uma de cada vez
+## 2. Aplicar por confiança, propor o resto
+
+1. **Validações pendentes.** No início, lista as notícias com `estado: em-validacao` e pergunta ao admin a decisão de cada uma (mostra os votos, se o site os disponibilizar). Se entra, aplica-a como atualização (passo 3) e passa o estado a `aprovada`; se não entra, passa-o a `rejeitada`.
+2. **Atualizações `alta`:** aplica-as diretamente (passo 3), sem pedir aprovação, e mostra a lista do que entrou.
+3. **Atualizações `media`:** não alteram o conhecimento; entram em `noticias.json` com `estado: em-validacao`.
+4. **Novas entradas, correções e fontes novas**, qualquer que seja a confiança: propõe uma de cada vez, como abaixo.
 
 Para cada novidade, identifica onde encaixa:
 - **Atualização** de uma entrada existente (diz qual);
@@ -88,8 +97,9 @@ Opções:
 
 ## 3. Aplicar o que foi aprovado
 
-- **Atualização:** acrescenta no fim da entrada, antes do rodapé `Fonte:`, uma secção `## Atualizações` (cria-a se não existir) com uma linha por novidade:
-  `- **<data de lançamento>**: <texto>. Fonte: [<nome>](<url>). Confiança: <nível>. Adicionado a <hoje>.`
+- **Atualização:** acrescenta uma linha ao `knowledge/<secção>/ATUALIZACOES.md`, debaixo do título `## <categoria>` (fornecedor ou tema, ex.: «Claude (Anthropic)», «OpenAI», «Regulação»), da mais recente para a mais antiga. O texto das entradas não muda. Se o ficheiro não existir, cria-o com o título `# Atualizações: <título da secção>` e uma frase a dizer que não altera o texto das entradas. Cada linha:
+  `- **<data de lançamento>** em [<título da entrada>](<slug>.md): <texto>. Fonte: [<nome>](<url>). Confiança: <nível>. Adicionado a <hoje>.`
+  A parte «em [...]» só entra quando a novidade diz respeito a uma entrada. O `indice.mjs` ignora o `ATUALIZACOES.md`; não é uma entrada.
 - **Nova entrada:** cria `knowledge/<secção>/<slug>.md` com a mesma estrutura das outras: frontmatter, título, `**Resumo:**`, «Conteúdo», «Para uma skill» e rodapé. O frontmatter leva:
   ```
   id: <secção>/<slug>

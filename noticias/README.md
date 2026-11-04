@@ -33,7 +33,7 @@
 | `tema` | Uma secção de `knowledge/` (ex.: `ia`, `seguranca`, `nuvem`) |
 | `data_lancamento` | A data que a fonte indica; `null` se a fonte não a indicar (nunca inventada) |
 | `confianca` | `alta`, `media` ou `baixa` (critérios em `skills/update-knowledge/SKILL.md`) |
-| `estado` | `aprovada`, `so-noticia` (aprovada para o site, sem alterar o conhecimento) ou `rejeitada` |
+| `estado` | `aprovada`, `so-noticia` (aprovada para o site, sem alterar o conhecimento), `em-validacao` (confiança `media`: os visitantes votam e o admin decide se entra no `ATUALIZACOES.md` da secção) ou `rejeitada` |
 | `alteracao` | `null`, ou o tipo (`atualizacao`, `nova-entrada`, `correcao`, `fonte`) e o ficheiro de `knowledge/` alterado |
 | `fontes_verificadas` | Última data em que cada fonte foi percorrida; a próxima corrida procura novidades a partir daí |
 
