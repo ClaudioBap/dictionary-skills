@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T09:08:27Z",
+  "atualizado_em": "2026-11-04T09:10:48Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -121,7 +121,15 @@
     "https://www.openssh.org/releasenotes.html": "2026-11-04",
     "https://www.openssh.org/security.html": "2026-11-04",
     "https://tailscale.com/kb/1193/tailscale-ssh": "2026-11-04",
-    "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview": "2026-11-04"
+    "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview": "2026-11-04",
+    "https://github.com/glpi-project/glpi/releases": "2026-11-04",
+    "https://github.com/Dolibarr/dolibarr/releases": "2026-11-04",
+    "https://github.com/node-red/node-red/releases": "2026-11-04",
+    "https://docs.n8n.io/privacy-and-security/sustainable-use-license": "2026-11-04",
+    "https://directus.com/mscl": "2026-11-04",
+    "https://www.metabase.com/docs/latest/ai/mcp": "2026-11-04",
+    "https://docs.strapi.io/cms/features/strapi-mcp-server": "2026-11-04",
+    "https://github.com/WordPress/mcp-adapter": "2026-11-04"
   },
   "noticias": [
     {
@@ -730,6 +738,25 @@
       "confianca_motivo": "Fonte oficial, mas só o título do feed; a página veio vazia na leitura automática.",
       "estado": "em-validacao",
       "alteracao": null,
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "plataformas",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-28-glpi-12-0-1-seguranca",
+      "titulo": "GLPI 12.0.1 e 11.0.12 corrigem contorno crítico da autenticação",
+      "resumo": "O GLPI 12.0.1 e o 11.0.12 corrigem um contorno crítico da autenticação externa, uma escalada de privilégios por administrador de entidade e vários XSS. Recomenda-se atualizar.",
+      "fonte_nome": "GLPI releases",
+      "fonte_url": "https://github.com/glpi-project/glpi/releases/tag/12.0.1",
+      "data_lancamento": "2026-10-28",
+      "confianca": "alta",
+      "confianca_motivo": "Notas de lançamento oficiais, lidas diretamente, com data.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "plataformas/ATUALIZACOES.md"
+      },
       "imagem": null,
       "video": null
     }
