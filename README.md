@@ -72,6 +72,24 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 npx skills@latest update start-project-with-trust
 ```
 
+## Atualizar o conhecimento (skill `update-knowledge`)
+
+A segunda skill deste repositório mantém o conhecimento atualizado:
+
+1. percorre as fontes aprovadas em [`knowledge/FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md), incluindo a secção «A vigiar»;
+2. encontra as novidades, cada uma com a data de lançamento e um nível de confiança (alta, média ou baixa);
+3. propõe cada alteração com antes e depois, e **pede aprovação uma a uma**;
+4. regista cada alteração aprovada em [`knowledge/CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md) e as notícias em [`noticias/noticias.json`](noticias/README.md), que é o que o site lê;
+5. com a tua autorização, faz commit e push. Quem tem a skill instalada recebe o conhecimento novo no próximo `npx skills update`.
+
+Trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/start-project-with-trust`) e não na cópia instalada:
+
+```bash
+npx skills@latest add ClaudioBap/start-project-with-trust --skill update-knowledge
+```
+
+Não contorna sites que bloqueiam o acesso automático. Nesses casos, pede-te que abras a página e coles o conteúdo.
+
 ## Estrutura
 
 ```
@@ -79,8 +97,13 @@ skills/start-project-with-trust/
 ├── SKILL.md        instruções das fases e do goal-loop
 ├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos quatro documentos
-├── scripts/        verificador e guarda do goal-loop
-└── knowledge/      base de conhecimento (comece por knowledge/INDEX.md)
+├── scripts/        verificador e hooks do goal-loop
+└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md)
+skills/update-knowledge/
+├── SKILL.md        procura de novidades, aprovação uma a uma, publicação
+└── scripts/        indice.mjs, verificar-alteracoes.mjs, novidades-rss.mjs
+noticias/
+└── noticias.json   dados do site de notícias (formato em noticias/README.md)
 ```
 
 O conteúdo de `knowledge/` foi extraído do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03). Cada ficheiro indica a página de origem.
