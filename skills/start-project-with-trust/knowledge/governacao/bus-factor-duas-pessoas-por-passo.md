@@ -5,6 +5,7 @@ seccao: "Governação e processo"
 paginas: [59, 60]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Bus factor: duas pessoas por passo
@@ -17,5 +18,13 @@ verificado_em: 2026-11-03
 - Automatizar o mecânico (migrações, versão, CHANGELOG) para reduzir a dependência.
 
 **Para uma skill:** um passo que só uma pessoa sabe fazer é um risco a registar.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Leadership and Governance](https://opensource.guide/leadership-and-governance/) — Equipa núcleo e pelo menos um admin de reserva
+- [Best Practices for Maintainers](https://opensource.guide/best-practices/) — Documentar processos e automatizar tarefas (testes, semantic-release)
+- [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) — Revisão obrigatória de code owner antes do merge
 
 Fonte: págs. 59, 60 (Dicionario-Boas-Praticas.pdf)

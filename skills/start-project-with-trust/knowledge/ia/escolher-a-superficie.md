@@ -5,6 +5,7 @@ seccao: "Construir com IA (Claude e Anthropic)"
 paginas: [66]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Escolher a superfície (do simples ao agente)
@@ -17,5 +18,11 @@ verificado_em: 2026-11-03
 - Só construir agente se a tarefa for multi-passo e difícil de especificar, o valor justificar o custo, o Claude for capaz, e o erro for recuperável.
 
 **Para uma skill:** justificar a subida de tier; não usar agente onde uma chamada ou um workflow chegam.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) — workflows vs agentes; começar pelo mais simples e só subir com necessidade
 
 Fonte: pág. 66 (Dicionario-Boas-Praticas.pdf)

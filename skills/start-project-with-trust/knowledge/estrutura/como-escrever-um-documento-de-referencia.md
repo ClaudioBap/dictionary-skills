@@ -5,6 +5,7 @@ seccao: "Estrutura e documentação"
 paginas: [41, 42]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Como escrever um documento de referência
@@ -18,5 +19,11 @@ verificado_em: 2026-11-03
 - Explicar o mecanismo real, não o que se gostaria que fosse; dizer o que não está feito.
 
 **Para uma skill:** cada documento diz para quem é, o que cobre e quando foi verificado.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Diátaxis: Reference](https://diataxis.fr/reference/) — Referência descreve a máquina com rigor, liga em vez de misturar, consistente
 
 Fonte: págs. 41, 42 (Dicionario-Boas-Praticas.pdf)

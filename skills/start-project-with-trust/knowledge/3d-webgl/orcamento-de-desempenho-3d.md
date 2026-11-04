@@ -5,6 +5,7 @@ seccao: "3D, WebGL e animação"
 paginas: [22]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Orçamento de desempenho 3D
@@ -18,5 +19,15 @@ verificado_em: 2026-11-03
 - **Técnicas:** `instancedMesh` para repetições, níveis de detalhe (LOD), texturas comprimidas, limitar `pixelRatio`, menos draw calls.
 
 **Para uma skill:** o 3D tem um orçamento (MB e FPS) verificado, carrega tarde e pausa fora de vista.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Rendering on Demand (Three.js)](https://threejs.org/manual/pages/rendering-on-demand.html) — Renderizar só quando algo muda, poupando energia e bateria
+- [Scaling performance (R3F)](https://r3f.docs.pmnd.rs/advanced/scaling-performance) — Instancing, menos draw calls e render a pedido
+- [Intersection Observer API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) — Carregamento tardio e animar só quando visível
+
+> **Nota (fonte oficial):** Metas concretas (60 FPS desktop, mínimo em telemóvel) sem fonte oficial encontrada.
 
 Fonte: pág. 22 (Dicionario-Boas-Praticas.pdf)

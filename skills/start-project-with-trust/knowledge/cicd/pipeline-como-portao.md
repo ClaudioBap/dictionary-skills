@@ -5,6 +5,7 @@ seccao: "CI/CD e ferramentas"
 paginas: [45]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Pipeline como portão
@@ -23,5 +24,13 @@ verificado_em: 2026-11-03
 
 - [CI como portão do deploy](../seguranca/ci-como-portao-do-deploy.md) (Segurança)
 - [Branch protegida e promoção controlada](../governacao/branch-protegida-e-promocao-controlada.md) (Governação e processo)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) — Verificações obrigatórias têm de passar antes de juntar ao branch protegido
+- [Continuous Delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) — Pipeline: build, testes automáticos e promoção por ambientes
+- [Continuous Integration](https://martinfowler.com/articles/continuousIntegration.html) — Build rápido e corrigir um build partido é a prioridade máxima
 
 Fonte: pág. 45 (Dicionario-Boas-Praticas.pdf)

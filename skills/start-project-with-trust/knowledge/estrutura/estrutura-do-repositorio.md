@@ -19,4 +19,11 @@ verificado_em: 2026-11-03
 
 **Para uma skill:** um ficheiro novo tem uma pasta óbvia; se não tem, rever a estrutura.
 
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+
+> **Nota (fonte oficial):** sem fonte oficial encontrada
+
 Fonte: pág. 41 (Dicionario-Boas-Praticas.pdf)

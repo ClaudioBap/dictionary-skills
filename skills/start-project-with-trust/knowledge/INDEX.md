@@ -19,6 +19,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - «Ver também» liga entradas que o PDF repete ou relaciona noutras secções. A escolha das ligações é editorial.
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/` e `node/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
+- **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
 - Totais: 22 secções; 238 entradas do PDF em 237 ficheiros; 28 entradas fora do PDF; 265 ficheiros de entrada no total.
 
 ## Secções

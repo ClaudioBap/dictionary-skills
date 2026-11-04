@@ -5,6 +5,7 @@ seccao: "Design e experiência de utilizador"
 paginas: [18, 19]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Pesquisa e filtros
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Pesquisa (OpenSearch, Meilisearch)](../infraestrutura/pesquisa-opensearch-meilisearch.md) (Serviços de infraestrutura)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [NN/g – No-results pages](https://www.nngroup.com/articles/search-no-results-serp/) — Dizer claramente que não há resultados e dar caminho
+- [NN/g – Search: Visible and Simple](https://www.nngroup.com/articles/search-visible-and-simple/) — Caixa de pesquisa visível
+- [NN/g – Data Tables](https://www.nngroup.com/articles/data-tables/) — Filtros detetáveis e indicação clara de filtros ativos
 
 Fonte: págs. 18, 19 (Dicionario-Boas-Praticas.pdf)

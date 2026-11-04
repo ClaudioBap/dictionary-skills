@@ -5,6 +5,7 @@ seccao: "Boas práticas de Python"
 paginas: [33]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Logging
@@ -17,5 +18,13 @@ verificado_em: 2026-11-03
 - Não registar segredos nem dados pessoais; deixar a configuração do handler para a aplicação.
 
 **Para uma skill:** zero `print` de diagnóstico; segredos nunca vão para o log.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Logging HOWTO](https://docs.python.org/3/howto/logging.html) — print vs logging, níveis, bibliotecas só com NullHandler
+
+> **Nota (fonte oficial):** A documentação oficial não trata de segredos/dados pessoais nos logs; esse ponto fica sem fonte oficial.
 
 Fonte: pág. 33 (Dicionario-Boas-Praticas.pdf)

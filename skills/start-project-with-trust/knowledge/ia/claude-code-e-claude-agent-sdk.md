@@ -5,6 +5,7 @@ seccao: "Construir com IA (Claude e Anthropic)"
 paginas: [68]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Claude Code e Claude Agent SDK
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Regras do projeto (pessoas e agentes)](../estrutura/regras-do-projeto.md) (Estrutura e documentação)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory) — CLAUDE.md com instruções persistentes do projeto
+- [Hooks reference](https://code.claude.com/docs/en/hooks) — comandos executados automaticamente em pontos do ciclo de vida
+- [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview) — Claude Code como biblioteca: ferramentas, hooks, permissões, subagentes
 
 Fonte: pág. 68 (Dicionario-Boas-Praticas.pdf)

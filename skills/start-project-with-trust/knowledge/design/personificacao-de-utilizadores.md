@@ -5,6 +5,7 @@ seccao: "Design e experiência de utilizador"
 paginas: [15, 16]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Personificação de utilizadores (impersonation)
@@ -22,5 +23,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Auditoria append-only e à prova de adulteração](../seguranca/auditoria-append-only.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP – Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — Registar todas as ações de administradores e uso de privilégios
+
+> **Nota (fonte oficial):** sem fonte oficial específica sobre personificação (tarja, bloqueio de ações sensíveis); a OWASP apoia apenas a parte de auditoria. Só se encontrou documentação de produtos concretos.
 
 Fonte: págs. 15, 16 (Dicionario-Boas-Praticas.pdf)

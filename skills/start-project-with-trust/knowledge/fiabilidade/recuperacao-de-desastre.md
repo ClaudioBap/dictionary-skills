@@ -5,6 +5,7 @@ seccao: "Fiabilidade e resiliência"
 paginas: [11]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Recuperação de desastre
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Backups e recuperação](../base-de-dados/backups-e-recuperacao.md) (Base de dados)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Azure WAF – Disaster recovery](https://learn.microsoft.com/en-us/azure/well-architected/reliability/disaster-recovery) — Define RTO/RPO, ensaios de DR, perda de região, testar restauros
+- [AWS REL13-BP03 Test DR implementation](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_planning_for_recovery_dr_tested.html) — Testar regularmente a recuperação e verificar RTO/RPO
 
 Fonte: pág. 11 (Dicionario-Boas-Praticas.pdf)

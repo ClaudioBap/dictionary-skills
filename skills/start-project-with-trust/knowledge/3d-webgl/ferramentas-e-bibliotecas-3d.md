@@ -5,6 +5,7 @@ seccao: "3D, WebGL e animação"
 paginas: [23]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Ferramentas e bibliotecas 3D
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 - **Partículas e shaders:** shaders GLSL próprios, ou `ShaderMaterial` no Three.js.
 
 **Para uma skill:** registar a versão fixada de cada biblioteca e preferir o motor que a equipa já domina.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Introduction (R3F)](https://r3f.docs.pmnd.rs/getting-started/introduction) — React Three Fiber e drei como ecossistema React
+- [glTF Transform](https://gltf-transform.dev/) — Ferramenta de otimização glTF com Draco, Meshopt e KTX2
+- [ScrollTrigger (GSAP)](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) — Plugin GSAP para animação ao scroll
 
 Fonte: pág. 23 (Dicionario-Boas-Praticas.pdf)

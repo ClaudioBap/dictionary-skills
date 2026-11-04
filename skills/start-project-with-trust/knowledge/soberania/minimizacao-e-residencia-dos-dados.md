@@ -5,6 +5,7 @@ seccao: "Soberania digital"
 paginas: [58]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Minimização e residência dos dados
@@ -22,5 +23,13 @@ verificado_em: 2026-11-03
 
 - [Minimização e retenção](../privacidade/minimizacao-e-retencao.md) (Privacidade e conformidade)
 - [Dados de teste sintéticos e minimização](../seguranca/dados-de-teste-sinteticos-e-minimizacao.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [EDPB: Data protection basics](https://www.edpb.europa.eu/sme-data-protection-guide/data-protection-basics_en) — Minimização; conservação limitada, prazos por finalidade, apagamento
+- [CNPD: Avaliação de Impacto (AIPD)](https://www.cnpd.pt/organizacoes/outras-obrigacoes/avaliacao-de-impacto/) — AIPD obrigatória (art. 35.º RGPD) com dados sensíveis em larga escala
+- [RGPD (UE) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj) — Texto legal (não lida: bloqueia acesso automático)
 
 Fonte: pág. 58 (Dicionario-Boas-Praticas.pdf)

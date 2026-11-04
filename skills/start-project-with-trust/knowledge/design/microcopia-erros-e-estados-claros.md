@@ -5,6 +5,7 @@ seccao: "Design e experiência de utilizador"
 paginas: [14]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Microcópia, erros e estados claros
@@ -22,5 +23,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Estados, erros e resiliência na UI](../design/estados-erros-e-resiliencia-na-ui.md) (Design e experiência de utilizador)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [GOV.UK – Error message](https://design-system.service.gov.uk/components/error-message/) — Erro junto ao campo, dizer o que falhou e como resolver
+- [NN/g – Error-Message Guidelines](https://www.nngroup.com/articles/error-message-guidelines/) — Linguagem simples, esconder códigos técnicos, perto da origem
+- [NN/g – Confirmation Dialogs](https://www.nngroup.com/articles/confirmation-dialog/) — Confirmar ações graves/irreversíveis, não as rotineiras
 
 Fonte: pág. 14 (Dicionario-Boas-Praticas.pdf)

@@ -5,6 +5,7 @@ seccao: "Segurança"
 paginas: [3]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Defesa contra XSS: escapar e CSP
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [TLS e cabeçalhos versionados](../seguranca/tls-e-cabecalhos-versionados.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) — escape automático da framework, evitar innerHTML, CSP como camada adicional
+- [OWASP CSP Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) — nonces, políticas estritas, form-action 'self' e connect-src 'self'
 
 Fonte: pág. 3 (Dicionario-Boas-Praticas.pdf)

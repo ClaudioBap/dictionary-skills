@@ -5,6 +5,7 @@ seccao: "Docker e orquestração"
 paginas: [51, 52]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Redes do Docker
@@ -21,5 +22,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Contentores endurecidos](../seguranca/contentores-endurecidos.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Networking overview](https://docs.docker.com/engine/network/) — Redes definidas pelo utilizador, DNS por nome, publicação de portas
+- [Networking in Compose](https://docs.docker.com/compose/how-tos/networking/) — Nome do serviço como hostname; redes separadas isolam serviços
 
 Fonte: págs. 51, 52 (Dicionario-Boas-Praticas.pdf)

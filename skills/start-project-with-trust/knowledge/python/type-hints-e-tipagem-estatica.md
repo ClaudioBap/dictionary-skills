@@ -5,6 +5,7 @@ seccao: "Boas práticas de Python"
 paginas: [31]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Type hints e tipagem estática
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Ferramentas: tipagem estática](../cicd/ferramentas-tipagem-estatica.md) (CI/CD e ferramentas)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [typing — Support for type hints](https://docs.python.org/3/library/typing.html) — Protocol, Literal, TypedDict, X
+- [mypy – Getting started](https://mypy.readthedocs.io/en/stable/getting_started.html) — anotar assinaturas e verificar sem executar o código
 
 Fonte: pág. 31 (Dicionario-Boas-Praticas.pdf)

@@ -5,6 +5,7 @@ seccao: "Docker e orquestração"
 paginas: [51]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Imagem endurecida
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Contentores endurecidos](../seguranca/contentores-endurecidos.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Building best practices](https://docs.docker.com/build/building/best-practices/) — USER non-root e LABEL com metadados
+- [Build secrets](https://docs.docker.com/build/building/secrets/) — Build args e ENV persistem na imagem; usar secret mounts
+- [Trivy](https://github.com/aquasecurity/trivy) — Scanner oficial de imagens: CVE, segredos, misconfigurações
 
 Fonte: pág. 51 (Dicionario-Boas-Praticas.pdf)

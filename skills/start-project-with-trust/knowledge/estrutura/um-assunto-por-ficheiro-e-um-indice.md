@@ -18,4 +18,11 @@ verificado_em: 2026-11-03
 
 **Para uma skill:** um ficheiro novo cobre um só assunto e entra no índice.
 
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+
+> **Nota (fonte oficial):** sem fonte oficial encontrada
+
 Fonte: pág. 43 (Dicionario-Boas-Praticas.pdf)

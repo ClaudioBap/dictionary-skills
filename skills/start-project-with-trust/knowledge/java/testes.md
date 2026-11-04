@@ -5,6 +5,7 @@ seccao: "Boas práticas de Java"
 paginas: [37]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Testes
@@ -17,5 +18,15 @@ verificado_em: 2026-11-03
 - Testes rápidos e independentes; testar comportamento, não detalhes internos.
 
 **Para uma skill:** código novo vem com testes de caminho feliz e de erro.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [JUnit User Guide](https://docs.junit.org/current/user-guide/) — Platform/Jupiter; requer Java 17+
+- [AssertJ](https://assertj.github.io/doc/) — asserções fluentes com mensagens úteis
+- [Mockito](https://site.mockito.org/) — mocks; não mockar tipos alheios nem tudo
+
+> **Nota (fonte oficial):** A versão atual é JUnit 6 (6.1.3), não JUnit 5; o Vintage está obsoleto.
 
 Fonte: pág. 37 (Dicionario-Boas-Praticas.pdf)

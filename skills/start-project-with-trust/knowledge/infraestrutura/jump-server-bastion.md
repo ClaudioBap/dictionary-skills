@@ -5,6 +5,7 @@ seccao: "Serviços de infraestrutura"
 paginas: [54]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Jump server (bastion)
@@ -23,5 +24,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Ferramentas: acesso e rede](../cicd/ferramentas-acesso-e-rede.md) (CI/CD e ferramentas)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) — Sem portas de entrada, bastion ou chaves SSH; sessões registadas
+- [Teleport documentation](https://goteleport.com/docs/) — Acesso por identidade criptográfica com gravação de sessões
+- [What is Tailscale](https://tailscale.com/kb/1151/what-is-tailscale) — Rede de confiança zero com WireGuard em vez de VPN clássica
 
 Fonte: pág. 54 (Dicionario-Boas-Praticas.pdf)

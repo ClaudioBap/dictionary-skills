@@ -5,6 +5,7 @@ seccao: "Fiabilidade e resiliência"
 paginas: [12]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Idempotência e processamento fiável
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Mensageria e filas (RabbitMQ, Kafka, NATS)](../infraestrutura/mensageria-e-filas.md) (Serviços de infraestrutura)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [AWS REL04-BP04 Make mutating operations idempotent](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_prevent_interaction_failure_idempotent.html) — Tokens de idempotência em pedidos e mensagens de fila
+- [Amazon Builders' Library – Idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/) — Identificador do cliente torna retries seguros
+- [Amazon SQS – Dead-letter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) — Isolar mensagens que falham sempre o processamento
 
 Fonte: pág. 12 (Dicionario-Boas-Praticas.pdf)

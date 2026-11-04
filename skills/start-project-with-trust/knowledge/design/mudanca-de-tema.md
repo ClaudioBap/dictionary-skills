@@ -5,6 +5,7 @@ seccao: "Design e experiência de utilizador"
 paginas: [15]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Mudança de tema (claro/escuro)
@@ -22,5 +23,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Design system como código](../design/design-system-como-codigo.md) (Design e experiência de utilizador)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [web.dev – Supporting dark mode](https://web.dev/articles/prefers-color-scheme) — Tokens por tema, escolha guardada, evitar flash, adaptar imagens
+- [MDN – prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) — Detetar a preferência clara/escura do sistema
+- [WCAG 2.2 – 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) — Contraste AA exigido (aplica-se a cada tema)
 
 Fonte: pág. 15 (Dicionario-Boas-Praticas.pdf)

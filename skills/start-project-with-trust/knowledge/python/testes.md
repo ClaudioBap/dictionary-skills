@@ -5,6 +5,7 @@ seccao: "Boas práticas de Python"
 paginas: [33]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Testes
@@ -18,5 +19,12 @@ verificado_em: 2026-11-03
 - Medir cobertura, mas cobertura não é qualidade; incluir casos de erro.
 
 **Para uma skill:** código novo vem com testes do caminho feliz e dos erros.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Anatomy of a test](https://docs.pytest.org/en/stable/explanation/anatomy.html) — Arrange-Act-Assert-Cleanup; comportamento entre agir e verificar
+- [Good Integration Practices](https://docs.pytest.org/en/stable/explanation/goodpractices.html) — layout src, testes fora do código, modo estrito
 
 Fonte: pág. 33 (Dicionario-Boas-Praticas.pdf)

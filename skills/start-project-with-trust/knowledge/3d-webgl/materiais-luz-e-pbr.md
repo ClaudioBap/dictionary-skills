@@ -5,6 +5,7 @@ seccao: "3D, WebGL e animação"
 paginas: [22]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Materiais, luz e PBR
@@ -18,5 +19,12 @@ verificado_em: 2026-11-03
 - **Custo:** sombras em tempo real e pós-processamento são caros; muitas vezes um HDRI e materiais bem afinados chegam.
 
 **Para uma skill:** preferir iluminação por `environment map` a sombras dinâmicas quando o desempenho aperta.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [MeshStandardMaterial (Three.js)](https://threejs.org/docs/pages/MeshStandardMaterial.html) — Material PBR metal-roughness; especificar sempre environment map para melhores resultados
+- [glTF (Khronos)](https://www.khronos.org/gltf/) — glTF transporta materiais PBR no próprio ficheiro
 
 Fonte: pág. 22 (Dicionario-Boas-Praticas.pdf)

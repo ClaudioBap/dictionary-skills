@@ -5,6 +5,7 @@ seccao: "Segurança"
 paginas: [4]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Auditoria append-only e à prova de adulteração
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Auditoria e apagamento](../base-de-dados/auditoria-e-apagamento.md) (Base de dados)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — registar quem/quando/o quê; deteção de adulteração e suporte só-leitura
+- [OWASP Top 10:2025 A09](https://top10.owasp.org/2025/A09_2025-Security_Logging_and_Alerting_Failures/) — trilho de auditoria com controlos de integridade contra adulteração ou apagamento
 
 Fonte: pág. 4 (Dicionario-Boas-Praticas.pdf)

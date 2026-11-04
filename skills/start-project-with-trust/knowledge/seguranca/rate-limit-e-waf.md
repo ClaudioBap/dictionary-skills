@@ -5,6 +5,7 @@ seccao: "Segurança"
 paginas: [6]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Rate limit e WAF
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Proxy reverso e borda (Traefik, Nginx, Caddy)](../infraestrutura/proxy-reverso-e-borda.md) (Serviços de infraestrutura)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP API4:2023](https://api-security.owasp.org/editions/2023/en/0xa4-unrestricted-resource-consumption) — rate limiting e limites por cliente e por operação
+- [OWASP CRS](https://coreruleset.org/) — regras WAF genéricas (ModSecurity/Coraza) contra ataques comuns
 
 Fonte: pág. 6 (Dicionario-Boas-Praticas.pdf)

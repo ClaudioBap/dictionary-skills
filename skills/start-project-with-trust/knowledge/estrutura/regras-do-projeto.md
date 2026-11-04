@@ -5,6 +5,7 @@ seccao: "Estrutura e documentação"
 paginas: [43]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Regras do projeto (pessoas e agentes)
@@ -22,5 +23,14 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Claude Code e Claude Agent SDK](../ia/claude-code-e-claude-agent-sdk.md) (Construir com IA (Claude e Anthropic))
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory) — CLAUDE.md na raiz com convenções, comandos e regras partilhadas via git
+- [AGENTS.md](https://agents.md/) — «README para agentes» na raiz; o ficheiro mais próximo prevalece
+
+> **Nota (fonte oficial):** A documentação do Claude Code diz que o Claude Code lê AGENTS.md diretamente (versões recentes), recomenda menos de 200 linhas por CLAUDE.md e avisa que instruções contraditórias podem ser escolhidas arbitrariamente; o CLAUDE.md é contexto, não imposição (para bloquear, usar hook PreToolUse).
 
 Fonte: pág. 43 (Dicionario-Boas-Praticas.pdf)

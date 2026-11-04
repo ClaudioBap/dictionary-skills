@@ -5,6 +5,7 @@ seccao: "Construir com IA (Claude e Anthropic)"
 paginas: [68]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Subagentes e orquestração
@@ -17,5 +18,12 @@ verificado_em: 2026-11-03
 - Usar um modelo mais barato (Haiku/Sonnet) nos subagentes de leitura; o subagente propõe e devolve, não decide sozinho o que é crítico.
 
 **Para uma skill:** fan-out por subagentes só quando há trabalho independente ou leitura pesada; o modelo barato faz o trabalho de leitura.
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Subagents (Claude Code)](https://code.claude.com/docs/en/sub-agents) — contexto próprio, devolvem resumo; modelos mais baratos como Haiku para poupar
+- [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) — `low` recomendado para tarefas simples como subagentes
 
 Fonte: pág. 68 (Dicionario-Boas-Praticas.pdf)

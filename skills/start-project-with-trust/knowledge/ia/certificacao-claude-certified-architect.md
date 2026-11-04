@@ -5,6 +5,7 @@ seccao: "Construir com IA (Claude e Anthropic)"
 paginas: [65]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Certificação Claude Certified Architect (Foundations e avançado)
@@ -21,5 +22,14 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Domínios do exame (o que um bom sistema de IA cobre)](../ia/dominios-do-exame.md) (Construir com IA (Claude e Anthropic))
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Anthropic Claude Certification Program (Pearson VUE)](https://www.pearsonvue.com/anthropic) — quatro certificações (CCAO-F, CCDV-F, CCAR-F, CCAR-P), Pearson, só parceiros
+- [Claude Certification FAQ](https://anthropic-partners.skilljar.com/page/faq-certifications) — 120 minutos, aprovação 720/1000, validade 12 meses, email de parceiro
+
+> **Nota (fonte oficial):** Confirmado em fontes oficiais (Pearson VUE e FAQ da Anthropic Partner Academy). Acrescenta: preços $99 (Associate), $125 (Developer e Architect – Foundations), $175 (Architect – Professional); até 4 tentativas por 12 meses; exames atualizados a 7 de dezembro de 2026 (novos guias a 17 de novembro, afetando Associate, Developer e Architect – Professional). A FAQ chama «Claude Certified Associate» ao que a Pearson lista como «Associate - Foundations».
 
 Fonte: pág. 65 (Dicionario-Boas-Praticas.pdf)

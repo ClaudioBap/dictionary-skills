@@ -5,6 +5,7 @@ seccao: "Segurança"
 paginas: [6]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # CI como portão do deploy
@@ -24,5 +25,14 @@ verificado_em: 2026-11-03
 - [Pipeline como portão](../cicd/pipeline-como-portao.md) (CI/CD e ferramentas)
 - [Segurança do pipeline](../cicd/seguranca-do-pipeline.md) (CI/CD e ferramentas)
 - [Branch protegida e promoção controlada](../governacao/branch-protegida-e-promocao-controlada.md) (Governação e processo)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP CI/CD Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html) — branches protegidos, aprovação manual para produção, menor privilégio, SAST/SCA
+- [GitHub: hardening de Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) — fixar ações por SHA; GITHUB_TOKEN com permissões mínimas
+
+> **Nota (fonte oficial):** A documentação do GitHub indica que, em repositórios que adotem lockfiles de dependências de workflows, estes substituem a fixação por SHA.
 
 Fonte: pág. 6 (Dicionario-Boas-Praticas.pdf)

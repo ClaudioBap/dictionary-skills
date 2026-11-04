@@ -5,6 +5,7 @@ seccao: "Privacidade e conformidade"
 paginas: [10]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Minimização e retenção
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 
 - [Dados de teste sintéticos e minimização](../seguranca/dados-de-teste-sinteticos-e-minimizacao.md) (Segurança)
 - [Minimização e residência dos dados](../soberania/minimizacao-e-residencia-dos-dados.md) (Soberania digital)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Comissão Europeia: princípios do RGPD](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en) — minimização, conservação pelo menor tempo, prazos para apagar ou rever
+- [ENISA: Data Pseudonymisation](https://www.enisa.europa.eu/publications/data-pseudonymisation-advanced-techniques-and-use-cases) — técnicas de pseudonimização
 
 Fonte: pág. 10 (Dicionario-Boas-Praticas.pdf)

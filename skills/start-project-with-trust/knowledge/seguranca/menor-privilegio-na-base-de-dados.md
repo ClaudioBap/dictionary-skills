@@ -5,6 +5,7 @@ seccao: "Segurança"
 paginas: [4]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Menor privilégio na base de dados
@@ -22,5 +23,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Segurança da base de dados](../base-de-dados/seguranca-da-base-de-dados.md) (Base de dados)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [OWASP Database Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html) — menor privilégio da conta da aplicação; conta não dona da base
+- [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) — minimizar privilégios de cada conta de base de dados
 
 Fonte: pág. 4 (Dicionario-Boas-Praticas.pdf)

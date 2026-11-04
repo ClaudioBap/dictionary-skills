@@ -24,4 +24,11 @@ verificado_em: 2026-11-03
 - [Migrações](../base-de-dados/migracoes.md) (Base de dados)
 - [Chaves primárias](../base-de-dados/chaves-primarias.md) (Base de dados)
 
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+
+> **Nota (fonte oficial):** sem fonte oficial encontrada
+
 Fonte: pág. 4 (Dicionario-Boas-Praticas.pdf)

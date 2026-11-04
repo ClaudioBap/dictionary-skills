@@ -5,6 +5,7 @@ seccao: "Base de dados"
 paginas: [29]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Segurança da base de dados
@@ -22,5 +23,13 @@ verificado_em: 2026-11-03
 
 - [Menor privilégio na base de dados](../seguranca/menor-privilegio-na-base-de-dados.md) (Segurança)
 - [Queries parametrizadas (sem injeção de SQL)](../seguranca/queries-parametrizadas.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [SQL Injection Prevention (OWASP)](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) — Queries parametrizadas; conta da aplicação com privilégio mínimo, nunca DBA
+- [Privileges (PostgreSQL)](https://www.postgresql.org/docs/current/ddl-priv.html) — GRANT/REVOKE de privilégios por objeto
+- [Encryption Options (PostgreSQL)](https://www.postgresql.org/docs/current/encryption-options.html) — Cifra de colunas (pgcrypto), SSL, armazenamento e lado do cliente
 
 Fonte: pág. 29 (Dicionario-Boas-Praticas.pdf)

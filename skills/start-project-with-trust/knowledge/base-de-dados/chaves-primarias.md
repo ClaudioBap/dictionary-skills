@@ -5,6 +5,7 @@ seccao: "Base de dados"
 paginas: [27]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Chaves primárias
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Integridade dos dados e migrações aditivas](../seguranca/integridade-e-migracoes-aditivas.md) (Segurança)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Constraints (PostgreSQL)](https://www.postgresql.org/docs/current/ddl-constraints.html) — «Todas as tabelas devem ter chave primária»; não imposto, mas recomendado
+- [Identity Columns (PostgreSQL)](https://www.postgresql.org/docs/current/ddl-identity-columns.html) — Colunas identidade geradas por sequência para valores de chave
+- [UUID Type (PostgreSQL)](https://www.postgresql.org/docs/current/datatype-uuid.html) — UUID com melhor unicidade em sistemas distribuídos; UUIDv4 e UUIDv7 nativos
 
 Fonte: pág. 27 (Dicionario-Boas-Praticas.pdf)

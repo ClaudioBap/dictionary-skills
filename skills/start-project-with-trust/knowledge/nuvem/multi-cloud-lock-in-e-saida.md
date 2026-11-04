@@ -5,6 +5,7 @@ seccao: "Nuvem e identidade (AWS, Azure, Microsoft, OVH)"
 paginas: [62]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Multi-cloud, lock-in e saída
@@ -21,5 +22,12 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Estratégia de saída](../soberania/estrategia-de-saida.md) (Soberania digital)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [Build hybrid and multicloud architectures](https://docs.cloud.google.com/architecture/hybrid-multicloud-patterns) — multicloud para evitar compromisso com um único fornecedor; desafios de desenho
+- [OVHcloud Object Storage](https://www.ovhcloud.com/en/public-cloud/object-storage/) — exemplo de armazenamento S3-compatível, peça portável entre fornecedores
 
 Fonte: pág. 62 (Dicionario-Boas-Praticas.pdf)

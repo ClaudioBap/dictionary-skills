@@ -5,6 +5,7 @@ seccao: "Design e experiência de utilizador"
 paginas: [15]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
 # Estados, erros e resiliência na UI
@@ -21,5 +22,13 @@ verificado_em: 2026-11-03
 ## Ver também
 
 - [Microcópia, erros e estados claros](../design/microcopia-erros-e-estados-claros.md) (Design e experiência de utilizador)
+
+## Fontes oficiais
+
+*Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
+
+- [NN/g – Error-Message Guidelines](https://www.nngroup.com/articles/error-message-guidelines/) — Mensagens construtivas e preservar o que o utilizador escreveu
+- [NN/g – Empty states](https://www.nngroup.com/articles/empty-state-interface-design/) — Distinguir carregamento, erro e ausência de dados
+- [WCAG 2.2 – 4.1.3 Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — Anunciar resultados, progresso e erros sem mover o foco
 
 Fonte: pág. 15 (Dicionario-Boas-Praticas.pdf)
