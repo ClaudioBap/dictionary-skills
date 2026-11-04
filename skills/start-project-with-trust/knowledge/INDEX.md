@@ -18,9 +18,9 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - O **resumo** condensa o texto da própria entrada, sem informação nova. O **conteúdo** segue o PDF; só se corrigiram quebras de linha e hifenização da extração.
 - «Ver também» liga entradas que o PDF repete ou relaciona noutras secções. A escolha das ligações é editorial.
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
-- **⚠️ Fora do PDF:** as secções `javascript/` e `node/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
+- **⚠️ Fora do PDF:** as secções `javascript/`, `node/` e `publicacao/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 22 secções; 238 entradas do PDF em 237 ficheiros; 28 entradas fora do PDF; 265 ficheiros de entrada no total.
+- Totais: 23 secções; 238 entradas do PDF em 237 ficheiros; 37 entradas fora do PDF; 274 ficheiros de entrada no total.
 
 ## Secções
 
@@ -336,7 +336,19 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Caching em camadas](custo/caching-em-camadas.md) — Cachear o caro e repetido na camada certa, com regra de invalidação. *(pág. 64)*
 - [Orçamento e alertas de custo](custo/orcamento-e-alertas-de-custo.md) — Um orçamento com alertas que disparam antes de a fatura surpreender. *(pág. 64)*
 
-### 22. [Construir com IA (Claude e Anthropic)](ia/README.md) — págs. 65–69 (17 entradas)
+### 22. [Publicação e alojamento web](publicacao/README.md) — ⚠️ fora do PDF (9 entradas)
+
+- [Alojamento estático gratuito](publicacao/alojamento-estatico-gratuito.md) — GitHub Pages, GitLab Pages, Cloudflare (Workers com ativos estáticos ou Pages), Netlify Free e Vercel Hobby publicam sites estáticos sem custo, com domínio próprio e HTTPS, mas com limites de tamanho, tráfego e builds e, no GitHub Pages e na Vercel Hobby, com restrições ao uso comercial. *(fora do PDF)*
+- [Alojamento dinâmico e de teste gratuito](publicacao/alojamento-dinamico-e-de-teste-gratuito.md) — Para testar back-ends sem custo há escalões grátis permanentes (Cloudflare Workers, Render, Oracle Always Free, Google Cloud Free Tier) e créditos iniciais temporários (AWS, Google Cloud, Azure), cada um com limites de uso, regiões, prazos e, em alguns casos, cartão obrigatório. *(fora do PDF)*
+- [Expor um serviço local para testes](publicacao/expor-um-servico-local.md) — Cloudflare Tunnel e Tailscale Funnel publicam uma app que corre no próprio computador através de ligações de saída cifradas, sem abrir portas nem expor o IP, mas o serviço fica acessível na Internet e tem limites próprios. *(fora do PDF)*
+- [Alojamento pago e empresarial](publicacao/alojamento-pago-e-empresarial.md) — Ao sair do grátis, as opções vão de VPS europeus a partir de poucos euros por mês, a PaaS pagos com planos de equipa e Enterprise, até à nuvem pública com planos de suporte pagos e tempos de resposta definidos. *(fora do PDF)*
+- [Limites e condições dos planos gratuitos](publicacao/limites-e-condicoes-dos-planos-gratuitos.md) — Os planos grátis podem proibir uso comercial, adormecer, suspender o site ao atingir limites, exigir cartão, apagar dados ao expirar, alojar fora da UE e mudar com frequência. *(fora do PDF)*
+- [Domínios e DNS](publicacao/dominios-e-dns.md) — Para teste pessoal basta o subdomínio grátis da plataforma; para produção regista-se domínio próprio (Cloudflare Registrar a preço de custo ou .pt através de um registrar credenciado pelo .PT), com DNS gerido na Cloudflare e DNSSEC ativo. *(fora do PDF)*
+- [Certificados TLS e HTTPS](publicacao/certificados-tls.md) — O HTTPS vem grátis e automático nas plataformas e na Cloudflare (Universal SSL, sempre em Full (strict)), no servidor próprio usa-se Let's Encrypt com renovação automática porque a validade está a encurtar, autoassinados só em desenvolvimento e OV/EV pagos só quando a política da empresa o exige. *(fora do PDF)*
+- [WAF e proteção DDoS](publicacao/waf-e-protecao-ddos.md) — Do grátis ao empresarial: Cloudflare Free (DDoS ilimitado e regras geridas base), WAF open source com OWASP CRS, Bunny Shield, Cloudflare Pro/Business/Enterprise e WAF dos fornecedores de nuvem. *(fora do PDF)*
+- [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
+
+### 23. [Construir com IA (Claude e Anthropic)](ia/README.md) — págs. 65–69 (17 entradas)
 
 - [Certificação Claude Certified Architect (Foundations e avançado)](ia/certificacao-claude-certified-architect.md) — As quatro certificações da Anthropic com exame e o seu formato; o PDF indica que vêm de fontes da comunidade, a confirmar. *(pág. 65)*
 - [Domínios do exame (o que um bom sistema de IA cobre)](ia/dominios-do-exame.md) — Os domínios dos exames Foundations e Professional, usados como eixos para avaliar um sistema de IA. *(pág. 65)*

@@ -13,7 +13,18 @@
 
 **Recomendação:** _por definir_
 
-### D2 — Execução em paralelo
+### D2 — Publicação e exposição
+
+**Responde a:** _por definir_ <!-- normalmente P14, P8 e P11 -->
+
+<!-- Alojamento, domínio, certificado TLS, borda/WAF e acesso à área de administração, do grátis ao empresarial (knowledge/publicacao/). -->
+
+| Opção | Custo | Benefício | Risco | Base no conhecimento |
+|-------|-------|-----------|-------|----------------------|
+
+**Recomendação:** _por definir_
+
+### D3 — Execução em paralelo
 
 **Responde a:** _por definir_ <!-- normalmente P7 (prazo) e P8 (orçamento) -->
 

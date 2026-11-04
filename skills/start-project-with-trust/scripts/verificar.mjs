@@ -189,7 +189,9 @@ export function verificar(pasta, substituir = {}) {
     if (linhas.length === 0) falhas.push('custo-beneficio.md: tabela «Sessões» vazia');
     else if (colTipo < 0) falhas.push('custo-beneficio.md: tabela «Sessões» sem a coluna «Tipo»');
     else if (!linhas.some((c) => /orquestrador/i.test(c[colTipo] || ''))) falhas.push('custo-beneficio.md: nenhuma sessão do tipo «orquestrador»');
-    if (!/^###\s+D\d+\s+[—-]\s+Execução em paralelo/mi.test(docs['custo-beneficio.md'])) falhas.push('custo-beneficio.md: falta a decisão «Execução em paralelo»');
+    for (const obrigatoria of ['Publicação e exposição', 'Execução em paralelo']) {
+      if (!new RegExp(`^###\\s+D\\d+\\s+[—-]\\s+${obrigatoria}`, 'mi').test(docs['custo-beneficio.md'])) falhas.push(`custo-beneficio.md: falta a decisão «${obrigatoria}»`);
+    }
   }
 
   // Cada decisão responde a um pedido, e cada pedido tem resposta.

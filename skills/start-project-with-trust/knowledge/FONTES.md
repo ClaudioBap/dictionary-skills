@@ -262,6 +262,29 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Azure WAF Cost Optimization](https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/) | princípios, checklist e guias Azure de otimização de custo |
 | [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) | orçamentos e alertas de custo na AWS |
 
+## [Publicação e alojamento web](publicacao/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [Limites do GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) | tamanho, banda, builds e usos proibidos do GitHub Pages |
+| [Preços Cloudflare Workers](https://developers.cloudflare.com/workers/platform/pricing/) | limites do plano grátis e mínimo do plano pago |
+| [Changelog Cloudflare](https://developers.cloudflare.com/changelog/) | novidades de Workers, Pages e Tunnel (tem RSS) |
+| [Planos por créditos Netlify](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) | créditos incluídos e custo por recurso |
+| [Plano Hobby Vercel](https://vercel.com/docs/plans/hobby) | uso incluído e restrição não comercial |
+| [Changelog Vercel](https://vercel.com/changelog) | alterações de planos e preços da Vercel |
+| [Render Free](https://render.com/docs/free) | adormecimento, horas grátis e expiração do Postgres |
+| [Changelog Render](https://render.com/changelog) | alterações de planos e do escalão grátis |
+| [FAQ AWS Free Tier](https://aws.amazon.com/free/free-tier-faqs/) | créditos, duração e apagamento de contas Free |
+| [Google Cloud Free](https://docs.cloud.google.com/free/docs/free-cloud-features) | crédito de teste, Free Tier e regiões elegíveis |
+| [Cloudflare changelog](https://developers.cloudflare.com/changelog/) | Novidades de WAF, SSL, DNS, Access e Registrar |
+| [Planos Cloudflare](https://www.cloudflare.com/plans/network-cdn/) | Preços e funcionalidades Free, Pro, Business, Enterprise |
+| [Cloudflare Access planos](https://www.cloudflare.com/zero-trust/products/access/) | Limite de utilizadores do plano Free do Access |
+| [Let's Encrypt news](https://letsencrypt.org/blog/) | Mudanças de validade, perfis ACME e ARI |
+| [CA/Browser Forum posts](https://cabforum.org/posts/) | Ballots que alteram Baseline Requirements e EV Guidelines |
+| [OWASP CRS releases](https://github.com/coreruleset/coreruleset/releases) | Novas versões e LTS do Core Rule Set |
+| [Coraza releases](https://github.com/corazawaf/coraza/releases) | Novas versões do motor WAF Coraza |
+| [Bunny Shield planos](https://bunny.net/shield/) | Preços e limites da alternativa europeia de WAF |
+
 ## [Construir com IA (Claude e Anthropic)](ia/README.md)
 
 | Fonte | Para quê |
@@ -293,3 +316,11 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | IA | Pesos dos domínios do exame Claude Certified Architect: mantêm-se os do PDF (27/18/20/20/15) até haver fonte oficial; guias revistos previstos para 17/11/2026 | [https://anthropic-partners.skilljar.com/page/faq-certifications](https://anthropic-partners.skilljar.com/page/faq-certifications) |
 | IA | Se a OpenAI lança cursos ou certificação equivalentes; se sim, trazer toda a informação | [https://academy.openai.com/](https://academy.openai.com/) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
+| Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
+| Publicação | mudanças nos limites e na restrição comercial da Vercel Hobby | [https://vercel.com/docs/plans/hobby](https://vercel.com/docs/plans/hobby) |
+| Publicação | mudanças nos planos de workspace e no escalão grátis do Render | [https://render.com/changelog](https://render.com/changelog) |
+| Publicação | mudanças no modelo de créditos do AWS Free Tier | [https://aws.amazon.com/free/free-tier-faqs/](https://aws.amazon.com/free/free-tier-faqs/) |
+| Publicação | Redução da validade dos certificados (64 dias em 2027-02-10, 45 dias em 2028) | [https://letsencrypt.org/2026/10/07/64-day-certs](https://letsencrypt.org/2026/10/07/64-day-certs) |
+| Publicação | Calendário de validade máxima nas Baseline Requirements (100 dias em 2027, 47 em 2029) | [https://cabforum.org/working-groups/server/baseline-requirements/requirements/](https://cabforum.org/working-groups/server/baseline-requirements/requirements/) |
+| Publicação | Regras geridas WAF disponíveis no plano Free da Cloudflare | [https://developers.cloudflare.com/waf/managed-rules/](https://developers.cloudflare.com/waf/managed-rules/) |
+| Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |

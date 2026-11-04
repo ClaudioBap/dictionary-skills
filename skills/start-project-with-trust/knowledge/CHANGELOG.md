@@ -12,3 +12,14 @@ Registo **append-only** de cada alteração aprovada a `knowledge/`: o quê, por
 | 2026-11-04 | Secção «Fontes oficiais» nas 237 entradas do PDF e 100 notas onde a fonte oficial difere; texto do PDF intacto | (entradas do PDF) | Fontes por tema em FONTES.md | — | alta | Cláudio Baptista |
 | 2026-11-04 | Registo de fontes por tema, incluindo novidades OpenAI/Anthropic, regulação e impacto da IA | FONTES.md | Aprovação do utilizador | — | alta | Cláudio Baptista |
 | 2026-11-04 | Secção «A vigiar»: pesos do exame, curso/certificação OpenAI, calendário do AI Act | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
+| 2026-11-04 | Nova secção «Publicação e alojamento web» (9 entradas, do grátis ao empresarial: alojamento, túneis, domínio/DNS, TLS, WAF/DDoS, acesso à administração), a pedido do utilizador | publicacao/ | Fontes oficiais dos fornecedores (GitHub, Cloudflare, Netlify, Vercel, Render, AWS, Google Cloud, Oracle, Azure, OVHcloud, Hetzner, Let's Encrypt, CA/B Forum, OWASP, Tailscale) | — | alta | Cláudio Baptista |
+| 2026-11-04 | Registo de fontes e «A vigiar» da secção Publicação (planos grátis, preços, validade dos certificados) | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/acesso-restrito-a-area-de-administracao.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/alojamento-dinamico-e-de-teste-gratuito.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/alojamento-estatico-gratuito.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/alojamento-pago-e-empresarial.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/certificados-tls.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/dominios-e-dns.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/expor-um-servico-local.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/limites-e-condicoes-dos-planos-gratuitos.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Publicação | publicacao/waf-e-protecao-ddos.md | ver a entrada | — | alta | Cláudio Baptista |

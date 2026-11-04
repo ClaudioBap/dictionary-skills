@@ -97,6 +97,14 @@ Escreve `custo-beneficio.md` com quatro partes:
 1. **Decisões.** Para cada decisão do plano com mais de uma opção, uma linha `**Responde a:**` com os IDs das perguntas a que responde, uma tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e no fim a recomendação.
    - Um custo em dinheiro só pode vir do cliente ou de `knowledge/`, com a fonte indicada.
    - Fora disso, usa uma escala relativa (baixo, médio, alto) e marca-a como *(estimativa)*.
+   - **Decisão obrigatória: publicação e exposição.** Responde a P14 e decide, com opções do grátis ao empresarial (`knowledge/publicacao/`):
+     - onde fica alojado;
+     - domínio: subdomínio grátis ou próprio;
+     - certificado TLS: autoassinado **só** para uso local ou interno; Let's Encrypt ou o incluído na plataforma; pago só se a política da organização o exigir;
+     - se passa por uma borda como a Cloudflare, e com que WAF e proteção contra DDoS;
+     - como se protege a área de administração (SSO e MFA à frente da aplicação).
+
+     Se o projeto não tem exposição pública, a decisão regista-o e justifica. As condições dos planos gratuitos (uso comercial, limites, dados fora da UE) entram na coluna «Risco».
    - **Decisão obrigatória: execução em paralelo.** Inclui sempre uma decisão sobre quantas sessões Claude correm em paralelo. As opções vão de tudo sequencial (mais barato em tokens, mais lento) a várias sessões em paralelo (mais tokens, menos tempo). Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
 2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz quatro coisas:
    - coordena a ordem do trabalho;
