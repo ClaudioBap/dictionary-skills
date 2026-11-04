@@ -1,0 +1,44 @@
+name: Fonte nova
+description: Propor uma fonte oficial para FONTES.md ou um ponto para «A vigiar»
+title: "Fonte nova: "
+labels: ["fonte"]
+body:
+  - type: input
+    id: seccao
+    attributes:
+      label: Secção
+      description: A secção de knowledge/ a que a fonte pertence (por exemplo seguranca, ia, publicacao).
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL da fonte
+      description: A página oficial do fornecedor, organismo ou autor do standard.
+    validations:
+      required: true
+  - type: textarea
+    id: para-que
+    attributes:
+      label: Para que serve
+      description: O que esta fonte permite verificar ou acompanhar.
+    validations:
+      required: true
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Fonte para o registo da secção
+        - Ponto «A vigiar» (prazo, limite ou versão a acompanhar)
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmacoes
+    attributes:
+      label: Confirmações
+      options:
+        - label: É uma fonte oficial primária, e não um blogue, fórum ou artigo de terceiros.
+          required: true
+        - label: Não contém dados de clientes nem informação interna.
+          required: true

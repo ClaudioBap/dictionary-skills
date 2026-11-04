@@ -1,0 +1,40 @@
+name: Correção ao conhecimento
+description: Uma entrada de knowledge/ está errada ou desatualizada face a uma fonte oficial
+title: "Correção: "
+labels: ["conhecimento"]
+body:
+  - type: input
+    id: ficheiro
+    attributes:
+      label: Ficheiro
+      description: Caminho da entrada, por exemplo skills/start-project-with-trust/knowledge/publicacao/certificados-tls.md
+    validations:
+      required: true
+  - type: textarea
+    id: antes
+    attributes:
+      label: O que diz agora
+      description: Cita o texto atual.
+    validations:
+      required: true
+  - type: textarea
+    id: depois
+    attributes:
+      label: O que devia dizer
+      description: Só o que a fonte diz, sem interpretação.
+    validations:
+      required: true
+  - type: input
+    id: fonte
+    attributes:
+      label: Fonte oficial
+      description: URL da página que justifica a correção.
+    validations:
+      required: true
+  - type: input
+    id: data
+    attributes:
+      label: Data indicada pela fonte
+      description: Como a fonte a indica, ou «data não indicada».
+    validations:
+      required: true

@@ -1,5 +1,7 @@
 # StartProjectWithTrust
 
+[English version](README.en.md)
+
 Duas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot) que levam um projeto de cliente da primeira conversa até à entrega verificada, apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais.
 
 - **`start-project-with-trust`** conduz o projeto: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
@@ -120,8 +122,6 @@ npx skills@latest add ClaudioBap/start-project-with-trust --skill start-project-
 npx skills@latest add ClaudioBap/start-project-with-trust --skill update-knowledge
 ```
 
-O repositório é privado: para instalar, precisas de acesso a ele no GitHub, e de ter sessão iniciada no git ou no GitHub CLI (`gh auth login`).
-
 - Sem opções, a skill fica instalada no projeto atual e só aparece nas sessões abertas nessa pasta. Para a teres em todos os projetos, junta `-g`.
 - O instalador deteta os agentes que tens. Para escolher um diretamente, junta `-a claude-code` (ou outro agente).
 - A base de conhecimento (`knowledge/`) é instalada com a skill. Não há passos extra.
@@ -184,6 +184,10 @@ Para atualizar o conhecimento:
 npx skills@latest update start-project-with-trust
 npx skills@latest update update-knowledge
 ```
+
+## Contribuir
+
+Fontes novas, correções ao conhecimento e melhorias às skills são bem-vindas. As regras (fonte oficial, data, confiança) estão em [CONTRIBUTING.md](CONTRIBUTING.md), e há modelos de issue para cada caso. Falhas de segurança nos scripts ou nos hooks reportam-se em privado, como explicado em [SECURITY.md](SECURITY.md).
 
 ## Estrutura
 
