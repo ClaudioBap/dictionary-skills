@@ -1,6 +1,6 @@
 ---
 name: update-knowledge
-description: Atualiza a base de conhecimento da skill start-project-with-trust, os dados do site de notícias e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
+description: Atualiza a base de conhecimento da skill start-project-with-trust, as notícias no repositório do site e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
 argument-hint: "Tema a atualizar (ex.: ia), «pessoal» para só o conhecimento pessoal, ou nada para todos"
 disable-model-invocation: true
 ---
@@ -15,8 +15,9 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 
 - **Fluxo por confiança** (só para atualizações, ver «Níveis de confiança»):
   - `alta`: entra diretamente no ficheiro de atualizações da secção (`<secção>/ATUALIZACOES.md`), na categoria certa, sem pedir aprovação;
-  - `media`: vai para validação (`estado: em-validacao` em `noticias.json`); os visitantes do site votam e o admin decide se entra no ficheiro de atualizações;
+  - `media`: vai para validação, com `estado: em-validacao` no ficheiro de notícias do repositório do site, onde se decide se entra no ficheiro de atualizações. Sem repositório do site, pergunta ao utilizador no fim da corrida;
   - `baixa`: no máximo notícia, assinalada.
+- **Atualizações com mais de um ano saem do `ATUALIZACOES.md`, mas não se apagam.** Em cada corrida, as linhas cuja data «Adicionado a» tenha mais de 12 meses passam, sem alterações, para `<secção>/ATUALIZACOES-ARQUIVO.md`, na mesma categoria, com uma linha no `CHANGELOG.md`. Conta a data em que a linha entrou, e não a data de lançamento, para não arquivar logo um prazo antigo que ainda está a correr.
 - **Nunca alterar sem aprovação explícita** o resto (novas entradas, correções, fontes novas), uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta.
 - **Nunca inventar.**
   - Cada novidade tem fonte (URL) e data de lançamento tal como a fonte a indica.
@@ -33,7 +34,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 | Nível | Quando |
 |---|---|
 | `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. **Entra diretamente no `ATUALIZACOES.md` da secção.** |
-| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Vai para validação: votos dos visitantes e decisão final do admin.** |
+| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Vai para validação no site de notícias (ou, sem site, decisão do utilizador).** |
 | `baixa` | Fonte não oficial ou da comunidade, ou informação sem fonte verificável. **Nunca altera o conhecimento**: no máximo entra no site como notícia, assinalada. |
 
 ## 0. Preparar
@@ -42,13 +43,14 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
    - Se o diretório atual (ou um pai) tiver `skills/start-project-with-trust/knowledge/`, usa-o.
    - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/start-project-with-trust`.
    - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou a skill), ou se pediu `pessoal`, salta a base partilhada e faz só o passo 5 «Conhecimento pessoal».
-2. Confirma que a cópia está limpa (`git status`) e faz `git pull`.
+1a. **Encontrar o repositório do site.** As notícias vivem noutro repositório, `ClaudioBap/site-noticias`, no ficheiro `noticias/noticias.json` (contrato em `noticias/README.md` desse repositório). Procura uma cópia git dele ao lado deste (`../site-noticias`) ou pergunta ao utilizador onde está. Sem cópia, a skill atualiza o conhecimento na mesma e não escreve notícias.
+2. Confirma que as cópias estão limpas (`git status`) e faz `git pull` em cada uma.
 3. Lê:
    - `knowledge/FONTES.md`: o registo por tema e a secção «A vigiar»;
    - `knowledge/INDEX.md`: a taxonomia;
-   - `noticias/noticias.json`: `fontes_verificadas` diz a partir de que data procurar em cada fonte. Sem data, usa a última data do `CHANGELOG.md`.
+   - `fontes-verificadas.json`, na pasta desta skill: a data a partir da qual procurar em cada fonte. Sem data, usa a última data do `CHANGELOG.md`.
 
-Os caminhos `scripts/...` são relativos à pasta deste `SKILL.md`. `knowledge/` e `noticias/` são relativos à raiz do repositório, em `skills/start-project-with-trust/knowledge/` e `noticias/`.
+Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório, em `skills/start-project-with-trust/knowledge/`. `noticias/` é relativo à raiz do repositório do site.
 
 ## 1. Procurar novidades
 
@@ -65,9 +67,9 @@ Quando há muitas fontes, podes dividir a leitura por subagentes, um por tema, c
 
 ## 2. Aplicar por confiança, propor o resto
 
-1. **Validações pendentes.** No início, lista as notícias com `estado: em-validacao` e pergunta ao admin a decisão de cada uma (mostra os votos, se o site os disponibilizar). Se entra, aplica-a como atualização (passo 3) e passa o estado a `aprovada`; se não entra, passa-o a `rejeitada`.
+1. **Validações pendentes.** No início, lista as notícias com `estado: em-validacao` no repositório do site e pergunta ao admin a decisão de cada uma (mostra os votos, se o site os disponibilizar). Se entra, aplica-a como atualização (passo 3) e passa o estado a `aprovada`; se não entra, passa-o a `rejeitada`.
 2. **Atualizações `alta`:** aplica-as diretamente (passo 3), sem pedir aprovação, e mostra a lista do que entrou.
-3. **Atualizações `media`:** não alteram o conhecimento; entram em `noticias.json` com `estado: em-validacao`.
+3. **Atualizações `media`:** não alteram o conhecimento; entram no `noticias.json` do repositório do site com `estado: em-validacao`.
 4. **Novas entradas, correções e fontes novas**, qualquer que seja a confiança: propõe uma de cada vez, como abaixo.
 
 Para cada novidade, identifica onde encaixa:
@@ -100,7 +102,7 @@ Opções:
 
 - **Atualização:** acrescenta uma linha ao `knowledge/<secção>/ATUALIZACOES.md`, debaixo do título `## <categoria>` (fornecedor ou tema, ex.: «Claude (Anthropic)», «OpenAI», «Regulação»), da mais recente para a mais antiga. O texto das entradas não muda. Se o ficheiro não existir, cria-o com o título `# Atualizações: <título da secção>` e uma frase a dizer que não altera o texto das entradas. Cada linha:
   `- **<data de lançamento>** em [<título da entrada>](<slug>.md): <texto>. Fonte: [<nome>](<url>). Confiança: <nível>. Adicionado a <hoje>.`
-  A parte «em [...]» só entra quando a novidade diz respeito a uma entrada. O `indice.mjs` ignora o `ATUALIZACOES.md`; não é uma entrada.
+  A parte «em [...]» só entra quando a novidade diz respeito a uma entrada. O `indice.mjs` ignora o `ATUALIZACOES.md` e o `ATUALIZACOES-ARQUIVO.md`; não são entradas.
 - **Nova entrada:** cria `knowledge/<secção>/<slug>.md` com a mesma estrutura das outras: frontmatter, título, `**Resumo:**`, «Conteúdo», «Para uma skill» e rodapé. O frontmatter leva:
   ```
   id: <secção>/<slug>
@@ -117,17 +119,18 @@ Opções:
 
 Depois de cada alteração aprovada:
 1. acrescenta uma linha ao `knowledge/CHANGELOG.md` (data, alteração, caminho do ficheiro relativo a `knowledge/`, fonte, data de lançamento, confiança, «Aprovado por» com o nome do utilizador);
-2. acrescenta ou atualiza a notícia em `noticias/noticias.json` (formato em `noticias/README.md`), com o `estado` que o utilizador escolheu.
+2. acrescenta ou atualiza a notícia no `noticias/noticias.json` do repositório do site (formato em `noticias/README.md` desse repositório), com o `estado` que o utilizador escolheu.
 
 As rejeitadas também entram em `noticias.json`, com `estado: rejeitada`, para não voltarem a ser propostas.
 
 ## 4. Verificar e publicar
 
-1. Atualiza `fontes_verificadas` e `atualizado_em` em `noticias.json`.
+1. Atualiza as datas em `fontes-verificadas.json` e `atualizado_em` no `noticias.json` do site.
+1a. **Arquiva o que tem mais de um ano.** Em cada `ATUALIZACOES.md`, passa para `ATUALIZACOES-ARQUIVO.md` da mesma secção as linhas com «Adicionado a» há mais de 12 meses, sem alterar o texto, na mesma categoria. Se o arquivo não existir, cria-o com o título `# Arquivo de atualizações: <título da secção>`. Uma linha no `CHANGELOG.md` por secção arquivada.
 2. Corre `node scripts/indice.mjs <repo>/skills/start-project-with-trust/knowledge` para pôr o `INDEX.md` e os `README.md` em dia.
 3. Corre `node scripts/verificar-alteracoes.mjs <repo>` e **mostra a saída**. Se falhar, corrige (normalmente falta uma linha no CHANGELOG) e corre outra vez. Não avances sem `✓`.
-4. Mostra `git diff --stat` e um resumo das alterações, e pergunta se pode fazer commit e push.
-5. Com autorização, faz commit (uma mensagem que resuma as novidades) e `git push`. A partir daí, `npx skills update start-project-with-trust` traz o conhecimento novo a quem tem a skill instalada, e o site lê o `noticias.json` atualizado.
+4. Mostra `git diff --stat` de cada repositório (skills e site) e um resumo das alterações, e pergunta se pode fazer commit e push.
+5. Com autorização, faz um commit em cada repositório (uma mensagem que resuma as novidades), `git pull --rebase` e `git push`. A partir daí, `npx skills update start-project-with-trust` traz o conhecimento novo a quem tem a skill instalada, e o site lê o `noticias.json` atualizado.
 
 ## 5. Conhecimento pessoal
 
@@ -140,6 +143,7 @@ Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizad
    - `media`: não altera nada; regista-a em `pendentes.md` (data, título, fonte, motivo da confiança) para o utilizador decidir na corrida seguinte. Não há votos de visitantes no conhecimento pessoal;
    - `baixa`: ignora.
 4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal.
+4a. **Arquivar.** A mesma regra de um ano da base partilhada: as linhas com «Adicionado a» há mais de 12 meses passam para `ATUALIZACOES-ARQUIVO.md` da secção, sem se apagarem.
 5. **Nunca partilhar.** O conhecimento pessoal não vai para o repositório da skill, para o `CHANGELOG.md` partilhado nem para `noticias.json`, e não tem commit nem push.
 
 ## Relatório final

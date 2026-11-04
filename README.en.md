@@ -5,7 +5,7 @@
 Two skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot) that take a client project from the first conversation to a verified delivery, backed by a knowledge base of good practices that is kept up to date from official sources.
 
 - **`start-project-with-trust`** runs the project: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
-- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed, applies it according to its confidence level and publishes the news in a file that a news site can display.
+- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed, applies it according to its confidence level and writes the news to a file that a news site, in a separate repository, can display.
 
 The skills, the knowledge base and the news are written in Portuguese (Portugal).
 
@@ -16,7 +16,6 @@ The skills, the knowledge base and the news are written in Portuguese (Portugal)
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The skill that starts and runs projects | People who build projects for clients (consultants, development teams) |
 | [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 285 good-practice entries in 25 sections, each with its source | Used by the skill; can also be read directly |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
-| [`noticias/noticias.json`](noticias/README.md) | The news found, with source, date and confidence | A news site or portal |
 
 ## start-project-with-trust
 
@@ -80,7 +79,7 @@ Reference files:
 
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): every entry, by section.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): the official sources for each section and the «A vigiar» (watch) list: deadlines and limits checked on every update, such as TLS certificate lifetimes or free hosting plans.
-- `<section>/ATUALIZACOES.md`: each section's news, by category and date, without changing the text of the entries.
+- `<section>/ATUALIZACOES.md`: each section's news, by category and date, without changing the text of the entries. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): every change, with source, release date, confidence and who approved it.
 
 ## update-knowledge
@@ -93,11 +92,11 @@ It keeps the knowledge base, the news and the personal knowledge up to date. It 
    | Confidence | When | What happens |
    |---|---|---|
    | High | Primary official source, read directly, with a date | Goes into the section's `ATUALIZACOES.md` and into the news as approved |
-   | Medium | Official source but indirect, partly read or undated | Stays in the news «em validação» (under review): visitors vote and the admin decides |
+   | Medium | Official source but indirect, partly read or undated | Stays «em validação» (under review) on the news site, where it is decided whether it goes in (without a site, the user decides) |
    | Low | Unofficial source | Never changes the knowledge |
 
    New entries, corrections to the text and new sources always require approval, one at a time.
-3. It records each change in `CHANGELOG.md` and each news item in [`noticias/noticias.json`](noticias/README.md), with source, date, confidence and the source's preview image, when there is one.
+3. It records each change in `CHANGELOG.md` and each news item in the news site repository's `noticias/noticias.json`, with source, date, confidence and the source's preview image, when there is one.
 4. It runs the checkers and, with your permission, commits and pushes. Anyone who has the skills installed gets the new knowledge on the next `npx skills update`.
 5. It also updates the user's personal knowledge: high-confidence news goes in, medium-confidence news waits for the user's decision on the next run.
 
@@ -107,7 +106,7 @@ To maintain the shared base, work on a git clone of this repository (`gh repo cl
 
 ## News
 
-[`noticias/noticias.json`](noticias/README.md) is the contract between `update-knowledge` and a news site. Each item has a title, summary, topic, source with link, release date, confidence and its reason, status (`aprovada`, `so-noticia`, `em-validacao` or `rejeitada`) and, when available, the source's image and video, linked and never copied. The full format is in [`noticias/README.md`](noticias/README.md).
+The news does not live in this repository. `update-knowledge` writes it to `noticias/noticias.json` in the news site's own repository, which holds the format contract and handles the review of medium-confidence news. Each item has a title, summary, topic, source with link, release date, confidence, status and, when available, the source's image and video, linked and never copied. Without that repository, the skill still updates the knowledge.
 
 ## Installation
 
@@ -199,12 +198,11 @@ skills/start-project-with-trust/
 ├── PERGUNTAS.md    fixed list of mandatory questions
 ├── modelos/        document templates
 ├── scripts/        checkers (plan, delivery, publishing) and goal loop hooks
-└── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md and one ATUALIZACOES.md per section)
+└── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md, and one ATUALIZACOES.md and one ATUALIZACOES-ARQUIVO.md per section)
 skills/update-knowledge/
 ├── SKILL.md        finding news, confidence flow, publishing and personal knowledge
+├── fontes-verificadas.json   date each source was last checked
 └── scripts/        indice.mjs, verificar-alteracoes.mjs, novidades-rss.mjs
-noticias/
-└── noticias.json   news site data (format in noticias/README.md)
 
 ~/.start-project-with-trust/   each user's personal knowledge (outside the repository)
 ├── perfil.md       kinds of work

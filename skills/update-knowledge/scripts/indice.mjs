@@ -35,7 +35,7 @@ const listaPorSeccao = {};
 for (const sec of seccoes) {
   const readme = ler(join(K, sec, 'README.md'));
   const [cabeca, corpo = ''] = readme.split(/^## Entradas\n/m);
-  const ficheiros = new Set(readdirSync(join(K, sec)).filter((f) => f.endsWith('.md') && f !== 'README.md' && f !== 'ATUALIZACOES.md').map((f) => f.slice(0, -3)));
+  const ficheiros = new Set(readdirSync(join(K, sec)).filter((f) => f.endsWith('.md') && f !== 'README.md' && f !== 'ATUALIZACOES.md' && f !== 'ATUALIZACOES-ARQUIVO.md').map((f) => f.slice(0, -3)));
   const itens = [];
   // Ordem existente
   for (const m of corpo.matchAll(/^- \[[^\]]*\]\(([^)]+)\.md\)/gm)) {

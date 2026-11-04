@@ -5,7 +5,7 @@
 Duas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot) que levam um projeto de cliente da primeira conversa até à entrega verificada, apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais.
 
 - **`start-project-with-trust`** conduz o projeto: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
-- **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou, aplica-o segundo o nível de confiança e publica as novidades num ficheiro que um site de notícias pode mostrar.
+- **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou, aplica-o segundo o nível de confiança e escreve as novidades num ficheiro que um site de notícias, num repositório à parte, pode mostrar.
 
 ## O que está neste repositório
 
@@ -14,7 +14,6 @@ Duas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot)
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A skill que arranca e conduz projetos | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) |
 | [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 285 entradas de boas práticas em 25 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
-| [`noticias/noticias.json`](noticias/README.md) | As novidades encontradas, com fonte, data e confiança | Um site ou portal de notícias |
 
 ## start-project-with-trust
 
@@ -78,7 +77,7 @@ Ficheiros de referência:
 
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): todas as entradas, por secção.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): as fontes oficiais de cada secção e a lista «A vigiar» (prazos e limites que se verificam em cada atualização, como a validade dos certificados TLS ou os planos gratuitos de alojamento).
-- `<secção>/ATUALIZACOES.md`: as novidades de cada secção, por categoria e data, sem alterar o texto das entradas.
+- `<secção>/ATUALIZACOES.md`: as novidades de cada secção, por categoria e data, sem alterar o texto das entradas. As que entraram há mais de um ano passam para `ATUALIZACOES-ARQUIVO.md`, sem se apagarem.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): cada alteração, com fonte, data de lançamento, confiança e quem aprovou.
 
 ## update-knowledge
@@ -91,11 +90,11 @@ Mantém a base de conhecimento, as notícias e o conhecimento pessoal em dia. S�
    | Confiança | Quando | O que acontece |
    |---|---|---|
    | Alta | Fonte oficial primária, lida diretamente, com data | Entra no `ATUALIZACOES.md` da secção e nas notícias como aprovada |
-   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Fica nas notícias «em validação»: os visitantes votam e o admin decide |
+   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Fica «em validação» no site de notícias, onde se decide se entra (sem site, decide o utilizador) |
    | Baixa | Fonte não oficial | Nunca altera o conhecimento |
 
    Novas entradas, correções ao texto e fontes novas pedem sempre aprovação, uma a uma.
-3. Regista cada alteração no `CHANGELOG.md` e cada novidade em [`noticias/noticias.json`](noticias/README.md), com fonte, data, confiança e a imagem de pré-visualização da fonte, quando existe.
+3. Regista cada alteração no `CHANGELOG.md` e cada novidade no `noticias/noticias.json` do repositório do site, com fonte, data, confiança e a imagem de pré-visualização da fonte, quando existe.
 4. Corre os verificadores e, com a tua autorização, faz commit e push. Quem tem as skills instaladas recebe o conhecimento novo no próximo `npx skills update`.
 5. Atualiza também o conhecimento pessoal do utilizador: as novidades de confiança alta entram, as de confiança média ficam para ele decidir na corrida seguinte.
 
@@ -105,7 +104,7 @@ Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh 
 
 ## Notícias
 
-[`noticias/noticias.json`](noticias/README.md) é o contrato entre a `update-knowledge` e um site de notícias. Cada notícia traz título, resumo, tema, fonte com ligação, data de lançamento, confiança e o motivo, estado (`aprovada`, `so-noticia`, `em-validacao` ou `rejeitada`) e, quando existem, a imagem e o vídeo da fonte, ligados e nunca copiados. O formato completo está em [`noticias/README.md`](noticias/README.md).
+As notícias não vivem neste repositório. A `update-knowledge` escreve-as no `noticias/noticias.json` de um repositório próprio do site, que guarda o contrato do formato e trata da validação das novidades de confiança média. Cada notícia traz título, resumo, tema, fonte com ligação, data de lançamento, confiança, estado e, quando existem, a imagem e o vídeo da fonte, ligados e nunca copiados. Sem esse repositório, a skill atualiza o conhecimento na mesma.
 
 ## Instalação
 
@@ -197,12 +196,11 @@ skills/start-project-with-trust/
 ├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos documentos
 ├── scripts/        verificadores (plano, entrega, publicação) e hooks do goal-loop
-└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md e um ATUALIZACOES.md por secção)
+└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
 skills/update-knowledge/
 ├── SKILL.md        procura de novidades, fluxo por confiança, publicação e conhecimento pessoal
+├── fontes-verificadas.json   data da última verificação de cada fonte
 └── scripts/        indice.mjs, verificar-alteracoes.mjs, novidades-rss.mjs
-noticias/
-└── noticias.json   dados do site de notícias (formato em noticias/README.md)
 
 ~/.start-project-with-trust/   conhecimento pessoal de cada utilizador (fora do repositório)
 ├── perfil.md       tipos de trabalho
