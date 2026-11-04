@@ -51,12 +51,21 @@ Os estados possíveis de cada pergunta em `objetivo.md`:
 Faz uma pergunta de cada vez, neste formato:
 
 ```
-❓ **P3 — Sucesso**: <pergunta, com o contexto que já se sabe>
+❓ **P9 — Recursos**: <pergunta, com o contexto que já se sabe>
 
-➡️ Recomendação: <a tua resposta recomendada, ou «sem recomendação: preciso desta informação tua»>
+Opções, da mais barata à mais cara:
+1. **<opção>**: <o que implica>. Custo: <valor com fonte, ou baixo/médio/alto *(estimativa)*>
+2. **<opção>**: <o que implica>. Custo: <…>
+3. **<opção>**: <o que implica>. Custo: <…>
+✏️ **Outra**: descreve a tua, se nenhuma servir.
+
+➡️ Recomendação: <número da opção> (<porquê, numa frase>)
 ```
 
-Formula a pergunta de modo a que um «sim» aceite a recomendação.
+- **Opções:** 2 a 4 soluções concretas, ordenadas por custo da mais barata para a mais cara. Inclui sempre a alternativa «Outra», para o utilizador propor a sua.
+- **Custo:** um valor em dinheiro só pode vir do utilizador ou de `knowledge/`, com a fonte indicada. Fora disso, usa a escala relativa marcada como *(estimativa)*. Quando uma opção tem base no conhecimento, cita o ficheiro.
+- **Perguntas sobre factos que só o utilizador sabe** (por exemplo P4 «para quem» ou P7 «prazo»): mostra as respostas típicas como opções. Se o custo não as distingue, escreve «sem impacto direto no custo» em vez de inventar uma ordem.
+- Formula a pergunta de modo a que um «sim» aceite a recomendação. A resposta pode ser o número de uma opção, «sim» ou uma alternativa do utilizador.
 
 **Que pergunta fazer a seguir.** As perguntas obrigatórias de `PERGUNTAS.md` são a base, mas a próxima pergunta depende da resposta anterior:
 - se a resposta abre uma dúvida que muda as perguntas seguintes, faz primeiro uma pergunta de seguimento e regista-a em `objetivo.md` como `S<n>`, com a pergunta de origem;
