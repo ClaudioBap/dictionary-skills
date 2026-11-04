@@ -13,18 +13,29 @@
 
 **Recomendação:** _por definir_
 
+### D2 — Execução em paralelo
+
+**Responde a:** _por definir_ <!-- normalmente P7 (prazo) e P8 (orçamento) -->
+
+| Opção | Custo | Benefício | Risco | Base no conhecimento |
+|-------|-------|-----------|-------|----------------------|
+
+**Recomendação:** _por definir_
+
 ## Orquestrador
 
 - **Responde a:** _por definir_ <!-- normalmente P13 e P9 -->
-- **Quem ou o quê coordena:** _por definir_
+- **Quem ou o quê coordena:** _por definir_ <!-- por omissão: sessão 0, a sessão que corre esta skill -->
+- **Sessões que pede para abrir em paralelo:** _por definir_
 - **O que decide:** _por definir_
 - **Como aprova:** _por definir_
 - **Como acompanha as sessões:** _por definir_
 
 ## Sessões
 
-| # | Objetivo | Entra | Sai | Quem participa | Critério de fim |
-|---|----------|-------|-----|----------------|-----------------|
+| # | Tipo | Objetivo | Entra | Sai | Em paralelo com | Como abrir | Quem participa | Critério de fim |
+|---|------|----------|-------|-----|-----------------|------------|----------------|-----------------|
+| 0 | orquestrador | Coordenar, preparar briefings, integrar saídas | _por definir_ | _por definir_ | — | É a sessão que corre esta skill | _por definir_ | _por definir_ |
 
 ## Recomendação final
 _por definir_

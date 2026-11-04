@@ -268,12 +268,12 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 |---|---|
 | [Anthropic Newsroom](https://www.anthropic.com/news) | novidades oficiais da Anthropic (modelos, produtos, parcerias) |
 | [Claude Platform release notes](https://platform.claude.com/docs/en/release-notes/overview) | alterações da API, modelos, betas e depreciações |
-| [OpenAI News](https://openai.com/news/ (não lida: bloqueia acesso automático)) | novidades oficiais da OpenAI |
+| [OpenAI News](https://openai.com/news/) | novidades oficiais da OpenAI (não lida: bloqueia acesso automático) |
 | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | alterações de modelos e API da OpenAI |
 | [AI Act (Comissão Europeia)](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) | calendário de aplicação do AI Act e alterações do Omnibus |
-| [Regulamento (UE) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj (não lida: bloqueia acesso automático)) | texto legal oficial do AI Act |
+| [Regulamento (UE) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) | texto legal oficial do AI Act (não lida: bloqueia acesso automático) |
 | [European AI Office](https://digital-strategy.ec.europa.eu/en/policies/ai-office) | supervisão europeia e regras para modelos de finalidade geral |
-| [ANACOM – Inteligência Artificial](https://www.anacom.pt/render.jsp?contentId=1816215 (não lida: bloqueia acesso automático)) | autoridade portuguesa apontada para o Regulamento da IA |
+| [ANACOM – Inteligência Artificial](https://www.anacom.pt/render.jsp?contentId=1816215) | autoridade portuguesa apontada para o Regulamento da IA (não lida: bloqueia acesso automático) |
 | [EDPB Statement 3/2024](https://www.edpb.europa.eu/our-work-tools/our-documents/statements/statement-32024-data-protection-authorities-role-artificial_en) | papel das autoridades de proteção de dados no AI Act |
 | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | gestão de risco de IA, incl. perfil de IA generativa |
 | [OECD.AI](https://oecd.ai/en/) | observatório de políticas, dados e análise sobre IA |
@@ -281,3 +281,15 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Anthropic Research](https://www.anthropic.com/research) | investigação: alinhamento, economia, interpretabilidade, red-teaming |
 | [Anthropic system cards](https://www.anthropic.com/system-cards) | avaliações de segurança por modelo Claude |
 | [OpenAI Deployment Safety Hub](https://deploymentsafety.openai.com/) | system cards e avaliações de segurança dos modelos OpenAI |
+| [OpenAI News (feed RSS oficial)](https://openai.com/news/rss.xml) | Notícias da OpenAI com data de publicação; ler por aqui |
+| [OpenAI Academy](https://academy.openai.com/) | Cursos da OpenAI; vigiar lançamento de certificação |
+
+## A vigiar
+
+Pontos que o agente de atualização verifica sempre, a pedido do dono do repositório.
+
+| Tema | O que vigiar | Onde |
+|---|---|---|
+| IA | Pesos dos domínios do exame Claude Certified Architect: mantêm-se os do PDF (27/18/20/20/15) até haver fonte oficial; guias revistos previstos para 17/11/2026 | [https://anthropic-partners.skilljar.com/page/faq-certifications](https://anthropic-partners.skilljar.com/page/faq-certifications) |
+| IA | Se a OpenAI lança cursos ou certificação equivalentes; se sim, trazer toda a informação | [https://academy.openai.com/](https://academy.openai.com/) |
+| IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |

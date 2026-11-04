@@ -97,8 +97,19 @@ Escreve `custo-beneficio.md` com quatro partes:
 1. **Decisões.** Para cada decisão do plano com mais de uma opção, uma linha `**Responde a:**` com os IDs das perguntas a que responde, uma tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e no fim a recomendação.
    - Um custo em dinheiro só pode vir do cliente ou de `knowledge/`, com a fonte indicada.
    - Fora disso, usa uma escala relativa (baixo, médio, alto) e marca-a como *(estimativa)*.
-2. **Orquestrador.** Quem ou o quê coordena o trabalho (pessoa, papel ou agente), o que decide, como aprova e como acompanha as sessões. Também leva «Responde a», normalmente P13 e P9.
-3. **Sessões.** Uma tabela com: número, objetivo, o que entra, o que sai, quem participa e critério de fim. A saída de cada sessão é a entrada de uma sessão seguinte, ou uma entrega final.
+   - **Decisão obrigatória: execução em paralelo.** Inclui sempre uma decisão sobre quantas sessões Claude correm em paralelo. As opções vão de tudo sequencial (mais barato em tokens, mais lento) a várias sessões em paralelo (mais tokens, menos tempo). Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
+2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz quatro coisas:
+   - coordena a ordem do trabalho;
+   - prepara o briefing de cada sessão de trabalho (o que entra);
+   - **pede ao utilizador para abrir as sessões Claude que vão correr em paralelo**, indicando para cada uma o briefing a colar;
+   - recolhe o que cada sessão devolve (o que sai) e integra.
+
+   Se o utilizador escolher outro orquestrador (uma pessoa, um papel ou outro agente), regista-o. Indica também o que o orquestrador decide e como aprova. Leva «Responde a», normalmente P13 e P9.
+3. **Sessões.** Uma tabela com as colunas número, tipo (`orquestrador` ou `trabalho`), objetivo, o que entra, o que sai, em paralelo com, como abrir, quem participa e critério de fim.
+   - A sessão 0 é sempre a do orquestrador.
+   - A saída de cada sessão é a entrada de uma sessão seguinte, ou uma entrega final.
+   - Só correm em paralelo as sessões que não dependem da saída umas das outras.
+   - Em «como abrir», diz o que o utilizador faz. Por exemplo: «nova sessão do Claude Code nesta pasta, colar o briefing S2», ou «subagente lançado pelo orquestrador».
 4. **Recomendação final**, com as razões.
 
 Mostra o resumo e pede validação.
