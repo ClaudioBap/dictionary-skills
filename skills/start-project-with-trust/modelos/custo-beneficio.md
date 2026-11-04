@@ -6,6 +6,8 @@
 
 ### D1 — <decisão>
 
+**Responde a:** _por definir_ <!-- IDs de objetivo.md, ex.: P8, S2 -->
+
 | Opção | Custo | Benefício | Risco | Base no conhecimento |
 |-------|-------|-----------|-------|----------------------|
 
@@ -13,6 +15,7 @@
 
 ## Orquestrador
 
+- **Responde a:** _por definir_ <!-- normalmente P13 e P9 -->
 - **Quem ou o quê coordena:** _por definir_
 - **O que decide:** _por definir_
 - **Como aprova:** _por definir_

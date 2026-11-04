@@ -1,0 +1,31 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/start-project-with-trust/guarda-hook.mjs\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/start-project-with-trust/rastreabilidade-hook.mjs\""
+          },
+          {
+            "type": "agent",
+            "timeout": 120,
+            "prompt": "És o verificador semântico da skill start-project-with-trust. Evento: $ARGUMENTS\n\n1. Se tool_input.file_path NÃO terminar em arranque/<projeto>/plano.md nem em arranque/<projeto>/custo-beneficio.md (separador / ou \\), responde imediatamente {\"ok\": true} sem usar ferramentas.\n2. Caso contrário, lê com Read esse ficheiro e o objetivo.md da mesma pasta, usando caminhos absolutos construídos a partir de tool_input.file_path.\n3. Para cada ação (tabela «Ações», coluna «Responde a»), cada decisão (secções ### em «Decisões», linha «Responde a:») e o Orquestrador, confirma em objetivo.md, nas respostas das perguntas citadas, que:\n   a) responde de facto ao que o utilizador pediu nessas respostas;\n   b) não contradiz nenhuma resposta, restrição (prazo P7, orçamento P8, tecnologia P10, dados e conformidade P11) nem pressuposto aceite;\n   c) a recomendação de cada decisão é coerente com o que foi pedido.\n   Ignora itens ainda «_por definir_». Não avalies estilo nem boas práticas: só a correspondência com o que o utilizador pediu.\n4. Se tudo corresponde, responde {\"ok\": true}. Se não, responde {\"ok\": false, \"reason\": \"<lista, um item por linha, ex.: D2 recomenda alojamento fora da UE, mas a resposta a P11 exige dados na UE>\\nRegista cada ponto em objetivo.md como pergunta de seguimento «aberta» (S<n>) e resolve-a com o utilizador no goal-loop.\"}."
+          }
+        ]
+      }
+    ]
+  }
+}

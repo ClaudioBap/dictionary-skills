@@ -29,20 +29,17 @@ Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos
 1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Se o utilizador não disser o nome do projeto, pergunta-o.
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
-4. **Guarda do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/guarda-hook.mjs` ainda não existe no projeto, pergunta ao utilizador se a quer instalar. Explica-lhe que é um hook que impede marcar o arranque como `Concluído` enquanto o verificador encontrar falhas. Se ele aceitar:
-   1. copia `scripts/verificar.mjs`, `scripts/guarda-hook.mjs` e `PERGUNTAS.md` para `.claude/hooks/start-project-with-trust/`;
-   2. acrescenta esta entrada a `hooks.PreToolUse` em `.claude/settings.json`. Se o ficheiro não existe, cria-o. Se já existe, não apagues nada do que lá está:
-      ```json
-      {
-        "matcher": "Write|Edit|MultiEdit|Bash",
-        "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/start-project-with-trust/guarda-hook.mjs\"" }
-        ]
-      }
-      ```
-   3. diz ao utilizador que a guarda pode só ficar ativa depois de reiniciar a sessão ou de a rever em `/hooks`.
+4. **Hooks do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/` ainda não existe no projeto, pergunta ao utilizador se quer instalar os três hooks. Explica-lhe o que cada um faz:
+   - **Guarda** (PreToolUse): impede marcar o arranque como `Concluído` enquanto o verificador encontrar falhas.
+   - **Rastreabilidade** (PostToolUse, determinística): depois de cada escrita no plano ou no custo-benefício, confirma que cada ação e decisão responde a perguntas do utilizador que existem e estão fechadas.
+   - **Verificador semântico** (PostToolUse, usa um modelo; funcionalidade experimental do Claude Code): confirma que cada decisão responde de facto ao que o utilizador pediu e não contradiz as restrições dele. Gasta tokens a cada edição desses ficheiros.
 
-   Se ele recusar, ou se o agente não for o Claude Code, continua: o verificador do goal-loop aplica-se na mesma.
+   Se ele aceitar:
+   1. copia `scripts/verificar.mjs`, `scripts/guarda-hook.mjs`, `scripts/rastreabilidade-hook.mjs` e `PERGUNTAS.md` para `.claude/hooks/start-project-with-trust/`;
+   2. junta as entradas de `scripts/hooks-settings.json` a `hooks.PreToolUse` e `hooks.PostToolUse` em `.claude/settings.json`. Se o ficheiro não existe, cria-o. Se já existe, acrescenta sem apagar nada do que lá está. Se o utilizador recusar só o verificador semântico, não copies o handler `"type": "agent"`;
+   3. diz ao utilizador que os hooks normalmente ficam ativos logo, mas que pode confirmar em `/hooks` ou reiniciar a sessão.
+
+   Se ele recusar, ou se o agente não for o Claude Code, continua: o verificador do goal-loop aplica-se na mesma, incluindo a rastreabilidade.
 
 Os estados possíveis de cada pergunta em `objetivo.md`:
 - `aberta`: ainda sem resposta.
@@ -75,6 +72,7 @@ Formula a pergunta de modo a que um «sim» aceite a recomendação.
 
 1. Lê `knowledge/INDEX.md` e escolhe as entradas relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
 2. Para cada necessidade, escreve em `plano.md`:
+   - em «Responde a», os IDs das perguntas de `objetivo.md` (P/S) cujas respostas pedem esta ação. Uma ação que não responde a nenhum pedido não entra no plano;
    - a ação a tomar;
    - o recurso que a executa, que tem de ser um dos que o cliente declarou na pergunta P9;
    - a base no conhecimento (ficheiro e página);
@@ -87,10 +85,10 @@ Formula a pergunta de modo a que um «sim» aceite a recomendação.
 
 Escreve `custo-beneficio.md` com quatro partes:
 
-1. **Decisões.** Para cada decisão do plano com mais de uma opção, uma tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e no fim a recomendação.
+1. **Decisões.** Para cada decisão do plano com mais de uma opção, uma linha `**Responde a:**` com os IDs das perguntas a que responde, uma tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e no fim a recomendação.
    - Um custo em dinheiro só pode vir do cliente ou de `knowledge/`, com a fonte indicada.
    - Fora disso, usa uma escala relativa (baixo, médio, alto) e marca-a como *(estimativa)*.
-2. **Orquestrador.** Quem ou o quê coordena o trabalho (pessoa, papel ou agente), o que decide, como aprova e como acompanha as sessões.
+2. **Orquestrador.** Quem ou o quê coordena o trabalho (pessoa, papel ou agente), o que decide, como aprova e como acompanha as sessões. Também leva «Responde a», normalmente P13 e P9.
 3. **Sessões.** Uma tabela com: número, objetivo, o que entra, o que sai, quem participa e critério de fim. A saída de cada sessão é a entrada de uma sessão seguinte, ou uma entrega final.
 4. **Recomendação final**, com as razões.
 
@@ -107,7 +105,11 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
    - lacunas do plano;
    - critérios de sucesso que ninguém sabe ainda como verificar;
    - contradições entre documentos;
-   - decisões sem opção escolhida.
+   - decisões sem opção escolhida;
+   - ações ou decisões que não respondem a nenhum pedido do utilizador, ou que o contradizem;
+   - perguntas obrigatórias sem nenhuma ação ou decisão que lhes responda (rastreabilidade).
+
+   Quando um hook devolver uma lista de falhas de rastreabilidade ou do verificador semântico, cada ponto conta como encontrado neste passo.
 2. **Regista.** Cada coisa encontrada passa a ser uma pergunta `aberta` em `objetivo.md`, se ainda lá não estiver.
 3. **Se ainda há perguntas `aberta`**, faz a próxima, no formato da Fase 1. Com a resposta:
    - atualiza os documentos afetados;

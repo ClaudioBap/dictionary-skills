@@ -51,9 +51,20 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
   ```bash
   node .claude/skills/start-project-with-trust/scripts/verificar.mjs arranque/<projeto>
   ```
-- **Guarda** (`scripts/guarda-hook.mjs`, só no Claude Code). É um hook `PreToolUse` que a skill propõe instalar no projeto na primeira execução. Bloqueia qualquer escrita que marque o arranque como `Concluído` enquanto o verificador falhar.
+  Inclui a **rastreabilidade**:
+  - cada ação do plano, cada decisão e o orquestrador indicam em «Responde a» as perguntas do utilizador (P/S) a que respondem, e essas perguntas têm de existir e estar fechadas;
+  - todas as perguntas obrigatórias têm pelo menos uma ação ou decisão que lhes responde.
+- **Hooks do Claude Code**, que a skill propõe instalar no projeto na primeira execução (configuração em `scripts/hooks-settings.json`):
 
-**Limite:** a guarda garante que a confirmação final está registada, mas não consegue provar quem a deu. Essa regra («o agente nunca responde pelo utilizador») está nas instruções da skill.
+  | Hook | Evento | O que faz |
+  |---|---|---|
+  | Guarda (`guarda-hook.mjs`) | PreToolUse | Bloqueia marcar o arranque como `Concluído` enquanto o verificador falhar. |
+  | Rastreabilidade (`rastreabilidade-hook.mjs`) | PostToolUse | Depois de cada escrita no plano ou no custo-benefício, devolve ao agente as decisões sem ligação a um pedido, para as reabrir no goal-loop. |
+  | Verificador semântico (`type: "agent"`) | PostToolUse | Um modelo lê o `objetivo.md` e confirma que cada decisão responde de facto ao que foi pedido e não contradiz restrições. Se não, devolve ao agente a lista de pontos para reabrir. É uma funcionalidade experimental do Claude Code e gasta tokens a cada edição. |
+
+**Limites:**
+- A guarda garante que a confirmação final está registada, mas não consegue provar quem a deu. Essa regra («o agente nunca responde pelo utilizador») está nas instruções da skill.
+- O verificador semântico é um julgamento de um modelo, não uma verificação determinística.
 
 ## Atualizar
 

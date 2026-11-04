@@ -33,6 +33,83 @@ function linhasDeTabela(texto = '') {
     .map((l) => l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()));
 }
 
+function cabecalhoDeTabela(texto = '') {
+  const l = texto.split(/\r?\n/).find((x) => /^\s*\|/.test(x));
+  return l ? l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()) : [];
+}
+
+function ler(pasta, nome, substituir) {
+  if (nome in substituir) return substituir[nome];
+  const p = join(pasta, nome);
+  return existsSync(p) ? readFileSync(p, 'utf8') : null;
+}
+
+// Estado de cada pergunta (P e S) registada em objetivo.md.
+function estadosDasPerguntas(objetivo) {
+  const obj = seccoes(semComentarios(objetivo));
+  const estados = new Map();
+  for (const c of linhasDeTabela(obj['Perguntas obrigatórias'])) estados.set(c[0], (c[2] || '').toLowerCase());
+  for (const c of linhasDeTabela(obj['Perguntas de seguimento'])) estados.set(c[0], (c[3] || '').toLowerCase());
+  return estados;
+}
+
+const POR_DEFINIR = /^\s*_por definir_\s*$/;
+
+/**
+ * Rastreabilidade: cada ação, decisão e o orquestrador respondem a perguntas (P/S) que existem e estão fechadas;
+ * com `cobertura`, todas as perguntas obrigatórias têm pelo menos uma ação ou decisão que lhes responde.
+ * @returns {string[]} lista de falhas
+ */
+export function verificarRastreabilidade(pasta, substituir = {}, { cobertura = true } = {}) {
+  const falhas = [];
+  const objetivo = ler(pasta, 'objetivo.md', substituir);
+  if (!objetivo) return falhas;
+  const estados = estadosDasPerguntas(objetivo);
+  const referidos = new Set();
+
+  const verificarRefs = (onde, valor) => {
+    const ids = (valor || '').match(/\b[PS]\d+\b/g) || [];
+    if (!ids.length) { falhas.push(`${onde}: sem «Responde a» (indica as perguntas P/S a que responde)`); return; }
+    for (const id of ids) {
+      referidos.add(id);
+      if (!estados.has(id)) falhas.push(`${onde}: «Responde a» cita ${id}, que não existe em objetivo.md`);
+      else if (!FECHADOS.has(estados.get(id))) falhas.push(`${onde}: apoia-se em ${id}, que ainda está «${estados.get(id) || 'sem estado'}»`);
+    }
+  };
+
+  const plano = ler(pasta, 'plano.md', substituir);
+  if (plano) {
+    const acoes = seccoes(semComentarios(plano))['Ações'];
+    const linhas = linhasDeTabela(acoes);
+    const col = cabecalhoDeTabela(acoes).findIndex((h) => /responde a/i.test(h));
+    if (linhas.length && col < 0) falhas.push('plano.md: a tabela «Ações» não tem a coluna «Responde a»');
+    else for (const c of linhas) verificarRefs(`plano.md: ação ${c[0]}`, c[col]);
+  }
+
+  const cb = ler(pasta, 'custo-beneficio.md', substituir);
+  if (cb) {
+    const s = seccoes(semComentarios(cb));
+    const decisoes = (s['Decisões'] || '').split(/^###\s+/m).slice(1);
+    for (const bloco of decisoes) {
+      const titulo = bloco.split(/\r?\n/)[0].trim();
+      if (/<decisão>/.test(titulo)) continue; // modelo ainda por preencher
+      const m = bloco.match(/\*\*Responde a:\*\*(.*)/);
+      if (!m) falhas.push(`custo-beneficio.md: decisão «${titulo}» sem linha «**Responde a:**»`);
+      else if (POR_DEFINIR.test(m[1]) && !cobertura) continue;
+      else verificarRefs(`custo-beneficio.md: decisão «${titulo}»`, m[1]);
+    }
+    const orq = (s['Orquestrador'] || '').match(/\*\*Responde a:\*\*(.*)/);
+    if (orq && !(POR_DEFINIR.test(orq[1]) && !cobertura)) verificarRefs('custo-beneficio.md: Orquestrador', orq[1]);
+  }
+
+  if (cobertura) {
+    for (const id of idsObrigatorios()) {
+      if (!referidos.has(id)) falhas.push(`rastreabilidade: ${id} não tem nenhuma ação, decisão ou orquestrador que lhe responda`);
+    }
+  }
+  return falhas;
+}
+
 function idsObrigatorios() {
   for (const p of [join(AQUI, 'PERGUNTAS.md'), join(AQUI, '..', 'PERGUNTAS.md')]) {
     if (existsSync(p)) {
@@ -106,6 +183,9 @@ export function verificar(pasta, substituir = {}) {
   // Os planos têm conteúdo.
   if (docs['plano.md'] && linhasDeTabela(seccoes(docs['plano.md'])['Ações']).length === 0) falhas.push('plano.md: tabela «Ações» vazia');
   if (docs['custo-beneficio.md'] && linhasDeTabela(seccoes(docs['custo-beneficio.md'])['Sessões']).length === 0) falhas.push('custo-beneficio.md: tabela «Sessões» vazia');
+
+  // Cada decisão responde a um pedido, e cada pedido tem resposta.
+  falhas.push(...verificarRastreabilidade(pasta, substituir, { cobertura: true }));
 
   return falhas;
 }
