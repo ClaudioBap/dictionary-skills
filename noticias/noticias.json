@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:31:01Z",
+  "atualizado_em": "2026-11-04T08:28:52Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -60,7 +60,10 @@
     "https://docs.junit.org/current/user-guide/": "2026-11-04",
     "https://www.slf4j.org/manual.html": "2026-11-04",
     "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html": "2026-11-04",
-    "https://inside.java/feed.xml": "2026-11-04"
+    "https://inside.java/feed.xml": "2026-11-04",
+    "https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history": "2026-11-04",
+    "https://devblogs.microsoft.com/dotnet/feed/": "2026-11-04",
+    "https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json": "2026-11-04"
   },
   "noticias": [
     {
@@ -409,6 +412,25 @@
       "confianca_motivo": "Fonte oficial com data, mas é um resumo sem a versão nem as regras alteradas.",
       "estado": "em-validacao",
       "alteracao": null,
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "csharp",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-03-dotnet-skills-em-pacotes-nuget",
+      "titulo": "Pacotes NuGet passam a distribuir agent skills",
+      "resumo": "Os pacotes NuGet podem incluir agent skills (ficheiros SKILL.md), que vão para a cache local no restore. O dotnet-inspect descobre-os e o dotnet-package-skills copia-os para .agents/skills no repositório. O uso direto pelos agentes fica para um artigo seguinte.",
+      "fonte_nome": ".NET Blog",
+      "fonte_url": "https://devblogs.microsoft.com/dotnet/delivering-skills-in-nuget-packages/",
+      "data_lancamento": "2026-11-03",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "csharp/ATUALIZACOES.md"
+      },
       "imagem": null,
       "video": null
     }
