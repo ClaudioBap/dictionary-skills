@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:47:18Z",
+  "atualizado_em": "2026-11-04T08:49:55Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -83,7 +83,12 @@
     "https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions": "2026-11-04",
     "https://docs.sigstore.dev/cosign/signing/overview/": "2026-11-04",
     "https://scorecard.dev/": "2026-11-04",
-    "https://slsa.dev/spec/v1.2/build-track-basics": "2026-11-04"
+    "https://slsa.dev/spec/v1.2/build-track-basics": "2026-11-04",
+    "https://docs.docker.com/build/building/best-practices/": "2026-11-04",
+    "https://docs.docker.com/compose/": "2026-11-04",
+    "https://docs.docker.com/engine/swarm/": "2026-11-04",
+    "https://kubernetes.io/releases/": "2026-11-04",
+    "https://github.com/aquasecurity/trivy": "2026-11-04"
   },
   "noticias": [
     {
@@ -545,6 +550,44 @@
       "alteracao": {
         "tipo": "atualizacao",
         "ficheiro": "cicd/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "docker",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-03-docker-engine-29-9-3-seguranca",
+      "titulo": "Docker Engine 29.9.3 corrige vulnerabilidades do Swarm e do BuildKit",
+      "resumo": "O Docker Engine 29.9.3 corrige várias vulnerabilidades, incluindo redes overlay do Swarm sem cifra depois de o firewalld limpar as regras do Docker e a possibilidade de um worker obter um certificado de manager. Inclui correções do BuildKit 0.34.2. Recomenda-se atualizar, sobretudo em clusters Swarm.",
+      "fonte_nome": "moby/moby releases",
+      "fonte_url": "https://github.com/moby/moby/releases/tag/docker-v29.9.3",
+      "data_lancamento": "2026-11-03",
+      "confianca": "alta",
+      "confianca_motivo": "Notas de lançamento oficiais, lidas diretamente, com data.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "docker/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "docker",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-docker-compose-5-7-0",
+      "titulo": "Docker Compose 5.7.0 descontinua --ignore-push-failures",
+      "resumo": "O Docker Compose 5.7.0 descontinua a opção --ignore-push-failures em favor de --ignore-missing e atualiza dependências com correções de segurança.",
+      "fonte_nome": "docker/compose releases",
+      "fonte_url": "https://github.com/docker/compose/releases/tag/v5.7.0",
+      "data_lancamento": "2026-11-02",
+      "confianca": "alta",
+      "confianca_motivo": "Notas de lançamento oficiais, lidas diretamente, com data.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "docker/ATUALIZACOES.md"
       },
       "imagem": null,
       "video": null
