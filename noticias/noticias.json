@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:16:48Z",
+  "atualizado_em": "2026-11-04T02:20:23Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -39,7 +39,11 @@
     "https://r3f.docs.pmnd.rs/getting-started/introduction": "2026-11-04",
     "https://www.khronos.org/gltf/": "2026-11-04",
     "https://gltf-transform.dev/": "2026-11-04",
-    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/": "2026-11-04"
+    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/": "2026-11-04",
+    "https://developers.google.com/search/updates": "2026-11-04",
+    "https://developers.google.com/search/blog": "2026-11-04",
+    "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history": "2026-11-04",
+    "https://ogp.me/": "2026-11-04"
   },
   "noticias": [
     {
@@ -282,6 +286,25 @@
       "alteracao": {
         "tipo": "atualizacao",
         "ficheiro": "3d-webgl/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "seo",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-30-google-controlo-partilhado-treino-ia",
+      "titulo": "Google vai suportar um controlo partilhado de treino de IA no robots.txt",
+      "resumo": "A Google anunciou que vai suportar, com outros fornecedores de IA e a partir de 2027, um controlo partilhado de treino de IA no robots.txt, baseado no IETF AIPREF. Se um site recusar o treino com o token comum e não indicar o Google-Extended, a Google trata-o como bloqueado. Os controlos próprios de cada empresa continuam a funcionar.",
+      "fonte_nome": "Google Search Central Blog",
+      "fonte_url": "https://developers.google.com/search/blog/2026/10/ai-training-control",
+      "data_lancamento": "2026-10-30",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "seo/ATUALIZACOES.md"
       },
       "imagem": null,
       "video": null
