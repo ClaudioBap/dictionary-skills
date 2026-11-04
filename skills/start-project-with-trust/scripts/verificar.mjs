@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Verifica se um arranque está completo. Sem dependências.
-// Uso: node verificar.mjs arranque/<projeto>
+// Uso: node verificar.mjs arranque/<projeto>             (plano: marco «Plano aprovado»)
+//      node verificar.mjs arranque/<projeto> --entrega   (plano e entrega: estado «Concluído»)
 // Sai com 0 se está completo; com 1 e a lista do que falta, se não está.
 
 import { readFileSync, existsSync } from 'node:fs';
@@ -197,17 +198,90 @@ export function verificar(pasta, substituir = {}) {
   // Cada decisão responde a um pedido, e cada pedido tem resposta.
   falhas.push(...verificarRastreabilidade(pasta, substituir, { cobertura: true }));
 
+  falhas.push(...segredosEmAcessos(pasta, substituir));
+  return falhas;
+}
+
+// Padrões de segredos que nunca podem estar no inventário de acessos.
+const SEGREDOS = [
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, 'chave privada'],
+  [/\b(password|passwd|pwd|senha|palavra-passe|token|secret|segredo)\s*[:=]\s*[^\s|`]{4,}/i, 'password ou token em texto'],
+  [/\bAKIA[0-9A-Z]{16}\b/, 'chave de acesso AWS'],
+  [/\bgh[pousr]_[A-Za-z0-9]{30,}\b/, 'token do GitHub'],
+  [/\bsk-[A-Za-z0-9_-]{20,}\b/, 'chave de API'],
+];
+
+function segredosEmAcessos(pasta, substituir = {}) {
+  const texto = ler(pasta, 'acessos.md', substituir);
+  if (!texto) return [];
+  const falhas = [];
+  texto.split(/\r?\n/).forEach((l, i) => {
+    for (const [re, tipo] of SEGREDOS) if (re.test(l)) falhas.push(`acessos.md, linha ${i + 1}: parece conter um segredo (${tipo}); guarda-o no cofre e deixa só a referência`);
+  });
+  return falhas;
+}
+
+/**
+ * Entrega: cada ação do plano foi executada e verificada com prova, a publicação e os acessos
+ * estão verificados (ou justificados como não aplicáveis) e o utilizador aceitou a entrega.
+ * @returns {string[]} lista de falhas
+ */
+export function verificarEntrega(pasta, substituir = {}) {
+  const bruto = ler(pasta, 'entrega.md', substituir);
+  if (!bruto) return ['entrega.md: ficheiro em falta'];
+  const falhas = [];
+  const texto = semComentarios(bruto);
+  const porDefinir = (texto.match(/_por definir_/g) || []).length;
+  if (porDefinir) falhas.push(`entrega.md: ${porDefinir} campo(s) «por definir»`);
+  if (/<(projeto|data)>/.test(texto)) falhas.push('entrega.md: marcadores do modelo por preencher');
+  const s = seccoes(texto);
+
+  const plano = ler(pasta, 'plano.md', substituir);
+  const acoes = plano ? linhasDeTabela(seccoes(semComentarios(plano))['Ações']).map((c) => c[0]) : [];
+  const execucao = new Map(linhasDeTabela(s['Execução']).map((c) => [c[0], c]));
+  const verificacao = new Map(linhasDeTabela(s['Verificação']).map((c) => [c[0], c]));
+  for (const n of acoes) {
+    const e = execucao.get(n);
+    if (!e) falhas.push(`entrega.md: ação ${n} sem linha em «Execução»`);
+    else if (!/^feito$/i.test(e[1] || '')) falhas.push(`entrega.md: ação ${n} está «${e[1] || 'sem estado'}» na execução`);
+    const v = verificacao.get(n);
+    if (!v) { falhas.push(`entrega.md: ação ${n} sem linha em «Verificação»`); continue; }
+    if (!(v[2] || '').trim()) falhas.push(`entrega.md: ação ${n} sem prova`);
+    if (!/✓/.test(v[3] || '')) falhas.push(`entrega.md: ação ${n} com resultado «${v[3] || 'vazio'}» (tem de ser ✓)`);
+  }
+
+  const naoAplicavel = (t = '') => /Não aplicável:\s*\S/i.test(t);
+  const pub = s['Publicação'] || '';
+  if (!/✓ Publicação verificada/.test(pub) && !naoAplicavel(pub)) {
+    falhas.push('entrega.md: «Publicação» sem a saída «✓ Publicação verificada» de verificar-publicacao.mjs, nem «Não aplicável:» com a razão');
+  }
+
+  const acessos = s['Acessos'] || '';
+  if (!naoAplicavel(acessos)) {
+    const inventario = ler(pasta, 'acessos.md', substituir);
+    if (!/acessos\.md/.test(acessos)) falhas.push('entrega.md: «Acessos» sem referência a acessos.md, nem «Não aplicável:» com a razão');
+    else if (!inventario) falhas.push('acessos.md: ficheiro em falta');
+    else if (!linhasDeTabela(seccoes(semComentarios(inventario))['Acessos']).length) falhas.push('acessos.md: tabela «Acessos» vazia');
+  }
+
+  const linha = (s['Aceitação'] || '').split(/\r?\n/).find((l) => /Entrega aceite/i.test(l)) || '';
+  if (!/^\s*-\s*\[[xX]\]/.test(linha)) falhas.push('entrega.md: aceitação da entrega pelo utilizador por marcar');
+  else if (!/aceite por:\s*\S.*,\s*em\s*\S/i.test(linha)) falhas.push('entrega.md: aceitação sem nome e data');
+
   return falhas;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const pasta = process.argv[2];
-  if (!pasta) { console.error('Uso: node verificar.mjs arranque/<projeto>'); process.exit(2); }
+  const entrega = process.argv.includes('--entrega');
+  if (!pasta) { console.error('Uso: node verificar.mjs arranque/<projeto> [--entrega]'); process.exit(2); }
   const falhas = verificar(resolve(pasta));
+  if (entrega) falhas.push(...verificarEntrega(resolve(pasta)));
   if (falhas.length) {
-    console.log(`✗ Arranque incompleto (${falhas.length} falha(s)):`);
+    console.log(`✗ ${entrega ? 'Entrega incompleta' : 'Arranque incompleto'} (${falhas.length} falha(s)):`);
     for (const f of falhas) console.log(`  - ${f}`);
     process.exit(1);
   }
-  console.log('✓ Arranque completo: todas as perguntas fechadas, documentos preenchidos e validados, confirmação registada.');
+  if (entrega) console.log('✓ Entrega verificada: cada ação feita e provada, publicação e acessos verificados, entrega aceite.');
+  else console.log('✓ Arranque completo: todas as perguntas fechadas, documentos preenchidos e validados, confirmação registada.');
 }

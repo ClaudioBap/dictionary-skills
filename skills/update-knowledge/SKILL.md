@@ -2,7 +2,10 @@
 name: update-knowledge
 description: Atualiza a base de conhecimento da skill start-project-with-trust e os dados do site de notícias. Percorre as fontes aprovadas em knowledge/FONTES.md, encontra novidades com a data de lançamento e um nível de confiança, propõe cada alteração com antes/depois e pede aprovação uma a uma, regista tudo no CHANGELOG e, com autorização, publica no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
 argument-hint: "Tema a atualizar (ex.: ia), ou nada para todos"
+disable-model-invocation: true
 ---
+
+> Só corre quando alguém a chama explicitamente (`/update-knowledge`). O agente nunca a inicia sozinho.
 
 # Atualizar o conhecimento
 

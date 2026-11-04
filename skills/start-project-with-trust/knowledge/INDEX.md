@@ -18,9 +18,9 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - O **resumo** condensa o texto da própria entrada, sem informação nova. O **conteúdo** segue o PDF; só se corrigiram quebras de linha e hifenização da extração.
 - «Ver também» liga entradas que o PDF repete ou relaciona noutras secções. A escolha das ligações é editorial.
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
-- **⚠️ Fora do PDF:** as secções `javascript/`, `node/` e `publicacao/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
+- **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/` e `acesso-remoto/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 23 secções; 238 entradas do PDF em 237 ficheiros; 37 entradas fora do PDF; 274 ficheiros de entrada no total.
+- Totais: 24 secções; 238 entradas do PDF em 237 ficheiros; 41 entradas fora do PDF; 278 ficheiros de entrada no total.
 
 ## Secções
 
@@ -367,3 +367,10 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Avaliação (evals)](ia/avaliacao-evals.md) — Medir a qualidade com evals antes e depois de cada mudança; sem evals, «melhorou» é opinião. *(pág. 69)*
 - [Otimização de custo da IA](ia/otimizacao-de-custo-da-ia.md) — Primeiro as poupanças grátis (caching, higiene de tokens), depois os trade-offs, medindo o custo por tarefa concluída. *(pág. 69)*
 - [Segurança e governação de IA](ia/seguranca-e-governacao-de-ia.md) — O conteúdo externo nunca comanda o agente, ações perigosas exigem aprovação e o uso de IA é auditado. *(pág. 69)*
+
+### 24. [Acesso remoto (SSH e RDP)](acesso-remoto/README.md) — ⚠️ fora do PDF (4 entradas)
+
+- [Acesso por identidade, sem portas abertas](acesso-remoto/acesso-por-identidade-sem-portas-abertas.md) — Em vez de abrir as portas 22 ou 3389, o acesso passa por um serviço que valida a identidade, aplica políticas e regista as sessões: AWS Session Manager, Cloudflare Access for Infrastructure, Tailscale SSH ou Azure Bastion. *(fora do PDF)*
+- [Inventário de acessos, sem segredos](acesso-remoto/inventario-de-acessos-sem-segredos.md) — Cada projeto mantém um inventário de quem acede a que servidor, por que via e com que método, revisto com regularidade, com as chaves e passwords guardadas num cofre e nunca no inventário. *(fora do PDF)*
+- [RDP protegido](acesso-remoto/rdp-protegido.md) — O RDP não fica aberto diretamente à Internet: passa por um RD Gateway com MFA ou por um serviço como o Azure Bastion, e exige sempre Network Level Authentication. *(fora do PDF)*
+- [SSH endurecido](acesso-remoto/ssh-endurecido.md) — No SSH entra-se só com chave (Ed25519, de preferência numa chave de hardware FIDO) ou certificado, nunca com password, sem login direto de root, só para os utilizadores autorizados e com o OpenSSH sempre na versão mais recente. *(fora do PDF)*

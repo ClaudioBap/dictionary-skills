@@ -1,17 +1,21 @@
 ---
 name: start-project-with-trust
-description: Arranca um projeto com um cliente. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), e só termina quando todas as perguntas estão respondidas e o utilizador confirma. Usar para iniciar ou retomar o arranque de um projeto.
+description: Arranca um projeto com um cliente e leva-o até à entrega verificada. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), fecha o marco «Plano aprovado», executa e só termina quando cada critério de sucesso tem prova e o utilizador aceita a entrega. Usar para iniciar ou retomar um projeto.
 argument-hint: "Nome do projeto, ou nada para retomar o último"
 ---
 
 # StartProjectWithTrust
 
-Conduz o arranque de um projeto em três fases e um goal-loop, sempre por esta ordem:
+Conduz um projeto do arranque à entrega verificada, sempre por esta ordem:
 
 1. **Descoberta**: perceber o que o cliente precisa.
 2. **Plano com o que temos**: cruzar as necessidades com `knowledge/`.
 3. **Plano custo-benefício**: opções, orquestrador e sessões.
-4. **Goal-loop**: voltar a perguntar até não haver nada em aberto e o utilizador confirmar.
+4. **Goal-loop**: voltar a perguntar até não haver nada em aberto e o utilizador confirmar. Termina no marco **«Plano aprovado»**.
+5. **Fase 4 — Execução**: fazer cada ação do plano.
+6. **Fase 5 — Verificação**: provar cada critério de sucesso, incluindo a publicação e os acessos, até o utilizador aceitar a entrega.
+
+O goal-loop só fecha com a entrega verificada (`Concluído`), não com o plano.
 
 Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`.
 
@@ -30,7 +34,7 @@ Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
 4. **Hooks do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/` ainda não existe no projeto, pergunta ao utilizador se quer instalar os três hooks. Explica-lhe o que cada um faz:
-   - **Guarda** (PreToolUse): impede marcar o arranque como `Concluído` enquanto o verificador encontrar falhas.
+   - **Guarda** (PreToolUse): impede marcar o estado como `Plano aprovado`, `Fase 4` ou `Fase 5` enquanto o verificador do plano encontrar falhas, e como `Concluído` enquanto o plano ou a entrega tiverem falhas.
    - **Rastreabilidade** (PostToolUse, determinística): depois de cada escrita no plano ou no custo-benefício, confirma que cada ação e decisão responde a perguntas do utilizador que existem e estão fechadas.
    - **Verificador semântico** (PostToolUse, usa um modelo; funcionalidade experimental do Claude Code): confirma que cada decisão responde de facto ao que o utilizador pediu e não contradiz as restrições dele. Gasta tokens a cada edição desses ficheiros.
 
@@ -74,6 +78,8 @@ Opções, da mais barata à mais cara:
 - a um «não sei», propõe um pressuposto. Só se o utilizador o aceitar explicitamente é que a pergunta fica `assumida`.
 
 **Depois de cada resposta**, atualiza `objetivo.md` (estado e resposta resumida) e a secção certa de `necessidades.md`.
+
+**Acesso remoto (P15).** Se a resposta a P15 indica servidores ou máquinas com acesso SSH ou RDP, cria `acessos.md` a partir de `modelos/acessos.md` e regista uma linha por acesso. **Nunca escrevas lá chaves, passwords nem tokens**: só a referência ao cofre onde estão. O verificador falha se encontrar um segredo. Base: `knowledge/acesso-remoto/`.
 
 **Fim da Fase 1.** Quando nenhuma pergunta obrigatória estiver `aberta`, mostra o resumo de `necessidades.md` e pede validação. Se o utilizador corrigir algo, atualiza e volta a pedir. Só depois de validado é que passas à Fase 2.
 
@@ -157,16 +163,49 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
      ```
 
 5. **Resposta à confirmação.**
-   - **Sim:** marca a confirmação em `objetivo.md` com o nome do utilizador e a data, e **corre outra vez o verificador, mostrando a saída**. Só com `✓` é que mudas o estado para `Concluído` e terminas com o relatório final.
+   - **Sim:** marca a confirmação em `objetivo.md` com o nome do utilizador e a data, e **corre outra vez o verificador, mostrando a saída**. Só com `✓` é que mudas o estado para `Plano aprovado` e passas à Fase 4.
    - **Não:** o que faltar passa a pergunta `aberta`, e voltas ao passo 1.
+
+## Fase 4 — Execução
+
+1. Muda o estado para `Fase 4` e cria `entrega.md` a partir de `modelos/entrega.md`.
+2. Executa as ações do plano pela ordem e com as sessões decididas em `custo-beneficio.md`. Como orquestrador, pede ao utilizador para abrir as sessões em paralelo, com o briefing de cada uma.
+3. Por cada ação terminada, preenche a linha em «Execução» com o mesmo número do plano: `feito` e onde ficou (commit, ficheiro ou URL).
+4. Uma ação que não se consegue fazer como planeado não se muda em silêncio: passa a pergunta `aberta` em `objetivo.md`, voltas ao goal-loop com o utilizador, e o plano revisto volta a ser validado.
+
+## Fase 5 — Verificação com prova
+
+1. Muda o estado para `Fase 5`. Para cada ação, copia o critério de sucesso do plano para «Verificação» e prova-o: corre o comando ou o teste e cola a saída, ou indica o URL ou o ficheiro que qualquer pessoa pode abrir. Resultado `✓` só com prova. Se der `✗`, corrige (Fase 4) e volta a provar.
+2. **Publicação (P14).** Se o projeto está exposto, corre e cola em «Publicação» a saída completa de:
+
+   ```
+   node <pasta desta skill>/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho da administração, sem barra inicial, ou URL completo>
+   ```
+
+   O script confirma que o HTTP redireciona para HTTPS, que o certificado é válido, que o TLS é 1.2 ou superior, que os cabeçalhos de segurança estão presentes e que a área de administração não abre sem login. Tem de terminar com `✓ Publicação verificada`. Sem exposição pública, escreve «Não aplicável:» e a razão.
+3. **Acessos (P15).** Revê `acessos.md` com o utilizador: cada acesso confirmado e a data de revisão atualizada. Em «Acessos», escreve «Ver acessos.md, revisto em <data>», ou «Não aplicável:» e a razão.
+4. Corre o verificador da entrega e mostra a saída completa:
+
+   ```
+   node <pasta desta skill>/scripts/verificar.mjs arranque/<projeto> --entrega
+   ```
+
+   Cada falha passa a pergunta `aberta` ou a trabalho da Fase 4. Quando a única falha for a aceitação, pede-a:
+
+   ```
+   ✅ Todas as ações estão feitas e provadas (<n> de <n>), a publicação e os acessos estão verificados. Aceitas a entrega?
+   ```
+
+5. **Sim:** marca a aceitação em `entrega.md` com o nome do utilizador e a data, corre outra vez o verificador da entrega e mostra a saída. Só com `✓ Entrega verificada` é que mudas o estado para `Concluído` e terminas com o relatório final. **Não:** o que faltar volta à Fase 4 ou ao goal-loop.
 
 ## Definição de feito
 
-O arranque está feito quando, e só quando, se cumprem as três condições:
+O projeto está feito quando, e só quando, se cumprem as quatro condições:
 
-- [ ] o verificador foi corrido **depois** da confirmação final, e a saída, mostrada ao utilizador nesta conversa, é `✓ Arranque completo`;
-- [ ] a confirmação final foi dada pelo utilizador, por palavras dele, e não deduzida por ti;
-- [ ] o estado em `objetivo.md` é `Concluído`. Se a guarda estiver instalada, só consegue lá chegar com o verificador verde.
+- [ ] o marco «Plano aprovado» foi atingido com `✓ Arranque completo` depois da confirmação final do utilizador;
+- [ ] o verificador da entrega (`--entrega`) foi corrido **depois** da aceitação, e a saída, mostrada ao utilizador nesta conversa, é `✓ Entrega verificada`;
+- [ ] a confirmação do plano e a aceitação da entrega foram dadas pelo utilizador, por palavras dele, e não deduzidas por ti;
+- [ ] o estado em `objetivo.md` é `Concluído`. Se a guarda estiver instalada, só consegue lá chegar com os dois verificadores verdes.
 
 Enquanto uma destas não se cumprir, o goal-loop continua.
 
@@ -178,7 +217,8 @@ Enquanto uma destas não se cumprir, o goal-loop continua.
 ## Relatório final
 
 Ao terminar, mostra:
-- os caminhos dos quatro documentos;
+- os caminhos dos documentos (`objetivo.md`, `necessidades.md`, `plano.md`, `custo-beneficio.md`, `entrega.md` e, se existir, `acessos.md`);
+- a saída final de `verificar.mjs --entrega` e de `verificar-publicacao.mjs`;
 - o número de perguntas respondidas e assumidas;
 - os pressupostos aceites;
 - as lacunas que ficam para o projeto resolver;

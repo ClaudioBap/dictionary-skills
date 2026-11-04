@@ -285,6 +285,25 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Coraza releases](https://github.com/corazawaf/coraza/releases) | Novas versões do motor WAF Coraza |
 | [Bunny Shield planos](https://bunny.net/shield/) | Preços e limites da alternativa europeia de WAF |
 
+## [Acesso remoto (SSH e RDP)](acesso-remoto/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [OpenSSH release notes](https://www.openssh.org/releasenotes.html) | versões do OpenSSH, correções de segurança e depreciações |
+| [OpenSSH security](https://www.openssh.org/security.html) | vulnerabilidades corrigidas por versão |
+| [sshd_config(5)](https://man.openbsd.org/sshd_config) | opções e valores por omissão do servidor SSH |
+| [ssh-keygen(1)](https://man.openbsd.org/ssh-keygen) | tipos de chave, chaves FIDO e certificados SSH |
+| [NIST IR 7966](https://csrc.nist.gov/pubs/ir/7966/final) | gestão de acessos e chaves SSH numa organização |
+| [NIST SP 800-46 Rev. 2](https://csrc.nist.gov/pubs/sp/800/46/r2/final) | segurança do acesso remoto e teletrabalho |
+| [Permitir acesso por Remote Desktop](https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-allow-access) | NLA e condições do acesso RDP |
+| [RD Gateway role](https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/remote-desktop-gateway-role) | RDP através da Internet sem expor as máquinas |
+| [RD Gateway com Entra MFA](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-nps-extension-rdg) | MFA no RD Gateway pela extensão NPS |
+| [Azure Bastion](https://learn.microsoft.com/en-us/azure/bastion/bastion-overview) | RDP/SSH para VMs sem IP público; SKUs |
+| [AWS Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) | acesso sem portas abertas, bastion nem chaves SSH |
+| [Cloudflare: aplicações não-HTTP](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/non-http/) | SSH/RDP atrás do Access, certificados de curta duração |
+| [Tailscale SSH](https://tailscale.com/kb/1193/tailscale-ssh) | SSH por identidade na tailnet, check mode e gravação |
+| [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | cofre e ciclo de vida dos segredos |
+
 ## [Construir com IA (Claude e Anthropic)](ia/README.md)
 
 | Fonte | Para quê |
@@ -324,3 +343,4 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Publicação | Calendário de validade máxima nas Baseline Requirements (100 dias em 2027, 47 em 2029) | [https://cabforum.org/working-groups/server/baseline-requirements/requirements/](https://cabforum.org/working-groups/server/baseline-requirements/requirements/) |
 | Publicação | Regras geridas WAF disponíveis no plano Free da Cloudflare | [https://developers.cloudflare.com/waf/managed-rules/](https://developers.cloudflare.com/waf/managed-rules/) |
 | Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |
+| Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6 a 2026-10-06; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |

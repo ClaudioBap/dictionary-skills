@@ -1,6 +1,6 @@
 # Objetivo — <projeto>
 
-- **Estado:** Fase 1 <!-- Fase 1 | Fase 2 | Fase 3 | Goal-loop | Concluído -->
+- **Estado:** Fase 1 <!-- Fase 1 | Fase 2 | Fase 3 | Goal-loop | Plano aprovado | Fase 4 | Fase 5 | Concluído -->
 - **Última atualização:** <data>
 
 O arranque só termina quando nenhuma pergunta estiver `aberta` e a confirmação final estiver registada.

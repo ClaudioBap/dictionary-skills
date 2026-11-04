@@ -17,6 +17,7 @@ As pistas «Liga a» indicam as pastas de `knowledge/` a consultar na Fase 2.
 | P7 | Prazo | Há datas fixas ou marcos? | `governacao/` |
 | P8 | Orçamento | Qual é o limite de orçamento e o modelo de custo aceitável? | `custo/`, `nuvem/` |
 | P9 | Recursos | Que equipa, competências, infraestrutura e licenças estão disponíveis? | `infraestrutura/`, `nuvem/`, `cicd/` |
+| P15 | Acesso remoto | Há servidores ou máquinas a que alguém precisa de aceder remotamente (SSH ou RDP)? Quem, a partir de onde e por que via? | `acesso-remoto/`, `infraestrutura/` |
 | P10 | Restrições técnicas | Há tecnologia imposta ou proibida? | `python/`, `java/`, `csharp/`, `javascript/`, `node/`, `docker/`, `api/` |
 | P11 | Dados e conformidade | Há dados pessoais ou sensíveis? Há exigências de RGPD ou de jurisdição? | `privacidade/`, `soberania/`, `seguranca/` |
 | P12 | Riscos | O que pode correr mal, e o que seria inaceitável? | `seguranca/`, `fiabilidade/` |

@@ -23,3 +23,9 @@ Registo **append-only** de cada alteração aprovada a `knowledge/`: o quê, por
 | 2026-11-04 | Entrada da secção Publicação | publicacao/expor-um-servico-local.md | ver a entrada | — | alta | Cláudio Baptista |
 | 2026-11-04 | Entrada da secção Publicação | publicacao/limites-e-condicoes-dos-planos-gratuitos.md | ver a entrada | — | alta | Cláudio Baptista |
 | 2026-11-04 | Entrada da secção Publicação | publicacao/waf-e-protecao-ddos.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Nova secção «Acesso remoto (SSH e RDP)» (4 entradas: SSH endurecido, RDP protegido, acesso por identidade, inventário de acessos sem segredos), a pedido do utilizador | acesso-remoto/ | Fontes oficiais (OpenSSH, NIST, Microsoft, AWS, Cloudflare, Tailscale, OWASP) | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/ssh-endurecido.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/rdp-protegido.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/acesso-por-identidade-sem-portas-abertas.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Entrada da secção Acesso remoto | acesso-remoto/inventario-de-acessos-sem-segredos.md | ver a entrada | — | alta | Cláudio Baptista |
+| 2026-11-04 | Registo de fontes e «A vigiar» da secção Acesso remoto (versão do OpenSSH) | FONTES.md | Pedido do utilizador | — | alta | Cláudio Baptista |
