@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:20:23Z",
+  "atualizado_em": "2026-11-04T02:23:05Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -43,7 +43,11 @@
     "https://developers.google.com/search/updates": "2026-11-04",
     "https://developers.google.com/search/blog": "2026-11-04",
     "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history": "2026-11-04",
-    "https://ogp.me/": "2026-11-04"
+    "https://ogp.me/": "2026-11-04",
+    "https://spec.openapis.org/oas/latest.html": "2026-11-04",
+    "https://graphql.org/learn/security/": "2026-11-04",
+    "https://docs.pact.io/": "2026-11-04",
+    "https://www.rfc-editor.org/": "2026-11-04"
   },
   "noticias": [
     {
