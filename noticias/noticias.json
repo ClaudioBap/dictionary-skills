@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:28:45Z",
+  "atualizado_em": "2026-11-04T02:31:01Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -55,7 +55,12 @@
     "https://mypy.readthedocs.io/en/stable/getting_started.html": "2026-11-04",
     "https://docs.pytest.org/en/stable/explanation/goodpractices.html": "2026-11-04",
     "https://blog.python.org/": "2026-11-04",
-    "https://pyfound.blogspot.com/": "2026-11-04"
+    "https://pyfound.blogspot.com/": "2026-11-04",
+    "https://docs.oracle.com/en/java/javase/": "2026-11-04",
+    "https://docs.junit.org/current/user-guide/": "2026-11-04",
+    "https://www.slf4j.org/manual.html": "2026-11-04",
+    "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html": "2026-11-04",
+    "https://inside.java/feed.xml": "2026-11-04"
   },
   "noticias": [
     {
@@ -372,6 +377,38 @@
         "tipo": "atualizacao",
         "ficheiro": "base-de-dados/ATUALIZACOES.md"
       },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "java",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-30-jdk-27-alteracoes-gc",
+      "titulo": "JDK 27: alterações nos coletores G1, Parallel e Serial",
+      "resumo": "O Inside Java aponta para um artigo sobre as alterações do JDK 27 nos coletores de lixo stop-the-world (G1, Parallel e Serial) da HotSpot VM. O resumo não detalha as alterações; os pormenores estão no artigo original.",
+      "fonte_nome": "Inside Java (Oracle)",
+      "fonte_url": "https://inside.java/2026/10/30/jdk27-gc-changes/",
+      "data_lancamento": "2026-10-30",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial, mas indireta: a página é só um resumo que remete para o artigo original, que não foi lido.",
+      "estado": "em-validacao",
+      "alteracao": null,
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "java",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-28-java-secure-coding-guidelines",
+      "titulo": "Java Secure Coding Guidelines atualizadas",
+      "resumo": "A Oracle apresenta atualizações às Secure Coding Guidelines for Java SE, com cobertura alargada de validação de entradas, serialização e outros temas. A página não indica a versão nem as regras alteradas.",
+      "fonte_nome": "Inside Java (Oracle)",
+      "fonte_url": "https://inside.java/2026/10/28/java-secure-coding-guidelines/",
+      "data_lancamento": "2026-10-28",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial com data, mas é um resumo sem a versão nem as regras alteradas.",
+      "estado": "em-validacao",
+      "alteracao": null,
       "imagem": null,
       "video": null
     }
