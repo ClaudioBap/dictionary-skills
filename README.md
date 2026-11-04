@@ -39,6 +39,22 @@ A skill trabalha na pasta `arranque/<nome-do-projeto>/` e cria lá quatro docume
 
 Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou.
 
+## Como o goal-loop é garantido
+
+- **Verificador** (`scripts/verificar.mjs`, Node, sem dependências). Falha enquanto houver:
+  - perguntas abertas;
+  - campos «por definir»;
+  - validações por marcar;
+  - confirmação final sem nome e data.
+
+  A skill tem de o correr e mostrar a saída antes de terminar. Também o podes correr tu:
+  ```bash
+  node .claude/skills/start-project-with-trust/scripts/verificar.mjs arranque/<projeto>
+  ```
+- **Guarda** (`scripts/guarda-hook.mjs`, só no Claude Code). É um hook `PreToolUse` que a skill propõe instalar no projeto na primeira execução. Bloqueia qualquer escrita que marque o arranque como `Concluído` enquanto o verificador falhar.
+
+**Limite:** a guarda garante que a confirmação final está registada, mas não consegue provar quem a deu. Essa regra («o agente nunca responde pelo utilizador») está nas instruções da skill.
+
 ## Atualizar
 
 ```bash
@@ -52,6 +68,7 @@ skills/start-project-with-trust/
 ├── SKILL.md        instruções das fases e do goal-loop
 ├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos quatro documentos
+├── scripts/        verificador e guarda do goal-loop
 └── knowledge/      base de conhecimento (comece por knowledge/INDEX.md)
 ```
 

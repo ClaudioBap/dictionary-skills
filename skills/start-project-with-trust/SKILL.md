@@ -13,7 +13,7 @@ Conduz o arranque de um projeto em três fases e um goal-loop, sempre por esta o
 3. **Plano custo-benefício**: opções, orquestrador e sessões.
 4. **Goal-loop**: voltar a perguntar até não haver nada em aberto e o utilizador confirmar.
 
-Os caminhos `knowledge/`, `modelos/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`.
+Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`.
 
 ## Regras em todas as fases
 
@@ -22,12 +22,27 @@ Os caminhos `knowledge/`, `modelos/` e `PERGUNTAS.md` são relativos à pasta de
 - **Uma pergunta de cada vez**, sempre no formato da Fase 1, e espera pela resposta.
 - **O estado vive em ficheiro.** Depois de cada resposta, atualiza os documentos em `arranque/<projeto>/` antes de fazer a pergunta seguinte.
 - **Não saltar fases.** Cada fase termina com validação do utilizador.
+- **Nunca respondes pelo utilizador.** Validações, pressupostos aceites e a confirmação final só se marcam quando o utilizador os deu na própria mensagem.
 
 ## Início
 
 1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Se o utilizador não disser o nome do projeto, pergunta-o.
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
+4. **Guarda do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/guarda-hook.mjs` ainda não existe no projeto, pergunta ao utilizador se a quer instalar. Explica-lhe que é um hook que impede marcar o arranque como `Concluído` enquanto o verificador encontrar falhas. Se ele aceitar:
+   1. copia `scripts/verificar.mjs`, `scripts/guarda-hook.mjs` e `PERGUNTAS.md` para `.claude/hooks/start-project-with-trust/`;
+   2. acrescenta esta entrada a `hooks.PreToolUse` em `.claude/settings.json`. Se o ficheiro não existe, cria-o. Se já existe, não apagues nada do que lá está:
+      ```json
+      {
+        "matcher": "Write|Edit|MultiEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/start-project-with-trust/guarda-hook.mjs\"" }
+        ]
+      }
+      ```
+   3. diz ao utilizador que a guarda pode só ficar ativa depois de reiniciar a sessão ou de a rever em `/hooks`.
+
+   Se ele recusar, ou se o agente não for o Claude Code, continua: o verificador do goal-loop aplica-se na mesma.
 
 Os estados possíveis de cada pergunta em `objetivo.md`:
 - `aberta`: ainda sem resposta.
@@ -98,14 +113,32 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
    - atualiza os documentos afetados;
    - se a resposta muda necessidades, revê as partes do plano e do custo-benefício que dependem delas;
    - volta ao passo 1.
-4. **Se já não há nenhuma `aberta`**, pede a confirmação final:
+4. **Se já não há nenhuma `aberta`**, corre o verificador e mostra ao utilizador a saída completa:
 
    ```
-   ✅ Todas as perguntas estão fechadas (<n> respondidas, <m> assumidas). Confirmas que chegámos a um entendimento comum e que o arranque está completo?
+   node <pasta desta skill>/scripts/verificar.mjs arranque/<projeto>
    ```
 
-   - **Sim:** regista a confirmação em `objetivo.md`, muda o estado para `Concluído` e termina com o relatório final.
+   - Se falhar por outra razão que não a confirmação final, cada falha passa a pergunta `aberta`, e voltas ao passo 1.
+   - Se a única falha for a confirmação final, pede-a:
+
+     ```
+     ✅ Todas as perguntas estão fechadas (<n> respondidas, <m> assumidas). Confirmas que chegámos a um entendimento comum e que o arranque está completo?
+     ```
+
+5. **Resposta à confirmação.**
+   - **Sim:** marca a confirmação em `objetivo.md` com o nome do utilizador e a data, e **corre outra vez o verificador, mostrando a saída**. Só com `✓` é que mudas o estado para `Concluído` e terminas com o relatório final.
    - **Não:** o que faltar passa a pergunta `aberta`, e voltas ao passo 1.
+
+## Definição de feito
+
+O arranque está feito quando, e só quando, se cumprem as três condições:
+
+- [ ] o verificador foi corrido **depois** da confirmação final, e a saída, mostrada ao utilizador nesta conversa, é `✓ Arranque completo`;
+- [ ] a confirmação final foi dada pelo utilizador, por palavras dele, e não deduzida por ti;
+- [ ] o estado em `objetivo.md` é `Concluído`. Se a guarda estiver instalada, só consegue lá chegar com o verificador verde.
+
+Enquanto uma destas não se cumprir, o goal-loop continua.
 
 **Não há outra saída do loop.** Se o utilizador quiser parar a meio:
 - guarda o estado;
