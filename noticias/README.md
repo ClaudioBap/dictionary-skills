@@ -34,6 +34,7 @@
 | `data_lancamento` | A data que a fonte indica; `null` se a fonte não a indicar (nunca inventada) |
 | `confianca` | `alta`, `media` ou `baixa` (critérios em `skills/update-knowledge/SKILL.md`) |
 | `estado` | `aprovada`, `so-noticia` (aprovada para o site, sem alterar o conhecimento), `em-validacao` (confiança `media`: os visitantes votam e o admin decide se entra no `ATUALIZACOES.md` da secção) ou `rejeitada` |
+| `imagem`, `video` | Opcionais. URL da imagem de pré-visualização que a própria fonte publica (`og:image`) e de um vídeo oficial incorporado na página da fonte (ex.: YouTube do fornecedor). Ligados, nunca copiados para o repositório; `null` se a fonte não tiver. O site mostra-os com a fonte como crédito |
 | `alteracao` | `null`, ou o tipo (`atualizacao`, `nova-entrada`, `correcao`, `fonte`) e o ficheiro de `knowledge/` alterado |
 | `fontes_verificadas` | Última data em que cada fonte foi percorrida; a próxima corrida procura novidades a partir daí |
 

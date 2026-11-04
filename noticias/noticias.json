@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T12:00:00Z",
+  "atualizado_em": "2026-11-04T02:03:32Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -14,7 +14,13 @@
     "https://digital-strategy.ec.europa.eu/en/policies/ai-office": "2026-11-04",
     "https://www.edpb.europa.eu/our-work-tools/our-documents/statements/statement-32024-data-protection-authorities-role-artificial_en": "2026-11-04",
     "https://www.nist.gov/itl/ai-risk-management-framework": "2026-11-04",
-    "https://oecd.ai/en/": "2026-11-04"
+    "https://oecd.ai/en/": "2026-11-04",
+    "https://cheatsheetseries.owasp.org/": "2026-11-04",
+    "https://top10.owasp.org/": "2026-11-04",
+    "https://asvs.owasp.org/": "2026-11-04",
+    "https://api-security.owasp.org/": "2026-11-04",
+    "https://csrc.nist.gov/": "2026-11-04",
+    "https://www.enisa.europa.eu/": "2026-11-04"
   },
   "noticias": [
     {
@@ -57,7 +63,10 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
     },
     {
       "id": "2026-10-29-claude-usage-cost-analytics-api",
@@ -71,7 +80,10 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
     },
     {
       "id": "2026-10-28-claude-pedido-maximo-128-mb",
@@ -85,7 +97,10 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
     },
     {
       "id": "2026-10-30-openai-gpt-6-rosalind",
@@ -99,7 +114,10 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
     },
     {
       "id": "2026-10-29-openai-gpt-6-luna-atualizacao",
@@ -113,7 +131,10 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
     },
     {
       "id": "2026-10-28-openai-creditos-api-chatgpt",
@@ -127,7 +148,89 @@
       "confianca": "alta",
       "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
       "estado": "aprovada",
-      "alteracao": { "tipo": "atualizacao", "ficheiro": "ia/ATUALIZACOES.md" }
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "ia/ATUALIZACOES.md"
+      }
+    },
+    {
+      "tema": "seguranca",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-nist-cswp-50-substitui-ir-7621",
+      "titulo": "NIST CSWP 50 substitui o IR 7621 Rev. 1",
+      "resumo": "O NIST publicou o CSWP 50 «Small Business Cybersecurity: Non-Employer Firms», que substitui na totalidade o NIST IR 7621 Revision 1 (2016).",
+      "fonte_nome": "NIST CSRC",
+      "fonte_url": "https://csrc.nist.gov/News/2026/small-biz-cybersecurity-non-employer-firms-final",
+      "data_lancamento": "2026-11-02",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida diretamente, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "seguranca/ATUALIZACOES.md"
+      }
+    },
+    {
+      "tema": "seguranca",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-01-owasp-csrf-samesite-lax",
+      "titulo": "OWASP: SameSite=Lax deve ser definido explicitamente",
+      "resumo": "A CSRF Prevention Cheat Sheet deixa de afirmar que os browsers aplicam SameSite=Lax por omissão: os valores por omissão variam, e definir SameSite=Lax explicitamente evita o mais permissivo.",
+      "fonte_nome": "OWASP Cheat Sheet Series",
+      "fonte_url": "https://github.com/OWASP/CheatSheetSeries/pull/2881",
+      "data_lancamento": "2026-11-01",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária (repositório do projeto), lida diretamente, com data de integração.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "seguranca/ATUALIZACOES.md"
+      }
+    },
+    {
+      "tema": "seguranca",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-01-owasp-xss-escapar-todos-os-valores",
+      "titulo": "OWASP: escapar por omissão todos os valores mostrados",
+      "resumo": "A XSS Prevention Cheat Sheet passa a recomendar escapar por omissão todos os valores mostrados, e não decidir caso a caso o que não é de confiança.",
+      "fonte_nome": "OWASP Cheat Sheet Series",
+      "fonte_url": "https://github.com/OWASP/CheatSheetSeries/pull/2889",
+      "data_lancamento": "2026-11-01",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária (repositório do projeto), lida diretamente, com data de integração.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "seguranca/ATUALIZACOES.md"
+      }
+    },
+    {
+      "tema": "seguranca",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-01-owasp-segredos-na-nuvem-simplificado",
+      "titulo": "OWASP: orientação de segredos na nuvem simplificada",
+      "resumo": "Na Secrets Management Cheat Sheet, a secção de fornecedores de nuvem é encurtada e ganha critérios de escolha do serviço (controlo de acesso, rotação, cifra, registo de auditoria, versões). Um HSM dedicado só se justifica quando a regulação, um contrato ou a política exigem custódia exclusiva.",
+      "fonte_nome": "OWASP Cheat Sheet Series",
+      "fonte_url": "https://github.com/OWASP/CheatSheetSeries/pull/2869",
+      "data_lancamento": "2026-11-01",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial, mas o conteúdo foi lido a partir de excertos da revisão e não do ficheiro final.",
+      "estado": "em-validacao",
+      "alteracao": null
+    },
+    {
+      "tema": "seguranca",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-30-owasp-rust-csprng",
+      "titulo": "OWASP: orientação de geradores aleatórios seguros em Rust atualizada",
+      "resumo": "Uma cheat sheet da OWASP atualiza a orientação sobre geradores de números aleatórios criptograficamente seguros em Rust, com escolhas seguras e inseguras numa tabela.",
+      "fonte_nome": "OWASP Cheat Sheet Series",
+      "fonte_url": "https://github.com/OWASP/CheatSheetSeries/pull/2882",
+      "data_lancamento": "2026-10-30",
+      "confianca": "media",
+      "confianca_motivo": "Fonte oficial, lida só em parte: o pormenor vem de uma revisão automática e a cheat sheet não é indicada.",
+      "estado": "em-validacao",
+      "alteracao": null
     }
   ]
 }
