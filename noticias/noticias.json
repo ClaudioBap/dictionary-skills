@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:43:52Z",
+  "atualizado_em": "2026-11-04T08:47:18Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -78,7 +78,12 @@
     "https://agents.md/": "2026-11-04",
     "https://diataxis.fr/": "2026-11-04",
     "https://adr.github.io/": "2026-11-04",
-    "https://keepachangelog.com/en/1.1.0/": "2026-11-04"
+    "https://keepachangelog.com/en/1.1.0/": "2026-11-04",
+    "https://github.blog/changelog/label/actions/feed/": "2026-11-04",
+    "https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions": "2026-11-04",
+    "https://docs.sigstore.dev/cosign/signing/overview/": "2026-11-04",
+    "https://scorecard.dev/": "2026-11-04",
+    "https://slsa.dev/spec/v1.2/build-track-basics": "2026-11-04"
   },
   "noticias": [
     {
@@ -483,6 +488,63 @@
       "alteracao": {
         "tipo": "atualizacao",
         "ficheiro": "estrutura/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "cicd",
+      "data_recolha": "2026-11-04",
+      "id": "2026-11-02-github-pull-request-target-bloqueado",
+      "titulo": "GitHub Actions bloqueia pull_request_target por omissão a 2 de dezembro",
+      "resumo": "A partir de 2026-12-02, o GitHub Actions bloqueia por omissão os eventos pull_request_target em repositórios públicos, salvo se uma política de eventos os permitir. Há bloqueios temporários a 9 e 16 de novembro, das 16:00 às 18:00 UTC. Os repositórios privados e internos não são afetados.",
+      "fonte_nome": "GitHub Changelog",
+      "fonte_url": "https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2",
+      "data_lancamento": "2026-11-02",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "cicd/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "cicd",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-28-github-actions-lockfiles-ga",
+      "titulo": "Lockfiles de workflows do GitHub Actions disponíveis para todos",
+      "resumo": "Os lockfiles de workflows (.github/workflows/actions.lock) permitem manter referências por tag e executar os commits exatos registados, incluindo dependências transitivas. O Dependabot atualiza-os e os administradores podem exigi-los.",
+      "fonte_nome": "GitHub Changelog",
+      "fonte_url": "https://github.blog/changelog/2026-10-28-github-actions-workflow-lockfiles-are-generally-available",
+      "data_lancamento": "2026-10-28",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "cicd/ATUALIZACOES.md"
+      },
+      "imagem": null,
+      "video": null
+    },
+    {
+      "tema": "cicd",
+      "data_recolha": "2026-11-04",
+      "id": "2026-10-28-github-agentic-workflows-ga",
+      "titulo": "GitHub Agentic Workflows disponível para todos",
+      "resumo": "Os workflows com agentes de código, escritos em Markdown e compilados para YAML do Actions, estão disponíveis em todos os planos do github.com, com permissões só de leitura por omissão, contentor isolado e deteção de ameaças nas alterações propostas.",
+      "fonte_nome": "GitHub Changelog",
+      "fonte_url": "https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available",
+      "data_lancamento": "2026-10-28",
+      "confianca": "alta",
+      "confianca_motivo": "Fonte oficial primária, lida por completo, com data explícita.",
+      "estado": "aprovada",
+      "alteracao": {
+        "tipo": "atualizacao",
+        "ficheiro": "cicd/ATUALIZACOES.md"
       },
       "imagem": null,
       "video": null
