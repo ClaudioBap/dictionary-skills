@@ -3,20 +3,21 @@ id: node/estrutura-de-projeto
 titulo: "Estrutura de projeto"
 seccao: "Boas práticas de Node.js"
 paginas: []
-fonte: "Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF."
+fonte: "Fontes oficiais (documentação do Node.js, npm, OWASP, Docker e projetos citados), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF."
 verificado_em: 2026-11-03
 ---
 
 # Estrutura de projeto
 
-**Resumo:** Módulos ES, camadas separadas (rotas, serviços, acesso a dados) e um módulo por responsabilidade.
+**Resumo:** Módulos ES com `type` declarado, imports internos com `#` e API pública declarada em `exports`.
 
 ## Conteúdo
 
-- Módulos ES (`"type": "module"`) em código novo.
-- Separar camadas: rotas/controladores, serviços com a lógica de negócio e acesso a dados; a lógica não depende do framework HTTP.
-- Um módulo por responsabilidade; evitar ficheiros gigantes e dependências circulares.
+- Usar módulos ES, o formato padrão; declarar sempre o campo `type` no `package.json`. — [nodejs.org/api/esm.html](https://nodejs.org/api/esm.html), [nodejs.org/api/packages.html](https://nodejs.org/api/packages.html)
+- **Utilidade:** imports internos com `#` (campo `imports`) em vez de caminhos relativos longos. — [nodejs.org/api/packages.html](https://nodejs.org/api/packages.html)
+- Em pacotes, declarar a API pública com o campo `exports`. — [nodejs.org/api/packages.html](https://nodejs.org/api/packages.html)
+- Separar rotas, lógica de negócio e acesso a dados, para a lógica não depender do framework HTTP; um módulo por responsabilidade e sem dependências circulares. *(sem fonte oficial)*
 
-**Para uma skill:** a lógica de negócio está fora das rotas e pode ser testada sem servidor HTTP.
+**Para uma skill:** o código usa ESM e o `package.json` declara `type`.
 
-Fonte: Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF.
+Fonte: Fontes oficiais (documentação do Node.js, npm, OWASP, Docker e projetos citados), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF.

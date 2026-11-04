@@ -3,25 +3,26 @@ id: javascript/seguranca-no-browser
 titulo: "Segurança no browser"
 seccao: "Boas práticas de JavaScript"
 paginas: []
-fonte: "Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF."
+fonte: "Fontes oficiais (MDN, TypeScript, ESLint, Prettier, web.dev, OWASP, W3C e documentação das ferramentas citadas), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF."
 verificado_em: 2026-11-03
 ---
 
 # Segurança no browser
 
-**Resumo:** Inserir texto com `textContent`, sem `eval`, sem handlers inline e sem tokens em `localStorage`.
+**Resumo:** `textContent` em vez de `innerHTML`, DOMPurify quando é preciso HTML, sem `eval` nem handlers inline e sem identificadores de sessão em `localStorage`.
 
 ## Conteúdo
 
-- Inserir texto do utilizador com `textContent` ou com a renderização da framework, nunca com `innerHTML`; se for mesmo preciso HTML, sanear com uma biblioteca (ex.: DOMPurify).
-- Nunca `eval`, `new Function` nem `setTimeout` com strings; sem handlers inline (`onclick="..."`), para a CSP funcionar sem `unsafe-inline`.
-- Não guardar tokens de sessão em `localStorage`; preferir cookies `HttpOnly`, `Secure`, `SameSite`.
+- Texto do utilizador com `textContent`; se for mesmo preciso HTML, sanear com DOMPurify. Cuidado com as escapatórias das frameworks (ex.: `dangerouslySetInnerHTML`). — [MDN: innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML), [OWASP XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- Nunca `eval`, `new Function` nem strings em `setTimeout`/`setInterval`; sem handlers inline. Assim a CSP funciona sem `unsafe-eval` nem `unsafe-inline`. — [MDN: eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval), [MDN: CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+- Não guardar identificadores de sessão em `localStorage`; cookies de sessão com `HttpOnly`. — [OWASP HTML5 Security](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html), [MDN: cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies)
+- **Utilidade:** Trusted Types com a CSP `require-trusted-types-for 'script'` obriga a sanear antes de `innerHTML` (Baseline 2026, Newly available). O `setHTML()` (Sanitizer API) ainda tem disponibilidade limitada: por agora, DOMPurify. — [MDN: Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API), [MDN: setHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/setHTML)
 
-**Para uma skill:** nenhum `innerHTML` com dados do utilizador, nenhum `eval`, nenhum token em `localStorage`.
+**Para uma skill:** nenhum `innerHTML` com dados do utilizador, nenhum `eval`, nenhum identificador de sessão em `localStorage`.
 
 ## Ver também
 
 - [Defesa contra XSS: escapar e CSP](../seguranca/defesa-contra-xss.md) (Segurança)
 - [Sessões robustas](../seguranca/sessoes-robustas.md) (Segurança)
 
-Fonte: Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF.
+Fonte: Fontes oficiais (MDN, TypeScript, ESLint, Prettier, web.dev, OWASP, W3C e documentação das ferramentas citadas), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF.

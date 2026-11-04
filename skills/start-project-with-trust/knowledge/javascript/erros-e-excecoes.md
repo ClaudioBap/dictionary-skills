@@ -3,19 +3,20 @@ id: javascript/erros-e-excecoes
 titulo: "Erros e exceções"
 seccao: "Boas práticas de JavaScript"
 paginas: []
-fonte: "Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF."
+fonte: "Fontes oficiais (MDN, TypeScript, ESLint, Prettier, web.dev, OWASP, W3C e documentação das ferramentas citadas), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF."
 verificado_em: 2026-11-03
 ---
 
 # Erros e exceções
 
-**Resumo:** Lançar objetos `Error` com contexto, nunca engolir erros e mostrar ao utilizador uma mensagem útil.
+**Resumo:** Lançar sempre `Error` com `cause`, só apanhar o recuperável, nunca `catch` vazio, e mostrar ao utilizador uma resposta genérica com o detalhe no log.
 
 ## Conteúdo
 
-- Lançar sempre `Error` (ou subclasses), nunca strings; juntar a causa com `new Error(msg, { cause })`.
-- Nenhum `catch` vazio; cada erro apanhado é tratado, registado ou relançado.
-- Na interface, mostrar uma mensagem útil e preservar o que o utilizador escreveu; o detalhe técnico vai para o log.
+- Lançar sempre um `Error` ou subclasse (regra `no-throw-literal`); encadear com `new Error(msg, { cause })` (Baseline Widely available). — [MDN: throw](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw), [MDN: Error.cause](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause), [eslint.org: no-throw-literal](https://eslint.org/docs/latest/rules/no-throw-literal)
+- Só apanhar erros recuperáveis; nenhum `catch` vazio (regra `no-empty`); o resto propaga-se. — [MDN: guia de estilo](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Code_style_guide/JavaScript), [eslint.org: no-empty](https://eslint.org/docs/latest/rules/no-empty)
+- **Utilidade:** classes de erro próprias (`class MyError extends Error`) para distinguir com `instanceof`, e distinguir erros pela `cause`, não pelo texto da mensagem. — [MDN: Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+- Ao utilizador, uma resposta genérica, com sugestão de correção quando se conhece; o detalhe vai para o log. — [OWASP Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [W3C WCAG 2.2: Error Suggestion](https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html)
 
 **Para uma skill:** nenhum `catch` engole o erro; os erros têm mensagem e causa.
 
@@ -23,4 +24,4 @@ verificado_em: 2026-11-03
 
 - [Estados, erros e resiliência na UI](../design/estados-erros-e-resiliencia-na-ui.md) (Design e experiência de utilizador)
 
-Fonte: Conhecimento do assistente (Claude), sem fonte verificada; escrito a 2026-11-03 a pedido do utilizador. Não vem do PDF.
+Fonte: Fontes oficiais (MDN, TypeScript, ESLint, Prettier, web.dev, OWASP, W3C e documentação das ferramentas citadas), ligadas em cada ponto; consultadas a 2026-11-03. Pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Não vem do PDF.

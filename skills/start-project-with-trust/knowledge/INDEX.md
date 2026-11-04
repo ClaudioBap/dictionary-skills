@@ -18,8 +18,8 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - O **resumo** condensa o texto da própria entrada, sem informação nova. O **conteúdo** segue o PDF; só se corrigiram quebras de linha e hifenização da extração.
 - «Ver também» liga entradas que o PDF repete ou relaciona noutras secções. A escolha das ligações é editorial.
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
-- **⚠️ Fora do PDF:** as secções `javascript/` e `node/` não vêm do PDF. Foram escritas pelo assistente (Claude) a pedido do utilizador, sem fonte verificada, e estão marcadas como tal no campo `fonte` de cada ficheiro (com `paginas: []`). Devem ser confirmadas contra fontes oficiais.
-- Totais: 22 secções; 238 entradas do PDF em 237 ficheiros; 24 entradas fora do PDF; 261 ficheiros de entrada no total.
+- **⚠️ Fora do PDF:** as secções `javascript/` e `node/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
+- Totais: 22 secções; 238 entradas do PDF em 237 ficheiros; 28 entradas fora do PDF; 265 ficheiros de entrada no total.
 
 ## Secções
 
@@ -189,35 +189,39 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Segurança em C#](csharp/seguranca-em-csharp.md) — Queries parametrizadas, segredos num cofre e criptografia da biblioteca padrão. *(pág. 40)*
 - [Pattern matching e features modernas](csharp/pattern-matching-e-features-modernas.md) — Usar as features modernas para clareza, não por moda. *(pág. 40)*
 
-### 12. [Boas práticas de JavaScript](javascript/README.md) — ⚠️ fora do PDF (12 entradas)
+### 12. [Boas práticas de JavaScript](javascript/README.md) — ⚠️ fora do PDF (14 entradas)
 
-- [Estilo e formatação](javascript/estilo-e-formatacao.md) — ESLint e Prettier no CI, `const`/`let` em vez de `var` e comparação estrita. *(fora do PDF)*
-- [TypeScript e tipagem](javascript/typescript-e-tipagem.md) — Preferir TypeScript em modo `strict`, evitar `any` e verificar os tipos no CI. *(fora do PDF)*
-- [Módulos ES](javascript/modulos-es.md) — Usar `import`/`export` (ESM), sem variáveis globais nem dependências circulares. *(fora do PDF)*
-- [Tipos, números e coerção](javascript/tipos-numeros-e-coercao.md) — Conhecer as armadilhas da coerção e dos números de vírgula flutuante; dinheiro nunca em `float`. *(fora do PDF)*
-- [Programação assíncrona](javascript/programacao-assincrona.md) — `async`/`await` com todas as rejeições tratadas, paralelismo explícito e cancelamento com `AbortController`. *(fora do PDF)*
-- [Erros e exceções](javascript/erros-e-excecoes.md) — Lançar objetos `Error` com contexto, nunca engolir erros e mostrar ao utilizador uma mensagem útil. *(fora do PDF)*
-- [Imutabilidade e estado](javascript/imutabilidade-e-estado.md) — Não mutar argumentos nem estado partilhado; criar cópias em vez de alterar. *(fora do PDF)*
-- [Segurança no browser](javascript/seguranca-no-browser.md) — Inserir texto com `textContent`, sem `eval`, sem handlers inline e sem tokens em `localStorage`. *(fora do PDF)*
-- [DOM e desempenho](javascript/dom-e-desempenho.md) — Carregar scripts sem bloquear, dividir o código por rota e evitar trabalho desnecessário no DOM. *(fora do PDF)*
-- [Testes](javascript/testes.md) — Testes unitários rápidos, testes de componentes pelo comportamento e alguns ponta-a-ponta. *(fora do PDF)*
-- [Dependências do frontend](javascript/dependencias-frontend.md) — Lockfile no repositório, instalação reprodutível, auditoria e controlo do peso das dependências. *(fora do PDF)*
-- [Datas, números e localidade](javascript/datas-numeros-e-localidade.md) — Formatar com a API `Intl`, guardar e transmitir datas em UTC (ISO 8601). *(fora do PDF)*
+- [Estilo e formatação](javascript/estilo-e-formatacao.md) — Prettier para a formatação e ESLint para a qualidade, ambos a falhar o CI; `const`/`let` e comparação estrita. *(fora do PDF)*
+- [TypeScript e tipagem](javascript/typescript-e-tipagem.md) — TypeScript com `strict`, sem `any` (usar `unknown` nas fronteiras), `satisfies` e `tsc --noEmit` no CI. *(fora do PDF)*
+- [Módulos ES](javascript/modulos-es.md) — `import`/`export` estáticos, sem globais nem ciclos; `import()` dinâmico só quando é preciso. *(fora do PDF)*
+- [Tipos, números e coerção](javascript/tipos-numeros-e-coercao.md) — Evitar a coerção implícita; os números são vírgula flutuante, por isso dinheiro em cêntimos ou com biblioteca, e inteiros grandes em `BigInt` ou string. *(fora do PDF)*
+- [Programação assíncrona](javascript/programacao-assincrona.md) — `async`/`await`, nenhuma promessa sem tratamento, paralelismo com `Promise.all`/`allSettled` e timeouts com `AbortSignal`. *(fora do PDF)*
+- [Erros e exceções](javascript/erros-e-excecoes.md) — Lançar sempre `Error` com `cause`, só apanhar o recuperável, nunca `catch` vazio, e mostrar ao utilizador uma resposta genérica com o detalhe no log. *(fora do PDF)*
+- [Imutabilidade e estado](javascript/imutabilidade-e-estado.md) — Não mutar argumentos; preferir os métodos de cópia (`toSorted`, `with`) e `structuredClone` para cópias profundas. *(fora do PDF)*
+- [Segurança no browser](javascript/seguranca-no-browser.md) — `textContent` em vez de `innerHTML`, DOMPurify quando é preciso HTML, sem `eval` nem handlers inline e sem identificadores de sessão em `localStorage`. *(fora do PDF)*
+- [DOM e desempenho](javascript/dom-e-desempenho.md) — Scripts que não bloqueiam, código dividido por rota, delegação de eventos e leituras/escritas ao DOM agrupadas. *(fora do PDF)*
+- [Testes](javascript/testes.md) — Testes que se parecem com o uso real, consultas por papel, mocks só no que não se controla e poucos ponta-a-ponta nos fluxos críticos. *(fora do PDF)*
+- [Dependências do frontend](javascript/dependencias-frontend.md) — Lockfile versionado, `npm ci`, auditoria com limiar no CI, assinaturas verificadas e bibliotecas não usadas removidas. *(fora do PDF)*
+- [Datas, números e localidade](javascript/datas-numeros-e-localidade.md) — Formatar com `Intl`, transmitir datas com `toISOString()` (UTC) e não concatenar frases traduzidas. *(fora do PDF)*
+- [Fetch e respostas HTTP](javascript/fetch-e-respostas-http.md) — `fetch` não rejeita em 4xx/5xx: verificar `response.ok`, definir timeout e permitir cancelar. *(fora do PDF)*
+- [Coleções: Map, Set e agrupamento](javascript/colecoes-map-set-e-agrupamento.md) — `Map` para dicionários dinâmicos ou com chaves de fora; `Object.groupBy` para agrupar. *(fora do PDF)*
 
-### 13. [Boas práticas de Node.js](node/README.md) — ⚠️ fora do PDF (12 entradas)
+### 13. [Boas práticas de Node.js](node/README.md) — ⚠️ fora do PDF (14 entradas)
 
-- [Versões e runtime](node/versoes-e-runtime.md) — Usar uma versão LTS, fixada no projeto, e atualizar antes do fim de suporte. *(fora do PDF)*
-- [Gestão de pacotes](node/gestao-de-pacotes.md) — Lockfile versionado, `npm ci` no CI, dependências de dev separadas e scripts de instalação vigiados. *(fora do PDF)*
-- [Estrutura de projeto](node/estrutura-de-projeto.md) — Módulos ES, camadas separadas (rotas, serviços, acesso a dados) e um módulo por responsabilidade. *(fora do PDF)*
-- [Configuração e segredos](node/configuracao-e-segredos.md) — Configuração por variáveis de ambiente, validada no arranque e lida num só módulo; segredos fora do repositório. *(fora do PDF)*
-- [Event loop e trabalho pesado](node/event-loop-e-trabalho-pesado.md) — Nunca bloquear o event loop: I/O assíncrono, streams para ficheiros grandes e `worker_threads` ou filas para CPU. *(fora do PDF)*
-- [Erros e processo](node/erros-e-processo.md) — Tratar todas as rejeições, distinguir erros operacionais de bugs e deixar o processo terminar quando o estado é incerto. *(fora do PDF)*
-- [Encerramento gracioso](node/encerramento-gracioso.md) — Ao receber `SIGTERM`, deixar de aceitar pedidos, terminar os em curso e fechar ligações, com tempo limite. *(fora do PDF)*
-- [Segurança em Node.js](node/seguranca-em-node.md) — Validar entradas, cabeçalhos de segurança, sem shell com dados externos e proteção contra prototype pollution e path traversal. *(fora do PDF)*
-- [Logging e observabilidade](node/logging-e-observabilidade.md) — Logger estruturado com identificador de pedido, sem `console.log` em produção nem segredos. *(fora do PDF)*
-- [Testes](node/testes.md) — Testes rápidos com `node:test` ou Vitest/Jest, testes HTTP sem rede real e base de dados descartável. *(fora do PDF)*
-- [Desempenho e escala](node/desempenho-e-escala.md) — Processos sem estado e várias réplicas atrás de um proxy, ligações reutilizadas e otimização só depois de medir. *(fora do PDF)*
-- [Node.js em contentores](node/node-em-contentores.md) — Imagem oficial por digest, multi-stage, sem dependências de dev, a correr como utilizador sem privilégios. *(fora do PDF)*
+- [Versões e runtime](node/versoes-e-runtime.md) — Usar uma versão Active ou Maintenance LTS, declarada no projeto, igual em todos os ambientes e atualizada antes do fim de suporte. *(fora do PDF)*
+- [Gestão de pacotes](node/gestao-de-pacotes.md) — Lockfile versionado, `npm ci` no CI, sem dependências de dev em produção, scripts de instalação desligados e assinaturas verificadas. *(fora do PDF)*
+- [Estrutura de projeto](node/estrutura-de-projeto.md) — Módulos ES com `type` declarado, imports internos com `#` e API pública declarada em `exports`. *(fora do PDF)*
+- [Configuração e segredos](node/configuracao-e-segredos.md) — Segredos num serviço de gestão de segredos, `.env` só em desenvolvimento e `NODE_ENV=production` sempre em produção. *(fora do PDF)*
+- [Event loop e trabalho pesado](node/event-loop-e-trabalho-pesado.md) — Nunca bloquear o event loop: sem APIs síncronas no servidor, streams para o que é grande e `worker_threads` para CPU. *(fora do PDF)*
+- [Erros e processo](node/erros-e-processo.md) — Tratar todas as rejeições, encadear erros com `cause` e terminar o processo depois de uma exceção não apanhada. *(fora do PDF)*
+- [Encerramento gracioso](node/encerramento-gracioso.md) — Ao receber `SIGTERM`, deixar de aceitar ligações, fechar as inativas e só forçar o fecho no fim do prazo. *(fora do PDF)*
+- [Segurança em Node.js](node/seguranca-em-node.md) — Limitar pedidos, cabeçalhos de segurança, sem shell nem `vm` com dados externos, proteção contra prototype pollution e timeouts do servidor. *(fora do PDF)*
+- [Permissões do processo](node/permissoes-do-processo.md) — Limitar o que o processo pode fazer com o Permission Model, sabendo que não protege contra código malicioso. *(fora do PDF)*
+- [Logging e observabilidade](node/logging-e-observabilidade.md) — Logger estruturado com campos sensíveis ocultos, identificador de pedido com `AsyncLocalStorage` e OpenTelemetry carregado antes da aplicação. *(fora do PDF)*
+- [Testes](node/testes.md) — Test runner nativo (`node:test`, Stable) ou Vitest/Jest, com mocks e snapshots nativos. *(fora do PDF)*
+- [Desempenho e escala](node/desempenho-e-escala.md) — Aplicação sem estado em memória, ligações reutilizadas e otimização só depois de medir com os perfis nativos. *(fora do PDF)*
+- [TypeScript nativo](node/typescript-nativo.md) — Executar `.ts` diretamente com type stripping (Stable), mantendo a verificação de tipos no CI. *(fora do PDF)*
+- [Node.js em contentores](node/node-em-contentores.md) — Imagem fixada por digest, multi-stage, sem dependências de dev, utilizador `node`, `--init` e limites de memória. *(fora do PDF)*
 
 ### 14. [Estrutura e documentação](estrutura/README.md) — págs. 41–44 (14 entradas)
 
