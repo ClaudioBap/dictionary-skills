@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:28:52Z",
+  "atualizado_em": "2026-11-04T08:39:29Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -63,7 +63,10 @@
     "https://inside.java/feed.xml": "2026-11-04",
     "https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history": "2026-11-04",
     "https://devblogs.microsoft.com/dotnet/feed/": "2026-11-04",
-    "https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json": "2026-11-04"
+    "https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json": "2026-11-04",
+    "https://devblogs.microsoft.com/typescript/": "2026-11-04",
+    "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html": "2026-11-04",
+    "https://eslint.org/blog/": "2026-11-04"
   },
   "noticias": [
     {
