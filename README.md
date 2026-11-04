@@ -2,10 +2,10 @@
 
 [English version](README.en.md)
 
-Duas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot) que levam um projeto de cliente da primeira conversa até à entrega verificada, apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais.
+Skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas:
 
-- **`start-project-with-trust`** conduz o projeto: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
-- **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou, aplica-o segundo o nível de confiança e escreve as novidades num ficheiro que um site de notícias, num repositório à parte, pode mostrar.
+- **`start-project-with-trust`** conduz um projeto de cliente da primeira conversa à entrega verificada: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
+- **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou e aplica-o segundo o nível de confiança.
 
 ## O que está neste repositório
 
@@ -51,7 +51,7 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 
 ### Conhecimento pessoal
 
-Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill, para não se perder nas atualizações. Guarda o perfil dos tipos de trabalho da pessoa e as fontes oficiais que a skill foi buscar para os seus projetos. A `update-knowledge` mantém-no atualizado. Fica sempre só na máquina do utilizador: nunca vai para este repositório nem para as notícias.
+Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill, para não se perder nas atualizações. Guarda o perfil dos tipos de trabalho da pessoa e as fontes oficiais que a skill foi buscar para os seus projetos. A `update-knowledge` mantém-no atualizado. Fica sempre só na máquina do utilizador: nunca vai para este repositório.
 
 ## Base de conhecimento
 
@@ -82,29 +82,25 @@ Ficheiros de referência:
 
 ## update-knowledge
 
-Mantém a base de conhecimento, as notícias e o conhecimento pessoal em dia. Só corre quando alguém a chama com `/update-knowledge` (para um tema, por exemplo `/update-knowledge ia`, ou `/update-knowledge pessoal` só para o conhecimento pessoal).
+Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando alguém a chama com `/update-knowledge` (para um tema, por exemplo `/update-knowledge ia`, ou `/update-knowledge pessoal` só para o conhecimento pessoal).
 
 1. Percorre as fontes de [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md) e verifica sempre os pontos «A vigiar». Usa feeds RSS e APIs públicas quando existem, para gastar pouco.
 2. Dá a cada novidade a data de lançamento indicada pela fonte e um nível de confiança, e aplica-a segundo esse nível:
 
    | Confiança | Quando | O que acontece |
    |---|---|---|
-   | Alta | Fonte oficial primária, lida diretamente, com data | Entra no `ATUALIZACOES.md` da secção e nas notícias como aprovada |
-   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Fica «em validação» no site de notícias, onde se decide se entra (sem site, decide o utilizador) |
+   | Alta | Fonte oficial primária, lida diretamente, com data | Entra no `ATUALIZACOES.md` da secção |
+   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Fica à espera de validação e só entra depois de aprovada |
    | Baixa | Fonte não oficial | Nunca altera o conhecimento |
 
    Novas entradas, correções ao texto e fontes novas pedem sempre aprovação, uma a uma.
-3. Regista cada alteração no `CHANGELOG.md` e cada novidade no `noticias/noticias.json` do repositório do site, com fonte, data, confiança e a imagem de pré-visualização da fonte, quando existe.
+3. Regista cada alteração no `CHANGELOG.md`, com fonte, data de lançamento, confiança e quem aprovou.
 4. Corre os verificadores e, com a tua autorização, faz commit e push. Quem tem as skills instaladas recebe o conhecimento novo no próximo `npx skills update`.
 5. Atualiza também o conhecimento pessoal do utilizador: as novidades de confiança alta entram, as de confiança média ficam para ele decidir na corrida seguinte.
 
 Não contorna sites que bloqueiam o acesso automático: nesses casos pede que abras a página e coles o conteúdo, ou regista a fonte como não lida.
 
 Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/start-project-with-trust`) e não na cópia instalada. Para manter só o conhecimento pessoal, basta tê-la instalada.
-
-## Notícias
-
-As notícias não vivem neste repositório. A `update-knowledge` escreve-as no `noticias/noticias.json` de um repositório próprio do site, que guarda o contrato do formato e trata da validação das novidades de confiança média. Cada notícia traz título, resumo, tema, fonte com ligação, data de lançamento, confiança, estado e, quando existem, a imagem e o vídeo da fonte, ligados e nunca copiados. Sem esse repositório, a skill atualiza o conhecimento na mesma.
 
 ## Instalação
 

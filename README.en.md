@@ -2,12 +2,12 @@
 
 [Versão em português](README.md)
 
-Two skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot) that take a client project from the first conversation to a verified delivery, backed by a knowledge base of good practices that is kept up to date from official sources.
+Skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two:
 
-- **`start-project-with-trust`** runs the project: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
-- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed, applies it according to its confidence level and writes the news to a file that a news site, in a separate repository, can display.
+- **`start-project-with-trust`** takes a client project from the first conversation to a verified delivery: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
+- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level.
 
-The skills, the knowledge base and the news are written in Portuguese (Portugal).
+The skills and the knowledge base are written in Portuguese (Portugal).
 
 ## What is in this repository
 
@@ -53,7 +53,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 
 ### Personal knowledge
 
-Each user has personal knowledge in `~/.start-project-with-trust/` (on Windows, `%USERPROFILE%\.start-project-with-trust\`), outside the skill folder so that updates do not erase it. It holds the profile of the kinds of work the person does and the official sources the skill fetched for their projects. `update-knowledge` keeps it current. It always stays on the user's machine: it never goes to this repository or to the news.
+Each user has personal knowledge in `~/.start-project-with-trust/` (on Windows, `%USERPROFILE%\.start-project-with-trust\`), outside the skill folder so that updates do not erase it. It holds the profile of the kinds of work the person does and the official sources the skill fetched for their projects. `update-knowledge` keeps it current. It always stays on the user's machine: it never goes to this repository.
 
 ## Knowledge base
 
@@ -79,34 +79,30 @@ Reference files:
 
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): every entry, by section.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): the official sources for each section and the «A vigiar» (watch) list: deadlines and limits checked on every update, such as TLS certificate lifetimes or free hosting plans.
-- `<section>/ATUALIZACOES.md`: each section's news, by category and date, without changing the text of the entries. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
+- `<section>/ATUALIZACOES.md`: each section's updates, by category and date, without changing the text of the entries. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): every change, with source, release date, confidence and who approved it.
 
 ## update-knowledge
 
-It keeps the knowledge base, the news and the personal knowledge up to date. It only runs when someone calls it with `/update-knowledge` (for one topic, for example `/update-knowledge ia`, or `/update-knowledge pessoal` for the personal knowledge only).
+It keeps the knowledge base and the personal knowledge up to date. It only runs when someone calls it with `/update-knowledge` (for one topic, for example `/update-knowledge ia`, or `/update-knowledge pessoal` for the personal knowledge only).
 
 1. It goes through the sources in [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md) and always checks the «A vigiar» points. It uses RSS feeds and public APIs where they exist, to keep costs low.
-2. It gives each news item the release date stated by the source and a confidence level, and applies it according to that level:
+2. It gives each change the release date stated by the source and a confidence level, and applies it according to that level:
 
    | Confidence | When | What happens |
    |---|---|---|
-   | High | Primary official source, read directly, with a date | Goes into the section's `ATUALIZACOES.md` and into the news as approved |
-   | Medium | Official source but indirect, partly read or undated | Stays «em validação» (under review) on the news site, where it is decided whether it goes in (without a site, the user decides) |
+   | High | Primary official source, read directly, with a date | Goes into the section's `ATUALIZACOES.md` |
+   | Medium | Official source but indirect, partly read or undated | Waits for review and only goes in once approved |
    | Low | Unofficial source | Never changes the knowledge |
 
    New entries, corrections to the text and new sources always require approval, one at a time.
-3. It records each change in `CHANGELOG.md` and each news item in the news site repository's `noticias/noticias.json`, with source, date, confidence and the source's preview image, when there is one.
+3. It records each change in `CHANGELOG.md`, with source, release date, confidence and who approved it.
 4. It runs the checkers and, with your permission, commits and pushes. Anyone who has the skills installed gets the new knowledge on the next `npx skills update`.
-5. It also updates the user's personal knowledge: high-confidence news goes in, medium-confidence news waits for the user's decision on the next run.
+5. It also updates the user's personal knowledge: high-confidence changes go in, medium-confidence changes wait for the user's decision on the next run.
 
 It does not get around sites that block automated access: in those cases it asks you to open the page and paste the content, or records the source as unread.
 
 To maintain the shared base, work on a git clone of this repository (`gh repo clone ClaudioBap/start-project-with-trust`), not on the installed copy. To maintain only your personal knowledge, the installed skill is enough.
-
-## News
-
-The news does not live in this repository. `update-knowledge` writes it to `noticias/noticias.json` in the news site's own repository, which holds the format contract and handles the review of medium-confidence news. Each item has a title, summary, topic, source with link, release date, confidence, status and, when available, the source's image and video, linked and never copied. Without that repository, the skill still updates the knowledge.
 
 ## Installation
 
@@ -200,14 +196,14 @@ skills/start-project-with-trust/
 ├── scripts/        checkers (plan, delivery, publishing) and goal loop hooks
 └── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md, and one ATUALIZACOES.md and one ATUALIZACOES-ARQUIVO.md per section)
 skills/update-knowledge/
-├── SKILL.md        finding news, confidence flow, publishing and personal knowledge
+├── SKILL.md        finding updates, confidence flow, publishing and personal knowledge
 ├── fontes-verificadas.json   date each source was last checked
 └── scripts/        indice.mjs, verificar-alteracoes.mjs, novidades-rss.mjs
 
 ~/.start-project-with-trust/   each user's personal knowledge (outside the repository)
 ├── perfil.md       kinds of work
 ├── FONTES.md       personal sources
-├── pendentes.md    medium-confidence news awaiting a decision
+├── pendentes.md    medium-confidence changes awaiting a decision
 ├── CHANGELOG.md
 └── knowledge/      entries and ATUALIZACOES.md per section
 ```
