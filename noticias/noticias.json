@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T08:49:55Z",
+  "atualizado_em": "2026-11-04T08:52:58Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -88,7 +88,13 @@
     "https://docs.docker.com/compose/": "2026-11-04",
     "https://docs.docker.com/engine/swarm/": "2026-11-04",
     "https://kubernetes.io/releases/": "2026-11-04",
-    "https://github.com/aquasecurity/trivy": "2026-11-04"
+    "https://github.com/aquasecurity/trivy": "2026-11-04",
+    "https://goteleport.com/docs/": "2026-11-04",
+    "https://tailscale.com/kb/1151/what-is-tailscale": "2026-11-04",
+    "https://valkey.io/": "2026-11-04",
+    "https://grafana.com/docs/grafana/latest/alerting/": "2026-11-04",
+    "https://openbao.org/": "2026-11-04",
+    "https://www.keycloak.org/": "2026-11-04"
   },
   "noticias": [
     {
