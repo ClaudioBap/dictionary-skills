@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T02:07:05Z",
+  "atualizado_em": "2026-11-04T02:10:22Z",
   "fontes_verificadas": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
@@ -24,7 +24,12 @@
     "https://www.edpb.europa.eu/": "2026-11-04",
     "https://www.edpb.europa.eu/sme-data-protection-guide/home_en": "2026-11-04",
     "https://www.cnpd.pt/": "2026-11-04",
-    "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en": "2026-11-04"
+    "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en": "2026-11-04",
+    "https://sre.google/books/": "2026-11-04",
+    "https://learn.microsoft.com/en-us/azure/well-architected/reliability/": "2026-11-04",
+    "https://learn.microsoft.com/en-us/azure/architecture/patterns/": "2026-11-04",
+    "https://grafana.com/docs/k6/latest/": "2026-11-04",
+    "https://docs.locust.io/en/stable/": "2026-11-04"
   },
   "noticias": [
     {
