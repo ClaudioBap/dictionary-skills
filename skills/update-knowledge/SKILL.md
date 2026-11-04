@@ -1,7 +1,7 @@
 ---
 name: update-knowledge
-description: Atualiza a base de conhecimento da skill start-project-with-trust e os dados do site de notícias. Percorre as fontes aprovadas em knowledge/FONTES.md, encontra novidades com a data de lançamento e um nível de confiança, propõe cada alteração com antes/depois e pede aprovação uma a uma, regista tudo no CHANGELOG e, com autorização, publica no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
-argument-hint: "Tema a atualizar (ex.: ia), ou nada para todos"
+description: Atualiza a base de conhecimento da skill start-project-with-trust, os dados do site de notícias e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
+argument-hint: "Tema a atualizar (ex.: ia), «pessoal» para só o conhecimento pessoal, ou nada para todos"
 disable-model-invocation: true
 ---
 
@@ -38,9 +38,10 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 
 ## 0. Preparar
 
-1. **Encontrar o repositório.** Esta skill trabalha numa cópia git de `ClaudioBap/start-project-with-trust`, e não na cópia instalada pelo `npx`.
+1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/start-project-with-trust`, e não na cópia instalada pelo `npx`.
    - Se o diretório atual (ou um pai) tiver `skills/start-project-with-trust/knowledge/`, usa-o.
    - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/start-project-with-trust`.
+   - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou a skill), ou se pediu `pessoal`, salta a base partilhada e faz só o passo 5 «Conhecimento pessoal».
 2. Confirma que a cópia está limpa (`git status`) e faz `git pull`.
 3. Lê:
    - `knowledge/FONTES.md`: o registo por tema e a secção «A vigiar»;
@@ -128,10 +129,24 @@ As rejeitadas também entram em `noticias.json`, com `estado: rejeitada`, para n
 4. Mostra `git diff --stat` e um resumo das alterações, e pergunta se pode fazer commit e push.
 5. Com autorização, faz commit (uma mensagem que resuma as novidades) e `git push`. A partir daí, `npx skills update start-project-with-trust` traz o conhecimento novo a quem tem a skill instalada, e o site lê o `noticias.json` atualizado.
 
+## 5. Conhecimento pessoal
+
+Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizador em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), criado pela skill `start-project-with-trust` com as fontes do tipo de trabalho dessa pessoa. Se a pasta não existir, diz-o e salta este passo.
+
+1. **Validações pendentes.** Lê `pendentes.md`. Para cada novidade lá registada, pergunta ao utilizador se entra: se sim, aplica-a como em 2; se não, regista-a como rejeitada no `CHANGELOG.md` pessoal. Tira-a de `pendentes.md` em ambos os casos.
+2. **Procurar.** Para cada fonte de `FONTES.md` pessoal (e de `perfil.md`, se indicar temas sem fonte), procura novidades desde a última verificação, com as mesmas regras do passo 1: data como a fonte a indica, sem contornar bloqueios e com os mesmos níveis de confiança.
+3. **Aplicar por confiança:**
+   - `alta`: acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa, sem pedir aprovação;
+   - `media`: não altera nada; regista-a em `pendentes.md` (data, título, fonte, motivo da confiança) para o utilizador decidir na corrida seguinte. Não há votos de visitantes no conhecimento pessoal;
+   - `baixa`: ignora.
+4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal.
+5. **Nunca partilhar.** O conhecimento pessoal não vai para o repositório da skill, para o `CHANGELOG.md` partilhado nem para `noticias.json`, e não tem commit nem push.
+
 ## Relatório final
 
 Mostra:
 - as novidades encontradas, aprovadas, só notícia e rejeitadas;
 - as fontes percorridas e as que ficaram por ler (bloqueadas ou indisponíveis);
 - o estado de cada ponto «A vigiar»;
-- o commit publicado.
+- o commit publicado;
+- no conhecimento pessoal: o que entrou, o que ficou em `pendentes.md` e as fontes por ler.

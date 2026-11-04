@@ -17,7 +17,7 @@ _por definir_
 <!-- Boas práticas que exigem recursos que o cliente não declarou. Cada uma gera uma pergunta em objetivo.md. -->
 
 ## Fora do conhecimento
-<!-- Necessidades sem entrada correspondente em knowledge/. -->
+<!-- Necessidades sem entrada em knowledge/ nem no conhecimento pessoal, e para as quais a pesquisa da Fase 2 não encontrou fonte oficial. -->
 
 ## Validação
 - [ ] Validado pelo utilizador em _por definir_

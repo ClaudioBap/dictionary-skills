@@ -19,9 +19,17 @@ O goal-loop só fecha com a entrega verificada (`Concluído`), não com o plano.
 
 Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`.
 
+**Conhecimento pessoal.** Além da base partilhada em `knowledge/`, cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill para não se perder num `npx skills update`. Guarda as fontes oficiais e as práticas que a skill foi buscar para o tipo de trabalho dessa pessoa:
+- `perfil.md`: os tipos de trabalho do utilizador (domínios, tecnologias, setores), atualizados a cada projeto;
+- `FONTES.md`: as fontes pessoais por tema, no formato do `knowledge/FONTES.md`;
+- `knowledge/<secção>/<slug>.md`: entradas com a mesma estrutura das da base partilhada, e `knowledge/<secção>/ATUALIZACOES.md` para as novidades;
+- `CHANGELOG.md`: uma linha por alteração, só de acrescentar.
+
+O conhecimento pessoal nunca é enviado para o repositório da skill nem para `noticias.json`. Só leva fontes públicas e práticas gerais: nada de nomes, dados ou segredos de clientes. A skill `update-knowledge` mantém-no atualizado.
+
 ## Regras em todas as fases
 
-- **Não inventar.** Tudo o que vem do conhecimento cita o ficheiro e a página, por exemplo `knowledge/seguranca/autorizacao-no-servidor.md` (pág. 3). O que for interpretação tua leva a marca *(interpretação)*.
+- **Não inventar.** Tudo o que vem do conhecimento cita o ficheiro e a página, por exemplo `knowledge/seguranca/autorizacao-no-servidor.md` (pág. 3), ou, no conhecimento pessoal, o ficheiro em `~/.start-project-with-trust/knowledge/` e o URL da fonte. O que for interpretação tua leva a marca *(interpretação)*.
 - **Os factos são teus, as decisões são do utilizador.** Se um facto se pode verificar no ambiente (ficheiros, repositório, ferramentas), verifica-o tu e não perguntes. As decisões vão sempre ao utilizador.
 - **Uma pergunta de cada vez**, sempre no formato da Fase 1, e espera pela resposta.
 - **O estado vive em ficheiro.** Depois de cada resposta, atualiza os documentos em `arranque/<projeto>/` antes de fazer a pergunta seguinte.
@@ -56,6 +64,7 @@ Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos
 1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Se o utilizador não disser o nome do projeto, pergunta-o.
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
+3a. **Conhecimento pessoal.** Se `~/.start-project-with-trust/` existe, lê `perfil.md` e `FONTES.md` para saberes que tipos de trabalho e que fontes o utilizador já tem. Se não existe, cria a pasta com `perfil.md`, `FONTES.md` e `CHANGELOG.md` vazios (só com o título) e diz ao utilizador onde fica e para que serve.
 4. **Hooks do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/` ainda não existe no projeto, pergunta ao utilizador se quer instalar os três hooks. Explica-lhe o que cada um faz:
    - **Guarda** (PreToolUse): impede marcar o estado como `Plano aprovado`, `Fase 4` ou `Fase 5` enquanto o verificador do plano encontrar falhas, e como `Concluído` enquanto o plano ou a entrega tiverem falhas.
    - **Rastreabilidade** (PostToolUse, determinística): depois de cada escrita no plano ou no custo-benefício, confirma que cada ação e decisão responde a perguntas do utilizador que existem e estão fechadas.
@@ -106,9 +115,11 @@ Opções, da mais barata à mais cara:
 
 **Fim da Fase 1.** Quando nenhuma pergunta obrigatória estiver `aberta`, mostra o resumo de `necessidades.md` e pede validação. Se o utilizador corrigir algo, atualiza e volta a pedir. Só depois de validado é que passas à Fase 2.
 
+Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os tipos de trabalho deste projeto que ainda lá não estão (domínio, tecnologias, setor), sem dados do cliente, e uma linha no `CHANGELOG.md` pessoal.
+
 ## Fase 2 — Plano com o que temos
 
-1. Lê `knowledge/INDEX.md` e escolhe as entradas relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
+1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
 1a. **Atalhos antes do código.** Para cada necessidade funcional (tickets, contratos, faturação, CRM, conteúdos, dashboards, formulários, automações…):
    - procura em `knowledge/plataformas/` uma plataforma que a cubra, toda ou em parte, e como se liga ao resto (API, webhooks, MCP);
    - se lá não houver nenhuma adequada, pesquisa nas fontes oficiais (site, documentação ou repositório do próprio projeto) plataformas open source que a cubram. Cita cada URL e marca o resultado como *(pesquisa de <data>, fora de knowledge/)*. Nunca apresentes como oficial um servidor MCP da comunidade;
@@ -120,7 +131,12 @@ Opções, da mais barata à mais cara:
    - a base no conhecimento (ficheiro e página);
    - o critério de sucesso, partindo da linha «Para uma skill:» da entrada usada.
 3. **Só recursos declarados.** Se uma boa prática exige um recurso que o cliente não tem, não o dês como disponível. Regista-o em «Lacunas» e acrescenta a `objetivo.md` uma pergunta `aberta` sobre ele.
-4. **Sem base, não inventes.** Se uma necessidade não tem entrada correspondente em `knowledge/`, escreve-o em «Fora do conhecimento» em vez de inventar uma prática.
+4. **Sem base, vai às fontes antes de planear.** Se uma necessidade não tem entrada correspondente em `knowledge/` nem no conhecimento pessoal, não inventes uma prática e não a deixes só marcada:
+   1. usa o que sabes para escolher as fontes oficiais primárias mais adequadas ao pedido (o fornecedor, o organismo ou o autor do standard) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida;
+   2. regista o que encontraste no conhecimento pessoal: a fonte em `FONTES.md`, a prática numa entrada nova em `knowledge/<secção>/<slug>.md` (frontmatter com `fonte`, `data_lancamento`, `confianca` e `verificado_em`, como na `update-knowledge`) e uma linha no `CHANGELOG.md` pessoal. A confiança segue os critérios da `update-knowledge`: `alta` (fonte oficial primária, lida diretamente, com data), `media` (indireta, lida em parte ou sem data) ou `baixa` (não oficial). Uma entrada `baixa` não serve de base ao plano;
+   3. só depois escreve a ação em `plano.md`, citando a entrada pessoal e o URL;
+   4. se não encontrares nenhuma fonte oficial, escreve a necessidade em «Fora do conhecimento».
+   Diz ao utilizador que fontes foste buscar e o que registaste.
 5. Mostra o resumo do plano e pede validação.
 
 ## Fase 3 — Plano custo-benefício
