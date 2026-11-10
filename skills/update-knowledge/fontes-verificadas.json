@@ -2,7 +2,7 @@
   "atualizado_em": "2026-11-04T09:23:23Z",
   "fontes": {
     "https://www.anthropic.com/news": "2026-11-04",
-    "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-04",
+    "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-10",
     "https://www.anthropic.com/system-cards": "2026-11-04",
     "https://www.anthropic.com/research": "2026-11-04",
     "https://www.anthropic.com/economic-index": "2026-11-04",
@@ -162,6 +162,8 @@
     "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/speech-services/": "2026-11-10",
     "https://developers.openai.com/api/docs/guides/model-optimization": "2026-11-10",
     "https://huggingface.co/docs/text-generation-inference": "2026-11-10",
-    "https://aistudio.google.com/docs/google-search": "2026-11-10"
+    "https://aistudio.google.com/docs/google-search": "2026-11-10",
+    "https://platform.claude.com/docs/en/about-claude/models/overview": "2026-11-10",
+    "https://platform.claude.com/docs/en/about-claude/pricing": "2026-11-10"
   }
 }

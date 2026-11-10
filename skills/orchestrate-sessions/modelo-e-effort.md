@@ -27,12 +27,12 @@ O nível vem do que o utilizador pediu para aquela tarefa, não do tipo. Regista
 
 Base:
 
-- Planear sempre em `opus` ou `fable`: regra desta skill. Usar o mais capaz com effort baixo em vez de um modelo mais barato segue `knowledge/ia/escolher-o-modelo-claude.md` (pág. 66), que também põe o Fable 5.1 no mais difícil e o Opus 5.5 como equilíbrio.
+- Planear sempre em `opus` ou `fable`: regra desta skill. Usar o mais capaz com effort baixo em vez de um modelo mais barato segue `knowledge/ia/escolher-o-modelo-claude.md` (pág. 66), que também põe o Fable (hoje o 5.2) no mais difícil e o Opus 5.5 como recomendado para a maioria do trabalho.
 - Effort afinado por nível, mais alto em código e trabalho agêntico longo: `knowledge/ia/pensar-e-esforco.md` (págs. 66, 67).
 - Ler com `haiku` e `low`: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68).
 - Os níveis, os exemplos e as células da tabela são *(interpretação)*. Ajustam-se com o que se mede (regra 6).
 
-Preços de referência por milhão de tokens (entrada/saída): Haiku 5.5 ~$0,10/$0,50, Sonnet 5.5 ~$2/$10, Opus 5.5 ~$4/$20, Fable 5.1 ~$10/$50 (`knowledge/ia/escolher-o-modelo-claude.md`, pág. 66). O custo real mede-se por tarefa concluída (`knowledge/ia/otimizacao-de-custo-da-ia.md`, pág. 69).
+Preços de referência por milhão de tokens (entrada/saída): Haiku 5.5 $0,10/$0,50 (prompts até 100 000 tokens), Sonnet 5.5 $2/$10, Opus 5.5 $4/$20, Fable 5.2 $8/$40; o Fable 5.1 é legado ($10/$50) (`knowledge/ia/escolher-o-modelo-claude.md`, editado a 2026-11-10). O custo real mede-se por tarefa concluída (`knowledge/ia/otimizacao-de-custo-da-ia.md`, pág. 69).
 
 ## Regras
 
@@ -54,7 +54,7 @@ Fonte: documentação oficial, consultada a 2026-11-10 ([model-config](https://c
 - **Sessão nova:** `claude --model sonnet --effort low`. A meio da sessão: `/model` e `/effort`.
 - **Subagente lançado por uma sessão:** a ferramenta Agent aceita `model` (`haiku`, `sonnet`, `opus`, `fable`) e `effort`. Num agente definido em `.claude/agents/*.md`, os mesmos campos vão no frontmatter.
 - **Subagentes dentro de subagentes:** permitidos até três níveis abaixo da sessão principal.
-- **Effort padrão:** `medium` no Haiku 5.5, Sonnet 5.5, Opus 5.5 e Fable 5.1. Aceitam de `low` a `max`.
+- **Effort padrão no Claude Code:** `medium` no Haiku 5.5, Sonnet 5.5, Opus 5.5 e Fable. Aceitam de `low` a `max`. Na API os padrões são outros (`knowledge/ia/pensar-e-esforco.md`).
 - **Custo:** `/usage` mostra a estimativa da sessão a preço de tabela, o uso por modelo e a cache.
 
 Noutros agentes (Codex, Cursor, Copilot), regista o modelo e o effort no briefing e diz ao utilizador como os escolher nesse agente.
