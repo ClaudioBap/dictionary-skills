@@ -14,6 +14,12 @@ export function escreverJson(nome, dados) {
   writeFileSync(join(pasta, nome), JSON.stringify(dados, null, 2) + '\n');
 }
 
+// Divide a narração de um passo em frases: por «|» se o guião o usar, senão pela pontuação final.
+export function dividirFrases(texto) {
+  const partes = texto.includes('|') ? texto.split('|') : texto.split(/(?<=[.!?…])\s+/);
+  return partes.map((s) => s.trim()).filter(Boolean);
+}
+
 // WAV PCM 16 bits. Devolve a taxa, os canais e os bytes de amostras.
 export function lerWav(caminho) {
   const b = readFileSync(caminho);

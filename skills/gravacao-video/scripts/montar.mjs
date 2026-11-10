@@ -8,7 +8,7 @@ import { pasta, lerJson, lerWav, cabecalhoWav } from './comum.mjs';
 
 const guiao = lerJson('guiao.json');
 const tempos = lerJson('gravacao/tempos.json');
-lerJson('audio/duracoes.json'); // garante que a narração foi gerada antes da montagem
+const duracoes = lerJson('audio/duracoes.json');
 mkdirSync(join(pasta, 'final'), { recursive: true });
 
 const FPS = 25;
@@ -46,8 +46,9 @@ function tempoSrt(ms) {
 const mmss = (ms) => `${Math.floor(ms / 60000)}:${String(Math.floor((ms % 60000) / 1000)).padStart(2, '0')}.${String(Math.round(ms % 1000)).padStart(3, '0')}`;
 
 // 1. Alinhar o relógio do script com o do vídeo. O script anotou quando o ecrã ficou escuro
-// (cartão de abertura, cortinas); o ffmpeg encontra cada um desses momentos no vídeo e a
-// mediana das diferenças é o desvio.
+// (cartão de abertura, cortinas, cartão de fecho); o ffmpeg encontra cada um desses momentos no
+// vídeo e a diferença é o desvio. O cartão de abertura manda, porque a sua marca é a primeira
+// pintura do documento; as outras servem de confirmação.
 const videoMs = duracaoVideo('gravacao/bruto.webm') * 1000;
 const escuros = momentosEscuros('gravacao/bruto.webm');
 const encontradas = (tempos.marcas ?? []).map((m) => {
@@ -56,8 +57,9 @@ const encontradas = (tempos.marcas ?? []).map((m) => {
 }).filter(Boolean);
 let desvioMs, origem;
 if (encontradas.length) {
+  const capa = encontradas.find((d) => d.nome === 'capa');
   const ordenados = encontradas.map((d) => d.desvio).sort((a, b) => a - b);
-  desvioMs = ordenados[Math.floor(ordenados.length / 2)];
+  desvioMs = capa ? capa.desvio : ordenados[Math.floor(ordenados.length / 2)];
   origem = encontradas.map((d) => `${d.nome} ${d.desvio.toFixed(0)}`).join(', ');
   if (ordenados.at(-1) - ordenados[0] > 300) console.warn(`Aviso: as marcas discordam em ${(ordenados.at(-1) - ordenados[0]).toFixed(0)} ms; confirma a sincronização à mão.`);
 } else {
@@ -83,12 +85,19 @@ function noFinal(t) {
 const aFinal = (tScript) => noFinal(tScript + desvioMs - corteMs);
 if (esperas.length) console.log(`Tempos mortos retirados: ${esperas.map((x) => `${(x.de / 1000).toFixed(2)}–${(x.ate / 1000).toFixed(2)} s`).join(', ')} (${(removidoMs / 1000).toFixed(1)} s)`);
 
-// 2. Narração num único WAV, com cada passo no seu tempo, e legendas a partir do guião.
-const clips = guiao.passos.map((p) => {
+// 2. Narração num único WAV, frase a frase no tempo em que a gravação a encaixou, e uma legenda por frase.
+const clips = [];
+for (const p of guiao.passos) {
   const t = tempos.passos.find((x) => x.id === p.id);
   if (!t) throw new Error(`O passo ${p.id} não foi gravado`);
-  return { ...p, wav: lerWav(join(pasta, 'audio', `${p.id}.wav`)), inicio: aFinal(t.narracaoEm ?? t.inicio) };
-});
+  const frases = duracoes[p.id]?.frases;
+  if (!frases) throw new Error(`audio/duracoes.json não tem as frases de ${p.id}; corre narrar.mjs outra vez`);
+  for (const f of t.frases) {
+    const info = frases[f.n];
+    if (!info) throw new Error(`A frase ${f.n + 1} de ${p.id} não existe no áudio; a narração mudou depois de gravar?`);
+    clips.push({ id: `${p.id}/${f.n + 1}`, narracao: info.texto, wav: lerWav(join(pasta, 'audio', info.ficheiro)), inicio: aFinal(f.em) });
+  }
+}
 const { taxa, canais } = clips[0].wav;
 const totalMs = videoMs - corteMs - removidoMs;
 const pcm = Buffer.alloc(Math.ceil((totalMs / 1000) * taxa) * canais * 2);

@@ -1,12 +1,14 @@
 // Estúdio de gravação da mini skill gravacao-video.
 // Abre o browser a gravar e dá as ações que ficam na própria gravação: cursor com movimento
 // suave e clique, escrita, scroll suave, caixa de destaque, título em terço inferior, cartões
-// de abertura e fecho, escurecimento entre páginas e marcas de zoom para a montagem.
+// de abertura e fecho, dissolve entre páginas e marcas de zoom para a montagem.
+// A narração é por frases: cada chamada a narrar() encaixa a frase seguinte no momento em que
+// é feita, e a montagem coloca o áudio e as legendas nesses tempos.
 // Lê guiao.json; escreve gravacao/bruto.webm, gravacao/<passo>.png e gravacao/tempos.json.
 import { chromium } from 'playwright';
 import { existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { pasta, lerJson, escreverJson } from './comum.mjs';
+import { pasta, lerJson, escreverJson, dividirFrases } from './comum.mjs';
 
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 const CARACTERES_POR_SEGUNDO = 13; // estimativa quando ainda não há áudio
@@ -25,9 +27,13 @@ function estilo(cores) {
 .dg-caixa { position: fixed; z-index: 2147482000; border: 3px solid ${cores.realce}; border-radius: 6px; pointer-events: none;
   animation: dg-caixa .35s ease-out both, dg-pulsar 1.6s ease-out .35s 2; }
 .dg-cortina { position: fixed; inset: 0; z-index: 2147483645; background: ${cores.fundo}; pointer-events: none; transition: opacity .4s ease; }
+.dg-ponte { position: fixed; inset: 0; z-index: 2147483645; background: #fff center / cover no-repeat; pointer-events: none;
+  transition: opacity .55s ease, transform .55s ease; }
+.dg-ponte.dg-sair { opacity: 0; transform: scale(1.05); }
 .dg-cartao { position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 18px; padding: 0 80px; text-align: center; pointer-events: none; color: #fff; font-family: "Segoe UI", system-ui, sans-serif;
-  background: radial-gradient(ellipse at 30% 20%, ${cores.realce}26, transparent 55%), ${cores.fundo}; transition: opacity .6s ease; }
+  background: radial-gradient(ellipse at 30% 20%, ${cores.realce}26, transparent 55%), ${cores.fundo}; transition: opacity .6s ease, transform .6s ease; }
+.dg-cartao.dg-sair { opacity: 0; transform: scale(1.04); }
 .dg-cartao h1 { margin: 0; font-weight: 700; font-size: 56px; line-height: 1.1; letter-spacing: -.5px; color: #fff; animation: dg-subir .6s ease-out both; }
 .dg-cartao i { display: block; width: 64px; height: 4px; background: ${cores.realce}; border-radius: 2px; animation: dg-subir .6s ease-out .15s both; }
 .dg-cartao p { margin: 0; font-weight: 400; font-size: 24px; line-height: 1.3; color: #ffffffc0; animation: dg-subir .6s ease-out .3s both; }
@@ -64,7 +70,7 @@ function instalarNaPagina({ css, capa }) {
   dg.largarDepois = (el, ms) => setTimeout(() => { if (dg.vivos.get(el.id) === el) dg.vivos.delete(el.id); el.remove(); }, ms);
 
   dg.titulo = (texto) => { const el = dg.el('div', 'dg-titulo', 'dg-titulo'); el.textContent = texto; raiz().appendChild(el); };
-  dg.esconderTitulo = () => { const el = document.getElementById('dg-titulo'); if (!el) return; el.classList.add('dg-sair'); dg.largarDepois(el, 320); };
+  dg.esconderTitulo = () => { const el = document.getElementById('dg-titulo'); if (!el) return false; el.classList.add('dg-sair'); dg.largarDepois(el, 320); return true; };
 
   dg.caixa = (alvo, margem) => {
     const r = alvo.getBoundingClientRect();
@@ -75,6 +81,7 @@ function instalarNaPagina({ css, capa }) {
   };
   dg.semCaixa = () => dg.largar('dg-caixa');
 
+  // Cortina escura (estilo sóbrio) entre páginas.
   dg.cortina = () => {
     guardar('dg-cortina', '1');
     const el = dg.el('div', 'dg-cortina', 'dg-cortina');
@@ -84,6 +91,20 @@ function instalarNaPagina({ css, capa }) {
     guardar('dg-cortina', null);
     const el = document.getElementById('dg-cortina'); if (!el) return;
     el.style.opacity = '0'; dg.largarDepois(el, 450);
+  };
+
+  // Ponte (estilo apresentação): a última imagem da página antiga cobre a nova até ela estar pronta
+  // e depois desvanece com um leve zoom. Desenha-se logo no documento atual (numa SPA a navegação
+  // não cria documento novo) e, numa navegação completa, o documento novo recebe-a por init script.
+  dg.ponte = (imagem) => {
+    const el = dg.el('div', 'dg-ponte', 'dg-ponte');
+    el.style.backgroundImage = `url(${imagem})`;
+    raiz().appendChild(el);
+  };
+  dg.semPonte = () => {
+    const el = document.getElementById('dg-ponte'); if (!el) return false;
+    void el.offsetHeight; el.classList.add('dg-sair'); dg.largarDepois(el, 600);
+    return true;
   };
 
   dg.cartao = ({ titulo, subtitulo }, imediato) => {
@@ -104,7 +125,7 @@ function instalarNaPagina({ css, capa }) {
   dg.semCartao = () => {
     guardar('dg-capa-feita', '1');
     const el = document.getElementById('dg-cartao'); if (!el) return;
-    el.style.opacity = '0'; dg.largarDepois(el, 650);
+    el.classList.add('dg-sair'); dg.largarDepois(el, 650);
     setTimeout(() => { if (!document.getElementById('dg-cartao')) { dg.tapar?.remove(); dg.tapar = null; } }, 650);
   };
 
@@ -150,8 +171,9 @@ function instalarNaPagina({ css, capa }) {
   dg.percorrerAte = (el, bloco, ms) => {
     const c = dg.contentor(el);
     const r = el.getBoundingClientRect();
-    const topo = c === document.scrollingElement || c === document.documentElement ? 0 : c.getBoundingClientRect().top;
-    const altura = c === document.scrollingElement || c === document.documentElement ? innerHeight : c.clientHeight;
+    const documento = c === document.scrollingElement || c === document.documentElement;
+    const topo = documento ? 0 : c.getBoundingClientRect().top;
+    const altura = documento ? innerHeight : c.clientHeight;
     const dy = Math.round(bloco === 'center' ? r.top + r.height / 2 - (topo + altura / 2) : r.top - topo - 24);
     return Math.abs(dy) > 4 ? dg.percorrer(dy, ms, el) : Promise.resolve();
   };
@@ -170,6 +192,7 @@ function instalarNaPagina({ css, capa }) {
     new MutationObserver(manter).observe(document.documentElement, { childList: true });
     new MutationObserver(manter).observe(document.head, { childList: true });
     if (ler('dg-cortina') === '1') { const el = dg.el('div', 'dg-cortina', 'dg-cortina'); raiz().appendChild(el); }
+    if (window.__dgPonte) dg.ponte(window.__dgPonte);
     if (capa && ler('dg-capa-feita') !== '1') dg.cartao(capa, true);
     const r = ler('dg-rato'); if (r) { const [x, y, v] = r.split(',').map(Number); dg.rato(x, y, v === 1); }
   };
@@ -183,7 +206,8 @@ export async function abrirEstudio(opcoes = {}) {
   const cores = { fundo: '#0b1f33', realce: '#e8601c', ...guiao.cores };
   const css = estilo(cores);
   const duracoes = existsSync(join(pasta, 'audio/duracoes.json')) ? lerJson('audio/duracoes.json') : null;
-  const folgaMs = Math.round((guiao.folga ?? 1.5) * 1000);
+  const folgaMs = Math.round((guiao.folga ?? 0.4) * 1000); // depois da última frase de cada passo
+  const pausaMs = Math.round((guiao.pausaFrases ?? 0.25) * 1000); // entre frases seguidas
   mkdirSync(join(pasta, 'gravacao'), { recursive: true });
 
   const browser = await chromium.launch({ args: escala !== 1 ? [`--force-device-scale-factor=${escala}`] : [] });
@@ -220,46 +244,69 @@ export async function abrirEstudio(opcoes = {}) {
     page, guiao, agora, apresentacao,
     tempos: [], marcas: [], zooms: [], esperas: [],
     rato: { x: Math.round(guiao.largura * 0.58), y: Math.round(guiao.altura * 0.55) },
-    ratoVisivel: false, zoomAtivo: false, narracaoEm: null, passoAtual: null, inicioVideo: 0, fimNarracao: 0,
+    ratoVisivel: false, zoomAtivo: false, passoAtual: null, inicioVideo: 0,
   };
 
   const garantir = () => page.evaluate(instalarNaPagina, { css, capa });
   const dg = async (fn, arg) => { await garantir(); return page.evaluate(fn, arg); };
 
   e.pausa = esperar;
-  e.narrar = () => { e.narracaoEm = agora(); };
 
-  e.duracaoMinima = (passo) => {
-    const segundos = duracoes?.[passo.id]?.segundos ?? passo.narracao.length / CARACTERES_POR_SEGUNDO + 1.5;
-    return Math.round(segundos * 1000);
+  // Frases de um passo, com a duração de cada uma (do áudio, ou estimada pelo texto).
+  function frasesDe(passo) {
+    const d = duracoes?.[passo.id];
+    if (d?.frases) return d.frases.map((f) => ({ texto: f.texto, ms: Math.round(f.segundos * 1000) }));
+    return dividirFrases(passo.narracao).map((t) => ({ texto: t, ms: Math.round((t.length / CARACTERES_POR_SEGUNDO + 0.4) * 1000) }));
+  }
+  const fimAgendado = () => {
+    const p = e.passoAtual; const u = p.agenda.at(-1);
+    return u ? u.em + p.frases[u.n].ms : null;
   };
-
-  // Espera até a narração do passo atual acabar (margem negativa: um pouco antes).
-  e.ateNarracao = async (margemMs = 0) => {
-    const fim = (e.narracaoEm ?? e.passoAtual.inicio) + e.duracaoMinima(e.passoAtual.passo) + margemMs;
-    if (agora() < fim) await esperar(fim - agora());
+  // Encaixa a frase seguinte agora. Se a anterior ainda não acabou, espera por ela e pela pausa.
+  e.narrar = async () => {
+    const p = e.passoAtual;
+    if (p.agenda.length >= p.frases.length) { console.warn(`Aviso: ${p.passo.id} não tem mais frases para narrar`); return; }
+    const fim = fimAgendado();
+    if (fim !== null && agora() < fim + pausaMs) await esperar(fim + pausaMs - agora());
+    p.agenda.push({ n: p.agenda.length, em: agora() });
   };
+  // As frases que o script não encaixou seguem-se à última, com a pausa entre elas.
+  const encadearRestantes = () => {
+    const p = e.passoAtual;
+    while (p.agenda.length < p.frases.length) {
+      const fim = fimAgendado();
+      p.agenda.push({ n: p.agenda.length, em: fim === null ? p.inicio : fim + pausaMs });
+    }
+  };
+  // Espera até acabarem as frases já encaixadas (margem negativa: um pouco antes).
+  e.ateFrase = async (margemMs = 0) => {
+    const fim = fimAgendado();
+    if (fim !== null && agora() < fim + margemMs) await esperar(fim + margemMs - agora());
+  };
+  // Espera até acabar toda a narração do passo.
+  e.ateNarracao = async (margemMs = 0) => { encadearRestantes(); await e.ateFrase(margemMs); };
 
   e.passo = async (id, fn) => {
     const passo = guiao.passos.find((p) => p.id === id);
     if (!passo) throw new Error(`O passo ${id} não está no guiao.json`);
     const inicio = agora();
-    e.narracaoEm = null;
-    e.passoAtual = { passo, inicio };
+    e.passoAtual = { passo, inicio, frases: frasesDe(passo), agenda: [] };
     await fn(e);
-    const narracaoEm = e.narracaoEm ?? inicio;
-    const fimPrevisto = narracaoEm + e.duracaoMinima(passo) + folgaMs;
+    encadearRestantes();
+    const fimPrevisto = fimAgendado() + folgaMs;
     if (agora() < fimPrevisto) await esperar(fimPrevisto - agora());
-    await page.screenshot({ path: join(pasta, 'gravacao', `${id}.png`), scale: 'css' });
+    // À escala do dispositivo: com scale 'css' o Playwright muda a escala para 1x durante a captura
+    // e a gravação apanha fotogramas pequenos com cinzento à volta.
+    await page.screenshot({ path: join(pasta, 'gravacao', `${id}.jpg`), type: 'jpeg', quality: 85 });
     const fim = agora();
-    e.tempos.push({ id, inicio, fim, narracaoEm });
-    console.log(`${id}: ${(inicio / 1000).toFixed(2)} s a ${(fim / 1000).toFixed(2)} s (narração aos ${(narracaoEm / 1000).toFixed(2)} s)`);
+    e.tempos.push({ id, inicio, fim, frases: e.passoAtual.agenda });
+    console.log(`${id}: ${(inicio / 1000).toFixed(2)} s a ${(fim / 1000).toFixed(2)} s; frases aos ${e.passoAtual.agenda.map((f) => (f.em / 1000).toFixed(2)).join(', ')} s`);
   };
 
-  // Abre a primeira página. Com cartão de abertura, a página carrega tapada e só depois se revela.
+  // Abre a primeira página. Com cartão de abertura, a página carrega tapada; a primeira frase
+  // começa ainda sobre o cartão e a página revela-se enquanto a voz fala.
   e.abrir = async (url = guiao.url) => {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
-    const desde = agora();
     await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
     await aceitarCookies(page);
     if (capa) {
@@ -270,18 +317,18 @@ export async function abrirEstudio(opcoes = {}) {
       e.inicioVideo = Math.round(pintura - t0);
       e.marcas.push({ nome: 'capa', em: e.inicioVideo });
       const segundos = Math.round((guiao.capa.segundos ?? 2.5) * 1000);
-      const falta = segundos - (agora() - desde);
-      if (falta > 0) await esperar(falta);
-      // Se a página demorou mais do que o cartão devia durar, o excesso sai na montagem:
-      // o cartão já está parado desde o fim da animação de entrada (0,9 s).
-      const excesso = agora() - e.inicioVideo - segundos;
-      if (excesso > 0) e.esperas.push({ de: e.inicioVideo + 900, ate: e.inicioVideo + 900 + excesso });
+      const antes = Math.min(Math.round((guiao.capa.narrarAntes ?? 1.5) * 1000), segundos - 900);
+      const minimo = e.inicioVideo + segundos - antes; // o cartão já esteve parado o tempo que devia
+      if (agora() < minimo) await esperar(minimo - agora());
+      // Se a página demorou mais, o excesso sai na montagem: o cartão está parado desde o fim da entrada.
+      if (agora() > minimo + 40) e.esperas.push({ de: minimo, ate: agora() });
+      await e.narrar();
+      await esperar(antes);
       await dg(() => window.__dg.semCartao());
       await esperar(650);
-      e.narracaoEm = agora();
     } else {
       e.inicioVideo = agora();
-      e.narracaoEm = agora();
+      await e.narrar();
     }
     if (apresentacao) await e.mostrarCursor();
   };
@@ -372,7 +419,7 @@ export async function abrirEstudio(opcoes = {}) {
     if (e.zoomAtivo) console.warn(`Aviso: título «${texto}» com zoom ativo; pode ficar fora do enquadramento.`);
     await dg((t) => window.__dg.titulo(t), texto);
   };
-  e.esconderTitulo = async () => { await dg(() => window.__dg.esconderTitulo()); await esperar(330); };
+  e.esconderTitulo = async () => { if (await dg(() => window.__dg.esconderTitulo())) await esperar(330); };
 
   // Zoom: só marcas para a montagem; a imagem não muda durante a gravação.
   e.zoom = async (alvo, { fator = 1.6, ms = 700 } = {}) => {
@@ -388,39 +435,52 @@ export async function abrirEstudio(opcoes = {}) {
     await esperar(ms);
   };
 
-  e.escurecer = async () => {
-    await dg(() => window.__dg.cortina());
-    return agora() + 400; // momento em que o ecrã fica escuro: serve para alinhar o relógio na montagem
-  };
-  e.clarear = async (seletor) => {
-    if (seletor) await page.locator(seletor).first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
-    await esperar(400);
-    const em = agora();
-    await dg(() => window.__dg.semCortina());
-    await esperar(450);
-    return em;
-  };
-
-  // Escurece, executa a ação que muda de página, espera pela página nova e revela-a.
-  // O tempo a mais debaixo da cortina (uma página lenta) sai na montagem: ficam 0,5 s de escuro.
+  // Muda de página. No estilo apresentação, a última imagem da página antiga fica no ecrã e
+  // desvanece sobre a nova (ponte); no sóbrio, uma cortina escura. A ação começa meio segundo
+  // antes de a frase em curso acabar, e o tempo a mais à espera da página nova sai na montagem.
+  // Devolve assim que o desvanecer começa, para a frase seguinte entrar com a página nova.
   e.navegar = async (acao, { url, visivel, timeout = 15000 } = {}) => {
-    await e.zoomFora();
+    if (e.zoomAtivo) { e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false; } // sai em paralelo
     await e.retirarDestaque();
-    await dg(() => window.__dg.esconderTitulo());
-    const escuro = await e.escurecer();
-    e.marcas.push({ nome: 'cortina', em: escuro });
+    await e.esconderTitulo();
+    await e.ateFrase(-500);
+    if (apresentacao) {
+      const foto = await page.screenshot({ type: 'jpeg', quality: 82 });
+      const dado = `data:image/jpeg;base64,${foto.toString('base64')}`;
+      await page.addInitScript((d) => { window.__dgPonte = d; }, dado); // numa navegação completa
+      await dg((d) => window.__dg.ponte(d), dado); // na mesma página (SPA) e até o documento mudar
+    }
+    const parado = agora();
+    if (!apresentacao) {
+      await dg(() => window.__dg.cortina());
+      e.marcas.push({ nome: 'cortina', em: parado + 400 });
+    }
     await acao();
     if (url) await page.waitForURL(url, { waitUntil: 'domcontentloaded', timeout });
-    const claro = await e.clarear(visivel);
-    if (claro - escuro > 500) e.esperas.push({ de: escuro + 250, ate: claro - 250 });
+    if (visivel) await page.locator(visivel).first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
+    await esperar(apresentacao ? 100 : 400);
+    const pronto = agora();
+    if (apresentacao) {
+      await dg(() => window.__dg.semPonte());
+      await page.addInitScript(() => { window.__dgPonte = null; });
+      await esperar(150);
+    } else {
+      await dg(() => window.__dg.semCortina());
+      await esperar(450);
+    }
+    const margem = apresentacao ? 600 : 250; // deixa ver o clique (e o fim da frase) antes do corte
+    if (pronto - parado > margem + 300) e.esperas.push({ de: parado + margem, ate: pronto - 100 });
   };
 
+  // Cartão de fecho: o zoom sai, o cursor some e o cartão entra, tudo em sobreposição.
   e.fecho = async (cartao = guiao.fecho) => {
-    await e.zoomFora();
     await e.retirarDestaque();
+    await e.esconderTitulo();
+    if (e.zoomAtivo) { e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false; }
     if (e.ratoVisivel) await e.esconderCursor();
     await dg((c) => window.__dg.cartao(c, false), { titulo: cartao?.titulo ?? '', subtitulo: cartao?.subtitulo ?? '' });
-    await esperar(650);
+    e.marcas.push({ nome: 'fecho', em: agora() + 600 });
+    await esperar(200);
   };
 
   e.terminar = async () => {
