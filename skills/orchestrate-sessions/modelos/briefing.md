@@ -37,6 +37,7 @@ Escreve `<pasta>/saidas/S<n>.md` com:
 
 - cada tarefa: feito, por preencher ou não feito, e a prova (comando e saída, ficheiro ou URL);
 - o que ficou por preencher pelo utilizador, uma linha por valor;
+- a saída de `node <pasta da skill humanizar>/scripts/humanizar.mjs <o que alteraste>`: limpa, ou com os achados que ficaram por decidir pelo utilizador (não corrijas sem autorização);
 - as subidas de nível, com a razão;
 - a saída de `/usage` (custo estimado e uso por modelo);
 - o que ficou em aberto.

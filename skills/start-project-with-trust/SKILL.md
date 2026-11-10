@@ -56,7 +56,7 @@ O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva f
   - nos commits: mensagem curta no estilo do repositório, sem emojis nem listas longas;
   - nada de texto de exemplo em produção («Lorem ipsum», «John Doe») nem números ou estatísticas inventados.
 
-  Antes de entregar, relê o texto à procura destes padrões.
+  Antes de entregar, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que vai ser entregue e relê o que o verificador não apanha, com o catálogo de `../humanizar/marcas.md`. A correção só se faz com autorização do utilizador, categoria a categoria.
 - **Adotar antes de construir.** Antes de propores desenvolvimento, procura uma plataforma que já resolva a necessidade, ou uma forma de ligar plataformas que sirva de atalho (API, webhooks, MCP, automação). Open source primeiro. Desenvolver de raiz é uma das opções, nunca a única. Se o utilizador preferir desenvolver, segue o desenvolvimento normal.
 - **Autonomia depois da decisão.** Uma decisão do utilizador leva-se até ao fim sem voltar a perguntar o que decorre dela. Se ele decide «o login é pelo Entra», preparas a integração completa (código, configuração, testes, instruções para registar a aplicação) e deixas por preencher só o que não podes saber: identificadores, segredos e URLs do cliente. Esses valores ficam em variáveis de ambiente, com um `.env.example` no repositório e uma linha por valor na secção «Por preencher» de `entrega.md` (nome, para quê, onde se obtém, formato de exemplo), nunca com valores reais. Um bloqueio que só o utilizador resolve não pára o resto: regista-se e continua-se o que não depende dele. As perguntas que surgem na execução juntam-se e fazem-se no fim do trabalho possível, uma de cada vez. O critério de sucesso dessa ação passa a «preenchidos os valores, o fluxo funciona», provado na Fase 5 depois de ele os preencher.
 
@@ -263,6 +263,7 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
    O script confirma que o HTTP redireciona para HTTPS, que o certificado é válido, que o TLS é 1.2 ou superior, que os cabeçalhos de segurança estão presentes e que a área de administração não abre sem login. Tem de terminar com `✓ Publicação verificada`. Sem exposição pública, escreve «Não aplicável:» e a razão.
 3. **Acessos (P15).** Revê `acessos.md` com o utilizador: cada acesso confirmado e a data de revisão atualizada. Em «Acessos», escreve «Ver acessos.md, revisto em <data>», ou «Não aplicável:» e a razão.
 3a. **Operação.** Preenche «Operação» com um item por linha, a partir de `knowledge/fiabilidade/prontidao-operacional-e-passagem.md` (monitorização dos quatro sinais, runbooks, cópias de segurança 3-2-1 testadas, processo de incidentes, registo de alterações, sondas de saúde): o que ficou feito e a prova. É o documento que quem vai operar a plataforma recebe, para não precisar de saber como foi construída. Sem plataforma a operar, escreve «Não aplicável:» e a razão.
+3b. **Humanizar.** Corre a mini skill `humanizar` sobre o que vai ser entregue, pede autorização para as correções e cola a saída final do verificador em «Verificação», como prova do critério «sem marcas de escrita de IA». Os achados que o utilizador decidiu manter ficam registados com a razão.
 4. Corre o verificador da entrega e mostra a saída completa:
 
    ```

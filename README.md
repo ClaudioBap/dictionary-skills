@@ -2,11 +2,11 @@
 
 [English version](README.en.md)
 
-Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há três skills principais e onze mini skills:
+Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há três skills principais e doze mini skills:
 
 - **`start-project-with-trust`** conduz um projeto de cliente da primeira conversa à entrega verificada: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
 - **`orchestrate-sessions`** divide um trabalho por várias sessões Claude em paralelo, cada uma com a sua mini skill. Pergunta quantas sessões queres e onde usar subagentes, e dá a cada tarefa o modelo e o effort mais baratos que a fazem. A `start-project-with-trust` usa-a na Fase 3 e na Fase 4.
-- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar` e `gravacao-video`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável.
+- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video` e `humanizar`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável. A `humanizar` verifica tudo o que vai ser entregue à procura de marcas de IA (texto, código, interface, commits) e só corrige com autorização.
 - **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou e aplica-o segundo o nível de confiança. Quando algo é substituído por uma prática melhor, reescreve a entrada, guarda o texto anterior no «Histórico» e atualiza as skills que o usavam.
 
 ## O que está neste repositório
@@ -16,7 +16,7 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A skill que arranca e conduz projetos | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) |
 | [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 356 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill que distribui o trabalho por sessões, com modelo e effort por tarefa | Quem executa trabalho com várias sessões em paralelo |
-| `skills/<mini skill>/` | As onze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
+| `skills/<mini skill>/` | As doze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
 
 ## start-project-with-trust
@@ -209,7 +209,7 @@ skills/orchestrate-sessions/
 ├── modo-continuo.md    trabalhar até ao fim, esperar pela reposição do limite e retomar
 └── scripts/            estado-uso.mjs, a linha de estado que grava o uso do plano
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
-│                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video
+│                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar
 └── SKILL.md        processo do tema: pergunta o que se vai fazer, lê só essa parte de knowledge/ e vai às fontes quando falta
 skills/update-knowledge/
 ├── SKILL.md        procura de novidades, fluxo por confiança, publicação e conhecimento pessoal
