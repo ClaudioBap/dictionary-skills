@@ -52,6 +52,7 @@ As credenciais da base de dados e os acessos a sistemas que já existem ficam no
 
 ## Relatório
 
+- O inventário do que existia antes (contrato, esquema, migrações, testes) e o que mudou.
 - O contrato (caminho do OpenAPI) e as decisões tomadas, com quem as tomou.
 - O esquema e as migrações, cada uma com a prova de aplicar e reverter.
 - Os testes de contrato e a execução no pipeline.

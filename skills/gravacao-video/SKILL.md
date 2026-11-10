@@ -37,6 +37,17 @@ A gravação, a montagem e a exportação não têm entradas na base. Antes de i
 3. Regista antes de usar: numa cópia git do repositório, propõe uma entrada nova em `ia/multimodal/` (por exemplo, gravação do browser, vídeo programático, exportação com ffmpeg) no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com aprovação; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/ia/multimodal/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`, com o texto anterior no «Histórico».
 4. Diz ao utilizador que fontes leste, que licenças confirmaste e o que registaste.
 
+## Onde fica cada coisa
+
+Tudo vive em `video/<nome-do-video>/`, no projeto:
+- `guiao.md`: a tabela do passo 1, validada;
+- `gravar.mjs` (ou `.py`): o script Playwright, que lê as credenciais do ambiente;
+- `gravacao/`: o vídeo bruto e as capturas por passo;
+- `audio/`: um ficheiro por passo, com o nome do passo;
+- `legendas.srt`: geradas a partir do guião;
+- `final/`: as exportações, uma por formato e resolução.
+Nada desta pasta vai para o repositório com segredos; `.gitignore` exclui `gravacao/` e `final/` se forem grandes.
+
 ## 4. Gravar, montar e provar
 
 1. **Gravar.** Um script Playwright segue o guião passo a passo, com esperas pelos elementos e não por tempo, numa janela com a resolução do formato final. O login usa as variáveis de ambiente. Antes de gravar, confirma no ecrã que não aparecem dados pessoais nem credenciais; se aparecerem, usa a conta de teste ou desfoca na montagem.

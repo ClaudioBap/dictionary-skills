@@ -48,6 +48,8 @@ Quando a linguagem ou o framework do projeto não está na base, ou uma entrada 
 - Decisões (biblioteca, padrão de erros, estratégia de testes): opções da mais barata à mais cara, com a base e uma recomendação, no formato da Fase 1.
 - Testes primeiro quando a entrada `testes.md` da linguagem o pede para o tipo de alteração; sem testes no projeto, propões o mínimo que prova a alteração.
 - O critério de fim parte da linha «Para uma skill» das entradas usadas. A prova é o que qualquer pessoa pode repetir: o formatador e o linter do projeto sem erros nos ficheiros tocados, os testes a passar, e a verificação de segurança da entrada `seguranca-em-<linguagem>.md` aplicada ao que mudou, com os comandos e a saída colados.
+- Dependências novas são uma decisão: antes de acrescentar uma biblioteca, confirmas a licença e a manutenção na página oficial e apresentas a alternativa sem dependência, no formato da Fase 1.
+- Commits no estilo do repositório, uma alteração por commit, sem emojis nem listas longas, como pede a regra de escrita da `start-project-with-trust`.
 - Nada de segredos no código: ficam em variáveis de ambiente, com `.env.example` e «Por preencher».
 
 ## Relatório
