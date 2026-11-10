@@ -13,7 +13,7 @@ O conhecimento está em `../start-project-with-trust/knowledge/ia/multimodal/` (
 - Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`: cada facto cita o ficheiro da base ou o URL da fonte; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato da Fase 1; sem marcas de escrita de IA no guião, nos títulos e nas legendas; autonomia depois da decisão, com o que só o utilizador pode dar (credenciais, marca, música licenciada) em «Por preencher».
 - Credenciais vêm de variáveis de ambiente, lidas pelo script de gravação. Nunca ficam no guião, no briefing, nos ficheiros do projeto nem no vídeo. Sempre que possível grava-se com uma conta de teste.
 - Licenças antes de instalar: cada ferramenta e cada voz entram só depois de leres a licença na página oficial e de a registares. Um modelo de voz com licença não comercial não entra em vídeos de clientes sem os termos confirmados (ver a entrada de voz).
-- A narração é contínua, como numa apresentação: frases encadeadas com 0,25 s entre elas e 0,4 s de folga no fim de cada passo, e as ações do cursor acontecem enquanto a voz fala. Cada frase encaixa-se no momento certo (`await e.narrar()` antes da ação a que se refere); só se espera pelo fim de uma frase para mudar de página. O guião escreve-se em frases curtas, uma por ação, com frases de ligação («Abrimos o primeiro.») onde o cursor vai fazer algo.
+- A narração é contínua, como numa apresentação: frases encadeadas com uma pausa curta entre elas e uma folga no fim de cada passo (ambas pelo formato, ver o passo 1), e as ações do cursor acontecem enquanto a voz fala. Cada frase encaixa-se no momento certo (`await e.narrar()` antes da ação a que se refere); só se espera pelo fim de uma frase para mudar de página. O guião escreve-se em frases curtas, uma por ação, com frases de ligação («Abrimos o primeiro.») onde o cursor vai fazer algo.
 - O modelo e o effort seguem `../orchestrate-sessions/modelo-e-effort.md`: o guião e o desenho das transições são «Design e interface» ao nível pedido; a gravação e a montagem são «Construir»; a leitura de documentação é `haiku low`.
 
 ## 1. O que vamos gravar?
@@ -26,8 +26,10 @@ Formatos, com a duração de cada um:
 3. **Explicação detalhada**: 3 a 10 minutos, funcionalidade a funcionalidade, com legendas.
 
 Estilos:
-1. **Apresentação** (por omissão): cartão de abertura e de fecho, cursor visível com movimento suave e onda a cada clique, zoom a 1,5x ao que a narração refere, scroll suave, dissolve entre páginas (a última imagem da página antiga desvanece sobre a nova, com um leve zoom), títulos em terço inferior. Saída a 1920x1080, gravada a 2x para o zoom ficar nítido.
+1. **Apresentação** (por omissão): cartão de abertura e de fecho, cursor visível com movimento suave e onda a cada clique, zoom a 1,5x ao que a narração refere, scroll suave, dissolve entre páginas (a última imagem da página antiga desvanece sobre a nova, com um leve zoom), títulos em terço inferior. O destaque faz-se com o cursor e o zoom; caixas coloridas à volta de elementos só se o utilizador as pedir. Saída a 1920x1080, gravada a 2x para o zoom ficar nítido.
 2. **Sóbrio**: sem cartões nem cursor; títulos, caixas e cortina escura entre páginas. Saída na resolução da janela.
+
+O ritmo segue o formato e pode afinar-se no `guiao.json`: teaser com 0,25 s entre frases e 0,4 s de folga; demonstração com 0,5 s e 0,9 s e movimentos 1,3x mais lentos; explicação com 0,7 s e 1,2 s e movimentos 1,5x mais lentos.
 
 Com a resposta, escreves o guião: uma tabela com passo, ação no browser (incluindo o que o cursor faz e onde há zoom), texto da narração e o que aparece no ecrã, e pedes validação antes de gravar. Textos finais que faltem ficam em «Por preencher».
 
@@ -60,7 +62,7 @@ O projeto precisa de `playwright` e `ffmpeg-static` no `package.json` e do Piper
 ## 4. Gravar, montar e provar
 
 1. **Preparar.** Copia `scripts/*.mjs` para `video/<nome>/` e escreve `guiao.json`:
-   - `nome`, `url`, `largura` e `altura` da janela (1280x720 por omissão), `escala` (2 no estilo apresentação, 1 no sóbrio), `saida` (`{ "largura": 1920, "altura": 1080 }`), `estilo` (`apresentacao` ou `sobrio`), `voz`, `folga` em segundos depois da última frase de cada passo (0,4 por omissão), `pausaFrases` entre frases seguidas (0,25 por omissão), `cores` (`fundo` e `realce`, opcionais);
+   - `nome`, `url`, `formato` (`teaser`, `demonstracao` ou `explicacao`: define o ritmo), `largura` e `altura` da janela (1280x720 por omissão), `escala` (2 no estilo apresentação, 1 no sóbrio), `saida` (`{ "largura": 1920, "altura": 1080 }`), `estilo` (`apresentacao` ou `sobrio`), `voz`, e para afinar o ritmo do formato: `pausaFrases` (segundos entre frases seguidas), `folga` (depois da última frase de cada passo) e `ritmo` (multiplicador da duração dos movimentos); `cores` (`fundo` e `realce`, opcionais);
    - `capa` e `fecho`, cada um com `titulo` e `subtitulo` (a `capa` também `segundos`, 2,5 por omissão, e `narrarAntes`, os segundos de voz ainda sobre o cartão, 1,5 por omissão);
    - `passos`: lista de `{ "id": "01-...", "narracao": "..." }`, com o texto exato do guião. A narração divide-se em frases pela pontuação final (ou por `|`, se quiseres forçar a divisão).
 2. **Narrar.** `node narrar.mjs` gera `audio/<passo>-<n>.wav` por frase com o Piper e `audio/duracoes.json`. Faz isto antes de gravar: a gravação usa as durações para encaixar cada frase e esperar pelo fim dela.

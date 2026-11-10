@@ -42,7 +42,7 @@ function estilo(cores) {
 .dg-rato.dg-ver { opacity: 1; }
 .dg-rato.dg-premido svg { transform: scale(.88); transform-origin: 2px 2px; }
 .dg-rato svg { display: block; transition: transform .1s ease; }
-.dg-onda { position: fixed; z-index: 2147483644; width: 44px; height: 44px; border: 3px solid ${cores.realce}; border-radius: 50%;
+.dg-onda { position: fixed; z-index: 2147483644; width: 44px; height: 44px; border: 3px solid ${cores.fundo}99; border-radius: 50%;
   pointer-events: none; animation: dg-onda .5s ease-out both; }
 .dg-fixo, .dg-fixo * { animation: none !important; }
 `;
@@ -206,8 +206,18 @@ export async function abrirEstudio(opcoes = {}) {
   const cores = { fundo: '#0b1f33', realce: '#e8601c', ...guiao.cores };
   const css = estilo(cores);
   const duracoes = existsSync(join(pasta, 'audio/duracoes.json')) ? lerJson('audio/duracoes.json') : null;
-  const folgaMs = Math.round((guiao.folga ?? 0.4) * 1000); // depois da última frase de cada passo
-  const pausaMs = Math.round((guiao.pausaFrases ?? 0.25) * 1000); // entre frases seguidas
+  // O ritmo segue o formato: um teaser é rápido; uma demonstração ou uma explicação dão tempo de olhar.
+  // pausaFrases: entre frases seguidas; folga: depois da última frase de cada passo;
+  // ritmo: multiplica a duração dos movimentos do cursor, do scroll, da escrita e do zoom.
+  const RITMOS = {
+    teaser: { pausaFrases: 0.25, folga: 0.4, ritmo: 1 },
+    demonstracao: { pausaFrases: 0.5, folga: 0.9, ritmo: 1.3 },
+    explicacao: { pausaFrases: 0.7, folga: 1.2, ritmo: 1.5 },
+  };
+  const base = RITMOS[guiao.formato] ?? RITMOS.demonstracao;
+  const folgaMs = Math.round((guiao.folga ?? base.folga) * 1000);
+  const pausaMs = Math.round((guiao.pausaFrases ?? base.pausaFrases) * 1000);
+  const ritmo = guiao.ritmo ?? base.ritmo;
   mkdirSync(join(pasta, 'gravacao'), { recursive: true });
 
   const browser = await chromium.launch({ args: escala !== 1 ? [`--force-device-scale-factor=${escala}`] : [] });
@@ -364,7 +374,7 @@ export async function abrirEstudio(opcoes = {}) {
     const de = e.rato;
     const dist = Math.hypot(destino.x - de.x, destino.y - de.y);
     if (dist < 2) return destino;
-    const duracao = ms ?? Math.round(Math.min(1100, Math.max(380, 320 + dist * 0.9)));
+    const duracao = ms ?? Math.round(Math.min(1100, Math.max(380, 320 + dist * 0.9)) * ritmo);
     const ctrl = { x: (de.x + destino.x) / 2 - (destino.y - de.y) * 0.12, y: (de.y + destino.y) / 2 + (destino.x - de.x) * 0.12 };
     const inicio = Date.now();
     for (;;) {
@@ -394,18 +404,18 @@ export async function abrirEstudio(opcoes = {}) {
   e.escrever = async (texto) => {
     for (const ch of texto) {
       await page.keyboard.type(ch);
-      await esperar(ch === ' ' ? 140 : 70 + Math.round(Math.random() * 50));
+      await esperar(Math.round((ch === ' ' ? 140 : 70 + Math.random() * 50) * ritmo));
     }
   };
   e.tecla = (tecla) => page.keyboard.press(tecla);
 
   e.percorrer = async (pixeis, { ms } = {}) => {
-    await dg(([dy, t]) => window.__dg.percorrer(dy, t), [pixeis, ms ?? Math.round(Math.min(2500, Math.max(600, Math.abs(pixeis) * 1.6)))]);
+    await dg(([dy, t]) => window.__dg.percorrer(dy, t), [pixeis, ms ?? Math.round(Math.min(2500, Math.max(600, Math.abs(pixeis) * 1.6)) * ritmo)]);
   };
-  e.percorrerAte = async (locator, { bloco = 'center', ms = 1200 } = {}) => {
+  e.percorrerAte = async (locator, { bloco = 'center', ms } = {}) => {
     await garantir();
     const handle = await locator.elementHandle();
-    await handle.evaluate((el, [b, t]) => window.__dg.percorrerAte(el, b, t), [bloco, ms]);
+    await handle.evaluate((el, [b, t]) => window.__dg.percorrerAte(el, b, t), [bloco, ms ?? Math.round(1200 * ritmo)]);
   };
 
   e.destacar = async (locator, { margem = 8 } = {}) => {
@@ -422,13 +432,13 @@ export async function abrirEstudio(opcoes = {}) {
   e.esconderTitulo = async () => { if (await dg(() => window.__dg.esconderTitulo())) await esperar(330); };
 
   // Zoom: só marcas para a montagem; a imagem não muda durante a gravação.
-  e.zoom = async (alvo, { fator = 1.6, ms = 700 } = {}) => {
+  e.zoom = async (alvo, { fator = 1.6, ms = Math.round(700 * ritmo) } = {}) => {
     const p = await e.ponto(alvo);
     e.zooms.push({ tipo: 'in', em: agora(), x: p.x, y: p.y, fator, ms });
     e.zoomAtivo = true;
     await esperar(ms);
   };
-  e.zoomFora = async ({ ms = 600 } = {}) => {
+  e.zoomFora = async ({ ms = Math.round(600 * ritmo) } = {}) => {
     if (!e.zoomAtivo) return;
     e.zooms.push({ tipo: 'out', em: agora(), ms });
     e.zoomAtivo = false;
