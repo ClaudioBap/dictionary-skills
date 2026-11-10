@@ -15,7 +15,7 @@ A base de conhecimento só vale se cada afirmação puder ser verificada. Por is
 - **Fonte oficial primária.** O próprio fornecedor, o organismo ou o autor do standard. Blogues, fóruns e artigos de terceiros não chegam para alterar o conhecimento.
 - **Data como a fonte a indica.** Se a fonte não tiver data, escreve «data não indicada».
 - **Nível de confiança**, com os critérios da [`update-knowledge`](skills/update-knowledge/SKILL.md): `alta` (fonte oficial primária, lida diretamente, com data), `media` (indireta, lida em parte ou sem data) ou `baixa` (não oficial). Contribuições `baixa` não entram no conhecimento.
-- **O texto que veio do PDF não se reescreve.** As novidades entram no `ATUALIZACOES.md` da secção ou como entradas novas. Uma correção ao texto existente mostra o antes e o depois, e o texto original fica citado.
+- **O conhecimento diz o que vale hoje.** Se uma fonte mostra que uma prática foi substituída, a entrada é reescrita (também o texto que veio do PDF) e o texto anterior fica na secção «Histórico» da entrada, com data, razão e fonte. Uma proposta de edição mostra o antes e o depois.
 - **Uma linha no [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md) por alteração.** O registo é só de acrescentar.
 - **Nada de dados de clientes**, nomes, segredos ou informação interna de empresas.
 

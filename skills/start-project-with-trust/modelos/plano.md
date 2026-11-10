@@ -7,8 +7,9 @@ _por definir_
 
 ## Ações
 
-| # | Responde a | Necessidade | Ação | Recurso (P9) | Base no conhecimento | Critério de sucesso |
-|---|------------|-------------|------|--------------|----------------------|---------------------|
+| # | Responde a | Necessidade | Ação | Recurso (P9) | Base no conhecimento | Critério de sucesso | Parte |
+|---|------------|-------------|------|--------------|----------------------|---------------------|-------|
+<!-- Parte: núcleo (igual em todos os casos) | específico (só deste caso) | — (P16 diz que é um caso só). Ver knowledge/produto/especifico-ou-modular.md. -->
 
 ## Plataformas candidatas
 <!-- Passo 1a da Fase 2: plataformas que cobrem necessidades (knowledge/plataformas/ ou pesquisa com URL oficial), o que cobrem, o que falta e como se ligam (API, webhooks, MCP). «Nenhuma encontrada» também é resposta. -->

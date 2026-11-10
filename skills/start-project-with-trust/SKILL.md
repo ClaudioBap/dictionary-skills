@@ -58,6 +58,7 @@ O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva f
 
   Antes de entregar, relê o texto à procura destes padrões.
 - **Adotar antes de construir.** Antes de propores desenvolvimento, procura uma plataforma que já resolva a necessidade, ou uma forma de ligar plataformas que sirva de atalho (API, webhooks, MCP, automação). Open source primeiro. Desenvolver de raiz é uma das opções, nunca a única. Se o utilizador preferir desenvolver, segue o desenvolvimento normal.
+- **Autonomia depois da decisão.** Uma decisão do utilizador leva-se até ao fim sem voltar a perguntar o que decorre dela. Se ele decide «o login é pelo Entra», preparas a integração completa (código, configuração, testes, instruções para registar a aplicação) e deixas por preencher só o que não podes saber: identificadores, segredos e URLs do cliente. Esses valores ficam em variáveis de ambiente, com um `.env.example` no repositório e uma linha por valor na secção «Por preencher» de `entrega.md` (nome, para quê, onde se obtém, formato de exemplo), nunca com valores reais. Um bloqueio que só o utilizador resolve não pára o resto: regista-se e continua-se o que não depende dele. As perguntas que surgem na execução juntam-se e fazem-se no fim do trabalho possível, uma de cada vez. O critério de sucesso dessa ação passa a «preenchidos os valores, o fluxo funciona», provado na Fase 5 depois de ele os preencher.
 
 ## Início
 
@@ -74,6 +75,7 @@ O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva f
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
 3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
 3a. **Conhecimento pessoal.** Se `~/.start-project-with-trust/` existe, lê `perfil.md` e `FONTES.md` para saberes que tipos de trabalho e que fontes o utilizador já tem. Se não existe, cria a pasta com `perfil.md`, `FONTES.md` e `CHANGELOG.md` vazios (só com o título) e diz ao utilizador onde fica e para que serve.
+3b. **Modelo da sessão.** As fases 1 a 3 e o goal-loop são planeamento, que nunca desce de `opus` (`../orchestrate-sessions/modelo-e-effort.md`). Num projeto novo, pergunta no formato da Fase 1 se o utilizador tem acesso ao Fable e aceita o custo dele nos planos e nas tarefas de topo, e regista a resposta em `objetivo.md` como pergunta de seguimento com origem P8. Se a sessão não estiver em `fable` (ou em `opus`, sem Fable), pede-lhe para mudar com `/model` antes da primeira pergunta da descoberta.
 4. **Hooks do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/` ainda não existe no projeto, pergunta ao utilizador se quer instalar os três hooks. Explica-lhe o que cada um faz:
    - **Guarda** (PreToolUse): impede marcar o estado como `Plano aprovado`, `Fase 4` ou `Fase 5` enquanto o verificador do plano encontrar falhas, e como `Concluído` enquanto o plano ou a entrega tiverem falhas.
    - **Rastreabilidade** (PostToolUse, determinística): depois de cada escrita no plano ou no custo-benefício, confirma que cada ação e decisão responde a perguntas do utilizador que existem e estão fechadas.
@@ -128,7 +130,7 @@ Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os t
 
 ## Fase 2 — Plano com o que temos
 
-1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, incluindo os `ATUALIZACOES.md` pessoais (onde ficam as novidades das fontes da base partilhada encontradas em modo local), e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros.
+1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, incluindo os `ATUALIZACOES.md` pessoais (onde ficam as novidades das fontes da base partilhada encontradas em modo local), e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros. Se uma entrada pessoal tem o mesmo caminho que uma da base partilhada, vale a pessoal: é a versão já atualizada. As secções podem ter subpastas (por exemplo `knowledge/ia/rag/`).
 1a. **Atalhos antes do código.** Para cada necessidade funcional (tickets, contratos, faturação, CRM, conteúdos, dashboards, formulários, automações…):
    - procura em `knowledge/plataformas/` uma plataforma que a cubra, toda ou em parte, e como se liga ao resto (API, webhooks, MCP);
    - se lá não houver nenhuma adequada, pesquisa nas fontes oficiais (site, documentação ou repositório do próprio projeto) plataformas open source que a cubram. Cita cada URL e marca o resultado como *(pesquisa de <data>, fora de knowledge/)*. Nunca apresentes como oficial um servidor MCP da comunidade;
@@ -138,7 +140,8 @@ Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os t
    - a ação a tomar;
    - o recurso que a executa, que tem de ser um dos que o cliente declarou na pergunta P9;
    - a base no conhecimento (ficheiro e página);
-   - o critério de sucesso, partindo da linha «Para uma skill:» da entrada usada.
+   - o critério de sucesso, partindo da linha «Para uma skill:» da entrada usada;
+   - a parte a que pertence, quando P16 indica reutilização: `núcleo` (igual em todos os casos) ou `específico` (só deste caso). Se P16 diz que é um caso só, escreve `—`. Base: `knowledge/produto/especifico-ou-modular.md`.
 3. **Só recursos declarados.** Se uma boa prática exige um recurso que o cliente não tem, não o dês como disponível. Regista-o em «Lacunas» e acrescenta a `objetivo.md` uma pergunta `aberta` sobre ele.
 4. **Sem base, vai às fontes antes de planear.** Se uma necessidade não tem entrada correspondente em `knowledge/` nem no conhecimento pessoal, não inventes uma prática e não a deixes só marcada:
    1. usa o que sabes para escolher as fontes oficiais primárias mais adequadas ao pedido (o fornecedor, o organismo ou o autor do standard) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida;
@@ -170,16 +173,30 @@ Escreve `custo-beneficio.md` com quatro partes:
      - desenvolver de raiz.
 
      Na coluna «Risco» entram a licença (por exemplo, uma licença que não é OSI ou que restringe o uso comercial), a dependência do fornecedor e a manutenção das atualizações. Se não houver candidatos, a decisão regista a pesquisa feita e recomenda desenvolver. Base: `knowledge/plataformas/`.
-   - **Decisão obrigatória: execução em paralelo.** Inclui sempre uma decisão sobre quantas sessões Claude correm em paralelo. As opções vão de tudo sequencial (mais barato em tokens, mais lento) a várias sessões em paralelo (mais tokens, menos tempo). Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
-2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz quatro coisas:
+   - **Decisão obrigatória: específico ou modular.** Responde a P16, P5 e P8 e decide quanto do que se constrói fica preparado para ser reutilizado noutro cliente, área ou conjunto de dados. Opções, da mais barata à mais cara:
+     - específico: feito só para este caso, sem abstrações;
+     - específico com o variável isolado: o que muda de caso para caso (dados, marca, textos, ligações) fica em configuração e em ficheiros próprios, fora do código;
+     - núcleo partilhado com adaptadores: o núcleo é um módulo versionado e cada caso é um adaptador mais configuração;
+     - produto: modelo de projeto atualizável ou multi-inquilino, com funcionalidades ligadas por cliente.
+
+     «Específico» é uma resposta válida: se P16 diz que é um caso só, recomenda-a e justifica. Nas duas últimas opções, o critério de sucesso é um segundo caso instanciado só com configuração e conhecimento novos, provado na Fase 5. Base: `knowledge/produto/`.
+   - **Decisão obrigatória: execução em paralelo e agentes.** Segue os passos 1 a 3 de `../orchestrate-sessions/SKILL.md`, com as ações de `plano.md` como tarefas:
+     - escreve cada ação em «Tarefas», com a mini skill de `../orchestrate-sessions/catalogo.md`, o tipo, o nível de exigência que o utilizador pediu para ela (simples, profissional ou topo) e o modelo e o effort que esse tipo e esse nível pedem em `../orchestrate-sessions/modelo-e-effort.md`. Se as necessidades validadas não deixam claro o nível de uma ação, pergunta;
+     - pergunta quantas sessões queres em paralelo, e depois onde usar subagentes (sem agentes, só no orquestrador, em cada sessão ou em todas), cada uma no formato da Fase 1. Regista-as em `objetivo.md` como perguntas de seguimento com origem P7 e P8, e cita-as em «Responde a» desta decisão.
+
+     Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
+2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz cinco coisas:
    - coordena a ordem do trabalho;
    - prepara o briefing de cada sessão de trabalho (o que entra);
-   - **pede ao utilizador para abrir as sessões Claude que vão correr em paralelo**, indicando para cada uma o briefing a colar;
+   - **pede ao utilizador para abrir as sessões Claude que vão correr em paralelo**, indicando para cada uma o comando (com o modelo e o effort) e o briefing a colar;
+   - lança os subagentes que a decisão de agentes lhe atribui, com o modelo e o effort de cada tarefa;
    - recolhe o que cada sessão devolve (o que sai) e integra.
 
    Se o utilizador escolher outro orquestrador (uma pessoa, um papel ou outro agente), regista-o. Indica também o que o orquestrador decide e como aprova. Leva «Responde a», normalmente P13 e P9.
-3. **Sessões.** Uma tabela com as colunas número, tipo (`orquestrador` ou `trabalho`), objetivo, o que entra, o que sai, em paralelo com, como abrir, quem participa e critério de fim.
+3. **Tarefas e sessões.** A secção «Tarefas» vem da decisão de execução em paralelo e agentes. Depois, uma tabela de sessões com as colunas número, tipo (`orquestrador` ou `trabalho`), objetivo, mini skill, modelo, effort, subagentes, o que entra, o que sai, em paralelo com, como abrir, quem participa e critério de fim.
    - A sessão 0 é sempre a do orquestrador.
+   - Cada sessão corre no modelo e no effort da tarefa mais exigente que faz ela própria (passo 4 de `../orchestrate-sessions/SKILL.md`).
+   - Para cada sessão de trabalho, escreve `briefings/S<n>.md` a partir de `../orchestrate-sessions/modelos/briefing.md`.
    - A saída de cada sessão é a entrada de uma sessão seguinte, ou uma entrega final.
    - Só correm em paralelo as sessões que não dependem da saída umas das outras.
    - Em «como abrir», diz o que o utilizador faz. Por exemplo: «nova sessão do Claude Code nesta pasta, colar o briefing S2», ou «subagente lançado pelo orquestrador».
@@ -228,9 +245,10 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
 ## Fase 4 — Execução
 
 1. Muda o estado para `Fase 4` e cria `entrega.md` a partir de `modelos/entrega.md`.
-2. Executa as ações do plano pela ordem e com as sessões decididas em `custo-beneficio.md`. Como orquestrador, pede ao utilizador para abrir as sessões em paralelo, com o briefing de cada uma.
+2. Executa as ações do plano pela ordem e com as sessões decididas em `custo-beneficio.md`, seguindo os passos 5 e 6 de `../orchestrate-sessions/SKILL.md`: dás ao utilizador o comando e o briefing de cada sessão, lanças os subagentes do orquestrador com o modelo e o effort de cada tarefa, e recolhes as saídas com a prova e o custo do `/usage`.
 3. Por cada ação terminada, preenche a linha em «Execução» com o mesmo número do plano: `feito` e onde ficou (commit, ficheiro ou URL).
 4. Uma ação que não se consegue fazer como planeado não se muda em silêncio: passa a pergunta `aberta` em `objetivo.md`, voltas ao goal-loop com o utilizador, e o plano revisto volta a ser validado.
+5. Uma ação bloqueada só por valores que o utilizador tem de dar (segredos, identificadores, acessos) não volta ao goal-loop: fica `por preencher` em «Execução», com uma linha por valor em «Por preencher», e passas à ação seguinte. No fim da sessão pedes os valores, e a prova dessa ação faz-se na Fase 5 depois de ele os preencher.
 
 ## Fase 5 — Verificação com prova
 
@@ -281,4 +299,4 @@ Ao terminar, mostra:
 - o número de perguntas respondidas e assumidas;
 - os pressupostos aceites;
 - as lacunas que ficam para o projeto resolver;
-- a lista das sessões, com o orquestrador.
+- a lista das sessões, com o orquestrador, e o modelo, o effort e o custo de cada uma.

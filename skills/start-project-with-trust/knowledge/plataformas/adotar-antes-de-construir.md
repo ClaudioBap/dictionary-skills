@@ -24,7 +24,7 @@ verificado_em: 2026-11-04
 
 ## Ver também
 
-- [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA (Claude e Anthropic))
+- [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA)
 - [Inventário de dependências por jurisdição](../soberania/inventario-de-dependencias-por-jurisdicao.md) (Soberania digital)
 - [Estratégia de saída](../soberania/estrategia-de-saida.md) (Soberania digital)
 

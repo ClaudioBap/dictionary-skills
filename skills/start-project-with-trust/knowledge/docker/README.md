@@ -21,3 +21,4 @@ Fonte: págs. 51–53 (Dicionario-Boas-Praticas.pdf)
 - [Kubernetes: escalonamento e atualizações](kubernetes-escalonamento-e-atualizacoes.md) — Escalar por métrica com HPA e atualizar sem downtime, com rollback. *(pág. 53)*
 - [Kubernetes: saúde e armazenamento](kubernetes-saude-e-armazenamento.md) — Probes de liveness e readiness e estado persistente em PV/PVC. *(pág. 53)*
 - [Kubernetes: segurança e entrega](kubernetes-seguranca-e-entrega.md) — Non-root, NetworkPolicy e RBAC, com entrega por Helm e GitOps. *(pág. 53)*
+- [Sondas de saúde (liveness, readiness, startup)](sondas-de-saude.md) — Três sondas com funções diferentes: a de liveness reinicia o contentor preso, a de readiness tira-o do tráfego até estar pronto, e a de startup dá tempo ao arranque antes de as outras duas começarem. *(fora do PDF)*

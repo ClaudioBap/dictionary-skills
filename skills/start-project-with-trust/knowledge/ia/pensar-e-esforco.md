@@ -1,7 +1,7 @@
 ---
 id: ia/pensar-e-esforco
 titulo: "Pensar (thinking) e esforço (effort)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [66, 67]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

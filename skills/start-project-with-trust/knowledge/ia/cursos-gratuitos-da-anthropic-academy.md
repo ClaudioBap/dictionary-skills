@@ -1,7 +1,7 @@
 ---
 id: ia/cursos-gratuitos-da-anthropic-academy
 titulo: "Cursos gratuitos da Anthropic Academy"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [66]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

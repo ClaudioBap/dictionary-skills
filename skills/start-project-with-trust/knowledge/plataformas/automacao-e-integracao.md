@@ -35,6 +35,6 @@ verificado_em: 2026-11-04
 ## Ver também
 
 - [Adotar antes de construir](adotar-antes-de-construir.md) (Plataformas para adotar antes de construir)
-- [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA (Claude e Anthropic))
+- [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA)
 
 Fonte: Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF.

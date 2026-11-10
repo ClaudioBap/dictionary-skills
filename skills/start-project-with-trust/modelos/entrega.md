@@ -7,7 +7,7 @@
 
 | # | Estado | O que foi feito | Onde |
 |---|--------|-----------------|------|
-<!-- Estado: feito | por fazer. «Onde» é o commit, o ficheiro ou o URL. -->
+<!-- Estado: feito | por fazer | por preencher (só faltam valores do utilizador, listados em «Por preencher»). «Onde» é o commit, o ficheiro ou o URL. -->
 
 ## Verificação
 
@@ -25,6 +25,13 @@ _por definir_
 
 <!-- Se P15 tem acessos remotos: «Ver acessos.md, revisto em <data>». Se não: «Não aplicável:» e a razão. -->
 _por definir_
+
+## Por preencher
+
+<!-- Valores que só o utilizador pode dar (segredos, identificadores, URLs do cliente). Nunca o valor real: só o nome da variável, para quê, onde se obtém e um exemplo do formato. O verificador falha se encontrar um segredo aqui. Os mesmos nomes vão no .env.example do repositório. -->
+
+| Variável | Para quê | Onde se obtém | Formato (exemplo) | Preenchida |
+|----------|----------|---------------|-------------------|------------|
 
 ## Aceitação
 

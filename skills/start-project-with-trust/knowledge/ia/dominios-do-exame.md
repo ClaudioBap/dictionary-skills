@@ -1,7 +1,7 @@
 ---
 id: ia/dominios-do-exame
 titulo: "Domínios do exame (o que um bom sistema de IA cobre)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [65]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

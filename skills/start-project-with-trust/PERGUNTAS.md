@@ -23,5 +23,6 @@ As pistas «Liga a» indicam as pastas de `knowledge/` a consultar na Fase 2.
 | P12 | Riscos | O que pode correr mal, e o que seria inaceitável? | `seguranca/`, `fiabilidade/` |
 | P13 | Decisão | Quem aprova as decisões do projeto, e como? | `governacao/` |
 | P14 | Publicação | O resultado vai estar acessível ao público ou só internamente? É para testar a título pessoal (grátis) ou para uso da organização (pago ou empresarial)? Há área de administração? | `publicacao/`, `seguranca/`, `nuvem/`, `soberania/` |
+| P16 | Reutilização | Isto é para um caso só, ou vai voltar a ser preciso para outros clientes, áreas ou conjuntos de dados? Se sim, o que muda de um caso para o outro (dados, marca, regras, ligações) e o que fica igual? | `produto/` |
 
 Para uma solução com IA, consultar também `ia/` (P1, P9 e P12).

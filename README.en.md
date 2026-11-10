@@ -2,10 +2,12 @@
 
 [Versão em português](README.md)
 
-A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two:
+A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently four:
 
 - **`start-project-with-trust`** takes a client project from the first conversation to a verified delivery: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
-- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level.
+- **`orchestrate-sessions`** splits a piece of work across several Claude sessions running in parallel, each with its own mini skill. It asks how many sessions you want and where to use subagents, and gives each task the cheapest model and effort that can do it. `start-project-with-trust` uses it in Phases 3 and 4.
+- **`ia-aplicada`** is the mini skill for AI work: it asks what you want to do (APIs, RAG, agents, your own model, voice…), reads only that part of the knowledge and, if the library has no answer, goes to the official sources and records what it found.
+- **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level. When a practice is replaced by a better one, it rewrites the entry, keeps the previous text in «Histórico» and updates the skills that used it.
 
 The skills and the knowledge base are written in Portuguese (Portugal).
 
@@ -14,14 +16,16 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | Part | What it is | For whom |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The skill that starts and runs projects | People who build projects for clients (consultants, development teams) |
-| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 285 good-practice entries in 25 sections, each with its source | Used by the skill; can also be read directly |
+| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 355 good-practice entries in 26 sections, each with its source | Used by the skill; can also be read directly |
+| [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill that spreads work across sessions, with a model and effort per task | Whoever runs work with several sessions in parallel |
+| [`skills/ia-aplicada/`](skills/ia-aplicada/SKILL.md) | The mini skill for AI work | Whoever builds or decides on AI |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
 
 ## start-project-with-trust
 
 It always runs a project in the same order, and each phase only moves on once the user validates it:
 
-1. **Discovery.** One question at a time, with options ordered from cheapest to most expensive and a recommendation. There are 15 mandatory questions (what, why, how success is measured, for whom, scope, deadline, budget, resources, constraints, data and GDPR, risks, who decides, publishing, remote access). Vague answers get follow-up questions until they are verifiable.
+1. **Discovery.** One question at a time, with options ordered from cheapest to most expensive and a recommendation. There are 16 mandatory questions (what, why, how success is measured, for whom, scope, deadline, budget, resources, constraints, data and GDPR, risks, who decides, publishing, remote access, reuse). Vague answers get follow-up questions until they are verifiable.
 2. **Plan with what we have.** It matches the needs against the knowledge base and only uses the resources the client declared. Before proposing code, it looks for an open source platform that already solves the need.
 3. **Cost-benefit plan.** Options with cost and benefit, and how the work is split between an orchestrator and sessions.
 4. **Goal loop.** It keeps asking until nothing is left open. It ends at the «Plano aprovado» (plan approved) milestone.
@@ -35,6 +39,7 @@ What sets it apart:
 - **Traceability.** Every action and decision states which client question it answers; anything that answers no request does not go into the plan.
 - **Automatic checkers and hooks** that prevent marking the plan or the delivery as done while there are failures (see [How the goal loop is enforced](#how-the-goal-loop-is-enforced)).
 - **Writing without AI tells** in everything delivered: code, interface, documentation and commits.
+- **Autonomy after the decision.** A decision by the user is carried through to the end; only the values they must provide (secrets, identifiers, URLs) go on a «Por preencher» (to fill in) list, never with real values, and the rest continues.
 
 ### What it creates
 
@@ -57,29 +62,29 @@ Each user has personal knowledge in `~/.start-project-with-trust/` (on Windows, 
 
 ## Knowledge base
 
-285 entries in 25 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
+355 entries in 26 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
 
 | Section | Entries | Section | Entries |
 |---|---|---|---|
-| [Security](skills/start-project-with-trust/knowledge/seguranca/README.md) | 25 | [Structure and documentation](skills/start-project-with-trust/knowledge/estrutura/README.md) | 14 |
-| [Privacy and compliance](skills/start-project-with-trust/knowledge/privacidade/README.md) | 4 | [CI/CD and tools](skills/start-project-with-trust/knowledge/cicd/README.md) | 23 |
-| [Reliability and resilience](skills/start-project-with-trust/knowledge/fiabilidade/README.md) | 5 | [Docker and orchestration](skills/start-project-with-trust/knowledge/docker/README.md) | 13 |
+| [Security](skills/start-project-with-trust/knowledge/seguranca/README.md) | 25 | [Structure and documentation](skills/start-project-with-trust/knowledge/estrutura/README.md) | 17 |
+| [Privacy and compliance](skills/start-project-with-trust/knowledge/privacidade/README.md) | 4 | [CI/CD and tools](skills/start-project-with-trust/knowledge/cicd/README.md) | 24 |
+| [Reliability and resilience](skills/start-project-with-trust/knowledge/fiabilidade/README.md) | 10 | [Docker and orchestration](skills/start-project-with-trust/knowledge/docker/README.md) | 14 |
 | [Design and user experience](skills/start-project-with-trust/knowledge/design/README.md) | 28 | [Infrastructure services](skills/start-project-with-trust/knowledge/infraestrutura/README.md) | 10 |
 | [3D, WebGL and animation](skills/start-project-with-trust/knowledge/3d-webgl/README.md) | 10 | [Digital sovereignty](skills/start-project-with-trust/knowledge/soberania/README.md) | 6 |
 | [SEO and discovery](skills/start-project-with-trust/knowledge/seo/README.md) | 2 | [Governance and process](skills/start-project-with-trust/knowledge/governacao/README.md) | 7 |
 | [API design](skills/start-project-with-trust/knowledge/api/README.md) | 6 | [Cloud and identity](skills/start-project-with-trust/knowledge/nuvem/README.md) | 7 |
 | [Databases](skills/start-project-with-trust/knowledge/base-de-dados/README.md) | 14 | [Sessions, orchestration and cost efficiency](skills/start-project-with-trust/knowledge/custo/README.md) | 8 |
 | [Python](skills/start-project-with-trust/knowledge/python/README.md) | 13 | [Web publishing and hosting](skills/start-project-with-trust/knowledge/publicacao/README.md) (outside the PDF) | 9 |
-| [Java](skills/start-project-with-trust/knowledge/java/README.md) | 13 | [Building with AI (Claude and Anthropic)](skills/start-project-with-trust/knowledge/ia/README.md) | 17 |
+| [Java](skills/start-project-with-trust/knowledge/java/README.md) | 13 | [Building with AI](skills/start-project-with-trust/knowledge/ia/README.md) | 61 |
 | [C#](skills/start-project-with-trust/knowledge/csharp/README.md) | 13 | [Remote access (SSH and RDP)](skills/start-project-with-trust/knowledge/acesso-remoto/README.md) (outside the PDF) | 4 |
-| [JavaScript](skills/start-project-with-trust/knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](skills/start-project-with-trust/knowledge/plataformas/README.md) (outside the PDF) | 7 |
-| [Node.js](skills/start-project-with-trust/knowledge/node/README.md) (outside the PDF) | 14 | | |
+| [JavaScript](skills/start-project-with-trust/knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](skills/start-project-with-trust/knowledge/plataformas/README.md) (outside the PDF) | 15 |
+| [Node.js](skills/start-project-with-trust/knowledge/node/README.md) (outside the PDF) | 14 | [Modularisation and productisation](skills/start-project-with-trust/knowledge/produto/README.md) (outside the PDF) | 7 |
 
 Reference files:
 
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): every entry, by section.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): the official sources for each section and the «A vigiar» (watch) list: deadlines and limits checked on every update, such as TLS certificate lifetimes or free hosting plans.
-- `<section>/ATUALIZACOES.md`: each section's updates, by category and date, without changing the text of the entries. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
+- `<section>/ATUALIZACOES.md`: each section's updates that do not change the text of any entry, by category and date. When an update changes what an entry says, the entry is rewritten and the previous text moves to its «Histórico» (history) section. Lines added more than a year ago move to `ATUALIZACOES-ARQUIVO.md`, without being deleted.
 - `PENDENTES.md`: medium-confidence changes awaiting a decision.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): every change, with source, release date, confidence and who approved it.
 
@@ -92,11 +97,11 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
 
    | Confidence | When | What happens |
    |---|---|---|
-   | High | Primary official source, read directly, with a date | Goes into the section's `ATUALIZACOES.md` |
+   | High | Primary official source, read directly, with a date | If it changes what an entry says, the entry is rewritten and the previous text kept in «Histórico»; otherwise it goes into the section's `ATUALIZACOES.md` |
    | Medium | Official source but indirect, partly read or undated | Stays in `PENDENTES.md` until you decide whether it goes in |
    | Low | Unofficial source | Never changes the knowledge |
 
-   New entries, corrections to the text and new sources always require approval, one at a time.
+   New entries, new sources and edits backed only by medium-confidence sources always require approval, one at a time. After editing an entry, it also updates the skills that used the old value.
 3. It records each change in `CHANGELOG.md`, with source, release date, confidence and who approved it.
 4. It runs the checkers and, with your permission, commits and pushes. Anyone who has the skills installed gets the new knowledge on the next `npx skills update`.
 5. It also updates the user's personal knowledge: high-confidence changes go in, medium-confidence changes wait for the user's decision on the next run.
@@ -198,6 +203,13 @@ skills/start-project-with-trust/
 ├── modelos/        document templates
 ├── scripts/        checkers (plan, delivery, publishing) and goal loop hooks
 └── knowledge/      knowledge base (INDEX.md, FONTES.md, CHANGELOG.md, PENDENTES.md, and one ATUALIZACOES.md and one ATUALIZACOES-ARQUIVO.md per section)
+skills/orchestrate-sessions/
+├── SKILL.md            tasks, number of sessions, agents, briefings, execution and collection
+├── catalogo.md         mini skills and the knowledge/ sections each one uses
+├── modelo-e-effort.md  model and effort per task type, and when to step up
+└── modelos/            sessoes.md and briefing.md
+skills/ia-aplicada/
+└── SKILL.md        asks what the AI work is, reads only that subfolder of knowledge/ia/ and goes to the sources when something is missing
 skills/update-knowledge/
 ├── SKILL.md        finding updates, confidence flow, publishing and personal knowledge
 ├── fontes-verificadas.json   date each source was last checked

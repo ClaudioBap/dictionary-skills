@@ -33,5 +33,10 @@ _por definir_
 ## Decisão e aprovação (P13)
 _por definir_
 
+## Reutilização (P16)
+- **Casos previstos:** _por definir_ <!-- só este, ou outros clientes, áreas ou dados -->
+- **O que muda entre casos:** _por definir_
+- **O que fica igual:** _por definir_
+
 ## Validação
 - [ ] Validado pelo utilizador em _por definir_

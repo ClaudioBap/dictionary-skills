@@ -1,7 +1,7 @@
 ---
 id: ia/certificacao-claude-certified-architect
 titulo: "Certificação Claude Certified Architect (Foundations e avançado)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [65]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
@@ -21,7 +21,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 ## Ver também
 
-- [Domínios do exame (o que um bom sistema de IA cobre)](../ia/dominios-do-exame.md) (Construir com IA (Claude e Anthropic))
+- [Domínios do exame (o que um bom sistema de IA cobre)](../ia/dominios-do-exame.md) (Construir com IA)
 
 ## Fontes oficiais
 

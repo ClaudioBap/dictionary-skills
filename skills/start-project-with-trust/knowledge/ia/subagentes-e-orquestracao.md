@@ -1,7 +1,7 @@
 ---
 id: ia/subagentes-e-orquestracao
 titulo: "Subagentes e orquestração"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [68]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

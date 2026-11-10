@@ -1,7 +1,7 @@
 ---
 id: ia/mcp-model-context-protocol
 titulo: "MCP (Model Context Protocol)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [67]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

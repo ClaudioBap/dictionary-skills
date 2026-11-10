@@ -22,7 +22,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 ## Ver também
 
-- [Claude Code e Claude Agent SDK](../ia/claude-code-e-claude-agent-sdk.md) (Construir com IA (Claude e Anthropic))
+- [Claude Code e Claude Agent SDK](../ia/claude-code-e-claude-agent-sdk.md) (Construir com IA)
 
 ## Fontes oficiais
 

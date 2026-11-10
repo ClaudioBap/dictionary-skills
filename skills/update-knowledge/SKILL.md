@@ -14,11 +14,11 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 ## Regras
 
 - **Fluxo por confiança** (só para atualizações, ver «Níveis de confiança»):
-  - `alta`: entra diretamente no ficheiro de atualizações da secção (`<secção>/ATUALIZACOES.md`), na categoria certa, sem pedir aprovação;
+  - `alta`: se a novidade muda o que uma entrada diz (uma prática substituída, uma versão, um algoritmo, um valor, uma recomendação), **edita a entrada** para dizer o que vale hoje e guarda o anterior no «Histórico» dela (passo 3); se não muda o texto, entra no ficheiro de atualizações da secção (`<secção>/ATUALIZACOES.md`), na categoria certa. Em ambos os casos, sem pedir aprovação;
   - `media`: não altera o conhecimento; fica em `knowledge/PENDENTES.md` à espera de validação, e o utilizador decide na corrida seguinte se entra no ficheiro de atualizações;
   - `baixa`: ignora.
 - **Atualizações com mais de um ano saem do `ATUALIZACOES.md`, mas não se apagam.** Em cada corrida, as linhas cuja data «Adicionado a» tenha mais de 12 meses passam, sem alterações, para `<secção>/ATUALIZACOES-ARQUIVO.md`, na mesma categoria, com uma linha no `CHANGELOG.md`. Conta a data em que a linha entrou, e não a data de lançamento, para não arquivar logo um prazo antigo que ainda está a correr.
-- **Nunca alterar sem aprovação explícita** o resto (novas entradas, correções, fontes novas), uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta.
+- **Nunca alterar sem aprovação explícita** o resto (novas entradas, fontes novas, e edições que só uma fonte `media` sustenta), uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta, a não ser que o utilizador peça expressamente para aprovar o lote todo.
 - **Nunca inventar.**
   - Cada novidade tem fonte (URL) e data de lançamento tal como a fonte a indica.
   - Se a fonte não indicar data, escreve «data não indicada» e a confiança fica, no máximo, `media`.
@@ -26,7 +26,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 - **Nunca contornar bloqueios.** Se uma fonte recusar o acesso automático (403, página vazia, ou marcada em `FONTES.md` como «não lida: bloqueia acesso automático»):
   - não uses identidades de browser falsas nem automação de ecrã;
   - pede ao utilizador que abra a página e cole o conteúdo, ou salta-a e regista-a no relatório.
-- **O texto que veio do PDF não se reescreve.** As novidades entram como «Atualizações» ou como entradas novas. Corrigir o texto existente é um caso à parte e exige antes/depois.
+- **O conhecimento diz o que vale hoje.** A melhor prática de hoje pode deixar de o ser amanhã: um algoritmo de cifra substituído por outro, uma API descontinuada, um modelo novo. Quando uma fonte `alta` o mostra, a entrada é reescrita com o que vale agora, também quando o texto veio do PDF. Nada se perde: o texto anterior fica na secção «Histórico» da entrada, com a data, a razão e a fonte, e a alteração tem linha no `CHANGELOG.md`.
 - **Toda a alteração tem uma linha no `knowledge/CHANGELOG.md`.** O registo é só de acrescentar.
 
 ## Níveis de confiança
@@ -71,12 +71,12 @@ Quando há muitas fontes, podes dividir a leitura por subagentes, um por tema, c
 1. **Validações pendentes.** No início, lista as novidades de `knowledge/PENDENTES.md` e pergunta ao utilizador a decisão de cada uma. Se entra, aplica-a como atualização (passo 3); se não entra, regista-a no `CHANGELOG.md` como rejeitada, para não voltar a ser proposta. Em ambos os casos tira-a de `PENDENTES.md`.
 2. **Atualizações `alta`:** aplica-as diretamente (passo 3), sem pedir aprovação, e mostra a lista do que entrou.
 3. **Atualizações `media`:** não alteram o conhecimento; acrescenta uma linha a `knowledge/PENDENTES.md` com a data de lançamento, a secção, a novidade, a fonte, o motivo da confiança e a data de hoje. Se o ficheiro não existir, cria-o com o título `# Pendentes de validação` e uma tabela com essas colunas.
-4. **Novas entradas, correções e fontes novas**, qualquer que seja a confiança: propõe uma de cada vez, como abaixo.
+4. **Novas entradas e fontes novas**, qualquer que seja a confiança, e **edições** que só uma fonte `media` sustenta: propõe uma de cada vez, como abaixo.
 
 Para cada novidade, identifica onde encaixa:
-- **Atualização** de uma entrada existente (diz qual);
+- **Edição** de uma entrada, quando a novidade muda o que ela diz (com `alta`, aplica-se logo);
+- **Atualização**, quando é uma novidade sobre o tema que não muda o texto de nenhuma entrada (diz a que entrada diz respeito, se houver);
 - **Nova entrada** numa secção existente (propõe o nome do ficheiro);
-- **Correção** do texto de uma entrada, só quando a fonte o contradiz;
 - **Fonte** nova para o registo.
 
 Apresenta-a assim e espera pela resposta:
@@ -86,10 +86,10 @@ Apresenta-a assim e espera pela resposta:
 📅 Lançado a: <data da fonte | data não indicada>
 🔗 Fonte: <nome> — <url>
 🎯 Confiança: <alta|media|baixa> — <porquê, numa frase>
-📂 Encaixa em: <knowledge/ia/escolher-o-modelo-claude.md> (<atualização | nova entrada | correção | fonte>)
+📂 Encaixa em: <knowledge/ia/escolher-o-modelo-claude.md> (<edição | atualização | nova entrada | fonte>)
 
 Proposta:
-  Antes: <texto atual, para correções; ou «(sem alteração)»>
+  Antes: <texto atual, para edições; ou «(sem alteração)»>
   Acrescentar/Depois: <texto proposto, em português, só com o que a fonte diz>
 
 Opções:
@@ -100,7 +100,7 @@ Opções:
 
 ## 3. Aplicar o que foi aprovado
 
-- **Atualização:** acrescenta uma linha ao `knowledge/<secção>/ATUALIZACOES.md`, debaixo do título `## <categoria>` (fornecedor ou tema, ex.: «Claude (Anthropic)», «OpenAI», «Regulação»), da mais recente para a mais antiga. O texto das entradas não muda. Se o ficheiro não existir, cria-o com o título `# Atualizações: <título da secção>` e uma frase a dizer que não altera o texto das entradas. Cada linha:
+- **Atualização:** acrescenta uma linha ao `knowledge/<secção>/ATUALIZACOES.md`, debaixo do título `## <categoria>` (fornecedor ou tema, ex.: «Claude (Anthropic)», «OpenAI», «Regulação»), da mais recente para a mais antiga. Serve para novidades que não mudam o que uma entrada diz; as que mudam são edições. Se o ficheiro não existir, cria-o com o título `# Atualizações: <título da secção>` e uma frase a dizer que não altera o texto das entradas. Cada linha:
   `- **<data de lançamento>** em [<título da entrada>](<slug>.md): <texto>. Fonte: [<nome>](<url>). Confiança: <nível>. Adicionado a <hoje>.`
   A parte «em [...]» só entra quando a novidade diz respeito a uma entrada. O `indice.mjs` ignora o `ATUALIZACOES.md` e o `ATUALIZACOES-ARQUIVO.md`; não são entradas.
 - **Nova entrada:** cria `knowledge/<secção>/<slug>.md` com a mesma estrutura das outras: frontmatter, título, `**Resumo:**`, «Conteúdo», «Para uma skill» e rodapé. O frontmatter leva:
@@ -114,7 +114,9 @@ Opções:
   confianca: <nível>
   verificado_em: <hoje>
   ```
-- **Correção:** altera só o texto aprovado. Se a entrada vem do PDF, o texto original fica como `> Texto original do PDF (pág. X): …` logo abaixo da correção.
+- **Edição:** reescreve só a parte da entrada que deixou de valer, para dizer o que vale hoje (incluindo a linha «Para uma skill», se o critério mudou), e acrescenta a fonte nova em «Fontes oficiais». O texto que lá estava passa, sem alterações, para uma secção `## Histórico` no fim da entrada (cria-a se não existir), da mais recente para a mais antiga:
+  `- **<data de lançamento>**: antes, «<texto anterior>» (<origem: PDF pág. X, ou a fonte anterior>). Mudou porque <novidade>. Fonte: [<nome>](<url>). Editado a <hoje>.`
+  No frontmatter, atualiza `verificado_em` e acrescenta `editado_em: <hoje>`. Numa entrada do PDF, `paginas` e `fonte` ficam como estão: dizem de onde a entrada nasceu.
 - **Fonte:** acrescenta a linha ao registo do tema em `FONTES.md`.
 
 Depois de cada alteração aprovada:
@@ -126,6 +128,7 @@ As rejeitadas também têm uma linha no `CHANGELOG.md`, marcada como rejeitada, 
 
 1. Atualiza as datas em `fontes-verificadas.json`.
 1a. **Arquiva o que tem mais de um ano.** Em cada `ATUALIZACOES.md`, passa para `ATUALIZACOES-ARQUIVO.md` da mesma secção as linhas com «Adicionado a» há mais de 12 meses, sem alterar o texto, na mesma categoria. Se o arquivo não existir, cria-o com o título `# Arquivo de atualizações: <título da secção>`. Uma linha no `CHANGELOG.md` por secção arquivada.
+1b. **Atualiza as skills que dependem do que mudou.** As skills da coleção (`skills/*/`) citam entradas e às vezes copiam valores delas, como nomes de modelos, preços ou algoritmos. Para cada entrada editada, procura em `skills/`, fora de `knowledge/`, o caminho da entrada e o valor antigo, e atualiza essas passagens para o valor novo, citando a entrada. Se a novidade tira o sentido a um passo de uma skill (por exemplo, uma ferramenta descontinuada que a skill manda usar), não o reescrevas sozinho: mostra-o ao utilizador e pergunta.
 2. Corre `node scripts/indice.mjs <repo>/skills/start-project-with-trust/knowledge` para pôr o `INDEX.md` e os `README.md` em dia.
 3. Corre `node scripts/verificar-alteracoes.mjs <repo>` e **mostra a saída**. Se falhar, corrige (normalmente falta uma linha no CHANGELOG) e corre outra vez. Não avances sem `✓`.
 4. Mostra `git diff --stat` e um resumo das alterações, e pergunta se pode fazer commit e push.
@@ -141,13 +144,13 @@ Para quem só instalou as skills, sem cópia git do repositório. A cópia insta
 
 - **Fontes:** além das pessoais, percorre as de `knowledge/FONTES.md` da cópia instalada, incluindo os pontos «A vigiar», com as regras do passo 1. Procura a partir da data de cada fonte em `~/.start-project-with-trust/fontes-verificadas.json`; se lá não estiver, a de `fontes-verificadas.json` desta skill, que vem com a instalação.
 - **Aplicar:** como no ponto 3 abaixo, sempre no conhecimento pessoal.
-- **Novas entradas, correções e fontes novas** não se aplicam à base partilhada. Diz ao utilizador que as pode propor ao repositório com os modelos de issue (ver `CONTRIBUTING.md`).
+- **Novas entradas, edições e fontes novas** não se aplicam à base partilhada. Diz ao utilizador que as pode propor ao repositório com os modelos de issue (ver `CONTRIBUTING.md`).
 - Não corre os passos 2 a 4 (`PENDENTES.md` e `CHANGELOG.md` partilhados, verificadores, commit e push).
 
 1. **Validações pendentes.** Lê `pendentes.md`. Para cada novidade lá registada, pergunta ao utilizador se entra: se sim, aplica-a como em 2; se não, regista-a como rejeitada no `CHANGELOG.md` pessoal. Tira-a de `pendentes.md` em ambos os casos.
 2. **Procurar.** Para cada fonte de `FONTES.md` pessoal (e de `perfil.md`, se indicar temas sem fonte), procura novidades desde a última verificação, com as mesmas regras do passo 1: data como a fonte a indica, sem contornar bloqueios e com os mesmos níveis de confiança.
 3. **Aplicar por confiança:**
-   - `alta`: acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa, sem pedir aprovação;
+   - `alta`: se a novidade muda o que uma entrada da base partilhada diz, cria no conhecimento pessoal uma cópia dessa entrada no mesmo caminho (`knowledge/<secção>/<slug>.md`), já editada como no passo 3, com o «Histórico»; a `start-project-with-trust` usa a pessoal em vez da partilhada. Se não muda o texto, acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa. Sem pedir aprovação;
    - `media`: não altera nada; regista-a em `pendentes.md` (data, título, fonte, motivo da confiança) para o utilizador decidir na corrida seguinte;
    - `baixa`: ignora.
 4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal. Em qualquer modo, grava em `~/.start-project-with-trust/fontes-verificadas.json` (mesmo formato do desta skill) a data de hoje em `atualizado_em` e, em modo local, a data de cada fonte da base partilhada verificada. A `start-project-with-trust` usa esta data para saber há quanto tempo o conhecimento não é atualizado.
@@ -158,6 +161,8 @@ Para quem só instalou as skills, sem cópia git do repositório. A cópia insta
 
 Mostra:
 - as novidades encontradas: aplicadas, pendentes e rejeitadas;
+- as entradas editadas, cada uma com o antes e o depois numa linha;
+- as passagens de skills atualizadas por causa dessas edições, e as que ficaram para o utilizador decidir;
 - as fontes percorridas e as que ficaram por ler (bloqueadas ou indisponíveis);
 - o estado de cada ponto «A vigiar»;
 - o commit publicado;

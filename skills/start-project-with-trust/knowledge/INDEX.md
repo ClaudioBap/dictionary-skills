@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 25 secções; 238 entradas do PDF em 237 ficheiros; 48 entradas fora do PDF; 285 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 117 entradas fora do PDF; 354 ficheiros de entrada no total.
 
 ## Secções
 
@@ -59,13 +59,18 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Analytics com privacidade](privacidade/analytics-com-privacidade.md) — Medir o uso sem cookies nem perfis, com agregados e sem enviar dados pessoais a terceiros. *(pág. 10)*
 - [Minimização e retenção](privacidade/minimizacao-e-retencao.md) — Recolher o mínimo, com justificação por campo, prazo de retenção e apagamento automático. *(pág. 10)*
 
-### 3. [Fiabilidade e resiliência](fiabilidade/README.md) — págs. 11–12 (5 entradas)
+### 3. [Fiabilidade e resiliência](fiabilidade/README.md) — págs. 11–12 (10 entradas)
 
 - [SLO, SLI e orçamento de erro](fiabilidade/slo-sli-e-orcamento-de-erro.md) — Definir o que se mede (SLI), a meta (SLO) e usar o orçamento de erro para decidir entre lançar e estabilizar. *(pág. 11)*
 - [Degradação graciosa](fiabilidade/degradacao-graciosa.md) — Timeouts, retries com recuo, circuit breaker e fallback: melhor servir menos do que cair por inteiro. *(pág. 11)*
 - [Testes de carga e resiliência](fiabilidade/testes-de-carga-e-resiliencia.md) — Testar carga e resiliência (chaos) para saber onde o sistema parte e se recupera. *(pág. 11)*
 - [Recuperação de desastre](fiabilidade/recuperacao-de-desastre.md) — Definir RTO e RPO, ensaiar o restauro completo e ter plano para perder máquina, região e fornecedor. *(pág. 11)*
 - [Idempotência e processamento fiável](fiabilidade/idempotencia-e-processamento-fiavel.md) — Operações repetíveis são idempotentes, com chaves de idempotência e filas com dead-letter. *(pág. 12)*
+- [Cópias de segurança 3-2-1](fiabilidade/copias-de-seguranca-3-2-1.md) — Três cópias, em dois tipos de suporte, uma fora do local; e uma cópia só conta depois de se provar que se consegue repor. *(fora do PDF)*
+- [Incidentes e postmortem sem culpa](fiabilidade/incidentes-e-postmortem-sem-culpa.md) — Um incidente segue um processo escrito, com papéis e passos definidos, e termina num postmortem que procura as causas e não culpados. *(fora do PDF)*
+- [Monitorização: os quatro sinais dourados](fiabilidade/monitorizacao-quatro-sinais.md) — Quatro medidas chegam para saber se um serviço está bem (latência, tráfego, erros e saturação), e recolhem-se com um padrão aberto em vez da ferramenta de um só fornecedor. *(fora do PDF)*
+- [Operação padronizada e runbooks](fiabilidade/operacao-padronizada-e-runbooks.md) — As operações de rotina, pontuais e de emergência seguem procedimentos escritos e iguais para todos, apoiados em infraestrutura como código, monitorização e entregas seguras. *(fora do PDF)*
+- [Prontidão operacional e passagem](fiabilidade/prontidao-operacional-e-passagem.md) — Uma plataforma só se entrega a quem a vai operar quando existem, com prova, monitorização, runbooks, cópias testadas, processo de incidentes, registo de alterações e sondas de saúde. *(fora do PDF)*
 
 ### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (28 entradas)
 
@@ -224,7 +229,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [TypeScript nativo](node/typescript-nativo.md) — Executar `.ts` diretamente com type stripping (Stable), mantendo a verificação de tipos no CI. *(fora do PDF)*
 - [Node.js em contentores](node/node-em-contentores.md) — Imagem fixada por digest, multi-stage, sem dependências de dev, utilizador `node`, `--init` e limites de memória. *(fora do PDF)*
 
-### 14. [Estrutura e documentação](estrutura/README.md) — págs. 41–44 (14 entradas)
+### 14. [Estrutura e documentação](estrutura/README.md) — págs. 41–44 (17 entradas)
 
 - [Estrutura do repositório](estrutura/estrutura-do-repositorio.md) — Pastas por responsabilidade, com nomes que dizem o conteúdo e sem pastas «diversos». *(pág. 41)*
 - [Documentação em camadas](estrutura/documentacao-em-camadas.md) — Separar referência, estado, decisões e registo, que envelhecem a ritmos diferentes. *(pág. 41)*
@@ -240,8 +245,11 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Um assunto por ficheiro, e um índice](estrutura/um-assunto-por-ficheiro-e-um-indice.md) — Documentos atómicos, um assunto por ficheiro, todos listados num índice. *(pág. 43)*
 - [Trabalho em curso separado da referência](estrutura/trabalho-em-curso-separado-da-referencia.md) — Planos, rascunhos e briefings vivem numa área própria, fora da fonte de verdade. *(págs. 43, 44)*
 - [Regras automatizadas, não só escritas](estrutura/regras-automatizadas-nao-so-escritas.md) — A regra que importa vira verificação em hook ou CI; o documento explica, a automação impõe. *(pág. 44)*
+- [Ambiente de desenvolvimento reproduzível (dev containers)](estrutura/ambiente-de-desenvolvimento-reproduzivel.md) — O ambiente de trabalho viaja com o repositório, num contentor descrito por um ficheiro, para que uma pessoa nova ou um agente arranque com as mesmas ferramentas sem passos manuais. *(fora do PDF)*
+- [Diagramas de arquitetura (modelo C4)](estrutura/diagramas-c4.md) — Quatro níveis de zoom, do sistema ao código, com o mesmo vocabulário em todos; os dois primeiros chegam para mostrar o que é núcleo e o que é específico de cada caso. *(fora do PDF)*
+- [Especificação antes do código](estrutura/especificacao-antes-do-codigo.md) — Com agentes de código, escreve-se primeiro o que se quer e porquê, deixa-se o agente planear e implementar a partir disso, e só se aceita o trabalho com a prova à vista; as regras sem exceção vão para hooks, não para texto. *(fora do PDF)*
 
-### 15. [CI/CD e ferramentas](cicd/README.md) — págs. 45–50 (23 entradas)
+### 15. [CI/CD e ferramentas](cicd/README.md) — págs. 45–50 (24 entradas)
 
 - [CI vs CD](cicd/ci-vs-cd.md) — CI integra e verifica cada alteração cedo; CD deixa pronto ou publica o que passa, em lotes pequenos e frequentes. *(pág. 45)*
 - [Pipeline como portão](cicd/pipeline-como-portao.md) — O pipeline é a única porta para produção, com fases ordenadas por custo. *(pág. 45)*
@@ -266,8 +274,9 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Ferramentas: qualidade do frontend](cicd/ferramentas-qualidade-do-frontend.md) — Acessibilidade e desempenho do frontend verificados no CI. *(pág. 49)*
 - [Ferramentas: acesso e rede](cicd/ferramentas-acesso-e-rede.md) — Acesso por identidade, rede de confiança zero e proxy de borda. *(págs. 49, 50)*
 - [Ferramentas: observabilidade](cicd/ferramentas-observabilidade.md) — Ferramentas de logs, métricas e tracing. *(pág. 50)*
+- [Pirâmide de testes](cicd/piramide-de-testes.md) — Muitos testes unitários, menos testes de serviço e poucos testes de interface; quanto mais alto o nível, menos testes. *(fora do PDF)*
 
-### 16. [Docker e orquestração](docker/README.md) — págs. 51–53 (13 entradas)
+### 16. [Docker e orquestração](docker/README.md) — págs. 51–53 (14 entradas)
 
 - [Imagens e Dockerfile](docker/imagens-e-dockerfile.md) — Imagens multi-stage com base pequena fixada por digest e `.dockerignore`. *(pág. 51)*
 - [Imagem endurecida](docker/imagem-endurecida.md) — Imagens non-root, só-leitura, com healthcheck, sem segredos e escaneadas. *(pág. 51)*
@@ -282,6 +291,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Kubernetes: escalonamento e atualizações](docker/kubernetes-escalonamento-e-atualizacoes.md) — Escalar por métrica com HPA e atualizar sem downtime, com rollback. *(pág. 53)*
 - [Kubernetes: saúde e armazenamento](docker/kubernetes-saude-e-armazenamento.md) — Probes de liveness e readiness e estado persistente em PV/PVC. *(pág. 53)*
 - [Kubernetes: segurança e entrega](docker/kubernetes-seguranca-e-entrega.md) — Non-root, NetworkPolicy e RBAC, com entrega por Helm e GitOps. *(pág. 53)*
+- [Sondas de saúde (liveness, readiness, startup)](docker/sondas-de-saude.md) — Três sondas com funções diferentes: a de liveness reinicia o contentor preso, a de readiness tira-o do tráfego até estar pronto, e a de startup dá tempo ao arranque antes de as outras duas começarem. *(fora do PDF)*
 
 ### 17. [Serviços de infraestrutura](infraestrutura/README.md) — págs. 54–56 (10 entradas)
 
@@ -348,7 +358,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [WAF e proteção DDoS](publicacao/waf-e-protecao-ddos.md) — Do grátis ao empresarial: Cloudflare Free (DDoS ilimitado e regras geridas base), WAF open source com OWASP CRS, Bunny Shield, Cloudflare Pro/Business/Enterprise e WAF dos fornecedores de nuvem. *(fora do PDF)*
 - [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
 
-### 23. [Construir com IA (Claude e Anthropic)](ia/README.md) — págs. 65–69 (17 entradas)
+### 23. [Construir com IA](ia/README.md) — págs. 65–69 (61 entradas)
 
 - [Certificação Claude Certified Architect (Foundations e avançado)](ia/certificacao-claude-certified-architect.md) — As quatro certificações da Anthropic com exame e o seu formato; o PDF indica que vêm de fontes da comunidade, a confirmar. *(pág. 65)*
 - [Domínios do exame (o que um bom sistema de IA cobre)](ia/dominios-do-exame.md) — Os domínios dos exames Foundations e Professional, usados como eixos para avaliar um sistema de IA. *(pág. 65)*
@@ -367,6 +377,50 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Avaliação (evals)](ia/avaliacao-evals.md) — Medir a qualidade com evals antes e depois de cada mudança; sem evals, «melhorou» é opinião. *(pág. 69)*
 - [Otimização de custo da IA](ia/otimizacao-de-custo-da-ia.md) — Primeiro as poupanças grátis (caching, higiene de tokens), depois os trade-offs, medindo o custo por tarefa concluída. *(pág. 69)*
 - [Segurança e governação de IA](ia/seguranca-e-governacao-de-ia.md) — O conteúdo externo nunca comanda o agente, ações perigosas exigem aprovação e o uso de IA é auditado. *(pág. 69)*
+- [Engenharia de contexto para agentes](ia/agentes/engenharia-de-contexto.md) — O contexto é um orçamento finito; um agente carrega a informação quando precisa dela, resume quando se aproxima do limite e guarda notas fora da janela. *(fora do PDF)*
+- [Frameworks de agentes (OpenAI Agents SDK, Google ADK, LangGraph)](ia/agentes/frameworks-de-agentes.md) — Três frameworks open source para quando o ciclo do agente já não cabe em código simples; escolhe-se pelo controlo que se quer sobre o estado e pelo fornecedor. *(fora do PDF)*
+- [Padrões de agentes (workflows e agentes)](ia/agentes/padroes-de-agentes.md) — Começar pela solução mais simples, muitas vezes sem agente; quando é preciso mais, escolher entre cinco padrões de workflow antes de dar ao modelo o controlo do processo. *(fora do PDF)*
+- [Protocolo A2A (Agent2Agent)](ia/agentes/protocolo-a2a.md) — Padrão aberto para agentes independentes conversarem entre si como pares; complementa o MCP, que liga um agente a ferramentas e dados. *(fora do PDF)*
+- [Citações](ia/api-claude/citacoes.md) — Com as citações ligadas, cada afirmação da resposta vem acompanhada do excerto exato do documento que a apoia. *(fora do PDF)*
+- [Computer use](ia/api-claude/computer-use.md) — O Claude controla um ambiente de trabalho com capturas de ecrã, rato e teclado, e é a tua aplicação que executa cada ação. *(fora do PDF)*
+- [Contagem de tokens](ia/api-claude/contagem-de-tokens.md) — Um endpoint grátis devolve uma estimativa dos tokens de entrada antes de o pedido ser enviado, para controlar custo, limites e escolha de modelo. *(fora do PDF)*
+- [Execução de código](ia/api-claude/execucao-de-codigo.md) — O Claude corre Python e Bash num contentor isolado sem internet, pago por tempo de execução depois de uma quota mensal grátis. *(fora do PDF)*
+- [Files API](ia/api-claude/files-api.md) — Carrega-se um ficheiro uma vez e usa-se o `file_id` em vários pedidos, sem voltar a enviar o conteúdo. *(fora do PDF)*
+- [Limites de taxa e erros](ia/api-claude/limites-de-taxa-e-erros.md) — Os limites contam pedidos e tokens por minuto, por classe de modelo; a leitura da cache não conta para a entrada, e os erros 429 e 529 tratam-se com novas tentativas e espera crescente. *(fora do PDF)*
+- [Message Batches API](ia/api-claude/message-batches.md) — Pedidos que não precisam de resposta imediata vão num batch assíncrono a metade do preço, com os resultados disponíveis durante 29 dias. *(fora do PDF)*
+- [Prompt caching](ia/api-claude/prompt-caching.md) — A API retoma o processamento a partir de prefixos que já estão em cache, o que baixa o preço da entrada repetida para uma fração do normal. *(fora do PDF)*
+- [Retenção de dados e retenção zero (ZDR)](ia/api-claude/retencao-de-dados-e-zdr.md) — Por omissão a API não guarda prompts nem respostas, mas várias funcionalidades guardam dados durante dias ou até serem apagados, e ficam fora da retenção zero. *(fora do PDF)*
+- [Saída estruturada (JSON e strict tool use)](ia/api-claude/saida-estruturada.md) — A resposta é obrigada a seguir um JSON Schema, e as chamadas de ferramentas a seguir o esquema delas com `strict: true`. *(fora do PDF)*
+- [Streaming](ia/api-claude/streaming.md) — Com `"stream": true`, a resposta chega aos poucos como server-sent events, em vez de chegar toda no fim. *(fora do PDF)*
+- [Imagens e PDF](ia/api-claude/visao-e-pdf.md) — O Claude lê imagens e PDFs enviados no pedido, com limites de tamanho, de número e de páginas que decidem como dividir os documentos. *(fora do PDF)*
+- [Web search e web fetch](ia/api-claude/web-search-e-web-fetch.md) — Duas ferramentas de servidor dão ao Claude acesso à web: a pesquisa traz resultados com citações, e o fetch lê o conteúdo completo de páginas e PDFs. *(fora do PDF)*
+- [Batch e cache entre fornecedores (Claude, OpenAI, Gemini)](ia/fornecedores/batch-e-cache-entre-fornecedores.md) — Os três fornecedores cobram metade em batch e descontam a entrada em cache, mas diferem nos limites, no tempo de resposta, no mínimo para a cache e na duração dela. *(fora do PDF)*
+- [Gemini API: modelos, batch, cache, grounding e dados](ia/fornecedores/gemini-api.md) — O que a API do Gemini oferece para trabalho em lote, cache, pesquisa na web, saída estruturada, ficheiros e voz, e a diferença entre o escalão grátis e o pago no uso dos dados. *(fora do PDF)*
+- [OpenAI API: batch, cache, saída estruturada e controlo de dados](ia/fornecedores/openai-api.md) — O que a API da OpenAI oferece para trabalho em lote, cache, saída estruturada, pesquisa em ficheiros e voz, e em que condições guarda os dados e os mantém na Europa. *(fora do PDF)*
+- [Definição OSI de IA open source](ia/modelos-abertos/definicao-osi-de-ia-open-source.md) — Para a OSI, um sistema de IA só é open source se publicar informação sobre os dados de treino, o código de treino e execução, e os parâmetros; pesos abertos sozinhos não chegam. *(fora do PDF)*
+- [Famílias de modelos abertos e licenças](ia/modelos-abertos/familias-de-modelos-abertos-e-licencas.md) — Pesos abertos não querem dizer licença aberta: a licença confirma-se modelo a modelo, porque a mesma família mistura Apache 2.0, licenças próprias e modelos só por API. *(fora do PDF)*
+- [Adaptar um modelo (LoRA e QLoRA)](ia/modelos-proprios/adaptar-um-modelo-lora-e-qlora.md) — Em vez de treinar todos os pesos, treinam-se só matrizes pequenas por cima do modelo congelado; com quantização a 4 bits, um modelo de 65B afina-se numa só GPU de 48 GB. *(fora do PDF)*
+- [Alinhamento (DPO) e destilação](ia/modelos-proprios/alinhamento-dpo-e-destilacao.md) — O DPO ajusta o modelo às preferências com uma perda de classificação simples, sem o ciclo de RLHF; a destilação passa o conhecimento de um modelo grande para um mais pequeno e barato de servir. *(fora do PDF)*
+- [Construir um LLM do zero](ia/modelos-proprios/construir-um-llm-do-zero.md) — Para aprender, um portátil chega; para treinar um modelo de chat completo, o caminho mais curto documentado é o nanochat num nó de 8 GPUs H100, com custo e tempo indicados pelo autor. *(fora do PDF)*
+- [Fine-tuning do Claude](ia/modelos-proprios/fine-tuning-do-claude.md) — O fine-tuning do Claude foi lançado no Amazon Bedrock para o Claude 3 Haiku, com throughput provisionado; a lista atual de modelos elegíveis não está confirmada. *(fora do PDF)*
+- [Memória e hardware](ia/modelos-proprios/memoria-e-hardware.md) — A memória necessária estima-se antes de comprar ou alugar hardware; a estimativa cobre só os pesos, a inferência acrescenta até 20% e o treino multiplica várias vezes. *(fora do PDF)*
+- [Obrigações do AI Act para modelos próprios](ia/modelos-proprios/obrigacoes-do-ai-act-para-modelos-proprios.md) — Quem treina um modelo de finalidade geral, ou o modifica com mais de um terço do compute de treino original, passa a ser fornecedor no AI Act, com documentação, política de direitos de autor e resumo público dos dados de treino. *(fora do PDF)*
+- [Requisitos para ter um LLM próprio](ia/modelos-proprios/requisitos-para-ter-um-llm-proprio.md) — Há três caminhos (usar uma API, adaptar um modelo aberto, treinar de raiz) e cada um pede coisas diferentes em dados, hardware, equipa, custo e obrigações legais; começa-se pelo mais barato que cumpre o pedido. *(fora do PDF)*
+- [Servir um modelo próprio](ia/modelos-proprios/servir-um-modelo-proprio.md) — Para servir em escala, o vLLM com API compatível com a da OpenAI e a da Anthropic; para correr em local ou em CPU, o llama.cpp ou o Ollama; o TGI da Hugging Face está em modo de manutenção. *(fora do PDF)*
+- [Voz: síntese (TTS) e reconhecimento (STT)](ia/multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há uma opção local (Piper, com vozes pt_PT) e um escalão gratuito na nuvem (Azure, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
+- [Gateway de LLM (LiteLLM)](ia/operacao/gateway-de-llm-litellm.md) — Um gateway põe todas as aplicações a falar com os modelos por um só ponto, com uma chave por aplicação ou pessoa, orçamento, limite de pedidos e custo registado por pedido. *(fora do PDF)*
+- [Observabilidade de aplicações com LLM](ia/operacao/observabilidade-de-llm.md) — Cada chamada ao modelo e às ferramentas fica num trace com tokens, custo e resultado, para depurar, avaliar e comparar versões de prompts; há convenções abertas e ferramentas open source que se podem alojar. *(fora do PDF)*
+- [Uso e custo da Claude API](ia/operacao/uso-e-custo-da-claude-api.md) — A organização lê por API os tokens e o custo em dólares, por modelo, workspace ou chave, com uma chave de administração; a Usage and Cost API passou a legacy e a recomendada para integrações novas é a Usage and Cost Analytics API. *(fora do PDF)*
+- [Avaliar um RAG (RAGAS)](ia/rag/avaliar-rag-ragas.md) — Um RAG avalia-se em três partes separadas (o que se recuperou, a fidelidade da resposta ao que se recuperou e a qualidade da resposta), o que diz onde está a falha. *(fora do PDF)*
+- [Embeddings e base vetorial](ia/rag/embeddings-e-base-vetorial.md) — A Anthropic não tem modelo de embeddings, por isso o fornecedor e a base vetorial são uma decisão à parte; o pgvector guarda os vetores no PostgreSQL que o projeto já tem. *(fora do PDF)*
+- [Grafos mais leves (LightRAG e HippoRAG)](ia/rag/grafos-leves-lightrag-e-hipporag.md) — Alternativas ao GraphRAG que juntam grafo e vetores com menos chamadas ao LLM; os métodos com grafo podem ficar abaixo do RAG normal em perguntas factuais simples. *(fora do PDF)*
+- [Memória de agentes (Mem0, Graphiti, A-MEM, Letta, memory tool)](ia/rag/memoria-de-agentes.md) — Um agente que trabalha durante semanas guarda o que aprendeu numa memória própria, em vez de reenviar a conversa inteira; isso baixa tokens e latência, e um grafo temporal regista como os factos mudam. *(fora do PDF)*
+- [RAG adaptativo e autocorretivo (Self-RAG, CRAG, RAPTOR)](ia/rag/rag-adaptativo-e-autocorretivo.md) — Em vez de recuperar sempre o mesmo número de pedaços, o sistema decide quando recuperar, avalia o que recuperou e corrige; para documentos longos, recupera em vários níveis de resumo. *(fora do PDF)*
+- [RAG de documentos visuais (ColPali)](ia/rag/rag-de-documentos-visuais-colpali.md) — Quando a informação está em tabelas, figuras ou na paginação, indexar a imagem da página evita a extração de texto e o que ela perde. *(fora do PDF)*
+- [RAG em grafos (GraphRAG e LazyGraphRAG)](ia/rag/rag-em-grafos-graphrag.md) — Um grafo de entidades com resumos por comunidade responde a perguntas sobre o corpus inteiro, que a pesquisa vetorial não cobre; o preço é o custo de indexação, que a LazyGraphRAG baixa para o nível do RAG vetorial. *(fora do PDF)*
+- [Recuperação contextual, pesquisa híbrida e reranking](ia/rag/rag-recuperacao-contextual-hibrida-e-reranking.md) — Antes de montar um RAG, vê-se se a base cabe no prompt; se não cabe, junta-se contexto a cada pedaço, pesquisa por palavras (BM25) com embeddings, e reranking. *(fora do PDF)*
+- [Injeção de prompt: ameaças e mitigações](ia/seguranca/injecao-de-prompt-mitigacoes.md) — Há duas ameaças diferentes (o utilizador como atacante, ou conteúdo de terceiros que o modelo lê) e cada uma tem as suas mitigações; nenhuma camada sozinha resolve, por isso as defesas somam-se. *(fora do PDF)*
+- [OWASP Top 10 para aplicações com LLM](ia/seguranca/owasp-top-10-llm.md) — A lista de referência dos dez riscos de uma aplicação com LLM, na versão de 2025, e os primeiros riscos publicados para agentes; serve de lista de verificação na revisão de segurança. *(fora do PDF)*
 
 ### 24. [Acesso remoto (SSH e RDP)](acesso-remoto/README.md) — ⚠️ fora do PDF (4 entradas)
 
@@ -375,7 +429,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [RDP protegido](acesso-remoto/rdp-protegido.md) — O RDP não fica aberto diretamente à Internet: passa por um RD Gateway com MFA ou por um serviço como o Azure Bastion, e exige sempre Network Level Authentication. *(fora do PDF)*
 - [SSH endurecido](acesso-remoto/ssh-endurecido.md) — No SSH entra-se só com chave (Ed25519, de preferência numa chave de hardware FIDO) ou certificado, nunca com password, sem login direto de root, só para os utilizadores autorizados e com o OpenSSH sempre na versão mais recente. *(fora do PDF)*
 
-### 25. [Plataformas para adotar antes de construir](plataformas/README.md) — ⚠️ fora do PDF (7 entradas)
+### 25. [Plataformas para adotar antes de construir](plataformas/README.md) — ⚠️ fora do PDF (15 entradas)
 
 - [Adotar antes de construir](plataformas/adotar-antes-de-construir.md) — Para cada necessidade funcional procura-se primeiro uma plataforma open source que a resolva e a forma de a ligar ao resto (API, webhooks ou MCP); desenvolver de raiz é uma opção a comparar, não o ponto de partida. *(fora do PDF)*
 - [Automação e integração (n8n, Node-RED)](plataformas/automacao-e-integracao.md) — Para ligar plataformas sem código à medida, o Node-RED (Apache 2.0) é open source e corre em qualquer lado; o n8n tem nós MCP oficiais e cloud, mas usa uma licença que o próprio projeto não chama open source. *(fora do PDF)*
@@ -384,3 +438,21 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [ERP e CRM (Odoo, Dolibarr)](plataformas/erp-e-crm.md) — Para faturação, clientes, stocks e contabilidade, o Dolibarr (GPLv3) é totalmente open source, com API REST e webhooks; o Odoo tem uma edição Community (LGPLv3) e uma Enterprise proprietária, API JSON-2 e servidor MCP oficial. *(fora do PDF)*
 - [Formulários e inquéritos (LimeSurvey)](plataformas/formularios-e-inqueritos.md) — Para inquéritos e formulários, o LimeSurvey (GPLv2+) corre em servidor próprio ou na cloud do projeto e integra-se pela API RemoteControl 2 (JSON-RPC); não tem webhooks nativos nem servidor MCP oficial. *(fora do PDF)*
 - [Tickets, ativos e contratos (GLPI, Zammad)](plataformas/tickets-ativos-e-contratos.md) — Para helpdesk, inventário e gestão de contratos, o GLPI (GPLv3) cobre os três e tem API REST, webhooks e servidor MCP oficial; o Zammad (AGPLv3) é só helpdesk, com API REST e webhooks. *(fora do PDF)*
+- [Armazenamento de ficheiros (MinIO, API S3)](plataformas/armazenamento-de-ficheiros.md) — Os ficheiros vão para armazenamento de objetos com API S3; o MinIO mudou de rumo (edição comunitária arquivada, documentação centrada no AIStor comercial), por isso a licença tem de se confirmar antes de adotar. *(fora do PDF)*
+- [Autenticação e SSO (Keycloak, OpenID Connect)](plataformas/autenticacao-e-sso.md) — Antes de programar um login, adota-se um servidor de identidade: o Keycloak dá SSO, OpenID Connect, OAuth 2.0 e SAML 2.0 com licença Apache 2.0, e a aplicação só precisa de falar OpenID Connect. *(fora do PDF)*
+- [Email: envio transacional e leitura de caixas de correio](plataformas/email-transacional-e-ingestao.md) — Enviar email passa por um serviço transacional com API e SMTP; ler caixas de correio para alimentar uma base de conhecimento passa pela API do Microsoft 365 ou do Gmail, com âmbitos só de leitura e sincronização incremental. *(fora do PDF)*
+- [Feature flags e notificações (Unleash, Flagsmith, Novu)](plataformas/feature-flags-e-notificacoes.md) — Ligar funcionalidades por cliente ou por fase sem fazer outra versão do código, e enviar notificações por vários canais, são blocos que se adotam; as licenças do Unleash e do Flagsmith ainda precisam de confirmação. *(fora do PDF)*
+- [Ferramentas internas e back office (Appsmith, Directus)](plataformas/ferramentas-internas.md) — Painéis de administração e ferramentas internas montam-se sobre a base de dados com um construtor open source, em vez de código à medida. *(fora do PDF)*
+- [Pagamentos e faturação (Stripe Billing, Invoice Ninja)](plataformas/pagamentos-e-faturacao.md) — Subscrições, uso medido e faturas resolvem-se com uma plataforma de pagamentos; na faturação dita open source, a licença tem de se ler, porque «source available» não é open source. *(fora do PDF)*
+- [Pesquisa (Meilisearch, Typesense)](plataformas/pesquisa.md) — Pesquisa de texto com tolerância a erros e facetas vem de um motor próprio; a licença do Meilisearch é dupla (MIT, e BUSL-1.1 na edição Enterprise) e a do Typesense não se conseguiu ler. *(fora do PDF)*
+- [Tarefas em segundo plano (Temporal, BullMQ)](plataformas/tarefas-em-segundo-plano.md) — Trabalho que demora ou pode falhar sai do pedido HTTP para uma fila com repetições (BullMQ) ou para um motor de workflows duráveis que retoma onde parou (Temporal); ambos têm licença MIT. *(fora do PDF)*
+
+### 26. [Modularização e produtização](produto/README.md) — ⚠️ fora do PDF (7 entradas)
+
+- [Configuração fora do código (os doze fatores)](produto/configuracao-fora-do-codigo.md) — O que muda de instalação para instalação vive no ambiente, e os serviços de que a aplicação depende são recursos ligados que se trocam sem tocar no código. *(fora do PDF)*
+- [Específico ou modular](produto/especifico-ou-modular.md) — Antes de construir, decide-se se o resultado serve um caso só ou vai ser reutilizado; a opção mais barata que cumpre o pedido é a certa, e abstrair sem um segundo caso à vista é custo sem retorno. *(fora do PDF)*
+- [Feature flags (toggles)](produto/feature-flags.md) — Uma flag liga ou desliga um comportamento sem mudar o código instalado; há quatro tipos, e o de permissão é o que dá a um cliente uma funcionalidade que os outros não têm, sem copiar o projeto. *(fora do PDF)*
+- [Modelos de projeto reutilizáveis (Cookiecutter e Copier)](produto/modelos-de-projeto-reutilizaveis.md) — Um modelo de projeto gera o segundo caso a partir do primeiro; a diferença entre as ferramentas está em se os projetos já gerados recebem as melhorias feitas depois ao modelo. *(fora do PDF)*
+- [Multi-inquilino (modelos de tenancy)](produto/multi-inquilino.md) — Servir vários clientes com uma instalação partilhada é mais barato e mais arriscado do que uma instalação por cliente; a escolha depende do número de clientes previsto e é também uma decisão comercial. *(fora do PDF)*
+- [Núcleo e adaptadores (arquitetura hexagonal)](produto/nucleo-e-adaptadores.md) — A aplicação fala com o exterior por portas, e cada dispositivo, base de dados ou cliente liga-se por um adaptador; o que é específico de um caso fica no adaptador e o núcleo mantém-se igual. *(fora do PDF)*
+- [Versionamento e registo de alterações (SemVer, Conventional Commits, Keep a Changelog)](produto/versionamento-e-registo-de-alteracoes.md) — Um núcleo partilhado por vários casos precisa de um número de versão que diga se uma atualização parte alguma coisa, de commits que permitam derivar esse número e de um registo de alterações escrito para pessoas. *(fora do PDF)*

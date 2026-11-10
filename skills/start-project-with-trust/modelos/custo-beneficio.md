@@ -35,9 +35,22 @@
 
 **Recomendação:** _por definir_
 
-### D4 — Execução em paralelo
+### D4 — Execução em paralelo e agentes
 
-**Responde a:** _por definir_ <!-- normalmente P7 (prazo) e P8 (orçamento) -->
+**Responde a:** _por definir_ <!-- normalmente P7 (prazo), P8 (orçamento) e as perguntas de seguimento sobre o número de sessões e os agentes -->
+
+<!-- Quantas sessões em paralelo e onde se usam subagentes: sem agentes, só no orquestrador, em cada sessão ou em todas (../orchestrate-sessions/SKILL.md, passos 2 e 3). -->
+
+| Opção | Custo | Benefício | Risco | Base no conhecimento |
+|-------|-------|-----------|-------|----------------------|
+
+**Recomendação:** _por definir_
+
+### D5 — Específico ou modular
+
+**Responde a:** _por definir_ <!-- normalmente P16 (reutilização), P5 (âmbito) e P8 (orçamento) -->
+
+<!-- Do mais barato ao mais caro: específico; específico com o variável em configuração; núcleo partilhado com adaptadores; produto (modelo de projeto atualizável ou multi-inquilino). «Específico» é uma resposta válida: regista-a e justifica. Base: knowledge/produto/especifico-ou-modular.md. -->
 
 | Opção | Custo | Benefício | Risco | Base no conhecimento |
 |-------|-------|-----------|-------|----------------------|
@@ -53,11 +66,18 @@
 - **Como aprova:** _por definir_
 - **Como acompanha as sessões:** _por definir_
 
+## Tarefas
+
+<!-- Uma linha por ação de plano.md. Tipo, nível (simples | profissional | topo), modelo e effort segundo ../orchestrate-sessions/modelo-e-effort.md; mini skill segundo ../orchestrate-sessions/catalogo.md. «Quem executa»: sessão <n> ou subagente da sessão <n>. -->
+
+| Ação | Tipo | Nível | Mini skill | Sessão | Quem executa | Modelo | Effort |
+|------|------|-------|------------|--------|--------------|--------|--------|
+
 ## Sessões
 
-| # | Tipo | Objetivo | Entra | Sai | Em paralelo com | Como abrir | Quem participa | Critério de fim |
-|---|------|----------|-------|-----|-----------------|------------|----------------|-----------------|
-| 0 | orquestrador | Coordenar, preparar briefings, integrar saídas | _por definir_ | _por definir_ | — | É a sessão que corre esta skill | _por definir_ | _por definir_ |
+| # | Tipo | Objetivo | Mini skill | Modelo | Effort | Subagentes | Entra | Sai | Em paralelo com | Como abrir | Quem participa | Critério de fim |
+|---|------|----------|------------|--------|--------|------------|-------|-----|-----------------|------------|----------------|-----------------|
+| 0 | orquestrador | Coordenar, preparar briefings, integrar saídas | — | _por definir_ | _por definir_ | _por definir_ | _por definir_ | _por definir_ | — | É a sessão que corre esta skill | _por definir_ | _por definir_ |
 
 ## Recomendação final
 _por definir_

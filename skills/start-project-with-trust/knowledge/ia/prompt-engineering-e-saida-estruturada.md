@@ -1,7 +1,7 @@
 ---
 id: ia/prompt-engineering-e-saida-estruturada
 titulo: "Prompt engineering e saída estruturada"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [67]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

@@ -1,7 +1,7 @@
 ---
 id: ia/tool-use
 titulo: "Tool use (ferramentas e function calling)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [67]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

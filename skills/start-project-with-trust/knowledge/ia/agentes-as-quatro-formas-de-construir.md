@@ -1,7 +1,7 @@
 ---
 id: ia/agentes-as-quatro-formas-de-construir
 titulo: "Agentes: as quatro formas de construir"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [67, 68]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

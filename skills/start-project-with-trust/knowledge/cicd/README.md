@@ -31,3 +31,4 @@ Fonte: págs. 45–50 (Dicionario-Boas-Praticas.pdf)
 - [Ferramentas: qualidade do frontend](ferramentas-qualidade-do-frontend.md) — Acessibilidade e desempenho do frontend verificados no CI. *(pág. 49)*
 - [Ferramentas: acesso e rede](ferramentas-acesso-e-rede.md) — Acesso por identidade, rede de confiança zero e proxy de borda. *(págs. 49, 50)*
 - [Ferramentas: observabilidade](ferramentas-observabilidade.md) — Ferramentas de logs, métricas e tracing. *(pág. 50)*
+- [Pirâmide de testes](piramide-de-testes.md) — Muitos testes unitários, menos testes de serviço e poucos testes de interface; quanto mais alto o nível, menos testes. *(fora do PDF)*

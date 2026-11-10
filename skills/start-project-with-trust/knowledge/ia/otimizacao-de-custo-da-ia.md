@@ -1,7 +1,7 @@
 ---
 id: ia/otimizacao-de-custo-da-ia
 titulo: "Otimização de custo da IA"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [69]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

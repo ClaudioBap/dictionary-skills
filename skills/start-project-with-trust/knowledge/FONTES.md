@@ -38,6 +38,12 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Documentação k6](https://grafana.com/docs/k6/latest/) | Tipos de teste de carga e utilização da ferramenta |
 | [Documentação Gatling](https://docs.gatling.io/) | Testes de carga com Gatling |
 | [Documentação Locust](https://docs.locust.io/en/stable/) | Testes de carga com Locust |
+| [Google SRE Book: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) | Os quatro sinais dourados da monitorização |
+| [Google SRE Book: Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) | Postmortem sem culpa |
+| [Azure Well-Architected: Operational Excellence checklist](https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist) | Lista de verificação de excelência operacional (OE:01 a OE:11) |
+| [OpenTelemetry: What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) | Padrão aberto de telemetria: traces, métricas e logs |
+| [CISA: Back up business data](https://www.cisa.gov/audiences/small-and-medium-businesses/secure-your-business/back-up-business-data) | Regra 3-2-1 das cópias de segurança |
+| [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) | Registo de alterações legível por pessoas |
 
 ## [Design e experiência de utilizador](design/README.md)
 
@@ -177,6 +183,10 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks) | Hooks PreToolUse que bloqueiam escritas ou comandos perigosos |
 | [AGENTS.md](https://agents.md/) | Formato aberto de instruções para agentes na raiz do repositório |
 | [pre-commit](https://pre-commit.com/) | Hooks do git declarados num ficheiro versionado, também no CI |
+| [GitHub spec-kit](https://github.com/github/spec-kit) | Especificação antes do código: especificar, planear, tarefas, implementar |
+| [Claude Code: best practices](https://code.claude.com/docs/en/best-practices) | Prova por comando e saída; regras sem exceção em hooks |
+| [C4 model](https://c4model.com/) | Diagramas de arquitetura em quatro níveis |
+| [Development Containers](https://containers.dev/) | Ambiente de desenvolvimento reproduzível em contentor |
 
 ## [CI/CD e ferramentas](cicd/README.md)
 
@@ -190,6 +200,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [SLSA Build Track](https://slsa.dev/spec/v1.2/build-track-basics) | Níveis de proveniência e builds em plataforma alojada |
 | [Sigstore cosign](https://docs.sigstore.dev/cosign/signing/overview/) | Assinatura de imagens e artefactos |
 | [OpenSSF Scorecard](https://scorecard.dev/) | Avaliar dependências fixadas, permissões de token, proteção de branches |
+| [The Practical Test Pyramid (Fowler)](https://martinfowler.com/articles/practical-test-pyramid.html) | Camadas de testes e quantos ter em cada uma |
 
 ## [Docker e orquestração](docker/README.md)
 
@@ -203,6 +214,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Helm docs](https://helm.sh/docs/intro/using_helm/) | Empacotamento de recursos Kubernetes em charts |
 | [Argo CD docs](https://argo-cd.readthedocs.io/en/stable/) | Entrega GitOps declarativa para Kubernetes |
 | [Trivy (Aqua Security)](https://github.com/aquasecurity/trivy) | Scan de vulnerabilidades, segredos e misconfigurações em imagens |
+| [Kubernetes: Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/) | Definições oficiais das três sondas de saúde |
 
 ## [Serviços de infraestrutura](infraestrutura/README.md)
 
@@ -329,8 +341,25 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Superset MCP](https://superset.apache.org/admin-docs/6.1.0/configuration/mcp-server/) | servidor MCP integrado |
 | [LimeSurvey RemoteControl 2](https://www.limesurvey.org/manual/RemoteControl_2_API) | API JSON-RPC |
 | [Preços LimeSurvey](https://www.limesurvey.org/pricing) | planos da cloud |
+| [Keycloak](https://www.keycloak.org/) | Servidor de identidade: SSO, OIDC, OAuth 2.0, SAML 2.0 |
+| [OpenID Foundation: How OpenID Connect Works](https://openid.net/developers/how-connect-works/) | Definição do protocolo OpenID Connect |
+| [Postmark: Developer e Pricing](https://postmarkapp.com/pricing) | Envio transacional: limites e preços por plano |
+| [Brevo Developers](https://developers.brevo.com/) | Messaging API (email, SMS, WhatsApp); escalão grátis por confirmar |
+| [Microsoft Graph: Outlook mail API](https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview) | Leitura de caixas de correio do Microsoft 365, delta query e subscrições |
+| [Gmail API: scopes](https://developers.google.com/workspace/gmail/api/auth/scopes) | Âmbitos de leitura do Gmail |
+| [Stripe Billing](https://docs.stripe.com/billing) | Subscrições, uso medido e faturas |
+| [Invoice Ninja (repositório)](https://github.com/invoiceninja/invoiceninja) | Faturação source available (Elastic License) |
+| [Temporal: Why Temporal](https://docs.temporal.io/evaluate/why-temporal) | Workflows duráveis (MIT) |
+| [BullMQ](https://docs.bullmq.io/) | Filas de trabalhos em Node (MIT) |
+| [Meilisearch docs e LICENSE](https://github.com/meilisearch/meilisearch/blob/main/LICENSE) | Motor de pesquisa; licença MIT e BUSL-1.1 |
+| [Typesense docs](https://typesense.org/docs/) | Motor de pesquisa; licença por confirmar |
+| [MinIO AIStor docs](https://docs.min.io/enterprise/aistor-object-store/) | Armazenamento de objetos com API S3; licença AIStor por ler |
+| [Unleash docs](https://docs.getunleash.io/) | Feature flags; licença AGPL v3 por confirmar |
+| [Flagsmith docs](https://docs.flagsmith.com/) | Feature flags; licença por confirmar |
+| [Novu docs](https://docs.novu.co/) | Notificações multicanal (MIT) |
+| [Appsmith docs](https://docs.appsmith.com/) | Ferramentas internas (Apache 2.0) |
 
-## [Construir com IA (Claude e Anthropic)](ia/README.md)
+## [Construir com IA](ia/README.md)
 
 | Fonte | Para quê |
 |---|---|
@@ -351,6 +380,52 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OpenAI Deployment Safety Hub](https://deploymentsafety.openai.com/) | system cards e avaliações de segurança dos modelos OpenAI |
 | [OpenAI News (feed RSS oficial)](https://openai.com/news/rss.xml) | Notícias da OpenAI com data de publicação; ler por aqui |
 | [OpenAI Academy](https://academy.openai.com/) | Cursos da OpenAI; vigiar lançamento de certificação |
+| [graphrag no PyPI](https://pypi.org/project/graphrag/) | Versões e estado do Microsoft GraphRAG |
+| [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) | Versões e alterações do LightRAG |
+| [OSU-NLP-Group/HippoRAG](https://github.com/OSU-NLP-Group/HippoRAG) | Versões do HippoRAG |
+| [Claude: Embeddings](https://platform.claude.com/docs/en/build-with-claude/embeddings) | Fornecedores e modelos de embeddings recomendados pela Anthropic |
+| [pgvector CHANGELOG](https://github.com/pgvector/pgvector/blob/master/CHANGELOG.md) | Versões do pgvector |
+| [mem0ai/mem0](https://github.com/mem0ai/mem0) | Versões do Mem0 (memória de agentes) |
+| [getzep/graphiti](https://github.com/getzep/graphiti) | Versões do Graphiti (grafo temporal para memória de agentes) |
+| [letta-ai/letta](https://github.com/letta-ai/letta) | Versões do Letta (agentes com estado) |
+| [Claude: Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) | Memory tool da Claude Platform |
+| [MCP: especificação](https://modelcontextprotocol.io/specification/latest) | Versão atual da especificação MCP |
+| [Gemini API: modelos](https://aistudio.google.com/docs/models) | Modelos Gemini, estado e descontinuações |
+| [Gemini API: preços](https://aistudio.google.com/docs/pricing) | Preços do Gemini, batch, cache e grounding |
+| [vLLM](https://docs.vllm.ai) | Servir modelos próprios (servidor compatível com OpenAI e Anthropic) |
+| [llama.cpp](https://github.com/ggml-org/llama.cpp) | Inferência local em CPU e GPU, quantização |
+| [Ollama](https://github.com/ollama/ollama) | Correr modelos abertos localmente |
+| [Hugging Face TRL](https://huggingface.co/docs/trl) | Treino SFT, DPO e GRPO |
+| [Hugging Face PEFT](https://huggingface.co/docs/peft) | Fine-tuning eficiente (LoRA) |
+| [karpathy/nanochat](https://github.com/karpathy/nanochat) | Treinar um LLM de raiz, de ponta a ponta |
+| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | Construir um LLM de raiz, capítulo a capítulo |
+| [Mistral: modelos](https://docs.mistral.ai/getting-started/models/) | Modelos Mistral e licença de cada um |
+| [Gemma: termos](https://ai.google.dev/gemma/terms) | Licença dos modelos Gemma |
+| [OSI: Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) | O que conta como IA open source |
+| [Comissão Europeia: perguntas e respostas sobre modelos GPAI](https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers) | Quem é fornecedor de um modelo de finalidade geral e o que deve |
+| [Código de Conduta GPAI](https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai) | Transparência, direitos de autor e segurança para fornecedores de modelos |
+| [A2A: especificação](https://a2a-protocol.org/latest/specification/) | Protocolo entre agentes, versões |
+| [OWASP Top 10 para LLM](https://genai.owasp.org/llm-top-10/) | Riscos de segurança de aplicações com LLM e de agentes |
+| [LiteLLM](https://docs.litellm.ai) | Gateway de LLM com orçamentos e chaves virtuais |
+| [Langfuse](https://langfuse.com/docs) | Observabilidade, avaliação e gestão de prompts |
+| [Piper: vozes](https://huggingface.co/rhasspy/piper-voices) | Vozes TTS locais, incluindo pt_PT |
+| [Azure AI Speech: preços](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/speech-services/) | Escalão grátis de TTS e STT |
+
+## [Modularização e produtização](produto/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [Yagni (Fowler)](https://martinfowler.com/bliki/Yagni.html) | Não construir o que ainda não é preciso |
+| [MonolithFirst (Fowler)](https://martinfowler.com/bliki/MonolithFirst.html) | Começar por um sistema só, modular por dentro |
+| [MicroservicePrerequisites (Fowler)](https://martinfowler.com/bliki/MicroservicePrerequisites.html) | O que é preciso ter antes de dividir em serviços |
+| [Hexagonal architecture (Cockburn)](https://alistair.cockburn.us/hexagonal-architecture/) | Núcleo isolado de dispositivos e bases de dados por portas e adaptadores |
+| [The Twelve-Factor App](https://12factor.net) | Configuração no ambiente e serviços de apoio como recursos ligados |
+| [Azure Architecture Center: tenancy models](https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/considerations/tenancy-models) | Modelos de multi-inquilino e os seus compromissos |
+| [Semantic Versioning](https://semver.org) | Regras de versão maior, menor e correção |
+| [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) | Formato de commit que liga ao SemVer |
+| [Feature Toggles (Hodgson)](https://martinfowler.com/articles/feature-toggles.html) | Categorias de flags e quando usar cada uma |
+| [Cookiecutter](https://cookiecutter.readthedocs.io) | Gerar projetos a partir de um modelo |
+| [Copier](https://copier.readthedocs.io) | Modelos de projeto que atualizam os projetos gerados |
 
 ## A vigiar
 
@@ -359,6 +434,11 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Tema | O que vigiar | Onde |
 |---|---|---|
 | IA | Se a OpenAI lança cursos ou certificação equivalentes; se sim, trazer toda a informação | [https://academy.openai.com/](https://academy.openai.com/) |
+| IA | Microsoft GraphRAG em modo de manutenção (3.3.0 a 2026-10-08): avisar se for descontinuado ou se a LazyGraphRAG entrar no pacote open source | [https://pypi.org/project/graphrag/](https://pypi.org/project/graphrag/) |
+| IA | Plataforma de fine-tuning da OpenAI em encerramento (já fechada a novos utilizadores): data final | [https://developers.openai.com/api/docs/guides/model-optimization](https://developers.openai.com/api/docs/guides/model-optimization) |
+| IA | Hugging Face TGI em modo de manutenção: avisar se for descontinuado | [https://huggingface.co/docs/text-generation-inference](https://huggingface.co/docs/text-generation-inference) |
+| IA | Preço do grounding com Google Search: duas páginas oficiais com valores diferentes; confirmar qual vale | [https://aistudio.google.com/docs/google-search](https://aistudio.google.com/docs/google-search) |
+| IA | Licença do Llama por ler (llama.com redireciona para outro site); ler o texto atual da licença | [https://www.llama.com/](https://www.llama.com/) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
 | Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
 | Publicação | mudanças nos limites e na restrição comercial da Vercel Hobby | [https://vercel.com/docs/plans/hobby](https://vercel.com/docs/plans/hobby) |

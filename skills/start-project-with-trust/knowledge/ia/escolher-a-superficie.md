@@ -1,7 +1,7 @@
 ---
 id: ia/escolher-a-superficie
 titulo: "Escolher a superfície (do simples ao agente)"
-seccao: "Construir com IA (Claude e Anthropic)"
+seccao: "Construir com IA"
 paginas: [66]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03

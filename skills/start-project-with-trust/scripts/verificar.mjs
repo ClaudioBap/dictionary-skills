@@ -190,7 +190,8 @@ export function verificar(pasta, substituir = {}) {
     if (linhas.length === 0) falhas.push('custo-beneficio.md: tabela «Sessões» vazia');
     else if (colTipo < 0) falhas.push('custo-beneficio.md: tabela «Sessões» sem a coluna «Tipo»');
     else if (!linhas.some((c) => /orquestrador/i.test(c[colTipo] || ''))) falhas.push('custo-beneficio.md: nenhuma sessão do tipo «orquestrador»');
-    for (const obrigatoria of ['Publicação e exposição', 'Adotar ou construir', 'Execução em paralelo']) {
+    falhas.push(...modeloEEffort(docs['custo-beneficio.md'], docs['plano.md']));
+    for (const obrigatoria of ['Publicação e exposição', 'Adotar ou construir', 'Execução em paralelo', 'Específico ou modular']) {
       if (!new RegExp(`^###\\s+D\\d+\\s+[—-]\\s+${obrigatoria}`, 'mi').test(docs['custo-beneficio.md'])) falhas.push(`custo-beneficio.md: falta a decisão «${obrigatoria}»`);
     }
   }
@@ -199,6 +200,37 @@ export function verificar(pasta, substituir = {}) {
   falhas.push(...verificarRastreabilidade(pasta, substituir, { cobertura: true }));
 
   falhas.push(...segredosEmAcessos(pasta, substituir));
+  return falhas;
+}
+
+const MODELO = /^(haiku|sonnet|opus|fable|claude-[\w.-]+)$/i;
+const EFFORT = /^(low|medium|high|xhigh|max)$/i;
+const MODELO_DE_PLANEAMENTO = /^(opus|fable|claude-(opus|fable)[\w.-]*)$/i;
+
+// Cada tarefa e cada sessão têm modelo e effort válidos, o planeamento corre em opus ou fable,
+// e cada ação do plano tem a sua tarefa.
+function modeloEEffort(custoBeneficio, plano) {
+  const falhas = [];
+  const s = seccoes(semComentarios(custoBeneficio));
+  for (const titulo of ['Tarefas', 'Sessões']) {
+    const cab = cabecalhoDeTabela(s[titulo]);
+    const colModelo = cab.findIndex((h) => /^modelo$/i.test(h));
+    const colEffort = cab.findIndex((h) => /^effort$/i.test(h));
+    const colTipo = cab.findIndex((h) => /^tipo$/i.test(h));
+    if (colModelo < 0 || colEffort < 0) { falhas.push(`custo-beneficio.md: tabela «${titulo}» sem as colunas «Modelo» e «Effort»`); continue; }
+    for (const c of linhasDeTabela(s[titulo])) {
+      const modelo = c[colModelo] || '';
+      if (!MODELO.test(modelo)) falhas.push(`custo-beneficio.md: «${titulo}» ${c[0]} sem modelo válido (haiku, sonnet, opus, fable)`);
+      else if (/planear|orquestrador/i.test(c[colTipo] || '') && !MODELO_DE_PLANEAMENTO.test(modelo)) {
+        falhas.push(`custo-beneficio.md: «${titulo}» ${c[0]} é planeamento e está em ${modelo}; tem de ser opus ou fable`);
+      }
+      if (!EFFORT.test(c[colEffort] || '')) falhas.push(`custo-beneficio.md: «${titulo}» ${c[0]} sem effort válido (low, medium, high, xhigh, max)`);
+    }
+  }
+  const tarefas = new Set(linhasDeTabela(s['Tarefas']).map((c) => c[0]));
+  for (const c of linhasDeTabela(seccoes(plano || '')['Ações'])) {
+    if (c[0] && !tarefas.has(c[0])) falhas.push(`custo-beneficio.md: a ação ${c[0]} do plano não tem linha em «Tarefas»`);
+  }
   return falhas;
 }
 
@@ -211,15 +243,19 @@ const SEGREDOS = [
   [/\bsk-[A-Za-z0-9_-]{20,}\b/, 'chave de API'],
 ];
 
-function segredosEmAcessos(pasta, substituir = {}) {
-  const texto = ler(pasta, 'acessos.md', substituir);
+// Procura segredos num documento inteiro ou só numa secção «## » dele.
+function segredosEm(pasta, nome, substituir = {}, seccao = null) {
+  let texto = ler(pasta, nome, substituir);
   if (!texto) return [];
+  if (seccao) texto = seccoes(semComentarios(texto))[seccao] || '';
+  const onde = seccao ? `${nome}, secção «${seccao}»` : nome;
   const falhas = [];
   texto.split(/\r?\n/).forEach((l, i) => {
-    for (const [re, tipo] of SEGREDOS) if (re.test(l)) falhas.push(`acessos.md, linha ${i + 1}: parece conter um segredo (${tipo}); guarda-o no cofre e deixa só a referência`);
+    for (const [re, tipo] of SEGREDOS) if (re.test(l)) falhas.push(`${onde}, linha ${i + 1}: parece conter um segredo (${tipo}); guarda-o no cofre e deixa só a referência`);
   });
   return falhas;
 }
+const segredosEmAcessos = (pasta, substituir = {}) => segredosEm(pasta, 'acessos.md', substituir);
 
 /**
  * Entrega: cada ação do plano foi executada e verificada com prova, a publicação e os acessos
@@ -234,6 +270,7 @@ export function verificarEntrega(pasta, substituir = {}) {
   const porDefinir = (texto.match(/_por definir_/g) || []).length;
   if (porDefinir) falhas.push(`entrega.md: ${porDefinir} campo(s) «por definir»`);
   if (/<(projeto|data)>/.test(texto)) falhas.push('entrega.md: marcadores do modelo por preencher');
+  falhas.push(...segredosEm(pasta, 'entrega.md', substituir, 'Por preencher'));
   const s = seccoes(texto);
 
   const plano = ler(pasta, 'plano.md', substituir);
