@@ -50,7 +50,7 @@ A skill trabalha na pasta `arranque/<nome-do-projeto>/`:
 | `plano.md` | Fase 2: plano feito só com os recursos disponíveis, com base em `knowledge/` |
 | `custo-beneficio.md` | Fase 3: opções com custo e benefício, orquestrador e sessões |
 | `acessos.md` | Inventário dos acessos SSH/RDP (P15), sem segredos; só se houver acessos remotos |
-| `entrega.md` | Fases 4 e 5: execução de cada ação, prova de cada critério, publicação, acessos e aceitação |
+| `entrega.md` | Fases 4 e 5: execução de cada ação, prova de cada critério, publicação, acessos, operação (para quem vai operar), valores por preencher e aceitação |
 
 Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou.
 
@@ -165,7 +165,7 @@ Para atualizar o conhecimento:
   - cada ação do plano, cada decisão e o orquestrador indicam em «Responde a» as perguntas do utilizador (P/S) a que respondem, e essas perguntas têm de existir e estar fechadas;
   - todas as perguntas obrigatórias têm pelo menos uma ação ou decisão que lhes responde.
 
-  Com `--entrega`, verifica também a entrega: cada ação `feito` e com prova `✓`, a publicação verificada, `acessos.md` sem segredos e a aceitação com nome e data.
+  Com `--entrega`, verifica também a entrega: cada ação `feito` e com prova `✓`, a publicação verificada, a operação documentada com prova, `acessos.md` e «Por preencher» sem segredos, e a aceitação com nome e data.
 - **Verificador da publicação** (`scripts/verificar-publicacao.mjs`): confirma HTTP→HTTPS, certificado válido, TLS 1.2 ou superior, cabeçalhos de segurança e que a área de administração não abre sem login.
   ```bash
   node .claude/skills/start-project-with-trust/scripts/verificar-publicacao.mjs https://<domínio> --admin admin

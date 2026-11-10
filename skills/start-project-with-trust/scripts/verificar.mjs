@@ -301,6 +301,13 @@ export function verificarEntrega(pasta, substituir = {}) {
     else if (!linhasDeTabela(seccoes(semComentarios(inventario))['Acessos']).length) falhas.push('acessos.md: tabela «Acessos» vazia');
   }
 
+  const operacao = s['Operação'] || '';
+  if (!naoAplicavel(operacao)) {
+    const itens = linhasDeTabela(operacao);
+    if (!itens.length) falhas.push('entrega.md: «Operação» sem itens com prova, nem «Não aplicável:» com a razão');
+    for (const c of itens) if (!(c[2] || '').trim()) falhas.push(`entrega.md: item de operação «${c[0]}» sem prova`);
+  }
+
   const linha = (s['Aceitação'] || '').split(/\r?\n/).find((l) => /Entrega aceite/i.test(l)) || '';
   if (!/^\s*-\s*\[[xX]\]/.test(linha)) falhas.push('entrega.md: aceitação da entrega pelo utilizador por marcar');
   else if (!/aceite por:\s*\S.*,\s*em\s*\S/i.test(linha)) falhas.push('entrega.md: aceitação sem nome e data');

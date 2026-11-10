@@ -13,3 +13,4 @@ Fonte: págs. 61–62 (Dicionario-Boas-Praticas.pdf)
 - [Microsoft 365 e Graph](microsoft-365-e-graph.md) — Integrar com o Microsoft 365 pela Graph, com permissões mínimas e consentidas. *(pág. 62)*
 - [OVHcloud](ovhcloud.md) — Fornecedor europeu para quando os dados têm de ficar na UE e se quer fugir ao lock-in. *(pág. 62)*
 - [Multi-cloud, lock-in e saída](multi-cloud-lock-in-e-saida.md) — Preferir peças portáveis e ser capaz de migrar, mais do que correr em duas nuvens. *(pág. 62)*
+- [Login com Microsoft Entra ID (OpenID Connect)](login-com-entra-id-oidc.md) — Para um utilizador entrar com a conta Microsoft da organização, regista-se a aplicação no Entra, usa-se o endpoint v2.0 através de uma biblioteca MSAL, e ficam por preencher só o tenant, o client ID, a credencial e os URIs. *(fora do PDF)*

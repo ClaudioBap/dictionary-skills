@@ -18,6 +18,14 @@
 - **Fable:** _por definir_ <!-- sim | não (usa opus com o effort um nível acima) -->
 - **Sessões em paralelo:** _por definir_
 - **Agentes:** _por definir_ <!-- sem agentes | só no orquestrador | em cada sessão | em todas -->
+- **Modo contínuo:** _por definir_ <!-- não | sim: nível de autonomia, onde corre, quota (ver modo-continuo.md) -->
+
+## Pausas e retomas
+
+<!-- Só em modo contínuo. Uma linha por pausa: quando, porquê (limite de 5 h, de 7 dias, quota escolhida), hora de reposição e o que ficou a meio. -->
+
+| Pausado em | Porquê | Retoma às | Retomado em | O que ficou a meio |
+|------------|--------|-----------|-------------|--------------------|
 
 ## Sessões
 

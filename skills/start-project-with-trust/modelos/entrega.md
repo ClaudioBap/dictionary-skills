@@ -26,6 +26,13 @@ _por definir_
 <!-- Se P15 tem acessos remotos: «Ver acessos.md, revisto em <data>». Se não: «Não aplicável:» e a razão. -->
 _por definir_
 
+## Operação
+
+<!-- Para quem vai operar a plataforma sem saber como foi construída. Um item por linha, a partir de knowledge/fiabilidade/prontidao-operacional-e-passagem.md: monitorização dos quatro sinais, runbooks, cópias de segurança 3-2-1 testadas, processo de incidentes, registo de alterações, sondas de saúde. «Prova» é o que qualquer pessoa pode repetir. Sem plataforma a operar, escreve «Não aplicável:» e a razão. -->
+
+| Item | O que ficou feito | Prova |
+|------|-------------------|-------|
+
 ## Por preencher
 
 <!-- Valores que só o utilizador pode dar (segredos, identificadores, URLs do cliente). Nunca o valor real: só o nome da variável, para quê, onde se obtém e um exemplo do formato. O verificador falha se encontrar um segredo aqui. Os mesmos nomes vão no .env.example do repositório. -->

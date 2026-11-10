@@ -248,6 +248,7 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
 2. Executa as ações do plano pela ordem e com as sessões decididas em `custo-beneficio.md`, seguindo os passos 5 e 6 de `../orchestrate-sessions/SKILL.md`: dás ao utilizador o comando e o briefing de cada sessão, lanças os subagentes do orquestrador com o modelo e o effort de cada tarefa, e recolhes as saídas com a prova e o custo do `/usage`.
 3. Por cada ação terminada, preenche a linha em «Execução» com o mesmo número do plano: `feito` e onde ficou (commit, ficheiro ou URL).
 4. Uma ação que não se consegue fazer como planeado não se muda em silêncio: passa a pergunta `aberta` em `objetivo.md`, voltas ao goal-loop com o utilizador, e o plano revisto volta a ser validado.
+4a. Se o utilizador quiser que a execução continue sozinha até ao fim, incluindo depois de um limite de uso, segue `../orchestrate-sessions/modo-continuo.md`: as três perguntas (autonomia, onde corre, quota) fazem-se uma vez, no formato da Fase 1, e ficam em «Decisões» de `custo-beneficio.md`.
 5. Uma ação bloqueada só por valores que o utilizador tem de dar (segredos, identificadores, acessos) não volta ao goal-loop: fica `por preencher` em «Execução», com uma linha por valor em «Por preencher», e passas à ação seguinte. No fim da sessão pedes os valores, e a prova dessa ação faz-se na Fase 5 depois de ele os preencher.
 
 ## Fase 5 — Verificação com prova
@@ -261,6 +262,7 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
 
    O script confirma que o HTTP redireciona para HTTPS, que o certificado é válido, que o TLS é 1.2 ou superior, que os cabeçalhos de segurança estão presentes e que a área de administração não abre sem login. Tem de terminar com `✓ Publicação verificada`. Sem exposição pública, escreve «Não aplicável:» e a razão.
 3. **Acessos (P15).** Revê `acessos.md` com o utilizador: cada acesso confirmado e a data de revisão atualizada. Em «Acessos», escreve «Ver acessos.md, revisto em <data>», ou «Não aplicável:» e a razão.
+3a. **Operação.** Preenche «Operação» com um item por linha, a partir de `knowledge/fiabilidade/prontidao-operacional-e-passagem.md` (monitorização dos quatro sinais, runbooks, cópias de segurança 3-2-1 testadas, processo de incidentes, registo de alterações, sondas de saúde): o que ficou feito e a prova. É o documento que quem vai operar a plataforma recebe, para não precisar de saber como foi construída. Sem plataforma a operar, escreve «Não aplicável:» e a razão.
 4. Corre o verificador da entrega e mostra a saída completa:
 
    ```
@@ -270,7 +272,7 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
    Cada falha passa a pergunta `aberta` ou a trabalho da Fase 4. Quando a única falha for a aceitação, pede-a:
 
    ```
-   ✅ Todas as ações estão feitas e provadas (<n> de <n>), a publicação e os acessos estão verificados. Aceitas a entrega?
+   ✅ Todas as ações estão feitas e provadas (<n> de <n>), a publicação, os acessos e a operação estão verificados. Aceitas a entrega?
    ```
 
 5. **Sim:** marca a aceitação em `entrega.md` com o nome do utilizador e a data, corre outra vez o verificador da entrega e mostra a saída. Só com `✓ Entrega verificada` é que mudas o estado para `Concluído` e terminas com o relatório final. **Não:** o que faltar volta à Fase 4 ou ao goal-loop.

@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 117 entradas fora do PDF; 354 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 118 entradas fora do PDF; 355 ficheiros de entrada no total.
 
 ## Secções
 
@@ -325,7 +325,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Ficheiros de governação](governacao/ficheiros-de-governacao.md) — Um projeto arranca com SECURITY.md, LICENSE, DPIA, runbooks e plano de backups, nem que sejam esqueletos. *(pág. 60)*
 - [Regras no CI, não só no agente](governacao/regras-no-ci-nao-so-no-agente.md) — As regras que importam vivem em hooks e no CI; o agente de IA é um atalho, não a barreira. *(pág. 60)*
 
-### 20. [Nuvem e identidade (AWS, Azure, Microsoft, OVH)](nuvem/README.md) — págs. 61–62 (7 entradas)
+### 20. [Nuvem e identidade (AWS, Azure, Microsoft, OVH)](nuvem/README.md) — págs. 61–62 (8 entradas)
 
 - [Escolher o fornecedor de nuvem](nuvem/escolher-o-fornecedor-de-nuvem.md) — Escolher a nuvem por jurisdição, custo, serviços, segurança e facilidade de saída, e registar o critério. *(pág. 61)*
 - [AWS (Amazon Web Services)](nuvem/aws.md) — O maior catálogo, com acesso por roles IAM de menor privilégio e regiões europeias. *(pág. 61)*
@@ -334,6 +334,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Microsoft 365 e Graph](nuvem/microsoft-365-e-graph.md) — Integrar com o Microsoft 365 pela Graph, com permissões mínimas e consentidas. *(pág. 62)*
 - [OVHcloud](nuvem/ovhcloud.md) — Fornecedor europeu para quando os dados têm de ficar na UE e se quer fugir ao lock-in. *(pág. 62)*
 - [Multi-cloud, lock-in e saída](nuvem/multi-cloud-lock-in-e-saida.md) — Preferir peças portáveis e ser capaz de migrar, mais do que correr em duas nuvens. *(pág. 62)*
+- [Login com Microsoft Entra ID (OpenID Connect)](nuvem/login-com-entra-id-oidc.md) — Para um utilizador entrar com a conta Microsoft da organização, regista-se a aplicação no Entra, usa-se o endpoint v2.0 através de uma biblioteca MSAL, e ficam por preencher só o tenant, o client ID, a credencial e os URIs. *(fora do PDF)*
 
 ### 21. [Sessões, orquestração e custo-eficiência](custo/README.md) — págs. 63–64 (8 entradas)
 

@@ -264,6 +264,13 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Microsoft 365 Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap) | datas previstas de funcionalidades Microsoft 365 (agora focado em IA) |
 | [AWS Well-Architected](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html) | boas práticas de arquitetura e revisão de cargas na AWS |
 | [Azure Well-Architected](https://learn.microsoft.com/en-us/azure/well-architected/) | pilares e ferramentas de revisão de arquitetura Azure |
+| [Entra: register an application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) | Registo de aplicações, tipos de conta, client ID |
+| [Entra: OpenID Connect](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc) | Authority v2.0, descoberta, scopes, logout |
+| [Entra: add credentials](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials) | Certificado vs segredo, validade dos segredos |
+| [Entra: security best practices for app registration](https://learn.microsoft.com/en-us/entra/identity-platform/security-best-practices-for-app-registration) | Redirect URIs, credenciais, menor privilégio |
+| [Entra: ID token claims](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference) | Que claim identifica o utilizador (oid, sub, tid) |
+| [MSAL overview](https://learn.microsoft.com/en-us/entra/identity-platform/msal-overview) | Bibliotecas oficiais por linguagem |
+| [Entra licensing](https://learn.microsoft.com/en-us/entra/fundamentals/licensing) | O que vem no Free, P1 e P2 |
 
 ## [Sessões, orquestração e custo-eficiência](custo/README.md)
 

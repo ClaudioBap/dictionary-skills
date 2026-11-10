@@ -52,7 +52,7 @@ The skill works in the `arranque/<project-name>/` folder:
 | `plano.md` | Phase 2: plan built only with the available resources, based on `knowledge/` |
 | `custo-beneficio.md` | Phase 3: options with cost and benefit, orchestrator and sessions |
 | `acessos.md` | Inventory of SSH/RDP access (question P15), without secrets; only if there is remote access |
-| `entrega.md` | Phases 4 and 5: execution of each action, evidence for each criterion, publishing, access and acceptance |
+| `entrega.md` | Phases 4 and 5: execution of each action, evidence for each criterion, publishing, access, operations (for whoever will run it), values to fill in and acceptance |
 
 If you stop, calling the skill again for the same project resumes where it left off.
 
@@ -167,7 +167,7 @@ To update the knowledge:
   - every plan action, every decision and the orchestrator state in «Responde a» which user questions (P/S) they answer, and those questions must exist and be closed;
   - every mandatory question has at least one action or decision that answers it.
 
-  With `--entrega`, it also checks the delivery: each action `feito` (done) with evidence `✓`, publishing verified, `acessos.md` without secrets and acceptance with a name and date.
+  With `--entrega`, it also checks the delivery: each action `feito` (done) with evidence `✓`, publishing verified, operations documented with evidence, `acessos.md` and «Por preencher» without secrets, and acceptance with a name and date.
 - **Publishing checker** (`scripts/verificar-publicacao.mjs`): confirms HTTP→HTTPS, a valid certificate, TLS 1.2 or later, security headers and that the admin area does not open without login.
   ```bash
   node .claude/skills/start-project-with-trust/scripts/verificar-publicacao.mjs https://<domain> --admin admin
