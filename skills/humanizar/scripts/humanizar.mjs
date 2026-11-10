@@ -40,7 +40,7 @@ const achados = [];
 const achado = (ficheiro, linha, id, categoria, gravidade, excerto, sugestao) => achados.push({ ficheiro, linha, id, categoria, gravidade, excerto: excerto.trim().slice(0, 110), sugestao });
 
 // Para as verificações de prosa, tira-se o que não é texto do autor: código, URLs e citações entre «».
-const limparProsa = (l) => l.replace(/`[^`]*`/g, ' ').replace(/https?:\/\/\S+/g, ' ').replace(/«[^»]*»/g, ' ').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ');
+const limparProsa = (l) => l.replace(/<!--.*?-->/g, ' ').replace(/<!--|-->/g, ' ').replace(/`[^`]*`/g, ' ').replace(/https?:\/\/\S+/g, ' ').replace(/«[^»]*»/g, ' ').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ');
 const ehPortugues = (t) => /\b(não|também|utilizador|ficheiro|ação|opção|então|já|são)\b/i.test(t);
 
 const BROCHURA_PT = /\b(crucial|fundamental|poderos[oa]s?|intuitiv[oa]s?|de ponta|potenciar|elevar|desbloquear|mergulhar|jornada|ecossistema|panorama|no mundo atual|em constante evolução|robust[oa]s?|sem complicações|revolucion\w+|inovador[ae]?s?|transformador[ae]?s?|impulsionar|alavancar|experiência fluida|sem esforço)\b/i;
@@ -87,7 +87,10 @@ function verificarFicheiro(ficheiro) {
     const l = prosa ? limparProsa(bruto) : bruto;
 
     // Pontuação e símbolos (todos os meios)
-    if (/\s[—–]\s|\w—\w/.test(l) && !/^\s*\|/.test(l)) achado(ficheiro, n, 'travessao', 'Pontuação', 'alta', bruto, 'Liga as frases com vírgula, ponto, dois pontos ou parênteses.');
+    if (/\s[—–]\s|\w—\w/.test(l) && !/^\s*\|/.test(l)) {
+      if (prosa && /^#{1,6}\s/.test(bruto)) achado(ficheiro, n, 'travessao-titulo', 'Pontuação', 'media', bruto, 'Título com travessão e subtítulo: um título só, ou dois pontos quando há mesmo um identificador.');
+      else achado(ficheiro, n, 'travessao', 'Pontuação', 'alta', bruto, 'Liga as frases com vírgula, ponto, dois pontos ou parênteses.');
+    }
     if (/[·•▪◦★✦]/.test(l)) achado(ficheiro, n, 'separador', 'Pontuação', 'alta', bruto, 'Separa com vírgula, barra ou quebra de linha; sem símbolos decorativos.');
     if (/[→⇒✓✔✗✨🚀⭐💡⚡]/u.test(l)) achado(ficheiro, n, 'simbolos', 'Pontuação', prosa ? 'media' : 'alta', bruto, 'Escreve a palavra («para», «feito», «falhou») ou usa um ícone do sistema de ícones do projeto.');
     else if (!flag('--permitir-emojis') && EMOJI.test(l)) achado(ficheiro, n, 'emoji', 'Pontuação', prosa ? 'media' : 'alta', bruto, 'Sem emojis em interfaces, logs, comentários e commits, salvo se o design do cliente os pedir.');
@@ -121,7 +124,7 @@ function verificarFicheiro(ficheiro) {
         if (pt && palavras.length >= 3 && maiusculas / palavras.length >= 0.8 && titulo[1] !== titulo[1].toUpperCase()) achado(ficheiro, n, 'titulo-maiusculas', 'Estrutura', 'media', bruto, 'Título com maiúscula só na primeira palavra e nos nomes próprios.');
         if (/^[^:]{2,60}:\s+\S/.test(titulo[1])) achado(ficheiro, n, 'titulo-subtitulo', 'Estrutura', 'media', bruto, 'Título com dois pontos e subtítulo: escolhe um título só.');
       }
-      if (/^\s*[-*]\s+\*\*[^*]{1,40}:?\*\*:?\s/.test(bruto)) { seguidasBold++; if (seguidasBold === 3) achado(ficheiro, n - 2, 'lista-termo', 'Estrutura', 'media', linhas[i - 2], 'Lista com todos os itens em «**Termo:** explicação»: frases normais chegam.'); }
+      if (/^\s*[-*]\s+\*\*[^*]{1,40}(:\*\*|\*\*:)\s/.test(bruto) && !/_por definir_/.test(bruto)) { seguidasBold++; if (seguidasBold === 3) achado(ficheiro, n - 2, 'lista-termo', 'Estrutura', 'media', linhas[i - 2], 'Lista com todos os itens em «**Termo:** explicação»: frases normais chegam.'); }
       else seguidasBold = 0;
       if ((bruto.match(/\*\*[^*]+\*\*/g) || []).length >= 4) achado(ficheiro, n, 'negrito', 'Estrutura', 'media', bruto, 'Negrito só onde ajuda a ler; aqui há quatro ou mais num só parágrafo.');
     }
@@ -129,12 +132,15 @@ function verificarFicheiro(ficheiro) {
     // Língua
     if ((prosa || interfaceWeb) && pt) {
       const br = l.match(PT_BR);
-      if (br) achado(ficheiro, n, 'pt-br', 'Língua', 'alta', bruto, `«${br[0]}» é português do Brasil; em português de Portugal, a palavra é outra (ficheiro, utilizador, ecrã, apagar, aceder, gerir).`);
+      if (br) achado(ficheiro, n, 'pt-br', 'Língua', 'media', bruto, `«${br[0]}» é português do Brasil; em português de Portugal, a palavra é outra (ficheiro, utilizador, ecrã, apagar, aceder, gerir).`);
     }
 
     // Código
     if (codigo) {
-      if (COMENTARIO_NARRATIVO.test(bruto)) achado(ficheiro, n, 'comentario-narrativo', 'Código', 'media', bruto, 'Comentário que narra a linha seguinte: apaga, ou explica o porquê.');
+      if (COMENTARIO_NARRATIVO.test(bruto) && bruto.trim().length < 80) {
+        const proxima = linhas.slice(i + 1).find((x) => x.trim()) || '';
+        if (!/^\s*(\/\/|#|\*|--|\/\*)/.test(proxima)) achado(ficheiro, n, 'comentario-narrativo', 'Código', 'media', bruto, 'Comentário que narra a linha seguinte: apaga, ou explica o porquê.');
+      }
       if (!teste && NOMES_GENERICOS.test(bruto)) achado(ficheiro, n, 'nome-generico', 'Código', 'media', bruto, 'Nome que não diz o que a coisa é: dá-lhe o nome do domínio.');
       if (LOG_FESTIVO.test(bruto)) achado(ficheiro, n, 'log-festivo', 'Código', 'alta', bruto, 'Log com emoji ou «Done!»: regista o facto, em texto simples.');
       if (CAIXA_ASCII.test(bruto)) achado(ficheiro, n, 'caixa-ascii', 'Código', 'alta', bruto, 'Separadores e caixas em ASCII: deixa a formatação ao formatter e aos títulos de secção.');
@@ -153,7 +159,7 @@ function verificarFicheiro(ficheiro) {
 
     // Dados de exemplo (todos os ficheiros fora de testes)
     if (!teste) {
-      const ph = bruto.match(PLACEHOLDER);
+      const ph = (prosa ? l : bruto).match(PLACEHOLDER);
       if (ph) achado(ficheiro, n, 'placeholder', 'Dados', 'alta', bruto, `«${ph[0]}» é texto de exemplo: usa dados reais ou dados de teste com nomes plausíveis do domínio.`);
     }
   }
