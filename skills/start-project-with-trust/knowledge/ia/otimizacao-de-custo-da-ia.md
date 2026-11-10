@@ -4,8 +4,9 @@ titulo: "Otimização de custo da IA"
 seccao: "Construir com IA"
 paginas: [69]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
-fontes_oficiais_consultadas_em: 2026-11-04
+verificado_em: 2026-11-10
+editado_em: 2026-11-10
+fontes_oficiais_consultadas_em: 2026-11-10
 ---
 
 # Otimização de custo da IA
@@ -31,6 +32,10 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) — leituras de cache a 0,1x do preço base de entrada
 - [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) — preços de cache e batch por modelo
 
-> **Nota (fonte oficial):** Leituras de cache: 0,1x na generalidade, mas 0,05x no Opus 5.5 e Sonnet 5.5 e 0,025x no Fable 5.1.
+> **Nota (fonte oficial):** Leituras de cache: 0,1x na generalidade, 0,05x no Opus 5.5 e no Sonnet 5.5, e 0,025x no Fable 5.2, no Mythos 5.2, no Fable 5.1 (legado) e no Mythos 5.1 (página de preços, 2026-11-10).
+
+## Histórico
+
+- **2026-11-09**: antes, a nota dizia «0,025x no Fable 5.1». Mudou porque o Fable 5.2 e o Mythos 5.2 foram lançados com o mesmo multiplicador de leitura da cache. Fonte: [Pricing](https://platform.claude.com/docs/en/about-claude/pricing). Editado a 2026-11-10.
 
 Fonte: pág. 69 (Dicionario-Boas-Praticas.pdf)
