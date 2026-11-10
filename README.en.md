@@ -207,7 +207,9 @@ skills/orchestrate-sessions/
 ├── SKILL.md            tasks, number of sessions, agents, briefings, execution and collection
 ├── catalogo.md         mini skills and the knowledge/ sections each one uses
 ├── modelo-e-effort.md  model and effort per task type, and when to step up
-└── modelos/            sessoes.md and briefing.md
+├── modelos/            sessoes.md and briefing.md
+├── modo-continuo.md    work to the end, wait for the usage-limit reset and resume
+└── scripts/            estado-uso.mjs, the status line that records plan usage
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
 │                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video
 └── SKILL.md        the topic process: asks what the work is, reads only that part of knowledge/ and goes to the sources when something is missing
