@@ -16,7 +16,7 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | Part | What it is | For whom |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The skill that starts and runs projects | People who build projects for clients (consultants, development teams) |
-| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 355 good-practice entries in 26 sections, each with its source | Used by the skill; can also be read directly |
+| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 356 good-practice entries in 26 sections, each with its source | Used by the skill; can also be read directly |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill that spreads work across sessions, with a model and effort per task | Whoever runs work with several sessions in parallel |
 | `skills/<mini skill>/` | The eleven mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
@@ -62,7 +62,7 @@ Each user has personal knowledge in `~/.start-project-with-trust/` (on Windows, 
 
 ## Knowledge base
 
-355 entries in 26 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
+356 entries in 26 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
 
 | Section | Entries | Section | Entries |
 |---|---|---|---|

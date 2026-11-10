@@ -14,7 +14,7 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | Parte | O que é | Para quem |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A skill que arranca e conduz projetos | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) |
-| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 355 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 356 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill que distribui o trabalho por sessões, com modelo e effort por tarefa | Quem executa trabalho com várias sessões em paralelo |
 | `skills/<mini skill>/` | As onze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
@@ -60,7 +60,7 @@ Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (n
 
 ## Base de conhecimento
 
-355 entradas em 26 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
+356 entradas em 26 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
