@@ -37,7 +37,9 @@ export function lerWav(caminho) {
       taxa = b.readUInt32LE(inicio + 4);
       bits = b.readUInt16LE(inicio + 14);
     } else if (id === 'data') {
-      dados = b.subarray(inicio, Math.min(inicio + tamanho, b.length));
+      // Um WAV gerado em fluxo pode trazer o tamanho a zero ou acima do ficheiro: vale o que lá está.
+      dados = b.subarray(inicio, tamanho > 0 && inicio + tamanho <= b.length ? inicio + tamanho : b.length);
+      break;
     }
     pos = inicio + tamanho + (tamanho % 2);
   }

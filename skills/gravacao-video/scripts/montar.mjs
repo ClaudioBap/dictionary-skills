@@ -158,7 +158,9 @@ const args = [
   '-y', '-ss', (corteMs / 1000).toFixed(3), '-i', 'gravacao/bruto.webm', '-i', 'audio/narracao.wav',
   '-filter_script:v', 'gravacao/filtro.txt', '-map', '0:v', '-map', '1:a',
   '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(FPS),
-  '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', ficheiro,
+  // Volume de vídeo para a web (-16 LUFS) e 48 kHz estéreo, que qualquer leitor aceita.
+  '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ar', '48000', '-ac', '2',
+  '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', '-shortest', ficheiro,
 ];
 console.log('ffmpeg ' + args.join(' '));
 correrFfmpeg(args);
@@ -168,6 +170,9 @@ const finalS = duracaoVideo(ficheiro);
 console.log(`\nFinal: ${ficheiro}, ${finalS.toFixed(2)} s, ${(statSync(join(pasta, ficheiro)).size / 1024 / 1024).toFixed(1)} MB`);
 console.log('Pontos de sincronização (tempo no vídeo final em que cada narração começa):');
 for (const c of clips) console.log(`  ${mmss(c.inicio)}  ${c.id}  (${c.wav.segundos.toFixed(2)} s)  «${c.narracao.slice(0, 50)}»`);
+const silencios = clips.slice(1).map((c, i) => (c.inicio - (clips[i].inicio + clips[i].wav.segundos * 1000)) / 1000);
+if (silencios.length) console.log(`Silêncios entre frases (s): ${silencios.map((s) => s.toFixed(1)).join(', ')}`);
+console.log(`Scrolls: ${tempos.scrolls?.length ?? 0}${tempos.scrolls?.length ? ` (${tempos.scrolls.map((s) => `${mmss(aFinal(s.em))} ${s.passo}`).join(', ')})` : ''}`);
 if (tempos.zooms?.length) {
   console.log('Zoom:');
   for (const z of tempos.zooms) console.log(`  ${mmss(aFinal(z.em))}  ${z.tipo === 'in' ? `${z.fator}x em (${z.x}, ${z.y})` : 'volta a 1x'}`);

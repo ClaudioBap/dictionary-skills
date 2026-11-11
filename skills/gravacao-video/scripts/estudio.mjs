@@ -175,7 +175,7 @@ function instalarNaPagina({ css, capa }) {
     const topo = documento ? 0 : c.getBoundingClientRect().top;
     const altura = documento ? innerHeight : c.clientHeight;
     const dy = Math.round(bloco === 'center' ? r.top + r.height / 2 - (topo + altura / 2) : r.top - topo - 24);
-    return Math.abs(dy) > 4 ? dg.percorrer(dy, ms, el) : Promise.resolve();
+    return Math.abs(dy) > 4 ? dg.percorrer(dy, ms, el).then(() => dy) : Promise.resolve(0);
   };
 
   // Quando corre como init script ainda não há <head>: espera por ele.
@@ -252,7 +252,7 @@ export async function abrirEstudio(opcoes = {}) {
 
   const e = {
     page, guiao, agora, apresentacao,
-    tempos: [], marcas: [], zooms: [], esperas: [],
+    tempos: [], marcas: [], zooms: [], esperas: [], scrolls: [],
     rato: { x: Math.round(guiao.largura * 0.58), y: Math.round(guiao.altura * 0.55) },
     ratoVisivel: false, zoomAtivo: false, passoAtual: null, inicioVideo: 0,
   };
@@ -366,8 +366,10 @@ export async function abrirEstudio(opcoes = {}) {
   // Move o cursor numa curva suave, com aceleração e travagem, e o rato real segue-o.
   e.mover = async (alvo, { ms } = {}) => {
     if (alvo && typeof alvo.x !== 'number') {
+      // Só há scroll se menos de 70% do alvo estiver à vista: um botão encostado à margem aponta-se onde está.
       const caixa = await alvo.boundingBox();
-      if (caixa && (caixa.y < 0 || caixa.y + caixa.height > guiao.altura)) await e.percorrerAte(alvo);
+      const aVista = caixa ? (Math.min(caixa.y + caixa.height, guiao.altura) - Math.max(caixa.y, 0)) / Math.max(1, caixa.height) : 1;
+      if (aVista < 0.7) await e.percorrerAte(alvo, { forcar: true });
     }
     const destino = await e.ponto(alvo);
     if (apresentacao && !e.ratoVisivel) await e.mostrarCursor();
@@ -409,13 +411,23 @@ export async function abrirEstudio(opcoes = {}) {
   };
   e.tecla = (tecla) => page.keyboard.press(tecla);
 
+  // Cada scroll fica registado com o passo em que aconteceu, para a prova os poder contar.
+  const registarScroll = (pixeis) => e.scrolls.push({ passo: e.passoAtual?.passo.id ?? null, em: agora(), pixeis });
   e.percorrer = async (pixeis, { ms } = {}) => {
+    registarScroll(pixeis);
     await dg(([dy, t]) => window.__dg.percorrer(dy, t), [pixeis, ms ?? Math.round(Math.min(2500, Math.max(600, Math.abs(pixeis) * 1.6)) * ritmo)]);
   };
-  e.percorrerAte = async (locator, { bloco = 'center', ms } = {}) => {
+  // Só faz scroll se o alvo não estiver já à vista: scroll sem propósito cansa quem vê.
+  e.percorrerAte = async (locator, { bloco = 'center', ms, forcar = false } = {}) => {
     await garantir();
+    if (!forcar) {
+      const c = await locator.boundingBox();
+      if (c && c.y >= 60 && c.y + c.height <= guiao.altura - 60) return;
+    }
     const handle = await locator.elementHandle();
-    await handle.evaluate((el, [b, t]) => window.__dg.percorrerAte(el, b, t), [bloco, ms ?? Math.round(1200 * ritmo)]);
+    const em = agora();
+    const dy = await handle.evaluate((el, [b, t]) => window.__dg.percorrerAte(el, b, t), [bloco, ms ?? Math.round(1200 * ritmo)]);
+    if (dy) e.scrolls.push({ passo: e.passoAtual?.passo.id ?? null, em, pixeis: dy });
   };
 
   e.destacar = async (locator, { margem = 8 } = {}) => {
@@ -437,9 +449,13 @@ export async function abrirEstudio(opcoes = {}) {
     e.zooms.push({ tipo: 'in', em: agora(), x: p.x, y: p.y, fator, ms });
     e.zoomAtivo = true;
     await esperar(ms);
+    e.zoomDesde = agora();
   };
+  // Um zoom que entra e sai logo a seguir incomoda: fica pelo menos 1,5 s antes de recuar.
   e.zoomFora = async ({ ms = Math.round(600 * ritmo) } = {}) => {
     if (!e.zoomAtivo) return;
+    const falta = 1500 - (agora() - (e.zoomDesde ?? 0));
+    if (falta > 0) await esperar(falta);
     e.zooms.push({ tipo: 'out', em: agora(), ms });
     e.zoomAtivo = false;
     await esperar(ms);
@@ -507,9 +523,10 @@ export async function abrirEstudio(opcoes = {}) {
       largura: guiao.largura, altura: guiao.altura, escala,
       estilo: apresentacao ? 'apresentacao' : 'sobrio',
       inicioVideo: e.inicioVideo, fechoEm, comAudio: Boolean(duracoes),
-      marcas: e.marcas, esperas: e.esperas, zooms: e.zooms, passos: e.tempos,
+      marcas: e.marcas, esperas: e.esperas, zooms: e.zooms, scrolls: e.scrolls, passos: e.tempos,
     });
     console.log(`Gravação: gravacao/bruto.webm, ${(fechoEm / 1000).toFixed(1)} s de relógio do script`);
+    console.log(`Scrolls: ${e.scrolls.length}${e.scrolls.length ? ` (${e.scrolls.map((s) => `${s.passo} ${s.pixeis > 0 ? '+' : ''}${s.pixeis} px`).join(', ')})` : ''}`);
   };
 
   return e;
