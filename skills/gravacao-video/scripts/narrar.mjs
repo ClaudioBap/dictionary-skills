@@ -56,7 +56,7 @@ if (ensinadas.length) {
   for (const [termo, dito] of ensinadas) pessoal[termo] = dito;
   mkdirSync(dirname(DIC_PESSOAL), { recursive: true });
   writeFileSync(DIC_PESSOAL, JSON.stringify(Object.fromEntries(Object.entries(pessoal).sort(([a], [b]) => a.localeCompare(b, 'pt'))), null, 2) + '\n');
-  console.log(`Aprendi ${ensinadas.map(([t, d]) => `«${t}» → «${d}»`).join(', ')} em ${DIC_PESSOAL}`);
+  console.log(`Aprendi que ${ensinadas.map(([t, d]) => `«${t}» se diz «${d}»`).join(', ')}. Ficou em ${DIC_PESSOAL}`);
 }
 const PRONUNCIAS = { ...lerDicionario(DIC_SKILL), ...pessoal, ...guiao.pronuncias };
 
