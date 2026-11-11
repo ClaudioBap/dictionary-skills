@@ -393,12 +393,23 @@ export async function abrirEstudio(opcoes = {}) {
     return destino;
   };
 
-  e.clicar = async (alvo, { ms } = {}) => {
-    const p = await e.mover(alvo, { ms });
-    await esperar(140);
-    await page.mouse.down();
-    await esperar(90);
-    await page.mouse.up();
+  // Clica onde o cursor está. Com "ate" (um locator), confirma que o clique teve efeito: se o
+  // elemento esperado não aparecer em 2,5 s (página ainda a acordar), clica outra vez.
+  e.clicar = async (alvo, { ms, ate, tentativas = 3 } = {}) => {
+    let p = await e.mover(alvo, { ms });
+    if (alvo && typeof alvo.x !== 'number') {
+      const agoraEsta = await e.ponto(alvo); // o alvo pode ter mudado de sítio enquanto o cursor ia a caminho
+      if (Math.hypot(agoraEsta.x - p.x, agoraEsta.y - p.y) > 4) p = await e.mover(alvo);
+    }
+    for (let i = 1; ; i++) {
+      await esperar(140);
+      await page.mouse.down();
+      await esperar(90);
+      await page.mouse.up();
+      if (!ate || (await ate.waitFor({ state: 'visible', timeout: 2500 }).then(() => true, () => false))) break;
+      if (i >= tentativas) throw new Error(`O clique não teve efeito ao fim de ${tentativas} tentativas: o elemento esperado não apareceu.`);
+      console.warn(`Aviso: o clique em ${e.passoAtual?.passo.id ?? 'um passo'} não teve efeito; tento outra vez.`);
+    }
     await esperar(220);
     return p;
   };

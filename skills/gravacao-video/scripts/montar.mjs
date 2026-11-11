@@ -95,7 +95,7 @@ for (const p of guiao.passos) {
   for (const f of t.frases) {
     const info = frases[f.n];
     if (!info) throw new Error(`A frase ${f.n + 1} de ${p.id} não existe no áudio; a narração mudou depois de gravar?`);
-    clips.push({ id: `${p.id}/${f.n + 1}`, narracao: info.texto, wav: lerWav(join(pasta, 'audio', info.ficheiro)), inicio: aFinal(f.em) });
+    clips.push({ id: `${p.id}/${f.n + 1}`, narracao: info.texto, info, wav: lerWav(join(pasta, 'audio', info.ficheiro)), inicio: aFinal(f.em) });
   }
 }
 const { taxa, canais } = clips[0].wav;
@@ -110,7 +110,7 @@ for (const [i, c] of clips.entries()) {
   c.wav.dados.copy(pcm, offset, 0, bytes);
   const fimAudio = c.inicio + c.wav.segundos * 1000;
   const proximo = clips[i + 1]?.inicio ?? totalMs;
-  if (fimAudio > proximo) console.warn(`Aviso: a narração de ${c.id} entra ${(fimAudio - proximo).toFixed(0)} ms pelo passo seguinte`);
+  if (fimAudio > proximo) console.warn(`Aviso: a frase ${c.id} entra ${(fimAudio - proximo).toFixed(0)} ms pela seguinte, que a corta. Corre node gravar.mjs para lhe dar espaço.`);
   linhas.push(`${i + 1}\n${tempoSrt(c.inicio)} --> ${tempoSrt(Math.min(fimAudio + 300, proximo - 100))}\n${c.narracao}\n`);
 }
 writeFileSync(join(pasta, 'audio', 'narracao.wav'), Buffer.concat([cabecalhoWav(taxa, canais, pcm.length), pcm]));
@@ -165,7 +165,30 @@ const args = [
 console.log('ffmpeg ' + args.join(' '));
 correrFfmpeg(args);
 
-// 5. Prova.
+// 5. Folha de escuta: quem ouve aponta cada problema pelo número da frase ou pelo tempo.
+const notas = (i) => [i.fimCortado ? 'o modelo cortou o fim; levou desvanecer longo' : '', i.ruidoRetirado ? 'ruído retirado antes da fala' : ''].filter(Boolean).join('; ');
+writeFileSync(join(pasta, 'escuta.md'), [
+  `# Folha de escuta de ${nome}`,
+  '',
+  `Vídeo: \`${ficheiro}\`. Ouve-o com esta folha ao lado e aponta cada problema pelo número da frase ou pelo tempo. As tomadas de cada frase estão em \`audio/tomadas/<passo>-<frase>/\`, numeradas, para as ouvires uma a uma.`,
+  '',
+  '| N.º | Tempo | Frase | Texto | Dito à voz como | Tomada | Notas |',
+  '|---|---|---|---|---|---|---|',
+  ...clips.map((c, i) => `| ${i + 1} | ${mmss(c.inicio).slice(0, -2)} | ${c.id} | ${c.narracao} | ${c.info.dito ?? ''} | ${c.info.tomada ? `${c.info.tomada} de ${c.info.tomadas}` : ''} | ${notas(c.info)} |`),
+  '',
+  '## Como corrigir',
+  '',
+  '| O que ouviste | Comando, nesta pasta |',
+  '|---|---|',
+  '| Uma palavra mal dita | `node narrar.mjs --ensinar "palavra=como se diz"` |',
+  '| Uma frase que saiu mal (palavra comida, entoação, ruído) | `node narrar.mjs --frase 9`, que gera tomadas novas só para ela |',
+  '| Preferes outra tomada de uma frase | `node narrar.mjs --frase 9 --tomada 3` |',
+  '',
+  'Uma pronúncia ensinada fica guardada e vale para os vídeos seguintes. Depois de cada correção, `node montar.mjs` refaz o vídeo; se o `narrar.mjs` disser que a frase nova não cabe no tempo gravado, corre antes `node gravar.mjs`.',
+  '',
+].join('\n'));
+
+// 6. Prova.
 const finalS = duracaoVideo(ficheiro);
 console.log(`\nFinal: ${ficheiro}, ${finalS.toFixed(2)} s, ${(statSync(join(pasta, ficheiro)).size / 1024 / 1024).toFixed(1)} MB`);
 console.log('Pontos de sincronização (tempo no vídeo final em que cada narração começa):');

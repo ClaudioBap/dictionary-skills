@@ -50,13 +50,14 @@ Os scripts cobrem gravação, narração com Piper ou Azure, montagem e exporta�
 Tudo vive em `video/<nome-do-video>/`, no projeto:
 - `guiao.md`: a tabela do passo 4.1, validada;
 - `guiao.json`: o que os scripts leem (ver o passo 4.1);
-- `estudio.mjs`, `narrar.mjs`, `montar.mjs`, `comum.mjs`: cópias de `scripts/` desta skill, sem alterações;
+- `estudio.mjs`, `narrar.mjs`, `montar.mjs`, `comum.mjs` e `pronuncias.json`: cópias de `scripts/` desta skill, sem alterações;
 - `gravar.mjs`: o script deste vídeo, escrito sobre o estúdio; lê as credenciais do ambiente;
-- `audio/`: um ficheiro por frase (`<passo>-<n>.wav`), `duracoes.json` e a narração completa;
+- `audio/`: um ficheiro por frase (`<passo>-<n>.wav`), `duracoes.json`, a narração completa e `tomadas/`, com todas as tomadas de cada frase;
+- `escuta.md`: a folha de escuta, com as frases numeradas e o tempo de cada uma no vídeo;
 - `gravacao/`: o vídeo bruto, uma captura JPEG por passo, `tempos.json` (o relógio da gravação) e `filtro.txt` (o filtro ffmpeg usado);
 - `legendas.srt`: geradas a partir do guião;
 - `final/`: as exportações, uma por formato e resolução.
-O projeto precisa de `playwright` e `ffmpeg-static` no `package.json` e do Piper em `ferramentas/piper/` (ou nas variáveis `PIPER_EXE`, `PIPER_MODELO` e `PIPER_ESPEAK`). Nada desta pasta vai para o repositório com segredos; `.gitignore` exclui `ferramentas/`, `gravacao/*.webm` e `audio/narracao.wav`.
+O projeto precisa de `playwright` e `ffmpeg-static` no `package.json` e do Piper em `ferramentas/piper/` (ou nas variáveis `PIPER_EXE`, `PIPER_MODELO` e `PIPER_ESPEAK`). Nada desta pasta vai para o repositório com segredos; `.gitignore` exclui `ferramentas/`, `gravacao/*.webm`, `audio/narracao.wav` e `audio/tomadas/`.
 
 ## 4. Produzir, segmento a segmento
 
@@ -64,13 +65,13 @@ Cada segmento tem as suas regras de qualidade e só passa ao seguinte quando as 
 
 ### 4.1 Guião
 
-Escreves `guiao.md`, uma tabela com passo, ação no browser (o que o cursor faz, onde há zoom, onde há scroll), a narração frase a frase e o que aparece no ecrã, e pedes validação antes de gravar. Textos finais que faltem ficam em «Por preencher». Depois passas o mesmo para `guiao.json`.
+Escreves `guiao.md`, uma tabela com passo, ação no browser (o que o cursor faz, onde há zoom, onde há scroll), a narração frase a frase e o que aparece no ecrã, e pedes validação antes de gravar. Textos finais que faltem ficam em «Por preencher». Depois passas o mesmo para `guiao.json` e copias `scripts/*` desta skill para `video/<nome>/`.
 
 Regras de qualidade:
 - **Uma frase por ação**, curta (até 16 palavras), dita antes da ação a que se refere: a voz vai à frente do cursor. Onde o cursor vai clicar, uma frase de ligação («Abrimos o primeiro.»).
 - **Uma mudança de página pede duas frases**: uma que acaba no clique («No menu principal está a secção Reutilizações.») e outra que começa já na página nova («Reúne aplicações e estudos feitos com estes dados.»). Uma frase só, longa, deixa o ecrã parado enquanto se fala do que ainda não se vê.
 - **Português corrente.** Termos estrangeiros mostram-se no ecrã (zoom, título) e dizem-se em português: «a licença é aberta», com o zoom em «Creative Commons». A voz sintética lê inglês com fonética portuguesa e soa mal.
-- **Siglas, endereços e nomes** dizem-se como se leem. As siglas correntes e os endereços (`dados.gov.pt`) o script trata; o resto vai para `pronuncias` no `guiao.json` (`{ "INE": "iné", "Nuxt": "nâcst" }`). As legendas ficam com a grafia original.
+- **Siglas, endereços e nomes** dizem-se como se leem. As siglas correntes e os endereços (`dados.gov.pt`) o script trata; o resto ensina-se com `--ensinar` (passo 4.2) ou, se só valer para este vídeo, vai para `pronuncias` no `guiao.json` (`{ "INE": "iné" }`). As legendas ficam com a grafia original.
 - **Scroll só com propósito**: quando o que a frase refere não está à vista, e no máximo um por página. Nunca scroll para «mostrar a página». Um regresso ao topo para usar o menu conta como scroll e leva uma frase.
 - **Zoom e título não se juntam**, o zoom sai antes de o cursor ir para longe, e um zoom fica pelo menos o tempo de uma frase: entrar e sair logo a seguir incomoda.
 
@@ -83,23 +84,37 @@ Regras de qualidade:
 
 ### 4.2 Voz
 
-`node narrar.mjs` gera um ficheiro por frase e `audio/duracoes.json`. Faz isto antes de gravar: a gravação usa as durações para encaixar cada frase.
+`node narrar.mjs` gera um ficheiro por frase e `audio/duracoes.json`. Faz isto antes de gravar: a gravação usa as durações para encaixar cada frase. Só narra o que falta ou mudou; o que já estava bom fica como está.
 
 O script trata de:
-- dizer siglas e endereços pelo dicionário, e avisar de cada palavra que pareça estrangeirismo ou sigla sem pronúncia;
-- com o Piper, que não é determinista, gerar quatro tomadas de cada frase e ficar com a que não tem ruído no arranque, acaba menos cortada e tem a duração mais próxima da mediana (uma tomada curta engoliu sílabas);
+- dizer siglas e endereços pelos dicionários de pronúncias, e avisar de cada palavra que pareça estrangeirismo ou sigla sem pronúncia;
+- com o Piper, que não é determinista, gerar quatro tomadas de cada frase, guardá-las em `audio/tomadas/` e ficar com a que não tem ruído no arranque, acaba menos cortada e tem a duração mais próxima da mediana (uma tomada curta engoliu sílabas);
 - cortar o que vem antes da fala, entrar e sair com um desvanecer curto (mais longo quando o modelo cortou a última vogal) e nivelar o volume entre frases;
 - abrandar a fala conforme o formato.
 
+Os dicionários de pronúncias são três, e o mais específico ganha: `pronuncias.json` da skill (para todos), `~/.start-project-with-trust/pronuncias.json` (o que esta pessoa ensinou, e que vale para todos os vídeos dela) e `pronuncias` no `guiao.json` (só deste vídeo).
+
+Corrigir com o utilizador. Ele ouve o vídeo com `escuta.md` ao lado e aponta o problema pelo número da frase ou pelo tempo. A cada tipo de reparo corresponde um comando:
+
+| O que ele diz | O que fazes |
+|---|---|
+| Uma palavra soa mal, ou devia soar de certa maneira | `node narrar.mjs --ensinar "palavra=como se diz"`: guarda a pronúncia no dicionário pessoal e refaz só as frases que a usam |
+| Uma frase saiu mal (palavra comida, entoação, ruído, fim cortado) | `node narrar.mjs --frase 9`: gera tomadas novas só para essa frase |
+| Prefere outra tomada | `node narrar.mjs --frase 9 --tomada 3`: fica com a tomada 3, sem gerar nada |
+| O fim continua cortado em todas as tomadas | muda a última palavra da frase no guião e corre `node narrar.mjs` |
+| O timbre ou a naturalidade | não se corrige neste motor: propõe outra voz |
+
+Depois de cada correção, o `narrar.mjs` diz se a frase nova cabe no tempo gravado: se cabe, basta `node montar.mjs`; se não, `node gravar.mjs` primeiro. Como não ouves, uma pronúncia pode pedir duas ou três tentativas: propõe uma grafia, o utilizador ouve, e afinas. Quando uma pronúncia ensinada serve a toda a gente (uma sigla, um termo técnico) e estás numa cópia git do repositório, junta-a também a `scripts/pronuncias.json` desta skill, no mesmo commit.
+
 Regras de qualidade:
-- **Zero avisos de pronúncia** antes de gravar: reescreve a frase em português ou junta a palavra a `pronuncias`.
-- Reporta quantas frases ficaram com o fim cortado e com ruído retirado. Se uma frase ficar cortada em todas as tomadas, muda a última palavra (as frases acabadas em vogal átona são as que o Piper mais corta).
-- **Pede ao utilizador que ouça** `audio/narracao.wav` ou o vídeo antes de dar a voz como boa, e indica-lhe as frases com pronúncias e as que ficaram com o fim cortado.
+- **Zero avisos de pronúncia** antes de gravar: reescreve a frase em português ou ensina a pronúncia.
+- Reporta quantas frases ficaram com o fim cortado e com ruído retirado (as frases acabadas em vogal átona são as que o Piper mais corta).
+- **Pede ao utilizador que ouça** o vídeo com a folha de escuta antes de dar a voz como boa, e indica-lhe as frases com pronúncias e as que ficaram com o fim cortado.
 - Para vídeos de clientes, ou quando o utilizador não fica satisfeito com o Piper, propõe o Azure: `"motorVoz": "azure"` e `"voz": "pt-PT-RaquelNeural"` (ou `pt-PT-DuarteNeural`, `pt-PT-FernandaNeural`). Fica em «Por preencher»: as variáveis `AZURE_SPEECH_KEY` (a chave do recurso Speech, no portal do Azure, em «Keys and Endpoint») e `AZURE_SPEECH_REGION` (a região do recurso, por exemplo `westeurope`). O caminho Azure do script segue a documentação da API REST mas ainda não correu com uma chave real: na primeira vez, confirma um ficheiro antes de narrar tudo.
 
 ### 4.3 Gravação
 
-Copia `scripts/*.mjs` para `video/<nome>/`, escreve `gravar.mjs` com o estúdio e corre `node gravar.mjs`:
+Com `scripts/*` copiado para `video/<nome>/` (antes de narrar), escreve `gravar.mjs` com o estúdio e corre `node gravar.mjs`:
 
 ```js
 import { abrirEstudio } from './estudio.mjs';
@@ -108,7 +123,7 @@ const { page, guiao } = e;
 await e.passo('01-inicio', async () => { await e.abrir(); await e.titulo('Nome do site'); });
 await e.passo('02-pesquisar', async () => {
   await e.narrar();                                        // 1.ª frase: «Para encontrar dados, basta escrever um tema.»
-  await e.clicar(page.getByRole('button', { name: 'Pesquisar' }));
+  await e.clicar(page.getByRole('button', { name: 'Pesquisar' }), { ate: page.locator('#campo') }); // confirma que o campo abriu
   await e.zoom(page.locator('#campo'), { fator: 1.5 });    // marca para a montagem
   await e.narrar();                                        // 2.ª frase: «Vamos procurar bibliotecas.»
   await e.clicar(page.locator('#campo'));
@@ -125,12 +140,12 @@ Regras de qualidade:
 - Cada `narrar()` vem **antes** da ação a que a frase se refere e encaixa a frase seguinte do passo (se a anterior ainda vai a meio, espera por ela); as que não encaixares seguem-se à última. `abrir()` encaixa a primeira frase ainda sobre o cartão.
 - `navegar()` muda de página no fim da frase em curso: chama-o logo a seguir ao `narrar()` da frase que acaba no clique, e o `narrar()` da frase seguinte logo depois dele.
 - `percorrerAte()` não faz nada se o alvo já está à vista, e `mover()` só faz scroll se menos de 70% do alvo estiver no ecrã. `percorrer(px)` às cegas fica para casos sem alvo. No fim, `gravar.mjs` imprime os scrolls que houve e em que passo: se aparecer um que o guião não previa, corrige o guião ou a ordem das ações.
-- As esperas são por elementos (`visivel`), não por tempo. O tempo que o site demora debaixo do cartão ou da imagem parada sai na montagem.
+- As esperas são por elementos (`visivel`), não por tempo. O tempo que o site demora debaixo do cartão ou da imagem parada sai na montagem. Um clique que abre algo leva `ate`: `e.clicar(botao, { ate: campo })` confirma que o campo apareceu e, se a página ainda estava a acordar, clica outra vez.
 - O login, se existir, é um passo com `e.escrever(process.env.NOME_DA_VARIAVEL)` e nunca com o valor no ficheiro. Abre as capturas de `gravacao/` e confirma que não aparecem dados pessoais nem credenciais; se aparecerem, usa a conta de teste ou desfoca na montagem.
 
 ### 4.4 Montagem
 
-`node montar.mjs` alinha o relógio do script com o vídeo pelos momentos escuros (cartões), retira os tempos mortos, junta a narração num só WAV com cada frase no seu tempo, gera `legendas.srt` com uma legenda por frase, aplica o zoom das marcas com o `zoompan` do ffmpeg, grava as legendas na imagem, normaliza o volume para −16 LUFS e exporta `final/<nome>-<largura>x<altura>.mp4` (H.264, AAC a 48 kHz, 25 fps). Imprime a duração, os pontos de sincronização e os zooms. A música só entra com licença confirmada ou fica em «Por preencher».
+`node montar.mjs` alinha o relógio do script com o vídeo pelos momentos escuros (cartões), retira os tempos mortos, junta a narração num só WAV com cada frase no seu tempo, gera `legendas.srt` com uma legenda por frase, aplica o zoom das marcas com o `zoompan` do ffmpeg, grava as legendas na imagem, normaliza o volume para −16 LUFS e exporta `final/<nome>-<largura>x<altura>.mp4` (H.264, AAC a 48 kHz, 25 fps). Escreve `escuta.md`, a folha de escuta, e imprime a duração, os pontos de sincronização, os silêncios, os scrolls e os zooms. A música só entra com licença confirmada ou fica em «Por preencher».
 
 ### 4.5 Prova
 
@@ -139,7 +154,7 @@ Regras de qualidade:
 - Para o ritmo, lê os silêncios entre frases que o `montar.mjs` lista. Dentro de um passo ficam perto da pausa do formato; acima de 2 s só numa mudança de página, e nesse caso vê se a frase seguinte pode entrar mais cedo ou acompanhar a ação.
 - Para as transições, extrai fotogramas a 5 por segundo à volta de cada mudança de página e confirma que não há fotogramas pequenos, cinzentos ou escuros fora dos cartões.
 - Para o scroll, lê a lista que o `montar.mjs` imprime com o passo de cada um; cada scroll tem uma frase que o justifica e não há dois seguidos em sentidos opostos.
-- Para a voz, junta o que o `narrar.mjs` reportou ao pedido para o utilizador ouvir.
+- Para a voz, junta o que o `narrar.mjs` reportou ao pedido para o utilizador ouvir, e entrega-lhe o vídeo com `escuta.md`.
 - Nenhum segredo nem dado pessoal aparece em nenhum fotograma, e as legendas correspondem ao guião.
 Cola os comandos corridos, as durações e os caminhos dos ficheiros.
 
