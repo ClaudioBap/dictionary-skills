@@ -22,3 +22,5 @@ Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler dire
 Ficam na `start-project-with-trust`, porque servem para decidir e não para executar: `plataformas/`, `governacao/`, `estrutura/`.
 
 Quando uma mini skill for criada, muda o estado para `instalada` nesta tabela.
+
+Fora desta tabela fica `correction-loop`, que está em testes e não se atribui a sessões (ver «Em testes» no README).

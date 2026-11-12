@@ -188,6 +188,16 @@ Para atualizar o conhecimento:
 npx skills@latest update
 ```
 
+## Em testes
+
+`skills/correction-loop/` é uma skill em testes e não se instala com `--skill '*'`: o campo `metadata.internal` do `SKILL.md` deixa-a de fora. Foi um teste para aumentar a performance, à procura de respostas mais rápidas a problemas: a partir de pouco mais do que «está a dar erro», descobrir como reproduzir o erro, localizar a causa com métodos de procura escolhidos pelo sinal disponível e entregar a melhor correção, provada.
+
+Nos ensaios, num erro com um teste a falhar, uma prompt simples chegou à mesma correção em menos de metade do tempo e por cerca de metade do custo. Os resultados estão em [`medicao.md`](skills/correction-loop/medicao.md). Quem a quiser experimentar instala-a pelo nome:
+
+```bash
+npx skills@latest add ClaudioBap/dictionary-skills --skill correction-loop
+```
+
 ## Contribuir
 
 Fontes novas, correções ao conhecimento e melhorias às skills são bem-vindas. As regras (fonte oficial, data, confiança) estão em [CONTRIBUTING.md](CONTRIBUTING.md), e há modelos de issue para cada caso. Falhas de segurança nos scripts ou nos hooks reportam-se em privado, como explicado em [SECURITY.md](SECURITY.md).
