@@ -14,7 +14,7 @@ Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler dire
 | `infra-deploy` | CI/CD, contentores, alojamento, publicação | `cicd/`, `docker/`, `infraestrutura/`, `nuvem/`, `publicacao/`, `soberania/` | instalada |
 | `boas-praticas-codigo` | Código numa das linguagens da base (lê só a pasta da linguagem do projeto) | `python/`, `java/`, `csharp/`, `javascript/`, `node/` | instalada |
 | `ia-aplicada` | Qualquer trabalho com IA: APIs, RAG, agentes, modelo próprio, modelos abertos, voz, segurança, operação | `ia/` e as suas subpastas (a skill pergunta qual) | instalada |
-| `gravacao-video` | Vídeos de demonstração, teasers e explicações de um site, com voz | `ia/multimodal/` | instalada |
+| `gravacao-video` | Vídeos de demonstração, teasers e explicações de um site, com voz | `ia/multimodal/` | em desenvolvimento |
 | `produtizar` | Transformar o que foi feito para um caso num núcleo reutilizável com adaptadores e configuração, ou num modelo de projeto | `produto/` | instalada |
 | `operar` | Deixar uma plataforma pronta para quem a vai operar: monitorização, runbooks, cópias de segurança, incidentes | `fiabilidade/`, `docker/`, `cicd/` | instalada |
 | `humanizar` | Verificar texto, código, interface, commits e dados à procura de marcas de IA, e corrigir só com autorização | (catálogo próprio em `../humanizar/marcas.md`) | instalada |

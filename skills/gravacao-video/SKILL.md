@@ -6,6 +6,8 @@ argument-hint: "URL do site, formato (teaser, demo, explicação), estilo (apres
 
 # GravacaoVideo
 
+> **Em desenvolvimento.** Já grava, narra e monta vídeos, mas as regras de voz, ritmo e scroll ainda estão a ser afinadas com cada vídeo feito.
+
 O conhecimento está em `../start-project-with-trust/knowledge/ia/multimodal/` (relativo à pasta deste `SKILL.md`): `voz-tts-e-stt.md` para a voz, `gravacao-do-browser-com-playwright.md` para a gravação e `montagem-e-exportacao-com-ffmpeg.md` para a montagem e a exportação. Se `~/.start-project-with-trust/knowledge/ia/multimodal/` tiver uma entrada com o mesmo caminho, vale a pessoal. Os scripts em `scripts/` (relativo à pasta deste `SKILL.md`) aplicam essas entradas; o que fizeres fora deles passa pelo passo 3 e fica registado.
 
 ## Regras
