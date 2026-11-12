@@ -1,6 +1,6 @@
 ---
 name: gravacao-video
-description: Mini skill para gravar vídeos de um site: teaser, demonstração ou explicação detalhada, com narração em português de Portugal, legendas, cartões de abertura e fecho, cursor visível a mover-se e a clicar, zoom ao que a narração refere e transições. Trabalha por segmentos (guião, voz, gravação, montagem, prova), cada um com regras de qualidade que os scripts da pasta scripts/ aplicam e verificam. Grava o browser com Playwright, usa credenciais só de variáveis de ambiente, gera a voz com uma opção gratuita (Piper pt_PT ou o escalão gratuito do Azure), monta e exporta com ffmpeg. Usar quando se quer mostrar um site ou uma funcionalidade em vídeo.
+description: "Mini skill para gravar vídeos de um site: teaser, demonstração ou explicação detalhada, com narração em português de Portugal, legendas, cartões de abertura e fecho, cursor visível a mover-se e a clicar, zoom ao que a narração refere e transições. Trabalha por segmentos (guião, voz, gravação, montagem, prova), cada um com regras de qualidade que os scripts da pasta scripts/ aplicam e verificam. Grava o browser com Playwright, usa credenciais só de variáveis de ambiente, gera a voz com uma opção gratuita (Piper pt_PT ou o escalão gratuito do Azure), monta e exporta com ffmpeg. Usar quando se quer mostrar um site ou uma funcionalidade em vídeo."
 argument-hint: "URL do site, formato (teaser, demo, explicação), estilo (apresentação ou sóbrio) e guião, ou nada para perguntar"
 ---
 

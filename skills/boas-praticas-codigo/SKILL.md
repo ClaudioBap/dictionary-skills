@@ -1,6 +1,6 @@
 ---
 name: boas-praticas-codigo
-description: Mini skill para escrever ou rever código numa das linguagens da base (Python, Java, C#, JavaScript, Node.js). Deteta a linguagem do projeto pelo repositório e lê só a pasta de knowledge/ dessa linguagem: estilo, estrutura, erros, testes, segurança. Executa com o formatador, o linter e os testes do próprio projeto como prova, sem reformatar o que o pedido não tocou. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
+description: "Mini skill para escrever ou rever código numa das linguagens da base (Python, Java, C#, JavaScript, Node.js). Deteta a linguagem do projeto pelo repositório e lê só a pasta de knowledge/ dessa linguagem: estilo, estrutura, erros, testes, segurança. Executa com o formatador, o linter e os testes do próprio projeto como prova, sem reformatar o que o pedido não tocou. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar sozinha ou numa sessão lançada pela orchestrate-sessions."
 argument-hint: "O que fazer no código, ou nada para perguntar"
 ---
 
