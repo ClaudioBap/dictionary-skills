@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 128 entradas fora do PDF; 365 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 130 entradas fora do PDF; 367 ficheiros de entrada no total.
 
 ## Secções
 
@@ -76,7 +76,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Operação padronizada e runbooks](fiabilidade/operacao-padronizada-e-runbooks.md) — As operações de rotina, pontuais e de emergência seguem procedimentos escritos e iguais para todos, apoiados em infraestrutura como código, monitorização e entregas seguras. *(fora do PDF)*
 - [Prontidão operacional e passagem](fiabilidade/prontidao-operacional-e-passagem.md) — Uma plataforma só se entrega a quem a vai operar quando existem, com prova, monitorização, runbooks, cópias testadas, processo de incidentes, registo de alterações e sondas de saúde. *(fora do PDF)*
 
-### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (28 entradas)
+### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (29 entradas)
 
 - [Design system como código](design/design-system-como-codigo.md) — Tokens no `:root`, componentes construídos sobre os tokens e um catálogo com todos os estados. *(pág. 13)*
 - [Acessibilidade (WCAG 2.1 AA)](design/acessibilidade-wcag.md) — Alvo mínimo WCAG 2.1 AA: teclado, foco visível, leitor de ecrã, contraste e axe/pa11y no CI. *(pág. 13)*
@@ -106,6 +106,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Consistência e padrões estabelecidos](design/consistencia-e-padroes-estabelecidos.md) — Reutilizar padrões conhecidos; a mesma ação comporta-se igual em todo o lado. *(pág. 19)*
 - [Prevenção de erros e desfazer](design/prevencao-de-erros-e-desfazer.md) — Prevenir em vez de corrigir, oferecer desfazer e dizer como resolver. *(pág. 19)*
 - [Atalhos e power users](design/atalhos-e-power-users.md) — Atalhos de teclado e paleta de comandos para quem usa muito, sem prejudicar os ocasionais. *(pág. 19)*
+- [Avisos Web Push com VAPID, sem corpo](design/avisos-web-push-com-vapid.md) — Para avisar um telemóvel sem aplicação nativa, a aplicação web subscreve o Web Push com a chave pública VAPID e o servidor envia um POST sem corpo, assinado com um JWT ES256; o service worker mostra um texto fixo e o conteúdo só se lê na aplicação. No iPhone exige o iOS 16.4 e a aplicação no ecrã principal. *(fora do PDF)*
 
 ### 5. [3D, WebGL e animação](3d-webgl/README.md) — págs. 20–23 (10 entradas)
 
@@ -355,7 +356,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Caching em camadas](custo/caching-em-camadas.md) — Cachear o caro e repetido na camada certa, com regra de invalidação. *(pág. 64)*
 - [Orçamento e alertas de custo](custo/orcamento-e-alertas-de-custo.md) — Um orçamento com alertas que disparam antes de a fatura surpreender. *(pág. 64)*
 
-### 22. [Publicação e alojamento web](publicacao/README.md) — ⚠️ fora do PDF (9 entradas)
+### 22. [Publicação e alojamento web](publicacao/README.md) — ⚠️ fora do PDF (10 entradas)
 
 - [Alojamento estático gratuito](publicacao/alojamento-estatico-gratuito.md) — GitHub Pages, GitLab Pages, Cloudflare (Workers com ativos estáticos ou Pages), Netlify Free e Vercel Hobby publicam sites estáticos sem custo, com domínio próprio e HTTPS, mas com limites de tamanho, tráfego e builds e, no GitHub Pages e na Vercel Hobby, com restrições ao uso comercial. *(fora do PDF)*
 - [Alojamento dinâmico e de teste gratuito](publicacao/alojamento-dinamico-e-de-teste-gratuito.md) — Para testar back-ends sem custo há escalões grátis permanentes (Cloudflare Workers, Render, Oracle Always Free, Google Cloud Free Tier) e créditos iniciais temporários (AWS, Google Cloud, Azure), cada um com limites de uso, regiões, prazos e, em alguns casos, cartão obrigatório. *(fora do PDF)*
@@ -366,6 +367,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Certificados TLS e HTTPS](publicacao/certificados-tls.md) — O HTTPS vem grátis e automático nas plataformas e na Cloudflare (Universal SSL, sempre em Full (strict)), no servidor próprio usa-se Let's Encrypt com renovação automática porque a validade está a encurtar, autoassinados só em desenvolvimento e OV/EV pagos só quando a política da empresa o exige. *(fora do PDF)*
 - [WAF e proteção DDoS](publicacao/waf-e-protecao-ddos.md) — Do grátis ao empresarial: Cloudflare Free (DDoS ilimitado e regras geridas base), WAF open source com OWASP CRS, Bunny Shield, Cloudflare Pro/Business/Enterprise e WAF dos fornecedores de nuvem. *(fora do PDF)*
 - [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
+- [Service tokens do Cloudflare Access (um programa a entrar numa aplicação protegida)](publicacao/service-tokens-do-cloudflare-access.md) — Quando um programa sem pessoa (um script, um hook, outro servidor) tem de entrar numa aplicação atrás do Cloudflare Access, usa um service token: envia o Client ID e o Client Secret em dois cabeçalhos, a política da aplicação tem uma regra «Service Auth», e a origem valida o JWT do Access e reconhece o programa pelo `common_name`. *(fora do PDF)*
 
 ### 23. [Construir com IA](ia/README.md) — págs. 65–69 (63 entradas)
 
