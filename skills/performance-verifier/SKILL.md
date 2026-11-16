@@ -6,7 +6,9 @@ argument-hint: "URL, pasta ou pedido a medir, e o alvo (tempo, custo) se houver"
 
 # Performance verifier
 
-O conhecimento está em `../start-project-with-trust/knowledge/` (relativo à pasta deste `SKILL.md`). Lê só o que o pedido toca (passo 2). Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/`. Lê só o que o pedido toca (passo 2). Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 

@@ -1,6 +1,6 @@
 # Catálogo de mini skills
 
-Cada sessão de trabalho recebe uma mini skill. O conhecimento fica todo em `../start-project-with-trust/knowledge/`; as mini skills só trazem o processo.
+Cada sessão de trabalho recebe uma mini skill. O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs` e as referências `knowledge/...` são relativas a esse caminho; as mini skills só trazem o processo.
 
 Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler diretamente as secções indicadas, começando pelo `README.md` de cada uma.
 

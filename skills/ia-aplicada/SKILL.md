@@ -6,7 +6,9 @@ argument-hint: "O que queres fazer com IA, ou nada para escolher"
 
 # IaAplicada
 
-O conhecimento está em `../start-project-with-trust/knowledge/ia/` (relativo à pasta deste `SKILL.md`). A raiz de `ia/` tem os fundamentos (modelos Claude, effort, prompts, tool use, MCP, subagentes, custos, segurança e governação); cada subpasta tem um tema. Se `~/.start-project-with-trust/knowledge/ia/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/ia/`. A raiz de `ia/` tem os fundamentos (modelos Claude, effort, prompts, tool use, MCP, subagentes, custos, segurança e governação); cada subpasta tem um tema. Se `~/.start-project-with-trust/knowledge/ia/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 
@@ -15,7 +17,7 @@ O conhecimento está em `../start-project-with-trust/knowledge/ia/` (relativo à
 
 ## 1. O que vamos fazer com IA?
 
-Se o pedido já o diz, passa ao passo 2. Se não, lê `../start-project-with-trust/knowledge/ia/README.md` e pergunta, com uma opção por subpasta (o título de cada subpasta está no README) e a opção «Outra». Por exemplo: usar a API do Claude, usar ou comparar outro fornecedor, pesquisar nos documentos da empresa (RAG), construir um agente, ter um modelo próprio, escolher um modelo aberto, voz e multimodal, proteger uma aplicação com IA, pôr em produção e medir custos.
+Se o pedido já o diz, passa ao passo 2. Se não, lê `knowledge/ia/README.md` e pergunta, com uma opção por subpasta (o título de cada subpasta está no README) e a opção «Outra». Por exemplo: usar a API do Claude, usar ou comparar outro fornecedor, pesquisar nos documentos da empresa (RAG), construir um agente, ter um modelo próprio, escolher um modelo aberto, voz e multimodal, proteger uma aplicação com IA, pôr em produção e medir custos.
 
 ## 2. Ler só o que interessa
 
@@ -28,7 +30,7 @@ Quando nenhuma entrada cobre o que o utilizador precisa, ou a entrada está desa
 1. Escolhe as fontes oficiais primárias certas (o fornecedor, o autor ou o organismo) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
 2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md` (`alta`, `media`, `baixa`). Um facto `baixa` não serve de base.
 3. Regista o que encontraste antes de responder:
-   - numa cópia git do repositório (existe `skills/start-project-with-trust/knowledge/` no diretório atual ou acima), propõe ao utilizador a entrada nova na subpasta certa, no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com a aprovação dele;
+   - numa cópia git do repositório (existe `knowledge/INDEX.md` no diretório atual ou acima), propõe ao utilizador a entrada nova na subpasta certa, no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com a aprovação dele;
    - fora disso, no conhecimento pessoal: a entrada em `~/.start-project-with-trust/knowledge/ia/<subpasta>/<slug>.md`, a fonte em `FONTES.md` pessoal e uma linha no `CHANGELOG.md` pessoal.
    - Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`: a entrada passa a dizer o que vale hoje e o texto anterior fica no «Histórico» dela (em modo local, numa cópia pessoal da entrada).
 4. Diz ao utilizador que fontes leste e o que registaste.

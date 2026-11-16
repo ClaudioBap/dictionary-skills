@@ -9,7 +9,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = process.argv[2];
-const KREL = 'skills/start-project-with-trust/knowledge';
+const KREL = 'knowledge';
 if (!RAIZ || !existsSync(join(RAIZ, KREL))) { console.error('Uso: node verificar-alteracoes.mjs <raiz do repositório>'); process.exit(2); }
 const git = (...a) => execFileSync('git', ['-C', RAIZ, ...a], { encoding: 'utf8' });
 

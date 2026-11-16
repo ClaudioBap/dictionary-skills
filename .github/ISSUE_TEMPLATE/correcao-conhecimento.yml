@@ -7,7 +7,7 @@ body:
     id: ficheiro
     attributes:
       label: Ficheiro
-      description: Caminho da entrada, por exemplo skills/start-project-with-trust/knowledge/publicacao/certificados-tls.md
+      description: Caminho da entrada, por exemplo knowledge/publicacao/certificados-tls.md
     validations:
       required: true
   - type: textarea

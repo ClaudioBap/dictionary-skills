@@ -6,7 +6,9 @@ argument-hint: "Pasta do projeto ou URL da plataforma a preparar para operação
 
 # Operar
 
-O conhecimento está em `../start-project-with-trust/knowledge/` (relativo à pasta deste `SKILL.md`): `fiabilidade/`, `docker/`, `cicd/` e `estrutura/registo-de-alteracoes.md`. O ponto de partida é `fiabilidade/prontidao-operacional-e-passagem.md`, que lista o que tem de existir antes da passagem. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/`: `fiabilidade/`, `docker/`, `cicd/` e `estrutura/registo-de-alteracoes.md`. O ponto de partida é `fiabilidade/prontidao-operacional-e-passagem.md`, que lista o que tem de existir antes da passagem. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 

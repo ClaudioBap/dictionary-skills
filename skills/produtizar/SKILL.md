@@ -6,7 +6,9 @@ argument-hint: "Pasta do projeto a produtizar e o segundo caso a instanciar"
 
 # Produtizar
 
-O conhecimento está em `../start-project-with-trust/knowledge/produto/` (relativo à pasta deste `SKILL.md`). Lê o `README.md` e as entradas antes de começar. Se `~/.start-project-with-trust/knowledge/produto/` tiver uma entrada com o mesmo caminho, vale a pessoal.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/produto/`. Lê o `README.md` e as entradas antes de começar. Se `~/.start-project-with-trust/knowledge/produto/` tiver uma entrada com o mesmo caminho, vale a pessoal.
 
 ## Regras
 

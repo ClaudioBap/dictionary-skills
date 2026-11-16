@@ -6,7 +6,9 @@ argument-hint: "Pasta do projeto e o que se quer: pipeline, contentores, alojame
 
 # Infra e deploy
 
-O conhecimento está em `../start-project-with-trust/knowledge/` (relativo à pasta deste `SKILL.md`): `cicd/`, `docker/`, `infraestrutura/`, `nuvem/`, `publicacao/` e `soberania/`. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/`: `cicd/`, `docker/`, `infraestrutura/`, `nuvem/`, `publicacao/` e `soberania/`. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 

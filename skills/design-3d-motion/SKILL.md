@@ -6,7 +6,9 @@ argument-hint: "A experiência a criar e onde entra no site, ou nada para pergun
 
 # Design3dMotion
 
-O conhecimento está em `../start-project-with-trust/knowledge/3d-webgl/`, com a base de interface em `../start-project-with-trust/knowledge/design/` (relativos à pasta deste `SKILL.md`). Se `~/.start-project-with-trust/knowledge/3d-webgl/` tiver uma entrada com o mesmo caminho, vale a pessoal. A interface à volta (layout, formulários, navegação) é da `design-ux`.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/3d-webgl/`, com a base de interface em `knowledge/design/`. Se `~/.start-project-with-trust/knowledge/3d-webgl/` tiver uma entrada com o mesmo caminho, vale a pessoal. A interface à volta (layout, formulários, navegação) é da `design-ux`.
 
 ## Regras
 

@@ -6,7 +6,9 @@ argument-hint: "O que desenhar e para quem, ou nada para perguntar"
 
 # DesignUx
 
-O conhecimento está em `../start-project-with-trust/knowledge/design/` e `../start-project-with-trust/knowledge/seo/` (relativos à pasta deste `SKILL.md`). Se `~/.start-project-with-trust/knowledge/design/` ou `.../seo/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada. Para 3D, WebGL e animação com movimento, a skill é a `design-3d-motion`.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/design/` e `knowledge/seo/`. Se `~/.start-project-with-trust/knowledge/design/` ou `.../seo/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada. Para 3D, WebGL e animação com movimento, a skill é a `design-3d-motion`.
 
 ## Regras
 

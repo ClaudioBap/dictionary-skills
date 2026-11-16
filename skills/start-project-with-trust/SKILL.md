@@ -17,7 +17,7 @@ Conduz um projeto do arranque à entrega verificada, sempre por esta ordem:
 
 O goal-loop só fecha com a entrega verificada (`Concluído`), não com o plano.
 
-Os caminhos `knowledge/`, `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`.
+Os caminhos `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 **Conhecimento pessoal.** Além da base partilhada em `knowledge/`, cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill para não se perder num `npx skills update`. Guarda as fontes oficiais e as práticas que a skill foi buscar para o tipo de trabalho dessa pessoa:
 - `perfil.md`: os tipos de trabalho do utilizador (domínios, tecnologias, setores), atualizados a cada projeto;

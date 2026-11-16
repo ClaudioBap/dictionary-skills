@@ -10,7 +10,7 @@ Depois colar: «Lê `<pasta>/briefings/S<n>.md` e executa-o.»
 
 ## O que fazer
 
-- **Mini skill:** `/<mini skill>`. <!-- Se no catálogo estiver «por criar»: «Lê ../start-project-with-trust/knowledge/<secções>/, começando pelo README.md de cada uma.» -->
+- **Mini skill:** `/<mini skill>`. <!-- Se no catálogo estiver «por criar»: «Lê knowledge/<secções>/, começando pelo README.md de cada uma.» -->
 - **Entra:** <ficheiros, saídas de outras sessões, URLs>
 - **Não mexer em:** <ficheiros que outras sessões estão a editar>
 

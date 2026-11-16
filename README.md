@@ -14,7 +14,7 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | Parte | O que é | Para quem |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A skill que arranca e conduz projetos | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) |
-| [`knowledge/`](skills/start-project-with-trust/knowledge/INDEX.md) | 356 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`knowledge/`](knowledge/INDEX.md) | 356 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill que distribui o trabalho por sessões, com modelo e effort por tarefa | Quem executa trabalho com várias sessões em paralelo |
 | `skills/<mini skill>/` | As doze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
@@ -64,32 +64,32 @@ Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (n
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
-| [Segurança](skills/start-project-with-trust/knowledge/seguranca/README.md) | 25 | [Estrutura e documentação](skills/start-project-with-trust/knowledge/estrutura/README.md) | 17 |
-| [Privacidade e conformidade](skills/start-project-with-trust/knowledge/privacidade/README.md) | 4 | [CI/CD e ferramentas](skills/start-project-with-trust/knowledge/cicd/README.md) | 24 |
-| [Fiabilidade e resiliência](skills/start-project-with-trust/knowledge/fiabilidade/README.md) | 10 | [Docker e orquestração](skills/start-project-with-trust/knowledge/docker/README.md) | 14 |
-| [Design e experiência de utilizador](skills/start-project-with-trust/knowledge/design/README.md) | 28 | [Serviços de infraestrutura](skills/start-project-with-trust/knowledge/infraestrutura/README.md) | 10 |
-| [3D, WebGL e animação](skills/start-project-with-trust/knowledge/3d-webgl/README.md) | 10 | [Soberania digital](skills/start-project-with-trust/knowledge/soberania/README.md) | 6 |
-| [SEO e descoberta](skills/start-project-with-trust/knowledge/seo/README.md) | 2 | [Governação e processo](skills/start-project-with-trust/knowledge/governacao/README.md) | 7 |
-| [Desenho de API](skills/start-project-with-trust/knowledge/api/README.md) | 6 | [Nuvem e identidade](skills/start-project-with-trust/knowledge/nuvem/README.md) | 7 |
-| [Base de dados](skills/start-project-with-trust/knowledge/base-de-dados/README.md) | 14 | [Sessões, orquestração e custo-eficiência](skills/start-project-with-trust/knowledge/custo/README.md) | 8 |
-| [Python](skills/start-project-with-trust/knowledge/python/README.md) | 13 | [Publicação e alojamento web](skills/start-project-with-trust/knowledge/publicacao/README.md) (fora do PDF) | 9 |
-| [Java](skills/start-project-with-trust/knowledge/java/README.md) | 13 | [Construir com IA](skills/start-project-with-trust/knowledge/ia/README.md) | 61 |
-| [C#](skills/start-project-with-trust/knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](skills/start-project-with-trust/knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
-| [JavaScript](skills/start-project-with-trust/knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](skills/start-project-with-trust/knowledge/plataformas/README.md) (fora do PDF) | 15 |
-| [Node.js](skills/start-project-with-trust/knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](skills/start-project-with-trust/knowledge/produto/README.md) (fora do PDF) | 7 |
+| [Segurança](knowledge/seguranca/README.md) | 25 | [Estrutura e documentação](knowledge/estrutura/README.md) | 17 |
+| [Privacidade e conformidade](knowledge/privacidade/README.md) | 4 | [CI/CD e ferramentas](knowledge/cicd/README.md) | 24 |
+| [Fiabilidade e resiliência](knowledge/fiabilidade/README.md) | 10 | [Docker e orquestração](knowledge/docker/README.md) | 14 |
+| [Design e experiência de utilizador](knowledge/design/README.md) | 28 | [Serviços de infraestrutura](knowledge/infraestrutura/README.md) | 10 |
+| [3D, WebGL e animação](knowledge/3d-webgl/README.md) | 10 | [Soberania digital](knowledge/soberania/README.md) | 6 |
+| [SEO e descoberta](knowledge/seo/README.md) | 2 | [Governação e processo](knowledge/governacao/README.md) | 7 |
+| [Desenho de API](knowledge/api/README.md) | 6 | [Nuvem e identidade](knowledge/nuvem/README.md) | 7 |
+| [Base de dados](knowledge/base-de-dados/README.md) | 14 | [Sessões, orquestração e custo-eficiência](knowledge/custo/README.md) | 8 |
+| [Python](knowledge/python/README.md) | 13 | [Publicação e alojamento web](knowledge/publicacao/README.md) (fora do PDF) | 9 |
+| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 61 |
+| [C#](knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
+| [JavaScript](knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](knowledge/plataformas/README.md) (fora do PDF) | 15 |
+| [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 7 |
 
 Ficheiros de referência:
 
-- [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): todas as entradas, por secção.
-- [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): as fontes oficiais de cada secção e a lista «A vigiar» (prazos e limites que se verificam em cada atualização, como a validade dos certificados TLS ou os planos gratuitos de alojamento).
+- [`INDEX.md`](knowledge/INDEX.md): todas as entradas, por secção.
+- [`FONTES.md`](knowledge/FONTES.md): as fontes oficiais de cada secção e a lista «A vigiar» (prazos e limites que se verificam em cada atualização, como a validade dos certificados TLS ou os planos gratuitos de alojamento).
 - `<secção>/ATUALIZACOES.md`: as novidades de cada secção que não mudam o texto de nenhuma entrada, por categoria e data. Quando uma novidade muda o que uma entrada diz, a entrada é reescrita e o texto anterior fica na secção «Histórico» dela. As que entraram há mais de um ano passam para `ATUALIZACOES-ARQUIVO.md`, sem se apagarem.
-- [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): cada alteração, com fonte, data de lançamento, confiança e quem aprovou.
+- [`CHANGELOG.md`](knowledge/CHANGELOG.md): cada alteração, com fonte, data de lançamento, confiança e quem aprovou.
 
 ## update-knowledge
 
 Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando alguém a chama com `/update-knowledge` (para um tema, por exemplo `/update-knowledge ia`, ou `/update-knowledge pessoal` só para o conhecimento pessoal).
 
-1. Percorre as fontes de [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md) e verifica sempre os pontos «A vigiar». Usa feeds RSS e APIs públicas quando existem, para gastar pouco.
+1. Percorre as fontes de [`FONTES.md`](knowledge/FONTES.md) e verifica sempre os pontos «A vigiar». Usa feeds RSS e APIs públicas quando existem, para gastar pouco.
 2. Dá a cada novidade a data de lançamento indicada pela fonte e um nível de confiança, e aplica-a segundo esse nível:
 
    | Confiança | Quando | O que acontece |
@@ -100,7 +100,7 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
 
    Novas entradas, fontes novas e edições sustentadas só por fontes de confiança média pedem sempre aprovação, uma a uma. Depois de editar uma entrada, atualiza também as skills que usavam o valor antigo.
 3. Regista cada alteração no `CHANGELOG.md`, com fonte, data de lançamento, confiança e quem aprovou.
-4. Corre os verificadores e, com a tua autorização, faz commit e push. Quem tem as skills instaladas recebe o conhecimento novo no próximo `npx skills update`.
+4. Corre os verificadores e, com a tua autorização, faz commit e push. Quem lê a base a partir de `~/.dictionary-skills` recebe o conhecimento novo com `conhecimento.mjs --atualizar`.
 5. Atualiza também o conhecimento pessoal do utilizador: as novidades de confiança alta entram, as de confiança média ficam para ele decidir na corrida seguinte.
 
 Não contorna sites que bloqueiam o acesso automático: nesses casos pede que abras a página e coles o conteúdo, ou regista a fonte como não lida.
@@ -127,7 +127,7 @@ As skills que se juntarem à coleção entram neste comando sem mudar nada. Para
 
 - Sem opções, a skill fica instalada no projeto atual e só aparece nas sessões abertas nessa pasta. Para a teres em todos os projetos, junta `-g`.
 - O instalador deteta os agentes que tens. Para escolher um diretamente, junta `-a claude-code` (ou outro agente).
-- A base de conhecimento (`knowledge/`) é instalada com a skill. Não há passos extra.
+- A base de conhecimento (`knowledge/`) vive na raiz do repositório e não vem dentro das skills. Na primeira vez que uma skill a procura, `skills/start-project-with-trust/scripts/conhecimento.mjs` clona o repositório para `~/.dictionary-skills` (precisa de Git) e as skills leem-na daí. Para atualizar, corre `node skills/start-project-with-trust/scripts/conhecimento.mjs --atualizar`. Quem já tem um clone aponta-lhe com a variável `DICTIONARY_SKILLS_KNOWLEDGE` ou com o campo `repositorio` de `~/.start-project-with-trust/config.json`.
 - No Windows, se o PowerShell não encontrar o `npx` ou bloquear scripts, usa `npx.cmd` e confirma que a pasta do Node.js está no PATH.
 
 ## Utilização
@@ -208,8 +208,8 @@ skills/start-project-with-trust/
 ├── SKILL.md        instruções das fases e do goal-loop
 ├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos documentos
-├── scripts/        verificadores (plano, entrega, publicação) e hooks do goal-loop
-└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
+└── scripts/        verificadores (plano, entrega, publicação), conhecimento.mjs (caminho da base) e hooks do goal-loop
+knowledge/          base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
 skills/orchestrate-sessions/
 ├── SKILL.md            tarefas, número de sessões, agentes, briefings, execução e recolha
 ├── catalogo.md         mini skills e as secções de knowledge/ que cada uma usa

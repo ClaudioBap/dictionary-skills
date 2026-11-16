@@ -6,7 +6,9 @@ argument-hint: "O que fazer no código, ou nada para perguntar"
 
 # BoasPraticasCodigo
 
-O conhecimento está em `../start-project-with-trust/knowledge/python/`, `java/`, `csharp/`, `javascript/` e `node/` (relativos à pasta deste `SKILL.md`). Lê só a pasta da linguagem do projeto. Se `~/.start-project-with-trust/knowledge/<linguagem>/` tiver uma entrada com o mesmo caminho, vale a pessoal. API e base de dados são da `backend-dados`; interface, da `design-ux`.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/python/`, `java/`, `csharp/`, `javascript/` e `node/`. Lê só a pasta da linguagem do projeto. Se `~/.start-project-with-trust/knowledge/<linguagem>/` tiver uma entrada com o mesmo caminho, vale a pessoal. API e base de dados são da `backend-dados`; interface, da `design-ux`.
 
 ## Regras
 

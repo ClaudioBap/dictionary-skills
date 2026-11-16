@@ -41,7 +41,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 ## 0. Preparar
 
 1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/dictionary-skills`, e não na cópia instalada pelo `npx`.
-   - Se o diretório atual (ou um pai) tiver `skills/start-project-with-trust/knowledge/`, usa-o.
+   - Se o diretório atual (ou um pai) tiver `knowledge/INDEX.md`, usa-o.
    - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/dictionary-skills`.
    - Se o utilizador não tiver nem quiser a cópia (por exemplo, só instalou as skills), trabalha em **modo local**: as fontes da base partilhada leem-se na cópia instalada, sem a alterar, e o que se encontrar vai para o conhecimento pessoal. Ver «Modo local», no passo 5.
    - Se pediu `pessoal`, salta a base partilhada e faz só o passo 5, com as fontes pessoais.
@@ -51,7 +51,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
    - `knowledge/INDEX.md`: a taxonomia;
    - `fontes-verificadas.json`, na pasta desta skill: a data a partir da qual procurar em cada fonte. Sem data, usa a última data do `CHANGELOG.md`.
 
-Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório, em `skills/start-project-with-trust/knowledge/`. Em modo local, `knowledge/` é a cópia instalada, em `../start-project-with-trust/knowledge/` relativo à pasta deste `SKILL.md`.
+Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório. Em modo local, `knowledge/` é a pasta que `node ../start-project-with-trust/scripts/conhecimento.mjs` imprime.
 
 ## 1. Procurar novidades
 
@@ -145,7 +145,7 @@ As rejeitadas também têm uma linha no `CHANGELOG.md`, marcada como rejeitada, 
 1. Atualiza as datas em `fontes-verificadas.json`.
 1a. **Arquiva o que tem mais de um ano.** Em cada `ATUALIZACOES.md`, passa para `ATUALIZACOES-ARQUIVO.md` da mesma secção as linhas com «Adicionado a» há mais de 12 meses, sem alterar o texto, na mesma categoria. Se o arquivo não existir, cria-o com o título `# Arquivo de atualizações: <título da secção>`. Uma linha no `CHANGELOG.md` por secção arquivada.
 1b. **Atualiza as skills que dependem do que mudou.** As skills da coleção (`skills/*/`) citam entradas e às vezes copiam valores delas, como nomes de modelos, preços ou algoritmos. Para cada entrada editada, procura em `skills/`, fora de `knowledge/`, o caminho da entrada e o valor antigo, e atualiza essas passagens para o valor novo, citando a entrada. Se a novidade tira o sentido a um passo de uma skill (por exemplo, uma ferramenta descontinuada que a skill manda usar), não o reescrevas sozinho: mostra-o ao utilizador e pergunta.
-2. Corre `node scripts/indice.mjs <repo>/skills/start-project-with-trust/knowledge` para pôr o `INDEX.md` e os `README.md` em dia.
+2. Corre `node scripts/indice.mjs <repo>/knowledge` para pôr o `INDEX.md` e os `README.md` em dia.
 3. Corre `node scripts/verificar-alteracoes.mjs <repo>` e **mostra a saída**. Se falhar, corrige (normalmente falta uma linha no CHANGELOG) e corre outra vez. Não avances sem `✓`.
 4. **Publica, sem perguntar:** corre `node scripts/publicar.mjs <repo>`, com `--incluir <caminho>` para cada skill alterada no passo 1b, e **mostra a saída**. O utilizador decidiu a 2026-11-16 que cada corrida termina publicada, para o trabalho não se acumular por gravar. O script:
    - volta a correr o índice e o verificador;

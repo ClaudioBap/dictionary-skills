@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const args = process.argv.slice(2);
 const RAIZ = args[0];
-const KREL = 'skills/start-project-with-trust/knowledge';
+const KREL = 'knowledge';
 if (!RAIZ || !existsSync(join(RAIZ, KREL))) { console.error('Uso: node publicar.mjs <raiz do repositório> [--incluir <caminho>]... [--mensagem "<texto>"]'); process.exit(2); }
 const valores = (opcao) => args.flatMap((a, i) => (a === opcao && args[i + 1] ? [args[i + 1]] : []));
 const incluir = valores('--incluir');

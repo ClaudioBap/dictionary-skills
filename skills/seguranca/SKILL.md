@@ -6,7 +6,9 @@ argument-hint: "URL ou pasta a auditar, ou o que se vai construir"
 
 # Segurança
 
-O conhecimento está em `../start-project-with-trust/knowledge/` (relativo à pasta deste `SKILL.md`): `seguranca/`, `privacidade/`, `acesso-remoto/` e, para aplicações com LLM, `ia/seguranca/`. Lê o `README.md` de cada secção que o pedido toca. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
+O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+O conhecimento está em `knowledge/`: `seguranca/`, `privacidade/`, `acesso-remoto/` e, para aplicações com LLM, `ia/seguranca/`. Lê o `README.md` de cada secção que o pedido toca. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 

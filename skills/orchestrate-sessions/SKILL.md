@@ -8,7 +8,7 @@ argument-hint: "Nome do trabalho, ou arranque/<projeto> para executar um plano a
 
 A sessão que corre esta skill é o orquestrador (sessão 0). Divide o trabalho, decide contigo quantas sessões e que agentes, prepara os briefings, lança os subagentes que lhe cabem e integra o que cada sessão devolve.
 
-Os caminhos `catalogo.md`, `modelo-e-effort.md` e `modelos/` são relativos à pasta deste `SKILL.md`. O conhecimento está em `../start-project-with-trust/knowledge/`.
+Os caminhos `catalogo.md`, `modelo-e-effort.md` e `modelos/` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 ## Regras
 
@@ -32,7 +32,7 @@ Num trabalho avulso, antes do passo 1:
 ## Passo 1 — Tarefas
 
 1. Se o pedido não diz o objetivo e o critério de sucesso, pergunta-os. «Funcionar» não chega: o critério tem de se poder provar com um comando, um teste, um URL ou um ficheiro.
-1a. Num trabalho avulso, pergunta se é para um caso só ou para voltar a ser usado noutros clientes, áreas ou dados (a pergunta P16 da `start-project-with-trust`). Se for para reutilizar, cada tarefa leva a parte a que pertence, `núcleo` ou `específico`, e as tarefas do núcleo ficam na mesma sessão, nunca em paralelo com outra que o altere. Base: `../start-project-with-trust/knowledge/produto/especifico-ou-modular.md`.
+1a. Num trabalho avulso, pergunta se é para um caso só ou para voltar a ser usado noutros clientes, áreas ou dados (a pergunta P16 da `start-project-with-trust`). Se for para reutilizar, cada tarefa leva a parte a que pertence, `núcleo` ou `específico`, e as tarefas do núcleo ficam na mesma sessão, nunca em paralelo com outra que o altere. Base: `knowledge/produto/especifico-ou-modular.md`.
 2. Se já existe uma lista de tarefas (plano, issue, documento), usa-a. Se não, divide tu o trabalho. Cada tarefa tem um critério de fim verificável.
 3. Os factos do projeto (tecnologias, estrutura, o que já existe) verificas tu. Se for preciso ler muito, lança um subagente `haiku` com effort `low` para fazer o inventário.
 4. Para cada tarefa, preenche em «Tarefas»:
