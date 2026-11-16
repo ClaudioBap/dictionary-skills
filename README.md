@@ -83,7 +83,6 @@ Ficheiros de referência:
 - [`INDEX.md`](skills/start-project-with-trust/knowledge/INDEX.md): todas as entradas, por secção.
 - [`FONTES.md`](skills/start-project-with-trust/knowledge/FONTES.md): as fontes oficiais de cada secção e a lista «A vigiar» (prazos e limites que se verificam em cada atualização, como a validade dos certificados TLS ou os planos gratuitos de alojamento).
 - `<secção>/ATUALIZACOES.md`: as novidades de cada secção que não mudam o texto de nenhuma entrada, por categoria e data. Quando uma novidade muda o que uma entrada diz, a entrada é reescrita e o texto anterior fica na secção «Histórico» dela. As que entraram há mais de um ano passam para `ATUALIZACOES-ARQUIVO.md`, sem se apagarem.
-- `PENDENTES.md`: as novidades de confiança média à espera de decisão.
 - [`CHANGELOG.md`](skills/start-project-with-trust/knowledge/CHANGELOG.md): cada alteração, com fonte, data de lançamento, confiança e quem aprovou.
 
 ## update-knowledge
@@ -96,7 +95,7 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
    | Confiança | Quando | O que acontece |
    |---|---|---|
    | Alta | Fonte oficial primária, lida diretamente, com data | Se muda o que uma entrada diz, reescreve a entrada e guarda o texto anterior no «Histórico»; se não, entra no `ATUALIZACOES.md` da secção |
-   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Fica em `PENDENTES.md` até decidires se entra |
+   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Entra como a alta, marcada «Confiança: media»; podes tirá-la depois na Redação do site de notícias |
    | Baixa | Fonte não oficial | Nunca altera o conhecimento |
 
    Novas entradas, fontes novas e edições sustentadas só por fontes de confiança média pedem sempre aprovação, uma a uma. Depois de editar uma entrada, atualiza também as skills que usavam o valor antigo.
@@ -210,7 +209,7 @@ skills/start-project-with-trust/
 ├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos documentos
 ├── scripts/        verificadores (plano, entrega, publicação) e hooks do goal-loop
-└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, PENDENTES.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
+└── knowledge/      base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
 skills/orchestrate-sessions/
 ├── SKILL.md            tarefas, número de sessões, agentes, briefings, execução e recolha
 ├── catalogo.md         mini skills e as secções de knowledge/ que cada uma usa
