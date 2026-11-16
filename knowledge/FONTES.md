@@ -12,6 +12,15 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OWASP Top 10](https://top10.owasp.org/) | lista das falhas web mais críticas (edição atual: 2025) |
 | [OWASP ASVS](https://asvs.owasp.org/) | requisitos e níveis de verificação de segurança aplicacional |
 | [OWASP API Security Top 10](https://api-security.owasp.org/) | riscos principais específicos de APIs |
+| [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) | Tempos, identificador, cookies e invalidação das sessões |
+| [OWASP CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection) | Exportação para CSV sem fórmulas |
+| [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | O que registar e como proteger o registo |
+| [RFC 9700: OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/rfc9700) | PKCE, state e URI de retorno exatos |
+| [RFC 7636: PKCE](https://datatracker.ietf.org/doc/html/rfc7636) | Prova de posse do código em OAuth |
+| [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) | Validação do id_token, amr e acr |
+| [Entra: Conditional Access com MFA](https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-mfa-strength) | MFA do tenant por política |
+| [Entra: security defaults](https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults) | MFA sem licença extra |
+| [Entra: fluxo de código de autorização](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow) | PKCE, state e nonce no Entra |
 | [MITRE CWE](https://cwe.mitre.org/) | catálogo de fraquezas de software, com mitigação |
 | [NIST CSRC](https://csrc.nist.gov/) | publicações NIST: autenticação, resposta a incidentes, SSDF, contentores |
 | [ENISA](https://www.enisa.europa.eu/) | ameaças, publicações e orientações de cibersegurança da UE |
@@ -109,6 +118,21 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [SQL Server — Backup e restauro](https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases) | Testar restauro, cifrar, guardar separado |
 | [OWASP SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) | Queries parametrizadas e menor privilégio |
 | [Flyway — Migrations](https://documentation.red-gate.com/fd/migrations-271585107.html) | Migrações versionadas com tabela de histórico |
+| [Microsoft Learn: big data architectures](https://learn.microsoft.com/en-us/azure/architecture/databases/guide/big-data-architectures) | Quando os dados deixam de caber numa base tradicional; lote, fluxo, Lambda, Kappa, lakehouse |
+| [Microsoft Learn: arquitetura medalhão](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion) | Camadas bronze, prata e ouro |
+| [Apache Spark: documentação](https://spark.apache.org/docs/latest/) | Motor de processamento em lote e em fluxo; versão atual |
+| [Delta Lake: documentação](https://docs.delta.io/latest/index.html) | Formato de tabela com ACID e viagem no tempo; compatibilidade com o Spark |
+| [Apache Iceberg: documentação](https://iceberg.apache.org/docs/latest/) | Formato de tabela aberto e a sua especificação |
+| [Apache Parquet: visão geral](https://parquet.apache.org/docs/overview/) | Formato de ficheiro colunar |
+| [Apache Kafka: introdução](https://kafka.apache.org/intro) | Eventos, tópicos, partições e retenção |
+| [Microsoft Fabric: visão geral](https://learn.microsoft.com/en-us/fabric/fundamentals/microsoft-fabric-overview) | O que é o Fabric e as suas cargas |
+| [Microsoft Fabric: OneLake](https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview) | Armazenamento único, formatos Delta e Iceberg, atalhos e espelho |
+| [Microsoft Fabric: licenças e capacidade](https://learn.microsoft.com/en-us/fabric/enterprise/licenses) | SKUs F, trial, licenças por utilizador |
+| [Microsoft Fabric: segurança](https://learn.microsoft.com/en-us/fabric/security/security-overview) | Camadas de acesso, OneLake security, rede e cifra |
+| [Microsoft Fabric: novidades](https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new) | Lista mensal de novidades do Fabric |
+| [MongoDB: manual](https://www.mongodb.com/docs/manual/) | Modelo de dados, índices, agregação, transações, réplicas, sharding e segurança |
+| [MongoDB Atlas](https://www.mongodb.com/docs/atlas/) | Serviço gerido: escalões, limites do Free e backups |
+| [MongoDB: ciclos de vida](https://www.mongodb.com/legal/support-policy/lifecycles) | Datas de lançamento e de fim de vida das versões |
 
 ## [Boas práticas de Python](python/README.md)
 
@@ -460,3 +484,8 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Plataformas | Mudanças de licença (n8n, Directus, Strapi ee/, Odoo Enterprise) | [https://opensource.org/licenses](https://opensource.org/licenses) |
 | C# | Fim de suporte do .NET 8 e do .NET 9 (2026-11-10 segundo o índice oficial) e próximas datas de fim de suporte | [https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json](https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json) |
 | Soberania | Data Act: fim total dos custos de mudança de fornecedor de nuvem e de saída de dados a 2027-01-12 | [https://digital-strategy.ec.europa.eu/en/policies/data-act-explained](https://digital-strategy.ec.europa.eu/en/policies/data-act-explained) |
+| Base de dados | Notas de versão do Microsoft Fabric: capacidades, preços das SKUs F, estado das funcionalidades em pré-visualização (SQL database, OneLake security) e mudanças ao consumo (as taxas «are subject to change at any time») | [https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new](https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new) |
+| Base de dados | MongoDB: versão do servidor (9.0 a 2026-11-16, fim de vida a 2031-10-31), datas de fim de vida das 8.0 e 7.0, e a descontinuação do LDAP | [https://www.mongodb.com/legal/support-policy/lifecycles](https://www.mongodb.com/legal/support-policy/lifecycles) |
+| Base de dados | Apache Spark (4.3.0) e Delta Lake (4.3.x, compatível com Spark 4.0.x e 4.1.x): a compatibilidade muda a cada versão | [https://docs.delta.io/latest/releases.html](https://docs.delta.io/latest/releases.html) |
+| Base de dados | Especificação do Iceberg: versão 4 em desenvolvimento, ainda não adotada (a 2026-11-16) | [https://iceberg.apache.org/spec/](https://iceberg.apache.org/spec/) |
+| Segurança | Claim `amr` do id_token: a página do Entra não o documenta (a 2026-11-16); verificar se passa a documentá-lo | [https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference) |

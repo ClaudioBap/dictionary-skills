@@ -20,11 +20,11 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 120 entradas fora do PDF; 357 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 128 entradas fora do PDF; 365 ficheiros de entrada no total.
 
 ## Secções
 
-### 1. [Segurança](seguranca/README.md) — págs. 3–9 (25 entradas)
+### 1. [Segurança](seguranca/README.md) — págs. 3–9 (29 entradas)
 
 - [Autorização no servidor, negar por omissão](seguranca/autorizacao-no-servidor.md) — A decisão de quem pode o quê vive no servidor, cada endpoint declara o que exige e, sem declaração, recusa. *(pág. 3)*
 - [Defesa contra XSS: escapar e CSP](seguranca/defesa-contra-xss.md) — Escapar por omissão todo o texto do utilizador e ter uma CSP sem `unsafe-inline` como segunda rede. *(pág. 3)*
@@ -51,6 +51,10 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Testes de segurança ativos](seguranca/testes-de-seguranca-ativos.md) — Threat modeling antes de construir, DAST sobre a aplicação a correr e pentest ou bug bounty periódico. *(págs. 8, 9)*
 - [OWASP como referencial](seguranca/owasp-como-referencial.md) — Usar o OWASP Top 10 como checklist, o ASVS como nível-alvo e as Cheat Sheets como receitas. *(pág. 9)*
 - [Deteção e resposta a incidentes](seguranca/detecao-e-resposta-a-incidentes.md) — Saber detetar, ter um plano escrito de resposta, ensaiá-lo e fazer pós-incidente sem culpa. *(pág. 9)*
+- [Exportar CSV sem injeção de fórmulas](seguranca/exportacao-csv-sem-formulas.md) — Um CSV que leva texto de utilizadores pode executar fórmulas quando abre numa folha de cálculo; neutraliza-se cada célula que começa por `=`, `+`, `-`, `@`, tabulação ou retorno de linha, e a exportação de registos de auditoria guarda quem, quando e o quê sem alterar o que se exporta. *(fora do PDF)*
+- [MFA imposto pelo fornecedor de identidade, não pela aplicação](seguranca/mfa-imposto-pelo-fornecedor-de-identidade.md) — Quando o login é por OIDC com o Microsoft Entra, o segundo fator é exigido pelas políticas do tenant (Conditional Access ou security defaults) e a aplicação não implementa MFA próprio; o que se faz é confirmar no teste do login real que a política se aplica e preparar a aplicação para os desafios que o fornecedor pode devolver. *(fora do PDF)*
+- [Login por OIDC: código com PKCE, state, nonce e validação do id_token](seguranca/oidc-codigo-com-pkce-state-e-nonce.md) — Num login por OIDC com servidor, usa-se o fluxo de código com PKCE (S256), um `state` ligado ao navegador que começou o pedido, um `nonce` no id_token, o URI de retorno exato, e valida-se o id_token (assinatura, emissor, audiência, validade e nonce) antes de abrir sessão, identificando a pessoa por `oid` ou `sub`. *(fora do PDF)*
+- [Sessões: tempos, rotação do identificador, resumo guardado e cookies](seguranca/sessoes-tempos-rotacao-e-cookies.md) — Os números que a OWASP dá para uma sessão: identificador com pelo menos 64 bits de entropia, renovado a cada mudança de privilégio, timeout por inatividade mais curto nas áreas de maior valor e um limite absoluto, invalidação no servidor, só um resumo do identificador guardado e cookie `__Host-` com `SameSite`. *(fora do PDF)*
 
 ### 2. [Privacidade e conformidade](privacidade/README.md) — pág. 10 (4 entradas)
 
@@ -130,7 +134,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Paginação, filtros e limites](api/paginacao-filtros-e-limites.md) — Nunca devolver listas sem limite: paginar, filtrar e limitar tamanho e taxa. *(págs. 25, 26)*
 - [GraphQL: quando e cuidados](api/graphql-quando-e-cuidados.md) — GraphQL serve quando o cliente molda a resposta, mas exige limitar complexidade e autorizar por campo. *(pág. 26)*
 
-### 8. [Base de dados](base-de-dados/README.md) — págs. 27–30 (14 entradas)
+### 8. [Base de dados](base-de-dados/README.md) — págs. 27–30 (18 entradas)
 
 - [Nomenclatura](base-de-dados/nomenclatura.md) — Nomes consistentes em `snake_case`, uma convenção mantida e nomes que dizem o conteúdo. *(pág. 27)*
 - [Chaves primárias](base-de-dados/chaves-primarias.md) — Toda a tabela tem chave primária estável, e as chaves referenciadas nunca se reutilizam nem renumeram. *(pág. 27)*
@@ -146,6 +150,10 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Desempenho de queries](base-de-dados/desempenho-de-queries.md) — Pedir só o necessário, paginar, evitar N+1 e analisar as queries lentas pelo plano. *(pág. 29)*
 - [Segurança da base de dados](base-de-dados/seguranca-da-base-de-dados.md) — Conta da aplicação com permissões mínimas, queries parametrizadas e dados sensíveis cifrados. *(pág. 29)*
 - [Backups e recuperação](base-de-dados/backups-e-recuperacao.md) — Backups regulares, cifrados e fora do servidor, com restauro ensaiado. *(págs. 29, 30)*
+- [Big data e lakehouse (Parquet, Delta, Iceberg, Spark, Kafka)](base-de-dados/big-data-e-lakehouse.md) — Só se sai da base relacional quando os dados são demasiado grandes ou variados para ela, ou chegam como fluxo sem fim. Nesse caso guardam-se em ficheiros Parquet com um formato de tabela aberto (Delta ou Iceberg), processam-se com Spark em lote ou em fluxo, usa-se Kafka para os eventos e organizam-se em camadas bronze, prata e ouro. *(fora do PDF)*
+- [Microsoft Fabric (OneLake, Lakehouse, Warehouse, capacidade e segurança)](base-de-dados/microsoft-fabric.md) — O Fabric é uma plataforma de análise em SaaS sobre um só lago, o OneLake. Escolhe-se Lakehouse para Spark e dados de qualquer forma, Warehouse para T-SQL com transações entre tabelas, e base de dados SQL para o operacional; paga-se por uma capacidade (SKU F) que se pode pausar, e a segurança de cada dado impõe-se na origem. *(fora do PDF)*
+- [MongoDB: consistência, réplicas, sharding, segurança e Atlas](base-de-dados/mongodb-consistencia-escala-seguranca-e-atlas.md) — O MongoDB tem transações entre documentos, mas o desenho do esquema deve evitá-las. Uma réplica (replica set) dá disponibilidade, o sharding só se usa com uma boa chave, o controlo de acesso vem desligado por omissão, e o Atlas é o serviço gerido, com um escalão gratuito limitado e sem backups nele. *(fora do PDF)*
+- [MongoDB: modelo de documentos, índices e agregação](base-de-dados/mongodb-modelo-indices-e-agregacao.md) — Usa-se MongoDB quando os dados se leem juntos e o esquema muda; o que se lê junto guarda-se junto (embutido), e referencia-se quando o filho cresce sem limite. Os índices compostos seguem a regra Igualdade, Ordenação, Intervalo (ESR) e medem-se com `explain`, e a agregação corre em estágios com limite de memória. *(fora do PDF)*
 
 ### 9. [Boas práticas de Python](python/README.md) — págs. 31–34 (13 entradas)
 

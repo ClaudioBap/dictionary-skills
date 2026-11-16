@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T09:23:23Z",
+  "atualizado_em": "2026-11-16T00:00:00Z",
   "fontes": {
     "https://www.anthropic.com/news": "2026-11-04",
     "https://platform.claude.com/docs/en/release-notes/overview": "2026-11-10",
@@ -164,6 +164,33 @@
     "https://huggingface.co/docs/text-generation-inference": "2026-11-10",
     "https://aistudio.google.com/docs/google-search": "2026-11-10",
     "https://platform.claude.com/docs/en/about-claude/models/overview": "2026-11-10",
-    "https://platform.claude.com/docs/en/about-claude/pricing": "2026-11-10"
+    "https://platform.claude.com/docs/en/about-claude/pricing": "2026-11-10",
+    "https://learn.microsoft.com/en-us/azure/architecture/databases/guide/big-data-architectures": "2026-11-16",
+    "https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion": "2026-11-16",
+    "https://spark.apache.org/docs/latest/": "2026-11-16",
+    "https://docs.delta.io/latest/index.html": "2026-11-16",
+    "https://iceberg.apache.org/docs/latest/": "2026-11-16",
+    "https://parquet.apache.org/docs/overview/": "2026-11-16",
+    "https://kafka.apache.org/intro": "2026-11-16",
+    "https://learn.microsoft.com/en-us/fabric/fundamentals/microsoft-fabric-overview": "2026-11-16",
+    "https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview": "2026-11-16",
+    "https://learn.microsoft.com/en-us/fabric/enterprise/licenses": "2026-11-16",
+    "https://learn.microsoft.com/en-us/fabric/security/security-overview": "2026-11-16",
+    "https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new": "2026-11-16",
+    "https://www.mongodb.com/docs/manual/": "2026-11-16",
+    "https://www.mongodb.com/docs/atlas/": "2026-11-16",
+    "https://www.mongodb.com/legal/support-policy/lifecycles": "2026-11-16",
+    "https://docs.delta.io/latest/releases.html": "2026-11-16",
+    "https://iceberg.apache.org/spec/": "2026-11-16",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html": "2026-11-16",
+    "https://owasp.org/www-community/attacks/CSV_Injection": "2026-11-16",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html": "2026-11-16",
+    "https://datatracker.ietf.org/doc/html/rfc9700": "2026-11-16",
+    "https://datatracker.ietf.org/doc/html/rfc7636": "2026-11-16",
+    "https://openid.net/specs/openid-connect-core-1_0.html": "2026-11-16",
+    "https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-mfa-strength": "2026-11-16",
+    "https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults": "2026-11-16",
+    "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow": "2026-11-16",
+    "https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference": "2026-11-16"
   }
 }
