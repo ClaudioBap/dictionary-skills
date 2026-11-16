@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 118 entradas fora do PDF; 355 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 120 entradas fora do PDF; 357 ficheiros de entrada no total.
 
 ## Secções
 
@@ -359,7 +359,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [WAF e proteção DDoS](publicacao/waf-e-protecao-ddos.md) — Do grátis ao empresarial: Cloudflare Free (DDoS ilimitado e regras geridas base), WAF open source com OWASP CRS, Bunny Shield, Cloudflare Pro/Business/Enterprise e WAF dos fornecedores de nuvem. *(fora do PDF)*
 - [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
 
-### 23. [Construir com IA](ia/README.md) — págs. 65–69 (61 entradas)
+### 23. [Construir com IA](ia/README.md) — págs. 65–69 (63 entradas)
 
 - [Certificação Claude Certified Architect (Foundations e avançado)](ia/certificacao-claude-certified-architect.md) — As quatro certificações da Anthropic com exame e o seu formato; o PDF indica que vêm de fontes da comunidade, a confirmar. *(pág. 65)*
 - [Domínios do exame (o que um bom sistema de IA cobre)](ia/dominios-do-exame.md) — Os domínios dos exames Foundations e Professional, usados como eixos para avaliar um sistema de IA. *(pág. 65)*
@@ -409,6 +409,8 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Requisitos para ter um LLM próprio](ia/modelos-proprios/requisitos-para-ter-um-llm-proprio.md) — Há três caminhos (usar uma API, adaptar um modelo aberto, treinar de raiz) e cada um pede coisas diferentes em dados, hardware, equipa, custo e obrigações legais; começa-se pelo mais barato que cumpre o pedido. *(fora do PDF)*
 - [Servir um modelo próprio](ia/modelos-proprios/servir-um-modelo-proprio.md) — Para servir em escala, o vLLM com API compatível com a da OpenAI e a da Anthropic; para correr em local ou em CPU, o llama.cpp ou o Ollama; o TGI da Hugging Face está em modo de manutenção. *(fora do PDF)*
 - [Voz: síntese (TTS) e reconhecimento (STT)](ia/multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há uma opção local (Piper, com vozes pt_PT) e um escalão gratuito na nuvem (Azure, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
+- [Gravação do browser com Playwright](ia/multimodal/gravacao-do-browser-com-playwright.md) — O Playwright grava o browser em WebM a partir de um contexto com `recordVideo`; o cursor, os títulos, as caixas, os cartões e as transições desenham-se na própria página, com um script de início, e ficam na gravação; para o zoom ficar nítido grava-se a 2x com a escala forçada do Chromium. *(fora do PDF)*
+- [Montagem e exportação de vídeo com ffmpeg](ia/multimodal/montagem-e-exportacao-com-ffmpeg.md) — Sem instalar nada no sistema, o pacote npm `ffmpeg-static` traz o ffmpeg que alinha o áudio com a gravação pelos momentos escuros, corta os tempos mortos, faz o zoom em pós-produção, grava as legendas na imagem e exporta em MP4; a narração monta-se em Node a partir dos WAV de cada passo. *(fora do PDF)*
 - [Gateway de LLM (LiteLLM)](ia/operacao/gateway-de-llm-litellm.md) — Um gateway põe todas as aplicações a falar com os modelos por um só ponto, com uma chave por aplicação ou pessoa, orçamento, limite de pedidos e custo registado por pedido. *(fora do PDF)*
 - [Observabilidade de aplicações com LLM](ia/operacao/observabilidade-de-llm.md) — Cada chamada ao modelo e às ferramentas fica num trace com tokens, custo e resultado, para depurar, avaliar e comparar versões de prompts; há convenções abertas e ferramentas open source que se podem alojar. *(fora do PDF)*
 - [Uso e custo da Claude API](ia/operacao/uso-e-custo-da-claude-api.md) — A organização lê por API os tokens e o custo em dólares, por modelo, workspace ou chave, com uma chave de administração; a Usage and Cost API passou a legacy e a recomendada para integrações novas é a Usage and Cost Analytics API. *(fora do PDF)*

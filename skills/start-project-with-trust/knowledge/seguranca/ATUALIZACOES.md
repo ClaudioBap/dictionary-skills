@@ -1,10 +1,6 @@
 # Atualizações: Segurança
 
-Novidades com confiança alta, organizadas por categoria e da mais recente para a mais antiga. Não alteram o texto das entradas. Cada linha tem o seu registo no [CHANGELOG](../CHANGELOG.md).
-
-## NIST
-
-- **2026-11-02**: O NIST publicou o CSWP 50 «Small Business Cybersecurity: Non-Employer Firms», que substitui na totalidade o NIST IR 7621 Revision 1 (2016). Fonte: [NIST CSRC](https://csrc.nist.gov/News/2026/small-biz-cybersecurity-non-employer-firms-final). Confiança: alta. Adicionado a 2026-11-04.
+Novidades com confiança alta ou média (as de média levam «Confiança: media»), organizadas por categoria e da mais recente para a mais antiga. Não alteram o texto das entradas. Cada linha tem o seu registo no [CHANGELOG](../CHANGELOG.md).
 
 ## OWASP
 
