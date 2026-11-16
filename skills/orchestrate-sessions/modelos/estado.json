@@ -1,0 +1,19 @@
+{
+  "trabalho": "<trabalho>",
+  "terminado": false,
+  "pausado_ate": null,
+  "falhas_seguidas": 0,
+  "atualizado_em": null,
+  "tarefas": [
+    {
+      "id": "T1",
+      "onda": 1,
+      "sessao": "S1",
+      "modelo": "sonnet",
+      "briefing": "briefings/S1.md",
+      "saida": "saidas/S1.md",
+      "depende": [],
+      "estado": "por fazer"
+    }
+  ]
+}

@@ -18,7 +18,7 @@
 - **Fable:** _por definir_ <!-- sim | não (usa opus com o effort um nível acima) -->
 - **Sessões em paralelo:** _por definir_
 - **Agentes:** _por definir_ <!-- sem agentes | só no orquestrador | em cada sessão | em todas -->
-- **Modo contínuo:** _por definir_ <!-- não | sim: nível de autonomia, onde corre, quota (ver modo-continuo.md) -->
+- **Modo contínuo:** _por definir_ <!-- não | sim: nível de autonomia, onde corre, quota e nome da tarefa agendada (ver modo-continuo.md); o estado que a retoma lê fica em estado.json -->
 
 ## Pausas e retomas
 

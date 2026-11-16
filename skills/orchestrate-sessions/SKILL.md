@@ -27,7 +27,7 @@ Num trabalho avulso, antes do passo 1:
 
 1. Pergunta se o utilizador tem acesso ao Fable e aceita o custo dele nos planos e nas tarefas de topo. Regista a resposta em «Decisões».
 2. A sessão 0 planeia, por isso corre em `fable` ou, sem Fable, em `opus` (`modelo-e-effort.md`). Se estiver noutro modelo, pede ao utilizador para mudar com `/model` antes de continuar.
-3. **Modo contínuo.** Pergunta se o trabalho deve continuar sozinho até ao fim, mesmo depois de o limite de uso ser atingido. Se sim, faz as três perguntas de `modo-continuo.md` (nível de autonomia, onde corre, quota), propõe instalar a linha de estado e regista tudo em «Decisões». A partir daí, cada pausa por limite e cada retoma ficam escritas em `sessoes.md`.
+3. **Modo contínuo.** Pergunta se o trabalho deve continuar sozinho até ao fim, mesmo depois de o limite de uso ser atingido. Se sim, faz as três perguntas de `modo-continuo.md` (nível de autonomia, onde corre, quota), cria `estado.json` e `retoma-permissoes.json` a partir de `modelos/`, propõe registar a tarefa agendada que retoma o trabalho parado (e, com quota abaixo de 100%, instalar a linha de estado) e regista tudo em «Decisões». A partir daí, cada pausa por limite e cada retoma ficam escritas em `sessoes.md`.
 
 ## Passo 1 — Tarefas
 
@@ -77,7 +77,7 @@ Regista a resposta em «Decisões» e marca em «Quem executa» que tarefas vão
 2. Lança os subagentes do orquestrador com a ferramenta Agent, com o `model` e o `effort` da tarefa. Em paralelo, só os que não dependem uns dos outros.
 3. Faz as tarefas que cabem à sessão 0.
 4. Não repitas o trabalho de uma sessão enquanto ela corre.
-5. Em modo contínuo, antes de lançar cada sessão ou subagente lê `~/.start-project-with-trust/estado-uso.json`. Se a quota escolhida estiver gasta, escreve «pausado até <hora>» em `sessoes.md`, agenda a retoma para a hora de reposição e pára de lançar trabalho. Quando um subagente ou sessão falhar por limite de uso, não o relances: retoma-o depois da reposição com o estado que guardou. Ao retomar, começa pelos verificadores e pelas saídas que chegaram entretanto.
+5. Em modo contínuo, atualiza `estado.json` a cada tarefa que começa ou acaba. Com quota abaixo de 100%, antes de lançar cada sessão ou subagente lê `~/.start-project-with-trust/estado-uso.json`; se a quota escolhida estiver gasta, escreve a hora de reposição em `pausado_ate` de `estado.json` e «pausado até <hora>» em `sessoes.md`, e pára de lançar trabalho. Quando um subagente ou sessão falhar por limite de uso, deixa a tarefa `em curso` e relança-a depois da pausa, a começar pelo que já está no disco. Ao retomar, começa pelos verificadores e pelas saídas que chegaram entretanto.
 
 ## Passo 6 — Recolha
 

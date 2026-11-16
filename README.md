@@ -214,9 +214,9 @@ skills/orchestrate-sessions/
 ├── SKILL.md            tarefas, número de sessões, agentes, briefings, execução e recolha
 ├── catalogo.md         mini skills e as secções de knowledge/ que cada uma usa
 ├── modelo-e-effort.md  modelo e effort por tipo de tarefa, e quando subir de nível
-├── modelos/            sessoes.md e briefing.md
+├── modelos/            sessoes.md, briefing.md, estado.json e retoma-permissoes.json
 ├── modo-continuo.md    trabalhar até ao fim, esperar pela reposição do limite e retomar
-└── scripts/            estado-uso.mjs, a linha de estado que grava o uso do plano
+└── scripts/            estado-uso.mjs (linha de estado que grava o uso do plano), retomar.mjs, retomar.vbs e agendar-retoma.mjs (retoma agendada)
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
 │                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar
 └── SKILL.md        processo do tema: pergunta o que se vai fazer, lê só essa parte de knowledge/ e vai às fontes quando falta
