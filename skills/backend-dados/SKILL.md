@@ -28,6 +28,7 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 
 - Esquema: `base-de-dados/normalizacao-e-desenho.md`, `base-de-dados/nomenclatura.md`, `base-de-dados/chaves-primarias.md`, `base-de-dados/chaves-estrangeiras-e-integridade-referencial.md`, `base-de-dados/constraints-e-integridade.md`, `base-de-dados/tipos-de-dados.md`, `base-de-dados/indices.md`.
 - Operações e concorrência: `base-de-dados/transacoes-e-acid.md`, `base-de-dados/isolamento-e-concorrencia.md`, `base-de-dados/desempenho-de-queries.md`, `fiabilidade/idempotencia-e-processamento-fiavel.md`, `fiabilidade/degradacao-graciosa.md`.
 - Alterações e dados: `base-de-dados/migracoes.md`, `base-de-dados/auditoria-e-apagamento.md`, `base-de-dados/backups-e-recuperacao.md`, `base-de-dados/seguranca-da-base-de-dados.md`, `seguranca/menor-privilegio-na-base-de-dados.md`, `seguranca/queries-parametrizadas.md`.
+- Só se o pedido falar em big data, Fabric ou MongoDB: `base-de-dados/big-data-e-lakehouse.md`, `base-de-dados/microsoft-fabric.md`, `base-de-dados/mongodb-modelo-indices-e-agregacao.md`, `base-de-dados/mongodb-consistencia-escala-seguranca-e-atlas.md`.
 - Segundo plano: `custo/orquestracao-de-trabalho.md`, `infraestrutura/mensageria-e-filas.md`, `plataformas/tarefas-em-segundo-plano.md`.
 
 ## 3. Se a biblioteca não tem a resposta
