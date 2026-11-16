@@ -47,6 +47,7 @@ O critério de fim de cada passo é a linha «Para uma skill» da entrada que o 
 4. **Implementação.** Endpoints que cumprem o contrato, queries parametrizadas, transações onde há mais de uma escrita, escritas e tarefas idempotentes com chave de idempotência, erros devolvidos como o contrato diz. Prova: os testes unitários e de integração a passar.
 5. **Testes de contrato.** No pipeline, a implementação verificada contra o OpenAPI, e o consumidor contra o fornecedor quando há mais de um serviço. Prova: a execução verde no pipeline.
 6. **Dados pessoais.** Se P11 os tem: retenção, apagamento e auditoria no esquema, e privilégios mínimos no utilizador da aplicação. Prova: o apagamento de um registo de teste e o registo de auditoria.
+7. **Humanizar.** O código, o contrato, os dados de exemplo e os commits não podem deixar perceber que foram feitos por uma IA. Corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria. Prova: a saída final do verificador.
 
 As credenciais da base de dados e os acessos a sistemas que já existem ficam no `.env.example` e em «Por preencher» de `entrega.md`; o resto faz-se até ao fim.
 
@@ -56,5 +57,6 @@ As credenciais da base de dados e os acessos a sistemas que já existem ficam no
 - O contrato (caminho do OpenAPI) e as decisões tomadas, com quem as tomou.
 - O esquema e as migrações, cada uma com a prova de aplicar e reverter.
 - Os testes de contrato e a execução no pipeline.
+- A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher.
 - As fontes que foste buscar, se a biblioteca não chegava.

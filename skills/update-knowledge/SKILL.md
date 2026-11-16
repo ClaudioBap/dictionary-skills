@@ -28,6 +28,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
   - pede ao utilizador que abra a página e cole o conteúdo, ou salta-a e regista-a no relatório.
 - **O conhecimento diz o que vale hoje.** A melhor prática de hoje pode deixar de o ser amanhã: um algoritmo de cifra substituído por outro, uma API descontinuada, um modelo novo. Quando uma fonte `alta` o mostra, a entrada é reescrita com o que vale agora, também quando o texto veio do PDF. Nada se perde: o texto anterior fica na secção «Histórico» da entrada, com a data, a razão e a fonte, e a alteração tem linha no `CHANGELOG.md`.
 - **Toda a alteração tem uma linha no `knowledge/CHANGELOG.md`.** O registo é só de acrescentar.
+- **O que deixou de valer e ficou por reescrever marca-se.** Quando uma novidade mostra que parte de uma entrada deixou de valer (fim de suporte, modelo ou API descontinuados, código removido, versão recomendada com falha) e a corrida não a reescreve logo, porque falta ler o guia de migração, a substituição ainda não é clara ou é precisa uma decisão do utilizador, a entrada fica marcada como desatualizada (formato no passo 3). A Redação do site de notícias faz descer as skills que leem essa entrada até uma «Edição:» a reescrever. Uma novidade retirada como lixo nunca conta, nem para subir nem para descer.
 
 ## Níveis de confiança
 
@@ -130,6 +131,9 @@ Opções:
   Numa edição `media`, escreve `Confiança: media.` antes de «Editado a».
   No frontmatter, atualiza `verificado_em` e acrescenta `editado_em: <hoje>`. Numa entrada do PDF, `paginas` e `fonte` ficam como estão: dizem de onde a entrada nasceu.
 - **Fonte:** acrescenta a linha ao registo do tema em `FONTES.md`.
+- **Desatualizada:** não muda nenhum ficheiro; só acrescenta ao `CHANGELOG.md` uma linha cuja Alteração começa por «Desatualizada:», com o que deixou de valer e a data da novidade, o caminho da entrada em Ficheiro, e a fonte, a data de lançamento e a confiança da novidade:
+  `| <hoje> | Desatualizada: <o que deixou de valer> (novidade de <data>) | <secção>/<slug>.md | [<nome>](<url>) | <data de lançamento> | <nível> | <quem aprovou> |`
+  A entrada volta a contar quando uma linha «Edição:» do mesmo ficheiro a reescreve. Se a marca estava errada, desfaz-se com uma linha «Retirada: marca Desatualizada (<motivo>)» com o mesmo ficheiro, a mesma fonte e a mesma data de lançamento. A novidade que deu origem à marca continua no conhecimento e no jornal.
 
 Depois de cada alteração aprovada:
 acrescenta uma linha ao `knowledge/CHANGELOG.md` (data, alteração, caminho do ficheiro relativo a `knowledge/`, fonte, data de lançamento, confiança, «Aprovado por» com o nome do utilizador).

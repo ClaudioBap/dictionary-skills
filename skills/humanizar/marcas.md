@@ -59,6 +59,7 @@ As marcas de texto repetem a regra «Sem marcas de escrita de IA» da `start-pro
 |---|---|---|
 | Quase tudo centrado | Alinha a uma grelha e ao conteúdo: uma coluna dominante, texto alinhado à esquerda, elementos relacionados alinhados entre si e os outros não | V `tudo-centrado` |
 | Caixas e cartões todos do mesmo tamanho, com a mesma sombra e os mesmos cantos | Cada bloco com o tamanho e o peso que o conteúdo pede; sombra e cantos só onde separam de facto | V `cartoes-iguais` |
+| Cartões da mesma fila com alturas diferentes, cada um pelo seu texto | Numa fila, os cartões têm todos a mesma altura e o rodapé alinha em baixo; o texto comprido corta-se ou abre-se a pedido | L |
 | Campos de formulário todos da mesma largura | A largura do que recebem: código postal curto, morada longa, data com o tamanho da data | L |
 | Espaçamentos todos iguais | Mais espaço entre grupos do que dentro deles; o espaço diz o que pertence a quê | L |
 | Números em tabelas alinhados à esquerda ou ao centro | Números à direita, com o mesmo número de casas decimais; texto à esquerda | L |
@@ -72,6 +73,43 @@ As marcas de texto repetem a regra «Sem marcas de escrita de IA» da `start-pro
 | Tipografia por omissão da ferramenta (a mesma fonte em todos os projetos) | A tipografia do cliente, ou uma escolhida com razão | L |
 | Estados vazios, de erro e de carregamento ausentes ou iguais em todos os ecrãs | Cada estado diz o que aconteceu e o que fazer a seguir, com as palavras do domínio | L |
 | Tudo responsivo por empilhar | Prioridades diferentes por ecrã: o que fica, o que sai, o que encolhe | L |
+
+### Listas, filtros e tabelas
+
+Uma ferramenta enche o ecrã de listas com bolas e de filtros em comprimidos redondos. Uma equipa usa o que as pessoas já conhecem das aplicações de trabalho e do Excel.
+
+| Marca | O que uma pessoa faz | Quem apanha |
+|---|---|---|
+| Listas com bolas para mostrar dados ou registos | Uma tabela, ou linhas alinhadas sem marcador; as bolas ficam para texto corrido, quando fazem falta | L |
+| Filtros em comprimidos redondos, em filas, um por cada valor | Listas pendentes retas com o nome do filtro e o valor escolhido («Unidade: todas»), ao lado da caixa de pesquisa | L |
+| Tabelas que só mostram, sem ordenar nem filtrar | Como no Excel: cada cabeçalho ordena e abre o seu filtro (valores, texto, intervalo), e há exportação para Excel quando os dados se levam para fora | L |
+| Secções que começam por uma lista comprida | Separadores com o número do que está pendente em cada um, cartões de resumo com o número e o que está parado, uma barra que mostra onde está cada coisa, e só depois a pesquisa, os filtros e a tabela; as ações ficam à direita | L |
+| Componentes inventados para cada ecrã | Os de uma biblioteca conhecida (Bootstrap ou a que o projeto já usa) para listas pendentes, tabelas, separadores e botões | L |
+
+### Informação a mais
+
+Menos é mais: uma ferramenta mostra tudo o que tem; uma pessoa mostra o que quem usa precisa para decidir ou agir.
+
+| Marca | O que uma pessoa faz | Quem apanha |
+|---|---|---|
+| O mesmo dado em dois sítios do ecrã (a data no cabeçalho do dia e em cada cartão; a mesma ligação numa lista e num gráfico) | Cada dado uma vez, no sítio onde se usa | L |
+| Metadados com o mesmo valor em todas as linhas («verificada há 13 dias», «Confiança alta», o mesmo aprovador) | Só a exceção leva marca; o valor comum sai | L |
+| Explicações para programadores no ecrã de quem usa (fórmulas, pesos, caminhos de ficheiros, «como se calcula») | No ecrã, o resultado e o que fazer com ele; o método fica na documentação técnica | L |
+| Gráficos que não respondem a nenhuma pergunta (contagens por tipo, barras de totais) | Cada gráfico responde a uma pergunta de quem o vê, como «melhorou ou piorou?»; se não responde, sai | L |
+| Paredes de texto onde se quer analisar | O gráfico primeiro e o texto curto; o detalhe só quando se abre | L |
+| Rótulos longos na vertical ou cortados | Rótulos curtos na horizontal; o nome completo na dica | L |
+| O que é novo misturado com o resto | O novo primeiro | L |
+
+## Vídeo e voz
+
+| Marca | O que uma pessoa faz | Quem apanha |
+|---|---|---|
+| Narração que descreve o ecrã («Aqui temos o botão…») | Diz o que a pessoa ganha com o passo; o ecrã mostra o resto | L |
+| Fórmulas de apresentador («Neste vídeo vamos ver», «Vamos explorar», «Sem mais demoras») | Começa pelo que interessa | L |
+| Frases todas do mesmo comprimento e com a mesma entoação | Frases curtas nas ações, uma mais longa onde se explica | L |
+| Cursor em linha reta, à mesma velocidade, a clicar sem pausa | Movimento com aceleração e uma pausa curta antes do clique, como uma mão | L |
+| Zoom, scroll ou destaque em todos os passos | Só onde a frase precisa; no resto o ecrã fica quieto | L |
+| Voz sem pausas entre ideias, ou com palavras estrangeiras lidas à portuguesa | Pausas onde se respira; termos estrangeiros ditos em português ou ensinados à voz | L |
 
 ## Commits, documentação e dados
 

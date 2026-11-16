@@ -52,12 +52,14 @@ Quando nenhuma entrada cobre o que o utilizador precisa (um padrão de interface
   - acessibilidade: a verificação automática (por exemplo axe ou Lighthouse) sem erros nos critérios que `acessibilidade-wcag.md` fixa, e a navegação por teclado dos fluxos principais descrita passo a passo;
   - desempenho: os valores de Core Web Vitals e o orçamento de `orcamento-de-desempenho.md`, medidos e colados;
   - responsividade: capturas nas larguras que `design-responsivo-e-multi-dispositivo.md` indica;
-  - SEO, em sites públicos: a validação dos dados estruturados e os pontos de `seo-tecnico.md`.
+  - SEO, em sites públicos: a validação dos dados estruturados e os pontos de `seo-tecnico.md`;
+  - humanização: a saída final do verificador da `humanizar`.
+- Humanizar: a interface e os textos não podem deixar perceber que foram feitos por uma IA. Antes de dar a tarefa por feita, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que entregas e relê o que o verificador não apanha com as secções «Interface e design» e «Texto» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria.
 - O que precisa do utilizador (marca, textos finais, imagens, domínio) fica em «Por preencher», com texto de substituição marcado como tal e nunca em produção.
 
 ## Relatório
 
 - O que foi desenhado, o nível e de onde veio.
 - As entradas usadas e as fontes novas registadas.
-- As provas: acessibilidade, desempenho, responsividade, SEO.
+- As provas: acessibilidade, desempenho, responsividade, SEO, humanização (com os achados que ficaram e porquê).
 - O que ficou por preencher.

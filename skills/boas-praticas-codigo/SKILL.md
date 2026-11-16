@@ -51,10 +51,11 @@ Quando a linguagem ou o framework do projeto não está na base, ou uma entrada 
 - Dependências novas são uma decisão: antes de acrescentar uma biblioteca, confirmas a licença e a manutenção na página oficial e apresentas a alternativa sem dependência, no formato da Fase 1.
 - Commits no estilo do repositório, uma alteração por commit, sem emojis nem listas longas, como pede a regra de escrita da `start-project-with-trust`.
 - Nada de segredos no código: ficam em variáveis de ambiente, com `.env.example` e «Por preencher».
+- Humanizar: o código, os comentários e os commits não podem deixar perceber que foram feitos por uma IA. Antes de dar a tarefa por feita, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria, e a saída final entra nas provas.
 
 ## Relatório
 
 - A linguagem detetada e as entradas usadas.
 - O que mudou, ficheiro a ficheiro, e porquê.
-- As provas: formatador, linter, testes, segurança.
+- As provas: formatador, linter, testes, segurança, humanização (com os achados que ficaram e porquê).
 - As fontes novas registadas e o que ficou por preencher.

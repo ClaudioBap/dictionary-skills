@@ -1,12 +1,16 @@
 ---
 name: humanizar
-description: Verifica tudo o que vai ser entregue (texto, código, interface, commits, documentação, dados de exemplo) à procura das marcas que denunciam que foi feito por uma ferramenta, mostra cada achado com o que uma pessoa faria no lugar e só corrige com autorização, categoria a categoria. Usar antes de qualquer entrega, como última sessão da orquestração, ou sobre um trabalho que já existe.
+description: Verifica tudo o que vai ser entregue (texto, código, interface, vídeo, commits, documentação, dados de exemplo) à procura das marcas que denunciam que foi feito por uma ferramenta, mostra cada achado com o que uma pessoa faria no lugar e só corrige com autorização, categoria a categoria. Usar antes de qualquer entrega, como última sessão da orquestração, ou sobre um trabalho que já existe.
 argument-hint: "Pasta, ficheiros ou «diff» a verificar; junta «commits» para ver também as mensagens de commit"
 ---
 
 # Humanizar
 
-O objetivo é que ninguém consiga distinguir se o trabalho foi feito por uma pessoa da equipa ou por uma ferramenta. O catálogo das marcas, por meio, está em `marcas.md`; o verificador em `scripts/humanizar.mjs`. Os caminhos são relativos à pasta deste `SKILL.md`.
+O objetivo é que ninguém consiga distinguir se o trabalho foi feito por uma pessoa da equipa ou por uma ferramenta. Vale para o desenvolvimento, para o design e para os vídeos (guião, voz e ações no ecrã).
+
+**Menos é mais.** Uma ferramenta tende a mostrar tudo o que sabe; uma pessoa mostra o que quem usa precisa. Num ecrã, cada dado aparece uma vez, o que é novo vem primeiro, um gráfico só fica se responder a uma pergunta de quem o vê, e a explicação de como se calcula fica para os programadores, fora do ecrã. Quem quer analisar prefere um gráfico a um parágrafo.
+
+O catálogo das marcas, por meio, está em `marcas.md`; o verificador em `scripts/humanizar.mjs`. Os caminhos são relativos à pasta deste `SKILL.md`.
 
 ## Regras
 
@@ -35,13 +39,16 @@ O verificador apanha o que se reconhece por padrão. Lê depois o que está marc
 - no texto: ritmo das frases, enumerações de três, paralelismos, resumos finais, títulos a mais, números sem fonte;
 - no código: abstrações para um uso só, verificações impossíveis, `utils` onde cai tudo, mensagens de erro genéricas, testes que não testam;
 - na interface: alinhamento genérico (tudo centrado, caixas todas iguais, campos todos da mesma largura, espaçamentos todos iguais), página inicial de modelo, paleta e tipografia por omissão, estados vazios e de erro iguais em todo o lado. O que uma pessoa faz à mão é alinhar a uma grelha e ao conteúdo: larguras que seguem o que recebem, números à direita, mais espaço entre grupos do que dentro deles, assimetrias com intenção;
+- nas listas, filtros e tabelas: listas com bolas onde cabia uma tabela, filtros em comprimidos redondos em vez de listas pendentes retas, tabelas sem ordenar nem filtrar pelo cabeçalho como no Excel, secções sem separadores nem cartões de resumo, componentes inventados em vez dos de uma biblioteca conhecida;
+- na informação a mais, com capturas de cada ecrã à frente: o mesmo dado em dois sítios, metadados com o mesmo valor em todas as linhas, gráficos que não respondem a nada, explicações para programadores, texto onde um gráfico chegava, o que é novo perdido no meio do resto. Para cada bloco pergunta «quem usa precisa disto para decidir ou agir?»; se não precisa, sai;
+- no vídeo: o guião, a narração e as ações do cursor, com a secção «Vídeo e voz»;
 - nos commits e na documentação: mensagens que repetem o diff, documentação que explica o óbvio e cala o difícil.
 
 Regista cada achado de leitura no mesmo formato do verificador: onde, o que é, o que uma pessoa faria.
 
 ## 4. Pedir autorização
 
-Mostra os achados agrupados por categoria (Pontuação, Fórmulas, Estrutura, Língua, Código, Interface, Dados, Commits), com o antes e o depois de um exemplo de cada, e pergunta categoria a categoria, uma de cada vez:
+Mostra os achados agrupados por categoria (Pontuação, Fórmulas, Estrutura, Língua, Código, Interface, Informação a mais, Vídeo, Dados, Commits), com o antes e o depois de um exemplo de cada, e pergunta categoria a categoria, uma de cada vez:
 
 ```
 ❓ **Pontuação (9 achados)**: corrigir?

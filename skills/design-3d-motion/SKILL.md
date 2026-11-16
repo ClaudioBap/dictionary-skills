@@ -50,11 +50,14 @@ Quando nenhuma entrada cobre o que o utilizador precisa (uma técnica, uma bibli
 - O critério de fim parte da linha «Para uma skill» das entradas usadas. A prova é o que qualquer pessoa pode repetir:
   - desempenho: tamanho dos assets, tempo até à primeira imagem, frames por segundo nos dispositivos acordados e os Core Web Vitals da página, medidos e colados, dentro do orçamento de `orcamento-de-desempenho-3d.md`;
   - acessibilidade: o comportamento com `prefers-reduced-motion` ativo, com captura, e a alternativa quando o WebGL não está disponível;
-  - carregamento: a cena não bloqueia o resto da página (prova com o carregamento a pedido ou em segundo plano).
+  - carregamento: a cena não bloqueia o resto da página (prova com o carregamento a pedido ou em segundo plano);
+  - humanização: a saída final do verificador da `humanizar`.
+- Humanizar: a experiência não pode deixar perceber que foi feita por uma IA. Antes de dar a tarefa por feita, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que entregas e relê o que o verificador não apanha com a secção «Interface e design» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria.
 
 ## Relatório
 
 - A experiência criada, a técnica escolhida e porque não a mais barata.
 - As entradas usadas e as fontes novas registadas.
 - As medições: assets, primeira imagem, frames por segundo, Core Web Vitals, movimento reduzido.
+- A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher (modelos, texturas, marca).

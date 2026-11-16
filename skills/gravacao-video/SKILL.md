@@ -76,6 +76,7 @@ Regras de qualidade:
 - **Siglas, endereços e nomes** dizem-se como se leem. As siglas correntes e os endereços (`dados.gov.pt`) o script trata; o resto ensina-se com `--ensinar` (passo 4.2) ou, se só valer para este vídeo, vai para `pronuncias` no `guiao.json` (`{ "INE": "iné" }`). As legendas ficam com a grafia original.
 - **Scroll só com propósito**: quando o que a frase refere não está à vista, e no máximo um por página. Nunca scroll para «mostrar a página». Um regresso ao topo para usar o menu conta como scroll e leva uma frase.
 - **Zoom e título não se juntam**, o zoom sai antes de o cursor ir para longe, e um zoom fica pelo menos o tempo de uma frase: entrar e sair logo a seguir incomoda.
+- **Humanizado antes de gravar.** A narração e as ações não podem deixar perceber que foram feitas por uma IA. Antes de pedir validação, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs guiao.md`) e relê o guião com as secções «Texto» e «Vídeo e voz» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria.
 
 `guiao.json`:
 - `nome`, `url`, `formato` (`teaser`, `demonstracao` ou `explicacao`), `estilo` (`apresentacao` ou `sobrio`), `largura` e `altura` da janela (1280x720), `escala` (2 no estilo apresentação, 1 no sóbrio), `saida` (`{ "largura": 1920, "altura": 1080 }`);
@@ -158,6 +159,7 @@ Regras de qualidade:
 - Para o scroll, lê a lista que o `montar.mjs` imprime com o passo de cada um; cada scroll tem uma frase que o justifica e não há dois seguidos em sentidos opostos.
 - Para a voz, junta o que o `narrar.mjs` reportou ao pedido para o utilizador ouvir, e entrega-lhe o vídeo com `escuta.md`.
 - Nenhum segredo nem dado pessoal aparece em nenhum fotograma, e as legendas correspondem ao guião.
+- Para a humanização, a saída final do verificador sobre o guião e a revisão do vídeo final com a secção «Vídeo e voz» de `../humanizar/marcas.md` (voz, cursor, zoom e scroll), com os achados que ficaram e porquê.
 Cola os comandos corridos, as durações e os caminhos dos ficheiros.
 
 ## Relatório

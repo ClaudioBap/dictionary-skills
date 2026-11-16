@@ -37,9 +37,12 @@ Tudo o que mudou de caso para caso no inventário sai do código do núcleo: par
 
 Instancia o segundo caso só com configuração e conhecimento novos, e corre os testes. O critério de fim é duplo: o segundo caso funciona, e o núcleo não mudou (a diferença no núcleo entre os dois casos é vazia). Regista a prova em `entrega.md` («Verificação») e o que faltou em «Por preencher».
 
+O núcleo, a configuração e a documentação de como se instancia um caso novo não podem deixar perceber que foram feitos por uma IA. Antes de fechar, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pastas tocadas> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria, e a saída final vai também para «Verificação».
+
 ## Relatório
 
 - O que é núcleo e o que é específico, com a lista de ficheiros.
 - Como se instancia o terceiro caso: passos e variáveis.
 - A versão do núcleo e o registo de alterações.
+- A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher.
