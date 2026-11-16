@@ -97,7 +97,7 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
    | Confidence | When | What happens |
    |---|---|---|
    | High | Primary official source, read directly, with a date | If it changes what an entry says, the entry is rewritten and the previous text kept in «Histórico»; otherwise it goes into the section's `ATUALIZACOES.md` |
-   | Medium | Official source but indirect, partly read or undated | Goes in like a high one, marked «Confiança: media»; you can take it out later in the news site's Redação |
+   | Medium | Official source but indirect, partly read or undated | Goes in like a high one, marked «Confiança: media»; it only comes out if you ask for it |
    | Low | Unofficial source | Never changes the knowledge |
 
    New entries, new sources and edits backed only by medium-confidence sources always require approval, one at a time. After editing an entry, it also updates the skills that used the old value.

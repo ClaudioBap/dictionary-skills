@@ -15,7 +15,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 
 - **Fluxo por confiança** (só para atualizações, ver «Níveis de confiança»):
   - `alta`: se a novidade muda o que uma entrada diz (uma prática substituída, uma versão, um algoritmo, um valor, uma recomendação), **edita a entrada** para dizer o que vale hoje e guarda o anterior no «Histórico» dela (passo 3); se não muda o texto, entra no ficheiro de atualizações da secção (`<secção>/ATUALIZACOES.md`), na categoria certa. Em ambos os casos, sem pedir aprovação;
-  - `media`: entra como a `alta` (edição ou atualização, sem pedir aprovação), mas marcada com «Confiança: media» para se distinguir. O admin pode tirá-la depois na Redação do site de notícias (passo 2);
+  - `media`: entra como a `alta` (edição ou atualização, sem pedir aprovação), mas marcada com «Confiança: media» para se distinguir. Se o utilizador pedir para tirar uma novidade, retira-a (passo 2);
   - `baixa`: ignora.
 - **Atualizações com mais de um ano saem do `ATUALIZACOES.md`, mas não se apagam.** Em cada corrida, as linhas cuja data «Adicionado a» tenha mais de 12 meses passam, sem alterações, para `<secção>/ATUALIZACOES-ARQUIVO.md`, na mesma categoria, com uma linha no `CHANGELOG.md`. Conta a data em que a linha entrou, e não a data de lançamento, para não arquivar logo um prazo antigo que ainda está a correr.
 - **Nunca alterar sem aprovação explícita** o resto (novas entradas e fontes novas), uma alteração de cada vez. O silêncio ou um «ok» genérico a um lote não conta, a não ser que o utilizador peça expressamente para aprovar o lote todo.
@@ -34,7 +34,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 | Nível | Quando |
 |---|---|
 | `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. **Entra diretamente no `ATUALIZACOES.md` da secção.** |
-| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Entra diretamente, como a `alta`, com «Confiança: media».** O admin pode tirá-la depois (passo 2). |
+| `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Entra diretamente, como a `alta`, com «Confiança: media».** Sai só se o utilizador o pedir (passo 2). |
 | `baixa` | Fonte não oficial ou da comunidade, ou informação sem fonte verificável. **Nunca altera o conhecimento.** |
 
 ## 0. Preparar
@@ -76,10 +76,10 @@ Na dúvida, procura o produto nas entradas: se nenhuma o cita, fica de fora. O u
 
 ## 2. Aplicar por confiança, propor o resto
 
-1. **Médias a tirar.** No início, pergunta ao utilizador se traz decisões da Redação do site de notícias (aba Validação, botão «Copiar decisões para a update-knowledge»). Cada linha tem a forma `<título> | <url> | lançada em <data> | tirar | votos: ...`. Para cada `tirar`, procura a novidade pela ligação e pela data de lançamento:
+1. **Novidades a tirar.** Não há validação: as novidades entram pela confiança e só saem se o utilizador pedir para tirar alguma (por exemplo, por ser lixo à luz do «Filtrar»). Para cada uma, procura-a pela ligação e pela data de lançamento:
    - numa atualização, apaga a linha do `ATUALIZACOES.md`;
-   - numa edição, repõe na entrada o texto anterior que está no «Histórico» e acrescenta ao «Histórico» uma linha a dizer que a edição foi retirada por decisão do admin.
-   Em ambos os casos, regista no `CHANGELOG.md` uma linha cuja Alteração começa por «Retirada:», com o ficheiro, a mesma fonte, a mesma data de lançamento, a confiança `media` e, em «Aprovado por», o nome do utilizador. O site lê essa linha e deixa de mostrar a novidade. Uma linha com `entra` ou `não entra` vem do fluxo antigo dos pendentes, que já não existe: mostra-a ao utilizador e pergunta o que fazer.
+   - numa edição, repõe na entrada o texto anterior que está no «Histórico» e acrescenta ao «Histórico» uma linha a dizer que a edição foi retirada a pedido do utilizador.
+   Em ambos os casos, regista no `CHANGELOG.md` uma linha cuja Alteração começa por «Retirada:» (com o motivo entre parênteses), com o ficheiro, a mesma fonte, a mesma data de lançamento, a mesma confiança e, em «Aprovado por», o nome do utilizador. O site de notícias lê essa linha e deixa de mostrar a novidade.
 2. **Atualizações e edições `alta`:** aplica-as diretamente (passo 3), sem pedir aprovação, e mostra a lista do que entrou.
 3. **Atualizações e edições `media`:** aplica-as como as `alta` (passo 3), sem pedir aprovação, com `Confiança: media` na linha e, no `CHANGELOG.md`, «aplicada sem aprovação (fonte média)» em «Aprovado por». Mostra-as numa lista à parte das `alta`, para o utilizador saber o que pode querer tirar.
 4. **Novas entradas e fontes novas**, qualquer que seja a confiança: propõe uma de cada vez, como abaixo.

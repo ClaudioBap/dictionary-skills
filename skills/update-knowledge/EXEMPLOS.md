@@ -2,7 +2,7 @@
 
 ## O que faz
 
-Atualiza a base de conhecimento da `start-project-with-trust` e o conhecimento pessoal de quem a usa. Percorre as fontes aprovadas em `knowledge/FONTES.md`, encontra as novidades com a data de lançamento e dá a cada uma uma confiança: o que vem de fonte oficial primária com data (`alta`) entra sem pedir aprovação, o de confiança `media` entra da mesma forma mas marcado como médio, para o admin o poder tirar depois na Redação, e o de confiança `baixa` é ignorado. Cada alteração tem uma linha no `CHANGELOG.md`, e só publica no GitHub com autorização. Só corre quando alguém a chama com `/update-knowledge`.
+Atualiza a base de conhecimento da `start-project-with-trust` e o conhecimento pessoal de quem a usa. Percorre as fontes aprovadas em `knowledge/FONTES.md`, encontra as novidades com a data de lançamento e dá a cada uma uma confiança: o que vem de fonte oficial primária com data (`alta`) entra sem pedir aprovação, o de confiança `media` entra da mesma forma mas marcado como médio, e o de confiança `baixa` é ignorado. Cada alteração tem uma linha no `CHANGELOG.md`, e cada corrida termina publicada no GitHub, com commit e push. Só corre quando alguém a chama com `/update-knowledge`.
 
 ## Quando usar
 
@@ -26,7 +26,7 @@ Atualiza a base de conhecimento da `start-project-with-trust` e o conhecimento p
 2. Percorre as fontes de cada tema desde a última verificação, incluindo os pontos «A vigiar», e fica só com o que muda uma prática, uma versão, um prazo ou uma regra.
 3. Aplica as novidades de confiança `alta` no `ATUALIZACOES.md` de cada secção, por exemplo o Docker Engine 29.9.3 (segurança) e o Compose 5.7.0.
 4. Corre `scripts/indice.mjs` e `scripts/verificar-alteracoes.mjs` até passar e mostra o `git diff --stat`.
-5. Só faz commit e push com autorização.
+5. Publica com `scripts/publicar.mjs`: verifica o CHANGELOG e o índice, faz commit no `main` e push, sem perguntar.
 
 **Resultado:** Foi a corrida de 2026-11-04 no repositório das skills, com um commit por secção, de «Atualização IA» a «Atualização Plataformas».
 

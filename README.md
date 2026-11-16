@@ -95,7 +95,7 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
    | Confiança | Quando | O que acontece |
    |---|---|---|
    | Alta | Fonte oficial primária, lida diretamente, com data | Se muda o que uma entrada diz, reescreve a entrada e guarda o texto anterior no «Histórico»; se não, entra no `ATUALIZACOES.md` da secção |
-   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Entra como a alta, marcada «Confiança: media»; podes tirá-la depois na Redação do site de notícias |
+   | Média | Fonte oficial mas indireta, lida em parte ou sem data | Entra como a alta, marcada «Confiança: media»; sai só se pedires para a tirar |
    | Baixa | Fonte não oficial | Nunca altera o conhecimento |
 
    Novas entradas, fontes novas e edições sustentadas só por fontes de confiança média pedem sempre aprovação, uma a uma. Depois de editar uma entrada, atualiza também as skills que usavam o valor antigo.
