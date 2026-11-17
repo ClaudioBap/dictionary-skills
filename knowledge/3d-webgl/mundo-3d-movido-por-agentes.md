@@ -15,7 +15,7 @@ verificado_em: 2026-11-17
 
 ## Conteúdo
 
-Origem: padrão construído e medido na Oficina da administração do site-noticias (sessões S2-O2 e S3-O3, 2026-11-16 e 17). O que vem dessa experiência está marcado como *(experiência do projeto)*. As afirmações sobre hooks e three.js vêm das fontes em baixo, lidas pelas sessões a 2026-11-16 e não relidas na fonte a 2026-11-17 (ver «Por reconfirmar»).
+Origem: padrão construído e medido na Oficina da administração do site-noticias (sessões S2-O2 e S3-O3, 2026-11-16 e 17). O que vem dessa experiência está marcado como *(experiência do projeto)*. As afirmações sobre hooks e three.js vêm das fontes em baixo, lidas a 2026-11-17 (ver «Lido na fonte»).
 
 ### Quando faz sentido e quando é enfeite
 
@@ -83,12 +83,12 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 
 ### Orçamento, carregamento e alternativas
 
-- **Carregamento:** a vista importa-se dinamicamente, só quando se abre; quem não a abre não paga o three.js. A prova da Oficina: noutra vista não se pede nenhum ficheiro da cena.
-- **Pausa:** um só `requestAnimationFrame`, parado com a página escondida ou a cena fora do ecrã (com a página escondida: 0 quadros e 0 consultas em 8 s). Com movimento reduzido só se desenha quando algo muda. O manual do three.js descreve o render a pedido.
-- **Sem WebGL:** fica a lista dos agentes, com os mesmos estados, o mesmo cartão e a mesma repetição.
-- **Movimento reduzido:** ninguém se desloca; a cada evento os bonecos aparecem já no sítio, com a pose e o sinal novos. É o mesmo caminho de arrastar a linha do tempo.
-- **Lista acessível:** sempre no DOM (escondida da vista quando há 3D, à vista quando não há); uma frase-resumo em região `status` («3 sessões: 1 a trabalhar, 1 à espera de resposta, 1 à espera de instruções.»); canvas com `aria-hidden`.
-- **Vigia de desempenho:** mede os quadros por segundo com a cena a correr; abaixo de 22 baixa a resolução, e se continuar abaixo de 14 desmonta a cena e fica a lista.
+- A vista importa-se dinamicamente, só quando se abre; quem não a abre não paga o three.js. A prova da Oficina: noutra vista não se pede nenhum ficheiro da cena.
+- Um só `requestAnimationFrame`, parado com a página escondida ou a cena fora do ecrã (com a página escondida: 0 quadros e 0 consultas em 8 s). Com movimento reduzido só se desenha quando algo muda. O manual do three.js descreve o render a pedido.
+- Sem WebGL fica a lista dos agentes, com os mesmos estados, o mesmo cartão e a mesma repetição.
+- Com movimento reduzido ninguém se desloca; a cada evento os bonecos aparecem já no sítio, com a pose e o sinal novos. É o mesmo caminho de arrastar a linha do tempo.
+- A lista acessível está sempre no DOM (escondida da vista quando há 3D, à vista quando não há), com uma frase-resumo em região `status` («3 sessões: 1 a trabalhar, 1 à espera de resposta, 1 à espera de instruções.»); canvas com `aria-hidden`.
+- O vigia de desempenho mede os quadros por segundo com a cena a correr; abaixo de 22 baixa a resolução, e se continuar abaixo de 14 desmonta a cena e fica a lista.
 - **Medições da Oficina** *(experiência do projeto; Chrome sem janela com placa gráfica ANGLE/Direct3D 11)*:
 
 | O quê | Valor |
@@ -101,11 +101,11 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 | Telemóvel médio emulado (390 px, CPU 4× mais lenta) | 60,1 quadros por segundo; 4,9 ms por quadro |
 
   Os 60 são o teto do ecrã: a folga lê-se no tempo por quadro (16,7 ms disponíveis). A limitação de CPU não abranda a placa gráfica, por isso falta medir num telemóvel a sério. Orçamento usado: 60 no computador, 30 no telemóvel médio, até 60 kB (gzip) de código próprio, até 2 MB de modelos. Medir sempre com placa gráfica ligada (`--enable-gpu --use-angle=d3d11` no Windows) e registar o nome dela; desenho por software dá medições que não valem.
-- **Performance da cena:** tudo o que não se mexe fundido em poucas malhas por material; repetições (volumes, 367 na Oficina) numa `InstancedMesh`; sombras dos móveis calculadas uma vez (`shadowMap.autoUpdate = false`); cada boneco em seis malhas, com a cor nos vértices e um material só.
+- Na cena, tudo o que não se mexe fundido em poucas malhas por material; repetições (volumes, 367 na Oficina) numa `InstancedMesh`; sombras dos móveis calculadas uma vez (`shadowMap.autoUpdate = false`); cada boneco em seis malhas, com a cor nos vértices e um material só.
 
-### Bonecos: licença livre ou por código *(experiência do projeto)*
+### Bonecos de licença livre ou feitos por código *(experiência do projeto)*
 
-- Pacotes de licença livre (Kenney, Quaternius) poupam o modelar, mas as animações que trazem raramente incluem as poses de que o mundo precisa (dormir na bancada, braço no ar, carregar volumes), e distinguir 16 bonecos pedia edição no Blender. A S3-O3 não foi confirmar hoje o que cada pacote traz nem a licença: antes de os usar, lê a licença de cada um e regista-a num `LICENCAS.md`.
+- Pacotes de licença livre (Kenney, Quaternius) poupam o modelar, mas as animações que trazem raramente incluem as poses de que o mundo precisa (dormir na bancada, braço no ar, carregar volumes), e distinguir 16 bonecos pedia edição no Blender. Na Oficina ficaram os bonecos feitos por código, sem descarregar modelos: a comparação com os pacotes de modelos livres não foi feita, e o que aqui se diz deles é o que se sabia, não o que se mediu. Antes de os usar, lê a licença de cada um e regista-a num `LICENCAS.md`.
 - Por código: cada pose é um conjunto de ângulos (ancas, tronco, cabeça, braços, pernas) e em cada quadro o boneco aproxima-se deles com `a += (alvo - a) * (1 - exp(-k * dt))`, por isso qualquer pose passa para qualquer outra sem animações de transição. O repouso vivo usa um gerador de acaso por boneco, com semente pelo nome. Custo em modelos: zero bytes.
 - Caminhos: grelha de 25 cm com os móveis (mais a folga de um boneco) fechados, procura em largura sem cortar esquinas, e fica-se só com as esquinas. Para uma sala de 22 por 17 m são 6 mil células e a procura não se nota.
 - Inspiração: Autopolis (autopolis.city). Não se encontrou código aberto nem licença, por isso nada se copia de lá.
@@ -116,9 +116,11 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 - Cada página de teste na sua janela: num browser sem janela só o separador da frente conta como visível.
 - axe-core com o cartão aberto e fechado; a mesma sequência sem WebGL e com movimento reduzido.
 
-### Por reconfirmar na fonte
+### Lido na fonte (2026-11-17)
 
-Nesta sessão (2026-11-17) não foi possível ler a documentação oficial. Ficam por reconfirmar na fonte: os nomes dos hooks e os campos de cada um (lidos pela S2-O2 a 2026-11-16 e confirmados com o Claude Code 2.1.325 a correr, mas não relidos hoje), o comportamento do matcher `Skill|Agent`, a forma exec no Windows, e a afirmação de que `async: true` não bloqueia a sessão. `StopFailure` e `Notification` não apareceram nas corridas reais e foram testados com a forma da documentação.
+Na referência de hooks do Claude Code confirmam-se: os dez eventos usados, o matcher com `|` como nomes exatos, `async: true` («corre em segundo plano sem bloquear»), a forma exec (`command` mais `args`, sem shell; no Windows o `command` tem de ser um executável real e os `.cmd` e `.bat` pedem a forma com shell), `agent_id` e `agent_type` no `SubagentStart`, `error` (com `rate_limit`) no `StopFailure`, `notification_type` no `Notification`, `subagent_type` na entrada do `Agent` e `last_assistant_message` no `Stop`. O manual do three.js confirma o render a pedido: «render once at the start and then render only when something changes».
+
+Só vêm das corridas reais da S2-O2, não da documentação lida: `tool_input.skill` na ferramenta `Skill`, o hook a receber `Agent` e não `Task`, e o `PermissionRequest` a disparar também para `AskUserQuestion`. `StopFailure` e `Notification` não apareceram nessas corridas.
 
 **Para uma skill:** antes de propor um mundo 3D de agentes, confirma que mostra algo que a lista não mostra e escolhe a metáfora a partir do que o produto é, validada com o dono. Os eventos vêm de hooks assíncronos sem conteúdo; um modelo sem 3D entre os eventos e a cena serve a cena, a lista HTML e a repetição. A vista carrega a pedido, pausa escondida, tem alternativa sem WebGL e com movimento reduzido, e prova-se com capturas de cada estado e medições com placa gráfica ligada.
 
@@ -131,9 +133,9 @@ Nesta sessão (2026-11-17) não foi possível ler a documentação oficial. Fica
 
 ## Fontes oficiais
 
-*Lidas pelas sessões S2-O2 e S3-O3 a 2026-11-16; não relidas a 2026-11-17.*
+*Lidas a 2026-11-17.*
 
-- [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks) — eventos, entrada, saída e registo dos hooks
-- [Manual do Three.js: render a pedido](https://threejs.org/manual/pages/rendering-on-demand.html) — desenhar só quando algo muda
+- [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks): eventos, entrada, saída e registo dos hooks
+- [Manual do Three.js: render a pedido](https://threejs.org/manual/pages/rendering-on-demand.html): desenhar só quando algo muda
 
 Fonte: implementação em `site-noticias/web-admin/src/oficina-3d/` e saídas S2-O2 e S3-O3 da orquestração da fase 2. Não vem do PDF.
