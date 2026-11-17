@@ -1,6 +1,6 @@
 ---
 name: design-3d-motion
-description: "Mini skill para 3D na web, WebGL, animação CSS e SVG, scroll-driven animation e movimento com acessibilidade. É trabalho de nível topo por omissão: corre em fable (ou opus sem Fable), lê só knowledge/3d-webgl/ e as bases de knowledge/design/ que o pedido toca, decide primeiro se o 3D se justifica, cumpre um orçamento de desempenho próprio e prova com medições. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar quando a interface pede 3D, motion ou uma experiência premium."
+description: "Mini skill para 3D na web, WebGL, animação CSS e SVG, scroll-driven animation e movimento com acessibilidade. É trabalho de nível topo por omissão: corre em fable (ou opus sem Fable), lê só knowledge/3d-webgl/ e as bases de knowledge/design/ que o pedido toca, decide primeiro se o 3D se justifica, cumpre um orçamento de desempenho próprio e prova com medições. Sabe também montar um mundo 3D movido por eventos reais de agentes de IA (quem trabalha, espera ou parou). Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar quando a interface pede 3D, motion ou uma experiência premium."
 argument-hint: "A experiência a criar e onde entra no site, ou nada para perguntar"
 ---
 
@@ -23,12 +23,15 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta numa só pergunta: a 
 
 Antes de desenhar, aplica `3d-na-web-quando-e-porque.md`: se o mesmo efeito se consegue com CSS ou SVG, propõe isso primeiro como opção mais barata, no formato da Fase 1, com o 3D como opção seguinte.
 
+Se o produto tem agentes de IA a trabalhar e o utilizador quer vê-los, propõe o mundo 3D movido por eventos de `mundo-3d-movido-por-agentes.md` só quando mostra algo que uma lista de estados não mostra, e propõe a metáfora a partir do que o produto é.
+
 ## 2. Ler só o que interessa
 
 Lê o `README.md` de `3d-webgl/` e as entradas que o pedido toca:
 - sempre: `3d-na-web-quando-e-porque.md`, `orcamento-de-desempenho-3d.md`, `acessibilidade-e-movimento.md`;
 - cena ou objeto 3D: `threejs-webgl.md`, `materiais-luz-e-pbr.md`, `ferramentas-e-bibliotecas-3d.md`, e `react-three-fiber.md` se o projeto é em React;
 - assets: `pipeline-blender-gltf.md` (do Blender ao glTF, com compressão e tamanhos);
+- bonecos ou objetos que mostram o que agentes de IA estão a fazer, a partir de eventos reais: `mundo-3d-movido-por-agentes.md`;
 - movimento sem 3D: `animacao-css-e-svg.md`, `scroll-driven-animation.md`;
 - da base de `design/`: `desempenho-web-core-web-vitals.md`, `otimizacao-de-imagens-e-media.md`, `assets-e-fontes-locais.md`, `design-responsivo-e-multi-dispositivo.md`.
 

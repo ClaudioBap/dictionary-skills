@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 130 entradas fora do PDF; 367 ficheiros de entrada no total.
+- Totais: 26 secções; 238 entradas do PDF em 237 ficheiros; 131 entradas fora do PDF; 368 ficheiros de entrada no total.
 
 ## Secções
 
@@ -108,7 +108,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Atalhos e power users](design/atalhos-e-power-users.md) — Atalhos de teclado e paleta de comandos para quem usa muito, sem prejudicar os ocasionais. *(pág. 19)*
 - [Avisos Web Push com VAPID, sem corpo](design/avisos-web-push-com-vapid.md) — Para avisar um telemóvel sem aplicação nativa, a aplicação web subscreve o Web Push com a chave pública VAPID e o servidor envia um POST sem corpo, assinado com um JWT ES256; o service worker mostra um texto fixo e o conteúdo só se lê na aplicação. No iPhone exige o iOS 16.4 e a aplicação no ecrã principal. *(fora do PDF)*
 
-### 5. [3D, WebGL e animação](3d-webgl/README.md) — págs. 20–23 (10 entradas)
+### 5. [3D, WebGL e animação](3d-webgl/README.md) — págs. 20–23 (11 entradas)
 
 - [3D na web: quando e porquê](3d-webgl/3d-na-web-quando-e-porque.md) — Escolher o efeito pelo objetivo e subir na escala de peso só se pagar em compreensão ou emoção. *(pág. 20)*
 - [Animação CSS e SVG](3d-webgl/animacao-css-e-svg.md) — Transições e keyframes sem bibliotecas, animando só `transform`/`opacity` e com durações curtas. *(pág. 20)*
@@ -120,6 +120,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Orçamento de desempenho 3D](3d-webgl/orcamento-de-desempenho-3d.md) — Medir FPS, peso e memória, com metas de partida, carregamento tardio e pausa fora de vista. *(pág. 22)*
 - [Acessibilidade e movimento](3d-webgl/acessibilidade-e-movimento.md) — Respeitar sempre `prefers-reduced-motion`, ter fallback 2D e manter o conteúdo em HTML real. *(págs. 22, 23)*
 - [Ferramentas e bibliotecas 3D](3d-webgl/ferramentas-e-bibliotecas-3d.md) — Catálogo de motores, bibliotecas de movimento, modelação e otimização para 3D na web. *(pág. 23)*
+- [Mundo 3D movido por agentes](3d-webgl/mundo-3d-movido-por-agentes.md) — Um mundo 3D em que bonecos mostram o que agentes de IA estão a fazer só se justifica se mostrar algo verdadeiro que de outro modo não se vê (quem trabalha, quem espera resposta, quem parou). A metáfora sai do que o produto é; os eventos reais (hooks do Claude Code, sem conteúdo) alimentam um modelo sem 3D, e a cena, a lista acessível e a repetição leem todos desse modelo. *(fora do PDF)*
 
 ### 6. [SEO e descoberta](seo/README.md) — pág. 24 (2 entradas)
 

@@ -43,6 +43,19 @@ Trata do 3D na web, do WebGL, da animação em CSS e SVG e do movimento ligado a
 
 **Resultado:** Foi a primeira versão do movimento do site de notícias. Cumpria o critério escrito, mas o Cláudio queria 3D e a tarefa foi reaberta. Quando se quer 3D, convém dizê-lo no pedido: a skill salta a pergunta e passa à leitura.
 
+## Exemplo: agentes de IA num mundo 3D
+
+**Pedido:** «Quero ver, na administração, o que os agentes estão a fazer, e responder-lhes.»
+
+**O que a skill faz:**
+
+1. Pergunta o que a pessoa precisa de ver (quem trabalha, quem espera resposta, quem parou) e conclui que uma lista não chega para o que o dono quer, por isso propõe o mundo 3D, com a lista como alternativa.
+2. Propõe a metáfora a partir do produto: a administração não é um jornal, logo nada de redação; fica uma biblioteca com oficina, com estantes para o conhecimento e bancadas para as skills.
+3. Liga os hooks do Claude Code como fonte de eventos sem conteúdo, põe um modelo sem 3D entre os eventos e a cena, e faz a repetição com os mesmos eventos.
+4. Carrega a vista só quando se abre, pausa com a página escondida, deixa a lista no DOM e mede com a placa gráfica ligada.
+
+**Resultado:** Foi assim que se fez a Oficina do site de notícias: 60 fps no computador e no telemóvel médio emulado, 22 kB de código da vista com gzip e nenhum byte de modelos. Falta medir num telemóvel a sério.
+
 ## Exemplo: um produto que roda
 
 **Pedido:** «Na página do produto quero o equipamento em 3D, a rodar quando se arrasta.»

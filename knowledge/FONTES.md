@@ -79,6 +79,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [MDN prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) | Respeitar a preferência de movimento reduzido |
 | [WCAG 2.2 — 2.3.3](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) | Critério de acessibilidade para animação desencadeada por interação |
 | [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) | Animação ligada ao scroll, pinning e scrub |
+| [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks) | Eventos de sessão, skill e subagente que alimentam um mundo 3D de agentes |
 
 ## [SEO e descoberta](seo/README.md)
 
