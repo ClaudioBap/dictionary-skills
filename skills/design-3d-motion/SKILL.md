@@ -23,7 +23,7 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta numa só pergunta: a 
 
 Antes de desenhar, aplica `3d-na-web-quando-e-porque.md`: se o mesmo efeito se consegue com CSS ou SVG, propõe isso primeiro como opção mais barata, no formato da Fase 1, com o 3D como opção seguinte.
 
-Se o produto tem agentes de IA a trabalhar e o utilizador quer vê-los, propõe o mundo 3D movido por eventos de `mundo-3d-movido-por-agentes.md` só quando mostra algo que uma lista de estados não mostra, e propõe a metáfora a partir do que o produto é.
+Se o produto tem agentes de IA a trabalhar e o utilizador quer vê-los, propõe o mundo 3D movido por eventos de `mundo-3d-movido-por-agentes.md` só quando mostra algo que uma lista de estados não mostra, e propõe a metáfora a partir do que o produto é. Para escolher o mundo de cada público e os papéis dos bonecos, lê `knowledge/portais-de-agentes/um-mundo-por-publico.md` e `knowledge/portais-de-agentes/papeis-e-aspeto-dos-agentes.md`. Um portal inteiro, com contas, perguntas e notas, é da `portal-de-agentes`.
 
 ## 2. Ler só o que interessa
 
@@ -66,3 +66,8 @@ Quando nenhuma entrada cobre o que o utilizador precisa (uma técnica, uma bibli
 - As medições: assets, primeira imagem, frames por segundo, Core Web Vitals, movimento reduzido.
 - A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher (modelos, texturas, marca).
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

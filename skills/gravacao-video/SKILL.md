@@ -170,3 +170,8 @@ Cola os comandos corridos, as durações e os caminhos dos ficheiros.
 - As ferramentas e a voz usadas, com a licença de cada uma e a fonte.
 - As provas, segmento a segmento, com os números; e o que fica para o ouvido do utilizador.
 - As entradas novas registadas e o que ficou por preencher.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

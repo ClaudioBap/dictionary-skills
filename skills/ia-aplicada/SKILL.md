@@ -23,6 +23,8 @@ Se o pedido já o diz, passa ao passo 2. Se não, lê `knowledge/ia/README.md` e
 
 Lê o `README.md` da subpasta escolhida, as entradas dela que o pedido toca e as entradas da raiz de `ia/` que se aplicam. Não leias as outras subpastas.
 
+Se o trabalho é acompanhar ou conduzir sessões do Claude Code a partir de outra aplicação (hooks que enviam eventos, perguntas respondidas à distância, notas às skills, um agente local), lê também `knowledge/portais-de-agentes/eventos-e-origem-das-skills.md`, `caixa-de-perguntas-a-distancia.md`, `avaliacao-de-skills-por-push.md` e `agente-local-licenca-e-emparelhamento.md`, na mesma pasta. Um portal inteiro é da `portal-de-agentes`.
+
 ## 3. Se a biblioteca não tem a resposta
 
 Quando nenhuma entrada cobre o que o utilizador precisa, ou a entrada está desatualizada face ao que ele descreve:
@@ -39,3 +41,8 @@ Quando nenhuma entrada cobre o que o utilizador precisa, ou a entrada está desa
 
 - Quando há uma decisão (que fornecedor, que modelo, adotar ou construir), apresenta as opções da mais barata à mais cara, com a base de cada uma e uma recomendação, no formato da Fase 1.
 - Quando há trabalho a fazer, o critério de fim parte da linha «Para uma skill» das entradas usadas, e só dás a tarefa por feita com prova (comando e saída, ficheiro ou URL).
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

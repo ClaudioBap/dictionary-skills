@@ -48,3 +48,8 @@ O núcleo, a configuração e a documentação de como se instancia um caso novo
 - A versão do núcleo e o registo de alterações.
 - A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

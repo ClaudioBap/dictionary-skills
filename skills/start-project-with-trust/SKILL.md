@@ -264,6 +264,7 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
 3. **Acessos (P15).** Revê `acessos.md` com o utilizador: cada acesso confirmado e a data de revisão atualizada. Em «Acessos», escreve «Ver acessos.md, revisto em <data>», ou «Não aplicável:» e a razão.
 3a. **Operação.** Preenche «Operação» com um item por linha, a partir de `knowledge/fiabilidade/prontidao-operacional-e-passagem.md` (monitorização dos quatro sinais, runbooks, cópias de segurança 3-2-1 testadas, processo de incidentes, registo de alterações, sondas de saúde): o que ficou feito e a prova. É o documento que quem vai operar a plataforma recebe, para não precisar de saber como foi construída. Sem plataforma a operar, escreve «Não aplicável:» e a razão.
 3b. **Humanizar.** Corre a mini skill `humanizar` sobre o que vai ser entregue, pede autorização para as correções e cola a saída final do verificador em «Verificação», como prova do critério «sem marcas de escrita de IA». Os achados que o utilizador decidiu manter ficam registados com a razão.
+3c. **Documentação.** Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), corre o modo «gerar» dela. Os documentos (relatório final, Entendimento e livro de processos e estatísticas) entram em «Operação» como um item, com a saída do `verificar.mjs` dela como prova. Com «Operação» em «Não aplicável», os caminhos vão só para o relatório final.
 4. Corre o verificador da entrega e mostra a saída completa:
 
    ```
@@ -298,6 +299,7 @@ Enquanto uma destas não se cumprir, o goal-loop continua.
 
 Ao terminar, mostra:
 - os caminhos dos documentos (`objetivo.md`, `necessidades.md`, `plano.md`, `custo-beneficio.md`, `entrega.md` e, se existir, `acessos.md`);
+- os documentos da `documentacao` em `documentacao/`, se correu;
 - a saída final de `verificar.mjs --entrega` e de `verificar-publicacao.mjs`;
 - o número de perguntas respondidas e assumidas;
 - os pressupostos aceites;

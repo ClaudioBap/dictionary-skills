@@ -67,3 +67,8 @@ Tem de terminar com `✓ Publicação verificada`. Se o projeto não está expos
 - O que ficou por preencher pelo utilizador, com onde se obtém cada valor.
 - A saída do verificador de publicação.
 - As fontes que foste buscar, se a biblioteca não chegava.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

@@ -61,3 +61,8 @@ Quando a linguagem ou o framework do projeto não está na base, ou uma entrada 
 - O que mudou, ficheiro a ficheiro, e porquê.
 - As provas: formatador, linter, testes, segurança, humanização (com os achados que ficaram e porquê).
 - As fontes novas registadas e o que ficou por preencher.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

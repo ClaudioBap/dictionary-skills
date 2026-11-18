@@ -63,3 +63,8 @@ As credenciais da base de dados e os acessos a sistemas que já existem ficam no
 - A saída final do verificador da `humanizar`, com os achados que ficaram e porquê.
 - O que ficou por preencher.
 - As fontes que foste buscar, se a biblioteca não chegava.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

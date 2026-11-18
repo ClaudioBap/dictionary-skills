@@ -34,6 +34,7 @@ Pergunta também o que está em jogo, se ainda não se sabe: dados pessoais (P11
 - Com exposição pública: `seguranca/rate-limit-e-waf.md`, `seguranca/defesa-contra-xss.md`, `seguranca/csrf-verificar-a-origem.md`, `seguranca/validacao-de-entradas.md`, `seguranca/queries-parametrizadas.md`, `seguranca/seguranca-de-api.md`, `seguranca/sessoes-robustas.md`, `seguranca/endpoints-de-saude-discretos.md`.
 - Com servidores ou máquinas: `acesso-remoto/` inteira, `seguranca/contentores-endurecidos.md`, `seguranca/menor-privilegio-na-base-de-dados.md`.
 - Com LLM: `ia/seguranca/owasp-top-10-llm.md`, `ia/seguranca/injecao-de-prompt-mitigacoes.md`.
+- Com um portal que recebe eventos de sessões de agentes ou as conduz: `portais-de-agentes/espaco-por-pessoa-e-projeto-por-repositorio.md`, `portais-de-agentes/caixa-de-perguntas-a-distancia.md`, `portais-de-agentes/agente-local-licenca-e-emparelhamento.md`.
 - Com pipeline e dependências: `seguranca/ci-como-portao-do-deploy.md`, `seguranca/cadeia-de-fornecimento-verificada.md`, `seguranca/integridade-e-migracoes-aditivas.md`.
 - Para detetar e reagir: `seguranca/observabilidade-e-alertas.md`, `seguranca/detecao-e-resposta-a-incidentes.md`.
 
@@ -73,3 +74,8 @@ Quando nenhuma entrada cobre o que o utilizador precisa, ou a entrada está desa
 - O que parou por precisar de autorização do dono.
 - O que ficou por preencher.
 - As fontes que foste buscar, se a biblioteca não chegava.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

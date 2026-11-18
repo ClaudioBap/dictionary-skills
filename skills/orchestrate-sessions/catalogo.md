@@ -18,6 +18,8 @@ Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler dire
 | `produtizar` | Transformar o que foi feito para um caso num núcleo reutilizável com adaptadores e configuração, ou num modelo de projeto | `produto/` | instalada |
 | `operar` | Deixar uma plataforma pronta para quem a vai operar: monitorização, runbooks, cópias de segurança, incidentes | `fiabilidade/`, `docker/`, `cicd/` | instalada |
 | `humanizar` | Verificar texto, código, interface, commits e dados à procura de marcas de IA, e corrigir só com autorização | (catálogo próprio em `../humanizar/marcas.md`) | instalada |
+| `portal-de-agentes` | Construir um portal onde uma equipa acompanha os seus agentes de IA: mundos, contas, perguntas à distância, notas às skills, agente local | `portais-de-agentes/`, `3d-webgl/mundo-3d-movido-por-agentes.md` | instalada |
+| `documentacao` | Relatório de cada processo e, no fim de uma fase ou da entrega, o livro Excel de processos e estatísticas, o Entendimento e o relatório final em Word | `estrutura/` (as entradas sobre documentação) | instalada |
 
 Ficam na `start-project-with-trust`, porque servem para decidir e não para executar: `plataformas/`, `governacao/`, `estrutura/`.
 

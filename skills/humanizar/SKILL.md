@@ -73,3 +73,8 @@ Para ver as marcas à medida que os ficheiros são escritos, e não só no fim, 
 - Achados por categoria: corrigidos, mantidos por decisão do utilizador, e os de leitura.
 - A saída final do verificador.
 - O que ficou para os próximos trabalhos (por exemplo, o estilo de commit a seguir).
+
+
+## Documentação
+
+Quando outra skill te chama, o que encontraste entra no relatório de processo dela. Quando corres sozinha sobre um trabalho e corriges alguma coisa, escreve o teu, como diz o modo «processo» da skill `documentacao`, se ela estiver instalada (existe `../documentacao/SKILL.md`).

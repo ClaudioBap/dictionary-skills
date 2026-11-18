@@ -96,3 +96,4 @@ Quando todas as tarefas tiverem prova:
    - cada tarefa com a prova;
    - o custo por sessão e o total, a partir do `/usage`;
    - as subidas de nível. Se um tipo de tarefa subiu mais de uma vez, sugere ajustar a linha dele em `modelo-e-effort.md`.
+4. Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), corre o modo «gerar» dela e junta ao relatório os caminhos dos documentos. As saídas das sessões, com o cabeçalho de processo, já são os relatórios dos processos.

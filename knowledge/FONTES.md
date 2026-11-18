@@ -459,6 +459,44 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Cookiecutter](https://cookiecutter.readthedocs.io) | Gerar projetos a partir de um modelo |
 | [Copier](https://copier.readthedocs.io) | Modelos de projeto que atualizam os projetos gerados |
 
+## [Portais e mundos de agentes](portais-de-agentes/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [Claude Code: hooks](https://code.claude.com/docs/en/hooks) | Eventos e entrada dos hooks, `async`, `PermissionRequest`, `SubagentStart` e `SubagentStop`, `Notification`, `PostToolUse` e `additionalContext` |
+| [Claude Code: skills](https://code.claude.com/docs/en/skills) | Onde as skills vivem, precedência, frontmatter e `metadata` |
+| [Claude Code: sub-agents](https://code.claude.com/docs/en/sub-agents) | Subagentes e a ferramenta Agent |
+| [Claude Code: plugins loading](https://code.claude.com/docs/en/plugins/loading) | De onde vêm as skills dos plugins |
+| [Claude Code: settings](https://code.claude.com/docs/en/settings) | Âmbitos dos ficheiros onde se registam os hooks |
+| [Claude Code: permissions](https://code.claude.com/docs/en/permissions) | Regras de permissão e o campo `if` dos hooks |
+| [Claude Code: permission modes](https://code.claude.com/docs/en/permission-modes) | Modo manual e automático, também com `-p` |
+| [Claude Code: sessions](https://code.claude.com/docs/en/sessions) | Ciclo de vida e retoma das sessões |
+| [Claude Code: CLI reference](https://code.claude.com/docs/en/cli-reference) | Correr o `claude` como subprocesso |
+| [Claude Code: authentication](https://code.claude.com/docs/en/authentication) | Ordem das credenciais (subscrição, chave de API, tokens) |
+| [Claude Code: legal and compliance](https://code.claude.com/docs/en/legal-and-compliance) | Uso de credenciais de subscrição e de chaves de API |
+| [Claude Agent SDK: overview](https://code.claude.com/docs/en/agent-sdk/overview) | Agent SDK e credenciais de subscrição |
+| [Claude Code: Remote Control](https://code.claude.com/docs/en/remote-control) | Alternativa oficial a um portal próprio |
+| [Cloudflare Access: application token](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/application-token/) | A identidade que o token traz (email, `common_name`) |
+| [Cloudflare Access: validar o JWT](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/) | Validar o token no servidor |
+| [Cloudflare Access: service tokens](https://developers.cloudflare.com/cloudflare-one/access-controls/service-credentials/service-tokens/) | Um token por PC e a revogação |
+| [Cloudflare Access: políticas](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/) | Allow, Service Auth e seletores |
+| [Cloudflare Access: MFA](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/mfa-requirements/) | Segundo fator pelo fornecedor ou pelo Access |
+| [Cloudflare Access: GitHub como fornecedor de identidade](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Entrar com a conta do GitHub |
+| [git-remote](https://git-scm.com/docs/git-remote) | O `origin`, `get-url` e as formas de endereço |
+| [git-clone](https://git-scm.com/docs/git-clone) | Formas de endereço e `insteadOf` |
+| [git-worktree](https://git-scm.com/docs/git-worktree) | Configuração partilhada pelas worktrees |
+| [git-rev-list](https://git-scm.com/docs/git-rev-list) | O primeiro commit como identificador |
+| [GitHub CLI: gh auth status](https://cli.github.com/manual/gh_auth_status) | Contas git ligadas no PC, sem tokens |
+| [WCAG 2.2](https://www.w3.org/TR/WCAG22/) | Uso da cor (1.4.1), contraste não textual (1.4.11) e alvos de toque (2.5.5, 2.5.8) |
+| [MDN: Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) | Avisos no telemóvel |
+| [RFC 8292 (VAPID)](https://www.rfc-editor.org/rfc/rfc8292) | Identificar o servidor que envia avisos |
+| [RFC 8030 (Web Push)](https://www.rfc-editor.org/rfc/rfc8030) | Protocolo dos avisos |
+| [MDN: SubtleCrypto.generateKey()](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey) | Chave do browser não exportável |
+| [MDN: SubtleCrypto.exportKey()](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey) | O que uma chave não exportável recusa |
+| [MDN: SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) | Guardar chaves no browser |
+| [Microsoft Learn: CryptProtectData](https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata) | Cifrar o cofre local com a conta do Windows |
+| [Microsoft Learn: ProtectedData](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata) | O mesmo, a partir do .NET |
+
 ## A vigiar
 
 Pontos que o agente de atualização verifica sempre, a pedido do dono do repositório.
@@ -490,3 +528,5 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Base de dados | Apache Spark (4.3.0) e Delta Lake (4.3.x, compatível com Spark 4.0.x e 4.1.x): a compatibilidade muda a cada versão | [https://docs.delta.io/latest/releases.html](https://docs.delta.io/latest/releases.html) |
 | Base de dados | Especificação do Iceberg: versão 4 em desenvolvimento, ainda não adotada (a 2026-11-16) | [https://iceberg.apache.org/spec/](https://iceberg.apache.org/spec/) |
 | Segurança | Claim `amr` do id_token: a página do Entra não o documenta (a 2026-11-16); verificar se passa a documentá-lo | [https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference) |
+| Portais de agentes | Leitura de «intermediate» na página legal do Claude Code (credenciais e uso «on their end users' behalf»): confirmar com a Anthropic se um agente local que conduz o `claude` com a subscrição da própria pessoa é permitido | [https://code.claude.com/docs/en/legal-and-compliance](https://code.claude.com/docs/en/legal-and-compliance) |
+| Portais de agentes | Comportamentos vistos só em corridas (o nome da skill em `tool_input.skill` no `PreToolUse`; o `PermissionRequest` também para o `AskUserQuestion`, com a primeira resposta a ganhar): verificar se passam a estar documentados ou mudam | [https://code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) |

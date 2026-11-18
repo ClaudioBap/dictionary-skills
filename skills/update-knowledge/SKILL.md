@@ -187,3 +187,8 @@ Mostra:
 - o estado de cada ponto «A vigiar»;
 - o commit publicado;
 - no conhecimento pessoal: o que entrou, o que ficou em `pendentes.md` e as fontes por ler.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de uma corrida que alterou o conhecimento escreve o relatório do processo, como diz o modo «processo» dela, com a referência às linhas novas do `CHANGELOG.md`. Uma corrida sem alterações não leva relatório.

@@ -63,3 +63,8 @@ O que depender de decisões ou acessos do utilizador (quem recebe os alertas, on
 - O que ficou por preencher e quem o tem de dar.
 - A saída do verificador da entrega.
 - As fontes que foste buscar, se a biblioteca não chegava.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

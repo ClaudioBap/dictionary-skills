@@ -7,6 +7,7 @@ fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: media
 verificado_em: 2026-11-17
+editado_em: 2026-11-18
 ---
 
 # Mundo 3D movido por agentes
@@ -15,7 +16,7 @@ verificado_em: 2026-11-17
 
 ## Conteúdo
 
-Origem: padrão construído e medido na Oficina da administração do site-noticias (sessões S2-O2 e S3-O3, 2026-11-16 e 17). O que vem dessa experiência está marcado como *(experiência do projeto)*. As afirmações sobre hooks e three.js vêm das fontes em baixo, lidas a 2026-11-17 (ver «Lido na fonte»).
+Origem: padrão construído e medido na Oficina, a sala 3D da administração do projeto de origem (2026-11-16 e 17). O que vem dessa experiência está marcado como *(experiência do projeto)*. As afirmações sobre hooks e three.js vêm das fontes em baixo, lidas a 2026-11-17 (ver «Lido na fonte»).
 
 ### Quando faz sentido e quando é enfeite
 
@@ -25,7 +26,7 @@ Origem: padrão construído e medido na Oficina da administração do site-notic
 
 ### A metáfora sai do que o produto é *(experiência do projeto)*
 
-- Proposta rejeitada: uma redação de jornal. A administração do site-noticias não é um jornal (o jornal é só a face pública), e a metáfora trazia rotativas e estética de imprensa a uma ferramenta de trabalho.
+- Proposta rejeitada: uma redação de jornal. A administração do projeto de origem não é um jornal (o jornal é só a face pública), e a metáfora trazia rotativas e estética de imprensa a uma ferramenta de trabalho.
 - Proposta que ficou: biblioteca com oficina. As estantes são o conhecimento (uma por categoria, um volume por entrada) e as bancadas são as skills (um boneco por skill). Cada elemento da cena corresponde a uma coisa que o produto tem, por isso a pessoa percebe a cena sem legenda.
 - Método: lista o que o produto tem (coisas que se guardam, coisas que fazem trabalho, quem pede), escolhe um lugar conhecido onde essas relações existem e rejeita o que importa estética de outro produto. Pergunta ao dono antes de construir.
 
@@ -50,7 +51,7 @@ Regra: o estado de uma sessão tem de se ler no boneco da própria sessão, e n�
 
 ### De onde vêm os eventos
 
-Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de vida. Os usados e o que o stdin trouxe nas corridas reais da S2-O2 (Claude Code 2.1.325) *(experiência do projeto, formato confirmado com a ferramenta a correr)*:
+Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de vida. Os usados e o que o stdin trouxe nas corridas reais do projeto de origem (Claude Code 2.1.325) *(experiência do projeto, formato confirmado com a ferramenta a correr)*:
 
 | Hook | Serve para | Traz (além de `session_id`, `cwd`, `hook_event_name`) |
 |---|---|---|
@@ -112,7 +113,7 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 
 ### O que verificar
 
-- A sequência simulada passa por todos os estados, com capturas em claro e escuro, largo e estreito. Abrir cada captura. Um script que faz de fonte de eventos (`simular-agentes.mjs` na Oficina) dispensa uma sessão real, mas uma sessão real tem de se ver pelo menos uma vez.
+- A sequência simulada passa por todos os estados, com capturas em claro e escuro, largo e estreito. Abrir cada captura. Um script que faz de fonte de eventos dispensa uma sessão real, mas uma sessão real tem de se ver pelo menos uma vez.
 - Cada página de teste na sua janela: num browser sem janela só o separador da frente conta como visível.
 - axe-core com o cartão aberto e fechado; a mesma sequência sem WebGL e com movimento reduzido.
 
@@ -120,7 +121,7 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 
 Na referência de hooks do Claude Code confirmam-se: os dez eventos usados, o matcher com `|` como nomes exatos, `async: true` («corre em segundo plano sem bloquear»), a forma exec (`command` mais `args`, sem shell; no Windows o `command` tem de ser um executável real e os `.cmd` e `.bat` pedem a forma com shell), `agent_id` e `agent_type` no `SubagentStart`, `error` (com `rate_limit`) no `StopFailure`, `notification_type` no `Notification`, `subagent_type` na entrada do `Agent` e `last_assistant_message` no `Stop`. O manual do three.js confirma o render a pedido: «render once at the start and then render only when something changes».
 
-Só vêm das corridas reais da S2-O2, não da documentação lida: `tool_input.skill` na ferramenta `Skill`, o hook a receber `Agent` e não `Task`, e o `PermissionRequest` a disparar também para `AskUserQuestion`. `StopFailure` e `Notification` não apareceram nessas corridas.
+Só vêm das corridas reais do projeto de origem, não da documentação lida: `tool_input.skill` na ferramenta `Skill`, o hook a receber `Agent` e não `Task`, e o `PermissionRequest` a disparar também para `AskUserQuestion`. `StopFailure` e `Notification` não apareceram nessas corridas.
 
 **Para uma skill:** antes de propor um mundo 3D de agentes, confirma que mostra algo que a lista não mostra e escolhe a metáfora a partir do que o produto é, validada com o dono. Os eventos vêm de hooks assíncronos sem conteúdo; um modelo sem 3D entre os eventos e a cena serve a cena, a lista HTML e a repetição. A vista carrega a pedido, pausa escondida, tem alternativa sem WebGL e com movimento reduzido, e prova-se com capturas de cada estado e medições com placa gráfica ligada.
 
@@ -130,6 +131,9 @@ Só vêm das corridas reais da S2-O2, não da documentação lida: `tool_input.s
 - [Orçamento de desempenho 3D](orcamento-de-desempenho-3d.md) (3D, WebGL e animação)
 - [Acessibilidade e movimento](acessibilidade-e-movimento.md) (3D, WebGL e animação)
 - [Three.js / WebGL](threejs-webgl.md) (3D, WebGL e animação)
+- [Escolher o mundo de cada público](../portais-de-agentes/um-mundo-por-publico.md) (Portais e mundos de agentes)
+- [Papéis e aspeto dos agentes na cena](../portais-de-agentes/papeis-e-aspeto-dos-agentes.md) (Portais e mundos de agentes)
+- [Eventos das sessões e origem das skills](../portais-de-agentes/eventos-e-origem-das-skills.md) (Portais e mundos de agentes)
 
 ## Fontes oficiais
 
@@ -138,4 +142,8 @@ Só vêm das corridas reais da S2-O2, não da documentação lida: `tool_input.s
 - [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks): eventos, entrada, saída e registo dos hooks
 - [Manual do Three.js: render a pedido](https://threejs.org/manual/pages/rendering-on-demand.html): desenhar só quando algo muda
 
-Fonte: implementação em `site-noticias/web-admin/src/oficina-3d/` e saídas S2-O2 e S3-O3 da orquestração da fase 2. Não vem do PDF.
+Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.
+
+## Histórico
+
+- **2026-11-18**: antes, a origem dizia «padrão construído e medido na Oficina da administração do site-noticias (sessões S2-O2 e S3-O3, 2026-11-16 e 17)», o texto citava a administração do site-noticias e as corridas da S2-O2, o script `simular-agentes.mjs`, e o rodapé dizia «Fonte: implementação em `site-noticias/web-admin/src/oficina-3d/` e saídas S2-O2 e S3-O3 da orquestração da fase 2». Mudou porque o conhecimento deixou de citar o portal concreto de onde veio: o portal lê as skills, e não o contrário; o método passou para a secção Portais e mundos de agentes. Fonte: decisão de Cláudio Baptista a 2026-11-18. Editado a 2026-11-18.

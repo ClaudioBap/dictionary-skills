@@ -20,6 +20,7 @@ O nível vem do que o utilizador pediu para aquela tarefa, não do tipo. Regista
 | Design e interface | `sonnet` `low` | `opus` `medium` | `fable` `medium` |
 | Construir: código, integrações, testes | `sonnet` `low` | `sonnet` `medium` | `opus` `high` |
 | Rever e decidir com risco: segurança, migrações, depuração que já falhou, revisão final | `sonnet` `medium` | `opus` `medium` | `fable` `medium` |
+| Escrever para outros: entendimento do projeto, relatório final, documentação de entrega | `sonnet` `medium` | `opus` `medium` | `opus` `high` |
 | Mecânica: aplicar um padrão já decidido, renomear, formatar | `sonnet` `low` | `sonnet` `low` | `sonnet` `low` |
 | Ler: inventário, documentação, resumos, extração | `haiku` `low` | `haiku` `low` | `haiku` `low` |
 

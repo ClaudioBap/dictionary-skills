@@ -2,11 +2,11 @@
 
 [Versão em português](README.md)
 
-A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently three main skills and twelve mini skills:
+A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently three main skills and fourteen mini skills:
 
 - **`start-project-with-trust`** takes a client project from the first conversation to a verified delivery: guided discovery, plan, cost-benefit plan, execution and verification with evidence. It does not finish until every success criterion has evidence and the client accepts the delivery.
 - **`orchestrate-sessions`** splits a piece of work across several Claude sessions running in parallel, each with its own mini skill. It asks how many sessions you want and where to use subagents, and gives each task the cheapest model and effort that can do it. `start-project-with-trust` uses it in Phases 3 and 4.
-- **Mini skills**, one per topic, used on their own or in sessions launched by `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video` (in development) and `humanizar`. Each asks what the work is, reads only the relevant part of the knowledge and, if the library has no answer, goes to the official sources and records what it found. After the «Specific or modular» decision, `produtizar` turns what was built for one case into a reusable core. `humanizar` checks everything about to be delivered for AI tells (text, code, interface, commits) and only fixes with permission.
+- **Mini skills**, one per topic, used on their own or in sessions launched by `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video` (in development), `humanizar`, `portal-de-agentes` and `documentacao`. Each asks what the work is, reads only the relevant part of the knowledge and, if the library has no answer, goes to the official sources and records what it found. After the «Specific or modular» decision, `produtizar` turns what was built for one case into a reusable core. `humanizar` checks everything about to be delivered for AI tells (text, code, interface, commits) and only fixes with permission. `portal-de-agentes` guides building a portal where a team follows its AI agents (one world per audience, accounts, questions answered remotely, scores for the skills), using the method in the «Portais e mundos de agentes» section. `documentacao` is linked to all the others: each skill writes a report of its process, and from those it generates an Excel workbook of processes and statistics, the Word document «Entendimento do desenvolvimento» and the final report, in the house style when given sample files.
 - **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level. When a practice is replaced by a better one, it rewrites the entry, keeps the previous text in «Histórico» and updates the skills that used it.
 
 The skills and the knowledge base are written in Portuguese (Portugal).
@@ -18,7 +18,7 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The skill that starts and runs projects | People who build projects for clients (consultants, development teams) |
 | [`knowledge/`](knowledge/INDEX.md) | 356 good-practice entries in 26 sections, each with its source | Used by the skill; can also be read directly |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill that spreads work across sessions, with a model and effort per task | Whoever runs work with several sessions in parallel |
-| `skills/<mini skill>/` | The twelve mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
+| `skills/<mini skill>/` | The fourteen mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
 
 ## start-project-with-trust
@@ -79,6 +79,7 @@ Each user has personal knowledge in `~/.start-project-with-trust/` (on Windows, 
 | [C#](knowledge/csharp/README.md) | 13 | [Remote access (SSH and RDP)](knowledge/acesso-remoto/README.md) (outside the PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](knowledge/plataformas/README.md) (outside the PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (outside the PDF) | 14 | [Modularisation and productisation](knowledge/produto/README.md) (outside the PDF) | 7 |
+| [Agent portals and worlds](knowledge/portais-de-agentes/README.md) (outside the PDF) | 9 | | |
 
 Reference files:
 
@@ -210,8 +211,13 @@ skills/orchestrate-sessions/
 ├── modo-continuo.md    work to the end, wait for the usage-limit reset and resume
 └── scripts/            estado-uso.mjs (status line that records plan usage), retomar.mjs, retomar.vbs and agendar-retoma.mjs (scheduled resume)
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
-│                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar
+│                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar,
+│                             portal-de-agentes, documentacao
 └── SKILL.md        the topic process: asks what the work is, reads only that part of knowledge/ and goes to the sources when something is missing
+skills/documentacao/
+├── SKILL.md        «processo» and «gerar» modes, house style and checks
+├── modelos/        processo.md, entendimento.md and relatorio-final.md
+└── scripts/        padrao.mjs (style from sample files), gerar.mjs (Excel and Word) and verificar.mjs
 skills/update-knowledge/
 ├── SKILL.md        finding updates, confidence flow, publishing and personal knowledge
 ├── fontes-verificadas.json   date each source was last checked

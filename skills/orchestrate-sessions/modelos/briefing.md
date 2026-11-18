@@ -35,6 +35,8 @@ Não pares: deixa a variável no `.env.example`, regista-a em «Por preencher» 
 
 Escreve `<pasta>/saidas/S<n>.md` com:
 
+- se a skill `documentacao` estiver instalada, no topo, o cabeçalho do modelo `modelos/processo.md` dela, preenchido só com o que se verifica (a saída passa a ser o relatório do processo);
+
 - cada tarefa: feito, por preencher ou não feito, e a prova (comando e saída, ficheiro ou URL);
 - o que ficou por preencher pelo utilizador, uma linha por valor;
 - a saída de `node <pasta da skill humanizar>/scripts/humanizar.mjs <o que alteraste>`: limpa, ou com os achados que ficaram por decidir pelo utilizador (não corrijas sem autorização);

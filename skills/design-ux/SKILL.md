@@ -65,3 +65,8 @@ Quando nenhuma entrada cobre o que o utilizador precisa (um padrão de interface
 - As entradas usadas e as fontes novas registadas.
 - As provas: acessibilidade, desempenho, responsividade, SEO, humanização (com os achados que ficaram e porquê).
 - O que ficou por preencher.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

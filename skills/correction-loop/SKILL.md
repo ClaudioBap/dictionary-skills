@@ -128,3 +128,8 @@ Cada falha que não seja a aceitação resolve-se no nó indicado. Quando só fa
 - A prova antes e depois, e os testes que continuam a passar.
 - O que ficou assumido no diagnóstico e as decisões tomadas pelo caminho.
 - O que custa desfazer a correção.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.

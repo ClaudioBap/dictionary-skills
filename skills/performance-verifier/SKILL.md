@@ -74,3 +74,8 @@ Aplica as melhorias escolhidas, por ordem, até ao fim. Depois de cada uma, repe
 - O antes e o depois de cada melhoria aplicada, e as revertidas.
 - O que ficou por preencher.
 - As fontes que foste buscar, se a biblioteca não chegava.
+
+
+## Documentação
+
+Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), no fim de um trabalho com resultado escreve o relatório do processo, como diz o modo «processo» dela. Uma consulta sem alterações não leva relatório.
