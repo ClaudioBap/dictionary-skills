@@ -10,13 +10,15 @@ O objetivo é que ninguém consiga distinguir se o trabalho foi feito por uma pe
 
 **Menos é mais.** Uma ferramenta tende a mostrar tudo o que sabe; uma pessoa mostra o que quem usa precisa. Num ecrã, cada dado aparece uma vez, o que é novo vem primeiro, um gráfico só fica se responder a uma pergunta de quem o vê, e a explicação de como se calcula fica para os programadores, fora do ecrã. Quem quer analisar prefere um gráfico a um parágrafo.
 
+**Humanizar não é achatar.** Tirar as marcas (comprimidos, listas com bolas, tudo centrado, caixas iguais) não quer dizer tirar o movimento nem a forma. Uma interface toda reta e parada, com as ações em texto sublinhado, também denuncia ferramenta: é o que sai quando se corrige só por subtração. A interface mantém botões que se reconhecem como botões, transições ao passar, carregar e focar, a entrada das secções, micro-interações que respondem a cada ação e, onde ajuda a perceber o que se vê, algum 3D (three.js, pela `design-3d-motion`), sempre com `prefers-reduced-motion` respeitado. A base está em `knowledge/design/botoes-movimento-e-micro-interacoes.md` (o caminho do conhecimento dá-o `node ../start-project-with-trust/scripts/conhecimento.mjs`).
+
 O catálogo das marcas, por meio, está em `marcas.md`; o verificador em `scripts/humanizar.mjs`. Os caminhos são relativos à pasta deste `SKILL.md`.
 
 ## Regras
 
 - Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`.
 - **Nunca corrigir sem autorização.** O verificador não altera ficheiros. A skill mostra os achados e pergunta, por categoria, o que corrigir. Uma categoria autorizada corrige-se inteira; o resto fica como está e é registado.
-- **Só o que foi apontado.** Corrigir uma marca não é reescrever o parágrafo, o componente ou a função. O sentido, os factos, os nomes do domínio e as citações entre «» ficam iguais. Uma citação de uma fonte mantém a pontuação original, mesmo com travessões.
+- **Só o que foi apontado.** Corrigir uma marca não é reescrever o parágrafo, o componente ou a função. O sentido, os factos, os nomes do domínio e as citações entre «» ficam iguais. Uma citação de uma fonte mantém a pontuação original, mesmo com travessões. Numa interface, corrigir troca a forma genérica por uma com intenção e nunca a tira: um filtro em comprimido passa a lista pendente, um botão em pílula passa a botão com cantos ligeiramente arredondados, a mesma animação em tudo passa a transição onde algo muda. Estados, transições e profundidade que já serviam ficam.
 - **O estilo do projeto manda.** Formatter, linter, convenção de aspas e de commits do repositório valem mais do que qualquer regra daqui. Se o design do cliente pede emojis, os emojis ficam.
 - Trabalho de leitura e correção mecânica: `sonnet`, `low` ou `medium`. A decisão sobre uma interface genérica ou sobre o tom de um texto é «Rever e decidir com risco» em `../orchestrate-sessions/modelo-e-effort.md`.
 
@@ -38,7 +40,7 @@ O verificador apanha o que se reconhece por padrão. Lê depois o que está marc
 
 - no texto: ritmo das frases, enumerações de três, paralelismos, resumos finais, títulos a mais, números sem fonte;
 - no código: abstrações para um uso só, verificações impossíveis, `utils` onde cai tudo, mensagens de erro genéricas, testes que não testam;
-- na interface: alinhamento genérico (tudo centrado, caixas todas iguais, campos todos da mesma largura, espaçamentos todos iguais), página inicial de modelo, paleta e tipografia por omissão, estados vazios e de erro iguais em todo o lado. O que uma pessoa faz à mão é alinhar a uma grelha e ao conteúdo: larguras que seguem o que recebem, números à direita, mais espaço entre grupos do que dentro deles, assimetrias com intenção;
+- na interface: alinhamento genérico (tudo centrado, caixas todas iguais, campos todos da mesma largura, espaçamentos todos iguais), página inicial de modelo, paleta e tipografia por omissão, estados vazios e de erro iguais em todo o lado. O que uma pessoa faz à mão é alinhar a uma grelha e ao conteúdo: larguras que seguem o que recebem, números à direita, mais espaço entre grupos do que dentro deles, assimetrias com intenção. Lê também o contrário, a interface achatada: tudo reto e parado, ações em links sublinhados, nada que responda ao passar, carregar ou focar (secção «Interface achatada» de `marcas.md`);
 - nas listas, filtros e tabelas: listas com bolas onde cabia uma tabela, filtros em comprimidos redondos em vez de listas pendentes retas, tabelas sem ordenar nem filtrar pelo cabeçalho como no Excel, secções sem separadores nem cartões de resumo, componentes inventados em vez dos de uma biblioteca conhecida;
 - na informação a mais, com capturas de cada ecrã à frente: o mesmo dado em dois sítios, metadados com o mesmo valor em todas as linhas, gráficos que não respondem a nada, explicações para programadores, texto onde um gráfico chegava, o que é novo perdido no meio do resto. Para cada bloco pergunta «quem usa precisa disto para decidir ou agir?»; se não precisa, sai;
 - no vídeo: o guião, a narração e as ações do cursor, com a secção «Vídeo e voz»;

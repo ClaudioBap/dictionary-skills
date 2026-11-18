@@ -67,7 +67,7 @@ As marcas de texto repetem a regra «Sem marcas de escrita de IA» da `start-pro
 | Página inicial de modelo: título gigante em negrito, dois botões, três cartões de funcionalidades, rodapé de quatro colunas | A página que o produto precisa, a partir do que a pessoa vem fazer | V `hero-generico`, L |
 | Emojis como ícones | Um só conjunto de ícones, com o mesmo traço | V `icone-emoji` |
 | Textos genéricos («Get Started», «Saiba mais», «Your Company») | O verbo da ação concreta, na língua e no tom do projeto | V `copia-generica` |
-| Animações de entrada em tudo, sombras em tudo, cantos arredondados em tudo | Movimento só onde explica uma mudança; `prefers-reduced-motion` respeitado | L |
+| A mesma animação de entrada em tudo, sombras em tudo, cantos muito arredondados em tudo | Movimento onde responde ou explica: transição nos estados (passar, carregar, focar, abrir e fechar), entrada das secções uma vez, micro-interações que confirmam a ação; sombra no que flutua; cantos ligeiramente arredondados. O que denuncia é o mesmo efeito em tudo, não o movimento. `prefers-reduced-motion` respeitado | L |
 | Imagens de banco aleatórias | Imagens do cliente, ou nenhuma | L |
 | Ícones de bibliotecas misturadas | Um conjunto | L |
 | Tipografia por omissão da ferramenta (a mesma fonte em todos os projetos) | A tipografia do cliente, ou uma escolhida com razão | L |
@@ -99,6 +99,18 @@ Menos é mais: uma ferramenta mostra tudo o que tem; uma pessoa mostra o que que
 | Paredes de texto onde se quer analisar | O gráfico primeiro e o texto curto; o detalhe só quando se abre | L |
 | Rótulos longos na vertical ou cortados | Rótulos curtos na horizontal; o nome completo na dica | L |
 | O que é novo misturado com o resto | O novo primeiro | L |
+
+### Interface achatada
+
+Corrigir as marcas só por subtração (sem sombras, sem cantos, sem movimento, sem cor nos botões) deixa uma interface quadrada e parada, que também denuncia ferramenta. A NN/g mediu que os elementos planos, com sinais fracos de clique, se encontram mais devagar (`knowledge/design/botoes-movimento-e-micro-interacoes.md`). Em todas as linhas, `prefers-reduced-motion` respeitado.
+
+| Marca | O que uma pessoa faz | Quem apanha |
+|---|---|---|
+| Ações em links sublinhados ou em texto solto («Aprovar», «Guardar» a azul) | Botão a sério: o principal cheio, o secundário com contorno ou fantasma; o link sublinhado fica para navegar dentro do texto | L |
+| Botões em pílula (comprimido) | Cantos ligeiramente arredondados, com o raio do design system | L |
+| Nada responde ao passar, carregar ou focar | Cada controlo com estado ao passar, premido, com foco visível e a carregar, com transição curta | L |
+| Secções e painéis que aparecem ou desaparecem de golpe | A secção entra uma vez, sem atrasar a leitura; o que abre e fecha mostra de onde vem | L |
+| Tudo plano, mesmo onde há camadas (menu por cima, diálogo, o que se arrasta) | Sombra leve no que flutua; 3D (three.js) quando ajuda a perceber o que se vê, pela `design-3d-motion` | L |
 
 ## Vídeo e voz
 

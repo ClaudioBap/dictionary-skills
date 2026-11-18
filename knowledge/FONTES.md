@@ -66,6 +66,8 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [GOV.UK Service Manual](https://www.gov.uk/service-manual) | Melhoria progressiva e boas práticas de serviço digital |
 | [Nielsen Norman Group](https://www.nngroup.com/articles/) | Heurísticas e investigação de UX |
 | [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) | Autorização no servidor e registo de ações administrativas |
+| [W3C WAI-ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/patterns/) | Padrões de componentes acessíveis, como disclosure e accordion (grupos que abrem e fecham) |
+| [Material Design 3: Motion](https://m3.material.io/styles/motion/overview/how-it-works) | Princípios e durações do movimento na interface (não lida: só mostra texto depois de correr JavaScript) |
 
 ## [3D, WebGL e animação](3d-webgl/README.md)
 

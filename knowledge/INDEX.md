@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 140 entradas fora do PDF; 377 ficheiros de entrada no total.
+- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 141 entradas fora do PDF; 378 ficheiros de entrada no total.
 
 ## Secções
 
@@ -76,7 +76,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Operação padronizada e runbooks](fiabilidade/operacao-padronizada-e-runbooks.md) — As operações de rotina, pontuais e de emergência seguem procedimentos escritos e iguais para todos, apoiados em infraestrutura como código, monitorização e entregas seguras. *(fora do PDF)*
 - [Prontidão operacional e passagem](fiabilidade/prontidao-operacional-e-passagem.md) — Uma plataforma só se entrega a quem a vai operar quando existem, com prova, monitorização, runbooks, cópias testadas, processo de incidentes, registo de alterações e sondas de saúde. *(fora do PDF)*
 
-### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (29 entradas)
+### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (30 entradas)
 
 - [Design system como código](design/design-system-como-codigo.md) — Tokens no `:root`, componentes construídos sobre os tokens e um catálogo com todos os estados. *(pág. 13)*
 - [Acessibilidade (WCAG 2.1 AA)](design/acessibilidade-wcag.md) — Alvo mínimo WCAG 2.1 AA: teclado, foco visível, leitor de ecrã, contraste e axe/pa11y no CI. *(pág. 13)*
@@ -95,18 +95,19 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Gestão de acessos na interface](design/gestao-de-acessos-na-interface.md) — Uma interface para gerir utilizadores, papéis e âmbito, com registo, que espelha a autorização do servidor. *(pág. 16)*
 - [Design responsivo e multi-dispositivo](design/design-responsivo-e-multi-dispositivo.md) — Desenhar do telemóvel para cima, com layout fluido, alvos de toque grandes e sem scroll horizontal. *(pág. 16)*
 - [Formulários (design e UX)](design/formularios.md) — Pedir o mínimo, rótulos sempre visíveis, validar na linha e preservar o que já foi escrito. *(págs. 16, 17)*
-- [Navegação e arquitetura de informação](design/navegacao-e-arquitetura-de-informacao.md) — Estrutura previsível, agrupada por tarefa, onde o utilizador sabe sempre onde está e como voltar. *(pág. 17)*
+- [Navegação e arquitetura de informação](design/navegacao-e-arquitetura-de-informacao.md) — Estrutura previsível, agrupada por tarefa, onde o utilizador sabe sempre onde está e como voltar; um só deslocamento por ecrã, grupos do menu que abrem e fecham, e nada escondido por um filtro. *(pág. 17)*
 - [Feedback e desempenho percebido](design/feedback-e-desempenho-percebido.md) — Toda a ação dá resposta imediata e o que demora mostra progresso. *(pág. 17)*
 - [Tabelas e dados densos](design/tabelas-e-dados-densos.md) — Tabelas com ordenação, filtro, pesquisa e paginação, repensadas para ecrã pequeno. *(pág. 17)*
 - [Hierarquia visual e tipografia](design/hierarquia-visual-e-tipografia.md) — Uma escala tipográfica e de espaçamento consistentes, que guiam a atenção, com leitura confortável. *(págs. 17, 18)*
 - [Cor com significado](design/cor-com-significado.md) — Cores semânticas consistentes e nunca só a cor para dar informação. *(pág. 18)*
-- [Onboarding e estados vazios](design/onboarding-e-estados-vazios.md) — O primeiro uso e as listas vazias explicam o que é e oferecem o próximo passo. *(pág. 18)*
-- [Notificações ao utilizador](design/notificacoes-ao-utilizador.md) — Distinguir o urgente do informativo e deixar o utilizador controlar o que chega e por que canal. *(pág. 18)*
+- [Onboarding e estados vazios](design/onboarding-e-estados-vazios.md) — O primeiro uso e as listas vazias explicam o que é e oferecem o próximo passo; uma configuração com vários passos é um guia por níveis que passa sozinho quando o sistema confirma e se pode ignorar e rever. *(pág. 18)*
+- [Notificações ao utilizador](design/notificacoes-ao-utilizador.md) — Distinguir o urgente do informativo e deixar o utilizador controlar o que chega e por que canal; uma ação que precisa de outro dispositivo avisa nesse dispositivo, em qualquer página. *(pág. 18)*
 - [Pesquisa e filtros](design/pesquisa-e-filtros.md) — Pesquisa visível e tolerante que trata o «sem resultados», com filtros combináveis sempre à vista. *(págs. 18, 19)*
 - [Consistência e padrões estabelecidos](design/consistencia-e-padroes-estabelecidos.md) — Reutilizar padrões conhecidos; a mesma ação comporta-se igual em todo o lado. *(pág. 19)*
 - [Prevenção de erros e desfazer](design/prevencao-de-erros-e-desfazer.md) — Prevenir em vez de corrigir, oferecer desfazer e dizer como resolver. *(pág. 19)*
 - [Atalhos e power users](design/atalhos-e-power-users.md) — Atalhos de teclado e paleta de comandos para quem usa muito, sem prejudicar os ocasionais. *(pág. 19)*
 - [Avisos Web Push com VAPID, sem corpo](design/avisos-web-push-com-vapid.md) — Para avisar um telemóvel sem aplicação nativa, a aplicação web subscreve o Web Push com a chave pública VAPID e o servidor envia um POST sem corpo, assinado com um JWT ES256; o service worker mostra um texto fixo e o conteúdo só se lê na aplicação. No iPhone exige o iOS 16.4 e a aplicação no ecrã principal. *(fora do PDF)*
+- [Botões, movimento e micro-interações](design/botoes-movimento-e-micro-interacoes.md) — As ações são botões que se reconhecem como botões, com estados ao passar, premir, focar e carregar; o movimento responde à ação ou explica uma mudança, e com `prefers-reduced-motion` a interface funciona sem ele. Tirar as marcas de IA não é achatar: uma interface toda reta e parada também denuncia ferramenta. *(fora do PDF)*
 
 ### 5. [3D, WebGL e animação](3d-webgl/README.md) — págs. 20–23 (11 entradas)
 

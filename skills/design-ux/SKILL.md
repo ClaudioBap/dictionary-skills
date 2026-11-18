@@ -8,7 +8,7 @@ argument-hint: "O que desenhar e para quem, ou nada para perguntar"
 
 O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
-O conhecimento está em `knowledge/design/` e `knowledge/seo/`. Se `~/.start-project-with-trust/knowledge/design/` ou `.../seo/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada. Para 3D, WebGL e animação com movimento, a skill é a `design-3d-motion`.
+O conhecimento está em `knowledge/design/` e `knowledge/seo/`. Se `~/.start-project-with-trust/knowledge/design/` ou `.../seo/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada. As transições e micro-interações da interface são desta skill; para 3D, WebGL e animação ligada ao scroll, a skill é a `design-3d-motion`.
 
 ## Regras
 
@@ -28,9 +28,10 @@ Regista de onde veio o nível: as palavras do utilizador ou a resposta em `objet
 ## 2. Ler só o que interessa
 
 Lê o `README.md` de `design/` e as entradas que o pedido toca. Guia por tipo de pedido:
-- qualquer interface: `hierarquia-visual-e-tipografia.md`, `cor-com-significado.md`, `consistencia-e-padroes-estabelecidos.md`, `acessibilidade-wcag.md`, `design-responsivo-e-multi-dispositivo.md`, `estados-erros-e-resiliencia-na-ui.md`, `microcopia-erros-e-estados-claros.md`;
+- qualquer interface: `hierarquia-visual-e-tipografia.md`, `cor-com-significado.md`, `consistencia-e-padroes-estabelecidos.md`, `acessibilidade-wcag.md`, `design-responsivo-e-multi-dispositivo.md`, `estados-erros-e-resiliencia-na-ui.md`, `microcopia-erros-e-estados-claros.md`, `botoes-movimento-e-micro-interacoes.md`;
 - formulários: `formularios.md`, `prevencao-de-erros-e-desfazer.md`, `feedback-e-desempenho-percebido.md`;
 - navegação e conteúdos: `navegacao-e-arquitetura-de-informacao.md`, `rotas-por-url-e-estado-recuperavel.md`, `pesquisa-e-filtros.md`, `onboarding-e-estados-vazios.md`;
+- configuração em vários passos ou ações entre dispositivos: `onboarding-e-estados-vazios.md`, `notificacoes-ao-utilizador.md`, `feedback-e-desempenho-percebido.md`;
 - dados e administração: `tabelas-e-dados-densos.md`, `painel-de-administracao-e-controlo.md`, `gestao-de-acessos-na-interface.md`, `personificacao-de-utilizadores.md`, `atalhos-e-power-users.md`;
 - desempenho e media: `desempenho-web-core-web-vitals.md`, `orcamento-de-desempenho.md`, `otimizacao-de-imagens-e-media.md`, `assets-e-fontes-locais.md`;
 - sites públicos: `seo/seo-tecnico.md`, `seo/dados-estruturados-e-partilha.md`;
@@ -56,14 +57,20 @@ Quando nenhuma entrada cobre o que o utilizador precisa (um padrão de interface
   - responsividade: capturas nas larguras que `design-responsivo-e-multi-dispositivo.md` indica;
   - SEO, em sites públicos: a validação dos dados estruturados e os pontos de `seo-tecnico.md`;
   - humanização: a saída final do verificador da `humanizar`.
-- Humanizar: a interface e os textos não podem deixar perceber que foram feitos por uma IA. Antes de dar a tarefa por feita, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que entregas e relê o que o verificador não apanha com as secções «Interface e design» e «Texto» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria.
+- Antes de dar a interface por feita, confirma os erros que mais escapam, cada um com a entrada que o explica:
+  - um só deslocamento por ecrã: capturas a 1600 e a 390 px sem barras de scroll a mais; a moldura ocupa a altura do ecrã, o menu lateral não se desloca inteiro e o bloco da conta fica fixo em baixo (`navegacao-e-arquitetura-de-informacao.md`);
+  - menu lateral com os grupos em botões que abrem e fecham (`aria-expanded`), todos fechados à partida e, fechado, com a página atual ao lado do nome, e nada escondido por um filtro: o que não cabe numa categoria aparece num grupo próprio, como «Sem projeto» (a mesma entrada);
+  - ações em botões e não em links, com estados ao passar, carregar e focar, e a interface a funcionar também com `prefers-reduced-motion: reduce` (`botoes-movimento-e-micro-interacoes.md`);
+  - configuração com vários passos num guia por níveis, que passa sozinho quando o sistema confirma e se pode ignorar e rever, com um aviso em todas as páginas enquanto falta algum passo (`onboarding-e-estados-vazios.md`);
+  - uma ação que precisa de outro dispositivo avisa nesse dispositivo, em qualquer página, e o dispositivo que espera mostra um só estado de espera, com o resto recolhido (`notificacoes-ao-utilizador.md`, `feedback-e-desempenho-percebido.md`).
+- Humanizar: a interface e os textos não podem deixar perceber que foram feitos por uma IA. Antes de dar a tarefa por feita, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que entregas e relê o que o verificador não apanha com as secções «Interface e design» (também «Interface achatada»: tirar marcas não é tirar o movimento) e «Texto» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria.
 - O que precisa do utilizador (marca, textos finais, imagens, domínio) fica em «Por preencher», com texto de substituição marcado como tal e nunca em produção.
 
 ## Relatório
 
 - O que foi desenhado, o nível e de onde veio.
 - As entradas usadas e as fontes novas registadas.
-- As provas: acessibilidade, desempenho, responsividade, SEO, humanização (com os achados que ficaram e porquê).
+- As provas: acessibilidade, desempenho, responsividade, os erros que mais escapam (passo 4), SEO, humanização (com os achados que ficaram e porquê).
 - O que ficou por preencher.
 
 
