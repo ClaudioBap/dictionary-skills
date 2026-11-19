@@ -15,6 +15,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) | Tempos, identificador, cookies e invalidação das sessões |
 | [OWASP CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection) | Exportação para CSV sem fórmulas |
 | [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | O que registar e como proteger o registo |
+| [OWASP Forgot Password Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html) | Tokens enviados por email: aleatórios, de uso único, com prazo, sem entrar sozinho |
 | [RFC 9700: OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/rfc9700) | PKCE, state e URI de retorno exatos |
 | [RFC 7636: PKCE](https://datatracker.ietf.org/doc/html/rfc7636) | Prova de posse do código em OAuth |
 | [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) | Validação do id_token, amr e acr |

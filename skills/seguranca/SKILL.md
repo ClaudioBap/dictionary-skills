@@ -31,6 +31,7 @@ Pergunta também o que está em jogo, se ainda não se sabe: dados pessoais (P11
 
 - Sempre: `seguranca/owasp-como-referencial.md`, `seguranca/tls-e-cabecalhos-versionados.md`, `seguranca/autenticacao-forte.md`, `seguranca/autorizacao-no-servidor.md`, `seguranca/segredos-num-cofre.md`, `seguranca/ambientes-seguros-por-omissao.md`.
 - Com dados pessoais: `privacidade/` inteira, `seguranca/criptografia-e-protecao-de-dados.md`, `seguranca/dados-de-teste-sinteticos-e-minimizacao.md`, `seguranca/auditoria-append-only.md`.
+- Com emails (convites, aceitação de contas, avisos, recuperação): `seguranca/links-por-email-sem-sessao.md`. Nenhum link enviado por email abre sessão.
 - Com exposição pública: `seguranca/rate-limit-e-waf.md`, `seguranca/defesa-contra-xss.md`, `seguranca/csrf-verificar-a-origem.md`, `seguranca/validacao-de-entradas.md`, `seguranca/queries-parametrizadas.md`, `seguranca/seguranca-de-api.md`, `seguranca/sessoes-robustas.md`, `seguranca/endpoints-de-saude-discretos.md`.
 - Com servidores ou máquinas: `acesso-remoto/` inteira, `seguranca/contentores-endurecidos.md`, `seguranca/menor-privilegio-na-base-de-dados.md`.
 - Com LLM: `ia/seguranca/owasp-top-10-llm.md`, `ia/seguranca/injecao-de-prompt-mitigacoes.md`.
@@ -65,6 +66,7 @@ Quando nenhuma entrada cobre o que o utilizador precisa, ou a entrada está desa
 2. Aplica a prática no código e na configuração. Chaves, certificados e contas que só o utilizador pode criar ficam no `.env.example` e em «Por preencher» de `entrega.md`, e o resto continua.
 3. Só dás a prática por feita com prova: um teste que passa, um cabeçalho que a resposta devolve, uma configuração que o verificador aceita.
 4. No fim, se o projeto está exposto, corre o verificador de publicação e regista a saída em `entrega.md` («Publicação»).
+5. **Check-up depois de definir a interface.** Quando a interface fica definida (maquetes aprovadas, páginas ou fluxos novos: entrar, convites, aceitação de contas, emails, partilhas, links públicos), corre a auditoria do passo 4 sobre esses fluxos antes de os publicar, com as entradas de autenticação, sessões e emails. Cada link que sai do sistema (email, atalho público, convite) responde a «quem o tiver na mão entra sem se autenticar?»; se a resposta for sim, é uma falha de risco alto.
 
 ## Relatório
 

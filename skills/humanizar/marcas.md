@@ -102,7 +102,7 @@ Menos é mais: uma ferramenta mostra tudo o que tem; uma pessoa mostra o que que
 
 ### Interface achatada
 
-Corrigir as marcas só por subtração (sem sombras, sem cantos, sem movimento, sem cor nos botões) deixa uma interface quadrada e parada, que também denuncia ferramenta. A NN/g mediu que os elementos planos, com sinais fracos de clique, se encontram mais devagar (`knowledge/design/botoes-movimento-e-micro-interacoes.md`). Em todas as linhas, `prefers-reduced-motion` respeitado.
+Corrigir as marcas só por subtração (sem sombras, sem cantos, sem movimento, sem cor nos botões) deixa uma interface quadrada e parada, que também denuncia ferramenta. O ponto certo é o do meio («nem 8 nem 80», o Cláudio, 2026-11-19, sobre umas maquetes «sem esse full reto», que «parecem um site feito por um júnior»): nem blocos retos empilhados, nem gradientes, vidro, sombras fortes e cantos muito redondos em tudo. Uma aplicação de trabalho bem feita tem profundidade leve, cantos de 8 a 12 px nos cartões, uma cor de destaque usada com parcimónia e movimento curto. A NN/g mediu que os elementos planos, com sinais fracos de clique, se encontram mais devagar (`knowledge/design/botoes-movimento-e-micro-interacoes.md`). Em todas as linhas, `prefers-reduced-motion` respeitado.
 
 | Marca | O que uma pessoa faz | Quem apanha |
 |---|---|---|
@@ -111,6 +111,10 @@ Corrigir as marcas só por subtração (sem sombras, sem cantos, sem movimento, 
 | Nada responde ao passar, carregar ou focar | Cada controlo com estado ao passar, premido, com foco visível e a carregar, com transição curta | L |
 | Secções e painéis que aparecem ou desaparecem de golpe | A secção entra uma vez, sem atrasar a leitura; o que abre e fecha mostra de onde vem | L |
 | Tudo plano, mesmo onde há camadas (menu por cima, diálogo, o que se arrasta) | Sombra leve no que flutua; 3D (three.js) quando ajuda a perceber o que se vê, pela `design-3d-motion` | L |
+| A página inteira feita de blocos brancos da largura toda, empilhados uns por baixo dos outros, todos com a mesma borda fina e o mesmo peso (parece feita por um júnior) | Uma composição: o que pede ação agora em destaque, maior e com fundo próprio; o resto numa grelha com tamanhos diferentes conforme a importância; superfícies separadas por espaço e elevação leve, não por linhas à volta de tudo | L |
+| Tabelas com aspeto de folha de cálculo crua (cabeçalho cinzento cheio, linhas de grelha em todo o lado) | O Excel é o comportamento (ordenar e filtrar no cabeçalho), não o aspeto: cabeçalho em texto pequeno sem fundo, uma linha fina só entre registos, a linha responde ao passar, os números com peso onde decidem | L |
+| Menu lateral em texto simples, sem ícones nem identidade | Ícones do mesmo traço em cada entrada, a página atual marcada, a marca do produto no topo, grupos com espaço entre si | L |
+| Títulos, números e texto quase do mesmo tamanho | Hierarquia: um título claro, números grandes onde se decide, rótulos pequenos e mais claros | L |
 
 ## Vídeo e voz
 

@@ -20,11 +20,11 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 141 entradas fora do PDF; 378 ficheiros de entrada no total.
+- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 142 entradas fora do PDF; 379 ficheiros de entrada no total.
 
 ## Secções
 
-### 1. [Segurança](seguranca/README.md) — págs. 3–9 (29 entradas)
+### 1. [Segurança](seguranca/README.md) — págs. 3–9 (30 entradas)
 
 - [Autorização no servidor, negar por omissão](seguranca/autorizacao-no-servidor.md) — A decisão de quem pode o quê vive no servidor, cada endpoint declara o que exige e, sem declaração, recusa. *(pág. 3)*
 - [Defesa contra XSS: escapar e CSP](seguranca/defesa-contra-xss.md) — Escapar por omissão todo o texto do utilizador e ter uma CSP sem `unsafe-inline` como segunda rede. *(pág. 3)*
@@ -55,6 +55,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [MFA imposto pelo fornecedor de identidade, não pela aplicação](seguranca/mfa-imposto-pelo-fornecedor-de-identidade.md) — Quando o login é por OIDC com o Microsoft Entra, o segundo fator é exigido pelas políticas do tenant (Conditional Access ou security defaults) e a aplicação não implementa MFA próprio; o que se faz é confirmar no teste do login real que a política se aplica e preparar a aplicação para os desafios que o fornecedor pode devolver. *(fora do PDF)*
 - [Login por OIDC: código com PKCE, state, nonce e validação do id_token](seguranca/oidc-codigo-com-pkce-state-e-nonce.md) — Num login por OIDC com servidor, usa-se o fluxo de código com PKCE (S256), um `state` ligado ao navegador que começou o pedido, um `nonce` no id_token, o URI de retorno exato, e valida-se o id_token (assinatura, emissor, audiência, validade e nonce) antes de abrir sessão, identificando a pessoa por `oid` ou `sub`. *(fora do PDF)*
 - [Sessões: tempos, rotação do identificador, resumo guardado e cookies](seguranca/sessoes-tempos-rotacao-e-cookies.md) — Os números que a OWASP dá para uma sessão: identificador com pelo menos 64 bits de entropia, renovado a cada mudança de privilégio, timeout por inatividade mais curto nas áreas de maior valor e um limite absoluto, invalidação no servidor, só um resumo do identificador guardado e cookie `__Host-` com `SameSite`. *(fora do PDF)*
+- [Um link enviado por email nunca dá sessão](seguranca/links-por-email-sem-sessao.md) — Um email de convite, de aceitação ou de recuperação leva quem o recebe à página de entrada; é lá que a pessoa se autentica. Um token num link é de uso único, expira e não abre sessão. *(fora do PDF)*
 
 ### 2. [Privacidade e conformidade](privacidade/README.md) — pág. 10 (4 entradas)
 
