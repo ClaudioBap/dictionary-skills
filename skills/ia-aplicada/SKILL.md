@@ -2,6 +2,8 @@
 name: ia-aplicada
 description: Mini skill para qualquer trabalho com IA. Começa por perguntar o que se vai fazer com IA (usar a API do Claude ou de outro fornecedor, RAG e grafos, agentes, modelo próprio, modelos abertos, voz, segurança, operação), lê só a subpasta de knowledge/ia/ que interessa e responde ou executa com base nela, citando. Se a biblioteca não tem o que é preciso, vai às fontes oficiais, regista o que encontrou e só depois responde. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
 argument-hint: "O que queres fazer com IA, ou nada para escolher"
+metadata:
+  estado: produção
 ---
 
 # IaAplicada

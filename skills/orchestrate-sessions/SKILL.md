@@ -2,6 +2,8 @@
 name: orchestrate-sessions
 description: Divide um trabalho em tarefas e distribui-as por sessões Claude a correr ao mesmo tempo, cada uma com a mini skill certa. Pergunta quantas sessões queres em paralelo e onde usar subagentes (no orquestrador, em cada sessão ou em todas), atribui a cada tarefa o modelo e o effort mais baratos que a fazem, prepara o briefing de cada sessão, recolhe as saídas com prova e mede o custo. Usar para executar um trabalho com várias sessões, ou a Fase 4 de um projeto da start-project-with-trust.
 argument-hint: "Nome do trabalho, ou arranque/<projeto> para executar um plano aprovado"
+metadata:
+  estado: produção
 ---
 
 # OrchestrateSessions

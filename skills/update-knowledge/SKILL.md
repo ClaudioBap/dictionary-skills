@@ -3,6 +3,8 @@ name: update-knowledge
 description: Atualiza a base de conhecimento da skill start-project-with-trust e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado.
 argument-hint: "Tema a atualizar (ex.: ia), «pessoal» para só o conhecimento pessoal, ou nada para todos"
 disable-model-invocation: true
+metadata:
+  estado: produção
 ---
 
 > Só corre quando alguém a chama explicitamente (`/update-knowledge`). O agente nunca a inicia sozinho.

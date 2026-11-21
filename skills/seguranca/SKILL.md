@@ -2,6 +2,8 @@
 name: seguranca
 description: Mini skill para auditar ou proteger um site ou aplicação. Em modo auditoria corre o verificador de publicação, percorre os critérios da base de conhecimento como lista de verificação e devolve as falhas por ordem de risco, cada uma com a correção e a entrada que a sustenta. Em modo construção aplica as práticas de segurança, privacidade e acesso remoto ao que se está a construir, com prova. Nunca explora falhas, só verifica. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
 argument-hint: "URL ou pasta a auditar, ou o que se vai construir"
+metadata:
+  estado: produção
 ---
 
 # Segurança

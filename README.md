@@ -188,6 +188,19 @@ Para atualizar o conhecimento:
 npx skills@latest update
 ```
 
+## Estado de cada skill
+
+Cada `SKILL.md` diz o seu estado em `metadata.estado`:
+
+- `produção`: está pronta. O portal Central Industry of Development leva-a aos computadores ligados, sem a instalar.
+- `testes`: está a ser experimentada.
+- `demo`: serve só para mostrar.
+
+As de `testes` e `demo` aparecem no armazém do conhecimento, mas o agente não as leva. Uma skill sem estado conta
+como `testes`. Para mudar o estado, muda-se essa linha.
+
+Hoje, `correction-loop` está em testes e `gravacao-video` em demo. As outras estão em produção.
+
 ## Em testes
 
 `skills/correction-loop/` é uma skill em testes e não se instala com `--skill '*'`: o campo `metadata.internal` do `SKILL.md` deixa-a de fora. Foi um teste para aumentar a performance, à procura de respostas mais rápidas a problemas: a partir de pouco mais do que «está a dar erro», descobrir como reproduzir o erro, localizar a causa com métodos de procura escolhidos pelo sinal disponível e entregar a melhor correção, provada.

@@ -2,6 +2,8 @@
 name: design-ux
 description: "Mini skill para interface e experiência de utilizador: layout, acessibilidade, formulários, navegação, design responsivo, estados e erros, e SEO técnico. Pergunta o que se vai desenhar e a que nível (simples, profissional, topo), lê só as entradas de knowledge/design/ e knowledge/seo/ que o pedido toca, executa com critérios de sucesso verificáveis e prova com verificações de acessibilidade e Core Web Vitals. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar sozinha ou numa sessão lançada pela orchestrate-sessions."
 argument-hint: "O que desenhar e para quem, ou nada para perguntar"
+metadata:
+  estado: produção
 ---
 
 # DesignUx

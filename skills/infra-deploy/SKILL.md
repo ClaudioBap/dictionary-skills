@@ -2,6 +2,8 @@
 name: infra-deploy
 description: Mini skill para o pipeline, os contentores, o alojamento e a publicação de um projeto. Decide com o utilizador onde e como publicar (do grátis ao empresarial), monta o pipeline como portão do deploy, endurece as imagens, mantém os segredos fora do repositório, confirma a localização dos dados na UE e termina sempre com o verificador de publicação quando o projeto está exposto. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
 argument-hint: "Pasta do projeto e o que se quer: pipeline, contentores, alojamento, publicação ou tudo"
+metadata:
+  estado: produção
 ---
 
 # Infra e deploy

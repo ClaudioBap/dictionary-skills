@@ -2,6 +2,8 @@
 name: operar
 description: Mini skill que deixa uma plataforma pronta para quem a vai operar sem saber como foi construída. Preenche a secção «Operação» da entrega item a item (monitorização dos quatro sinais, runbooks, cópias de segurança 3-2-1 testadas, processo de incidentes, registo de alterações, sondas de saúde), cada um com prova, e escreve o documento de operação com as rotinas e as emergências da plataforma. Usar na Fase 5 da start-project-with-trust, numa sessão lançada pela orchestrate-sessions, ou sozinha sobre uma plataforma que já existe.
 argument-hint: "Pasta do projeto ou URL da plataforma a preparar para operação"
+metadata:
+  estado: produção
 ---
 
 # Operar

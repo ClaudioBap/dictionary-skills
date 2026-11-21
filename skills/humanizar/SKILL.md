@@ -2,6 +2,8 @@
 name: humanizar
 description: Verifica tudo o que vai ser entregue (texto, código, interface, vídeo, commits, documentação, dados de exemplo) à procura das marcas que denunciam que foi feito por uma ferramenta, mostra cada achado com o que uma pessoa faria no lugar e só corrige com autorização, categoria a categoria. Usar antes de qualquer entrega, como última sessão da orquestração, ou sobre um trabalho que já existe.
 argument-hint: "Pasta, ficheiros ou «diff» a verificar; junta «commits» para ver também as mensagens de commit"
+metadata:
+  estado: produção
 ---
 
 # Humanizar

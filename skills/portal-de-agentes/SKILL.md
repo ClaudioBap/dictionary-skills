@@ -2,6 +2,8 @@
 name: portal-de-agentes
 description: "Mini skill para construir um portal onde uma equipa vê e acompanha o trabalho dos seus agentes de IA (sessões do Claude Code, skills, subagentes): um mundo próprio para cada público, um espaço por pessoa e um projeto por repositório, perguntas das sessões respondidas à distância e no telemóvel, notas às skills em cada push e, se se quiser, um agente local que conduz o Claude Code a partir do portal. Conduz as decisões com knowledge/portais-de-agentes/, uma de cada vez, desenha a maqueta antes de construir, distribui a execução pelas mini skills e prova com capturas. O portal lê o repositório das skills e adapta-se a qualquer conjunto delas. Usar quando alguém quer criar o seu portal de agentes, ou um mundo novo para o mesmo fim."
 argument-hint: "O que queres ver dos teus agentes, ou nada para começar pelas perguntas"
+metadata:
+  estado: produção
 ---
 
 # PortalDeAgentes
