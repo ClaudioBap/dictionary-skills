@@ -18,6 +18,13 @@ O conhecimento está em `knowledge/`: `fiabilidade/`, `docker/`, `cicd/` e `estr
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: inventariar o que existe é «Ler»; escrever runbooks e configurar monitorização é «Construir»; definir o processo de incidentes e os objetivos de serviço é «Rever e decidir com risco».
 - «Está configurado» não é prova. A prova de uma cópia de segurança é um restauro feito; a de uma sonda é a resposta que devolve; a de um alerta é um disparo de teste.
 - O documento de operação é para quem não construiu a plataforma: cada rotina diz o que fazer, passo a passo, sem exigir que a pessoa perceba o código.
+- Publicar é uma rotina de um só pedido, feita de A a Z (decisão do Cláudio, 2026-11-22: «quando eu pedir isso deves fazer de A a Z»):
+  - trazer o que há de novo;
+  - correr as verificações do próprio repositório e corrigir o que falhar;
+  - fazer commit do que está pronto e push;
+  - acompanhar o CI e o deploy até ao fim.
+
+  Só se pára numa falha que não se consegue resolver, e diz-se qual. O runbook de publicar escreve-se assim, sem pontos de confirmação pelo caminho. Num portal de agentes, o botão manda este pedido a uma sessão já aberta com o repositório (`portais-de-agentes/caixa-de-perguntas-a-distancia.md`, «Publicar com um toque»).
 
 ## 1. O que há para operar
 

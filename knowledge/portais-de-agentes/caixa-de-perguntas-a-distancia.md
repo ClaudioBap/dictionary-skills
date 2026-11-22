@@ -7,6 +7,7 @@ fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: media
 verificado_em: 2026-11-18
+editado_em: 2026-11-22
 ---
 
 # Responder às sessões à distância
@@ -94,8 +95,21 @@ Quem responde à distância responde no telemóvel. Desenha-se primeiro a 390 px
 
 Regras gerais em [Design responsivo e multi-dispositivo](../design/design-responsivo-e-multi-dispositivo.md).
 
+### Publicar com um toque, de A a Z
+
+«Atualizar e publicar» o repositório das skills é um só toque, nas páginas do conhecimento e das skills, onde o repositório se vê *(experiência do projeto, decisão do Cláudio de 2026-11-22)*.
+
+- **Quem faz o trabalho.** Não se abre uma sessão nova. O trabalho vai para uma sessão já aberta que tenha o repositório, em qualquer PC da pessoa: a sessão pode estar na pasta do repositório ou numa pasta acima, com vários repositórios dentro.
+- **Que sessão.** Primeiro uma que está à escuta, parada e viva, porque a escuta em fundo consultou o portal há pouco. Depois uma a trabalhar, que recebe o pedido na ação seguinte. Uma parada sem escuta pode já não existir, por isso não conta. Uma com perguntas por responder fica para o fim.
+- **Pô-la a ouvir.** Se a sessão não estava ao serviço, o portal põe-na. A escuta em fundo corre em todas as sessões, mas, fora de serviço, consulta o portal de minuto a minuto e não pega no trabalho.
+- **Onde se vê.** O browser abre a interação nessa sessão, a trabalhar.
+- **Sem nenhuma sessão,** diz para abrir o Claude Code numa pasta com o repositório, num PC com o agente.
+- **O pedido vai de A a Z e sem perguntas pelo caminho.** Entra na pasta do repositório e traz o que há de novo. Segue o procedimento de publicação do próprio repositório e corrige o que falhar. Faz commit do que está pronto, faz push e acompanha o CI e o deploy até ao fim. Só pára numa falha que não consegue resolver, e diz qual.
+- **Sem confirmação no browser.** Carregar no botão é a autorização: uma confirmação a seguir não acrescenta segurança, só um passo.
+
 ### O que verificar
 
+- «Atualizar e publicar» com uma sessão do repositório à escuta: o pedido chega a essa sessão e o browser abre-a. Sem nenhuma, aparece o aviso para abrir uma.
 - Uma pergunta e uma permissão respondidas no portal: o diálogo local fecha e a sessão segue com a resposta.
 - As mesmas respondidas no computador: saem da Caixa em poucos segundos.
 - A sessão fechada a meio da espera: a pergunta sai da Caixa.
@@ -132,5 +146,9 @@ Regras gerais em [Design responsivo e multi-dispositivo](../design/design-respon
 - [RFC 8292 (VAPID)](https://www.rfc-editor.org/rfc/rfc8292): JWT `ES256` com `exp` até 24 horas; o serviço recusa mensagens sem token válido
 - [RFC 8030 (Web Push)](https://www.rfc-editor.org/rfc/rfc8030): `TTL` obrigatório; 201 quer dizer aceite, não entregue
 - [Cloudflare Access: service tokens](https://developers.cloudflare.com/cloudflare-one/access-controls/service-credentials/service-tokens/): credencial de um programa, regra «Service Auth», revogação apagando o token
+
+## Histórico
+
+- **2026-11-22**: acrescentada a secção «Publicar com um toque, de A a Z», e uma linha em «O que verificar». O texto que já lá estava não mudou. Antes, o botão estava na interação de cada projeto, abria sempre uma sessão nova e pedia confirmação. O Cláudio pediu-o no conhecimento e nas skills, numa sessão já aberta e de A a Z. Experiência do projeto. Editado a 2026-11-22.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.

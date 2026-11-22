@@ -86,6 +86,18 @@ Uma ferramenta enche o ecrã de listas com bolas e de filtros em comprimidos red
 | Secções que começam por uma lista comprida | Separadores com o número do que está pendente em cada um, cartões de resumo com o número e o que está parado, uma barra que mostra onde está cada coisa, e só depois a pesquisa, os filtros e a tabela; as ações ficam à direita | L |
 | Componentes inventados para cada ecrã | Os de uma biblioteca conhecida (Bootstrap ou a que o projeto já usa) para listas pendentes, tabelas, separadores e botões | L |
 
+### Navegação e deslocamento
+
+Uma ferramenta liga cada página a um pai fixo e deixa o browser resolver o que não cabe com barras de scroll. Uma pessoa pensa em de onde se vem e no que se vê de uma vez (pedidos do Cláudio de 2026-11-22; `knowledge/design/navegacao-e-arquitetura-de-informacao.md` e `tabelas-e-dados-densos.md`).
+
+| Marca | O que uma pessoa faz | Quem apanha |
+|---|---|---|
+| «Voltar» com destino fixo, que leva sempre ao mesmo pai, venha-se de onde se vier | Volta ao sítio de onde se veio; a migalha mostra a hierarquia e, quando se veio de outro sítio, «‹ Voltar ao …» ao lado | L |
+| Barra de scroll para o lado dentro de uma tabela ou de uma coluna, num ecrã largo | Colunas curtas só com a largura do conteúdo e a principal com o resto; sem lugar, os botões empilham-se e cada linha passa a cartão | L |
+| Painel preso mais alto do que o ecrã: para lhe ver o fundo, desloca-se a página toda | Lista e detalhe presos com a altura do ecrã, cada um com o seu scroll, e a roda num não mexe no resto | L |
+| Lista ao lado que desce muito abaixo do bloco vizinho e deixa um espaço vazio no meio | As primeiras que cabem e «Ver todas as N», que abre o resto ali mesmo | L |
+| Uma ação que pede confirmação e depois abre outro ecrã onde se volta a escolher | Um toque faz o trabalho todo, de A a Z; só se pergunta quando há uma decisão que é mesmo da pessoa | L |
+
 ### Informação a mais
 
 Menos é mais: uma ferramenta mostra tudo o que tem; uma pessoa mostra o que quem usa precisa para decidir ou agir.

@@ -60,7 +60,9 @@ Quando nenhuma entrada cobre o que o utilizador precisa (um padrão de interface
   - SEO, em sites públicos: a validação dos dados estruturados e os pontos de `seo-tecnico.md`;
   - humanização: a saída final do verificador da `humanizar`.
 - Antes de dar a interface por feita, confirma os erros que mais escapam, cada um com a entrada que o explica:
-  - um só deslocamento por ecrã: capturas a 1600 e a 390 px sem barras de scroll a mais; a moldura ocupa a altura do ecrã, o menu lateral não se desloca inteiro e o bloco da conta fica fixo em baixo (`navegacao-e-arquitetura-de-informacao.md`);
+  - um só deslocamento por zona: capturas a 1600 e a 390 px sem barras de scroll a mais; a moldura ocupa a altura do ecrã, o menu lateral não se desloca inteiro e o bloco da conta fica fixo em baixo; numa vista de lista e detalhe, cada painel desloca-se sozinho e a roda num não mexe no resto (`navegacao-e-arquitetura-de-informacao.md`);
+  - nenhuma tabela se desloca para o lado: mede-se a caixa de cada tabela (`scrollWidth` contra `clientWidth`) de 1920 a 390 px, e não só a página, e sem lugar a tabela passa a cartões pela largura do sítio onde está (`tabelas-e-dados-densos.md`);
+  - «voltar» leva para onde se veio e a migalha mostra a hierarquia: uma página que se abre de vários sítios prova-se aberta de cada um (`navegacao-e-arquitetura-de-informacao.md`);
   - menu lateral com os grupos em botões que abrem e fecham (`aria-expanded`), todos fechados à partida e, fechado, com a página atual ao lado do nome, e nada escondido por um filtro: o que não cabe numa categoria aparece num grupo próprio, como «Sem projeto» (a mesma entrada);
   - ações em botões e não em links, com estados ao passar, carregar e focar, e a interface a funcionar também com `prefers-reduced-motion: reduce` (`botoes-movimento-e-micro-interacoes.md`);
   - configuração com vários passos num guia por níveis, que passa sozinho quando o sistema confirma e se pode ignorar e rever, com um aviso em todas as páginas enquanto falta algum passo (`onboarding-e-estados-vazios.md`);
