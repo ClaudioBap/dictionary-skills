@@ -7,6 +7,7 @@ fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: alta
 verificado_em: 2026-11-18
+editado_em: 2026-11-23
 ---
 
 # Quando compensa um portal de agentes e como se monta
@@ -60,7 +61,9 @@ O portal lê o repositório das skills e adapta-se a ele. As skills e o conhecim
 - O que o portal acrescenta (nome a mostrar, aspeto, papel de avaliador, critério das notas) vive no portal, calculado por omissão e ajustável na administração ([Papéis e aspeto dos agentes na cena](papeis-e-aspeto-dos-agentes.md)). O `SKILL.md` aceita um campo `metadata` livre, que o Claude Code ignora; mesmo assim não se usa para o portal, porque a skill passaria a saber dele.
 - *(experiência do projeto)* No projeto de origem, um agente do portal escreveu o critério das notas dentro da skill orquestradora, e os nomes e o aspeto das skills ficaram em tabelas fixas no código da cena. As duas coisas tiveram de ser desfeitas: a primeira prendia as skills a um portal, a segunda obrigava a publicar o portal por cada skill nova.
 
-Teste: procurar no repositório das skills o nome, os caminhos ou as rotas do portal não devolve nada, e uma skill de teste criada nesse repositório aparece no portal sem o publicar.
+- **Uma só fonte, viva.** O que o portal mostra do repositório vem da última leitura dele, e o que se calcula daí calcula-se de novo em cada leitura: as alterações do `CHANGELOG.md`, os dias com mudança, os níveis e a «última atualização». Nunca de uma cópia feita quando se construiu o portal. As páginas abertas voltam a ler quando se abrem e quando se volta ao separador, e redesenham-se no mesmo sítio quando há uma leitura nova *(experiência do projeto)*. Na origem, as alterações e o impacto ficaram parados no dia de uma cópia antiga depois de cada publicação: os dias com mudança contavam-se uma vez, a partir dela.
+
+Teste: procurar no repositório das skills o nome, os caminhos ou as rotas do portal não devolve nada, e uma skill de teste criada nesse repositório aparece no portal sem o publicar. Uma linha nova no `CHANGELOG.md` aparece nas alterações e na «última atualização» depois da leitura seguinte, sem recarregar a página.
 
 ### Ordem de construção, do que se vê para o que se gere
 
@@ -115,5 +118,9 @@ No projeto de origem a publicação estava no fim e subiu para a fase 3. Sem o p
 - [Claude Code: skills](https://code.claude.com/docs/en/skills): campos do frontmatter do `SKILL.md`; `metadata` livre, que o Claude Code não usa
 - [Claude Code: Remote Control](https://code.claude.com/docs/en/remote-control): sessão local continuada noutro aparelho, planos, só pedidos de saída, transcrição guardada nos servidores da Anthropic
 - [Cloudflare One: service tokens](https://developers.cloudflare.com/cloudflare-one/access-controls/service-credentials/service-tokens/): credenciais para sistemas automáticos, revogáveis uma a uma
+
+## Histórico
+
+- **2026-11-23**: acrescentado o ponto «Uma só fonte, viva» em «A dependência vai num só sentido», e uma frase no teste dessa secção. O texto que já lá estava não mudou. Experiência do projeto. Editado a 2026-11-23.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.

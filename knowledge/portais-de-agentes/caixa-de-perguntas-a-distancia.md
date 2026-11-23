@@ -7,7 +7,7 @@ fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: media
 verificado_em: 2026-11-18
-editado_em: 2026-11-22
+editado_em: 2026-11-23
 ---
 
 # Responder às sessões à distância
@@ -103,13 +103,28 @@ Regras gerais em [Design responsivo e multi-dispositivo](../design/design-respon
 - **Que sessão.** Primeiro uma que está à escuta, parada e viva, porque a escuta em fundo consultou o portal há pouco. Depois uma a trabalhar, que recebe o pedido na ação seguinte. Uma parada sem escuta pode já não existir, por isso não conta. Uma com perguntas por responder fica para o fim.
 - **Pô-la a ouvir.** Se a sessão não estava ao serviço, o portal põe-na. A escuta em fundo corre em todas as sessões, mas, fora de serviço, consulta o portal de minuto a minuto e não pega no trabalho.
 - **Onde se vê.** O browser abre a interação nessa sessão, a trabalhar.
-- **Sem nenhuma sessão,** diz para abrir o Claude Code numa pasta com o repositório, num PC com o agente.
+- **Sem nenhuma sessão,** o pedido vai para a conversa lançada do portal mais recente desse repositório, que continua na mesma sessão. Uma conversa do portal não fica à escuta, porque o Claude dela acaba no fim de cada volta, por isso tem de se procurar à parte *(experiência do projeto)*. Sem nenhuma conversa, abre-se uma nova desse repositório com o pedido já escrito, e a pessoa só escolhe o PC e envia.
 - **O pedido vai de A a Z e sem perguntas pelo caminho.** Entra na pasta do repositório e traz o que há de novo. Segue o procedimento de publicação do próprio repositório e corrige o que falhar. Faz commit do que está pronto, faz push e acompanha o CI e o deploy até ao fim. Só pára numa falha que não consegue resolver, e diz qual.
 - **Sem confirmação no browser.** Carregar no botão é a autorização: uma confirmação a seguir não acrescenta segurança, só um passo.
 
+### Conversas que nunca ficam presas
+
+Uma conversa lançada do portal corre num PC que a pessoa não está a ver. Se ficar presa, longe do PC não há nada a fazer, e o portal deixa de servir para trabalhar à distância *(experiência do projeto)*. Na origem, uma ficou «a responder» 15 horas: o agente foi reinstalado e o Claude dela morreu com ele, sem o portal saber.
+
+- **A licença está na conversa.** Uma permissão ou uma pergunta da sessão de uma conversa aparece dentro dessa conversa, com Permitir e Recusar, e não só noutra lista.
+- **«Parar» está sempre à vista.** Enquanto o Claude responde, o botão de enviar passa a «Parar». No fim do fio, o botão ficava escondido quando o fio não estava no fundo. Parar manda ao PC o pedido de parar o Claude dessa conversa. Se o PC não responder, a conversa fica parada no portal e continua-se com a mensagem seguinte, na mesma sessão. O Enter, a meio de uma resposta, não envia nem pára.
+- **No fim de cada volta,** as licenças e perguntas por responder dessa sessão expiram: nenhum hook está à espera delas.
+- **O PC diz o que corre.** Em cada sinal, o agente manda a lista das conversas que tem a correr. O portal dá como paradas as que tem «a responder» nesse PC e que não estão na lista. Deixa de fora as que mexeram há poucos minutos (na origem, 3), porque o pedido pode ainda estar a caminho do PC. Uma conversa só sai da lista do agente depois de o fim dela ter sido mandado ao portal, para o sinal nunca a dar como parada antes de o fim chegar. Um agente anterior, sem a lista, não pára nada.
+- **Fechar uma conversa.** «Fechar conversa», com confirmação, tira-a da lista e não deixa continuá-la. O que se escreveu fica até sair com a idade, como nas outras. Se ainda estiver a responder, manda o pedido de parar e fecha logo, sem esperar pelo PC: com o PC desligado, a espera era de um minuto. A lista atualiza-se na hora, sem esperar pela consulta seguinte.
+- **De onde é cada sessão.** Cada linha da lista diz «VS Code», «Terminal» ou «Portal». O hook lê o cliente em `CLAUDE_CODE_ENTRYPOINT` (`claude-vscode` ou `cli`) e manda-o no início da sessão e em cada pedido. As conversas do portal reconhecem-se pela própria conversa, e uma sessão de antes diz só «No PC» até ao pedido seguinte *(experiência do projeto)*.
+
 ### O que verificar
 
-- «Atualizar e publicar» com uma sessão do repositório à escuta: o pedido chega a essa sessão e o browser abre-a. Sem nenhuma, aparece o aviso para abrir uma.
+- «Atualizar e publicar» com uma sessão do repositório à escuta: o pedido chega a essa sessão e o browser abre-a. Sem nenhuma, vai para a conversa do portal mais recente do repositório. Sem nenhuma conversa, abre uma conversa nova com o pedido escrito.
+- Uma conversa presa: o agente reinstalado, ou um sinal sem ela na lista, deixa-a parada no portal em poucos minutos, e a mensagem seguinte continua a mesma sessão.
+- «Parar» no sítio do Enviar enquanto o Claude responde, e o Enter sem efeito nesse tempo.
+- «Fechar conversa», mesmo alguns segundos depois de abrir a confirmação: a conversa sai logo da lista e o servidor guarda quando se fechou.
+- A lista diz «VS Code», «Terminal» ou «Portal» em cada linha, a 390 px também.
 - Uma pergunta e uma permissão respondidas no portal: o diálogo local fecha e a sessão segue com a resposta.
 - As mesmas respondidas no computador: saem da Caixa em poucos segundos.
 - A sessão fechada a meio da espera: a pergunta sai da Caixa.
@@ -124,8 +139,9 @@ Regras gerais em [Design responsivo e multi-dispositivo](../design/design-respon
 - O `PermissionRequest` a disparar para o `AskUserQuestion` e o diálogo local aberto ao mesmo tempo que o hook corre: vistos com o Claude Code 2.1.325. A referência lida hoje diz que o `AskUserQuestion` precisa de `updatedInput` com `allow`, mas não descreve o diálogo e o hook em paralelo numa sessão interativa (só fala de quem decide primeiro com `--permission-prompt-tool` ou com o `canUseTool` do Agent SDK).
 - Responder no computador não termina o hook: visto com o Claude Code 2.1.325.
 - Não há teto documentado para o `timeout` de um hook.
+- `CLAUDE_CODE_ENTRYPOINT` com `claude-vscode` na extensão do VS Code e `cli` no terminal: visto no ambiente dos hooks, não aparece nas páginas lidas.
 
-**Para uma skill:** perguntas e permissões vão ao portal por um só hook `PermissionRequest` síncrono, que espera sem prazo enquanto o diálogo local está aberto, devolve `allow` ou `deny` (e, numa pergunta, `updatedInput` com `answers`), retira a pergunta quando a resposta vem do computador e sai sem decisão com o modo remoto desligado ou o portal calado; a Caixa separa por projeto, avisa por Web Push sem corpo, mostra cada pergunta só a quem a fez e prova-se a 390 px e num telemóvel real.
+**Para uma skill:** perguntas e permissões vão ao portal por um só hook `PermissionRequest` síncrono, que espera sem prazo enquanto o diálogo local está aberto, devolve `allow` ou `deny` (e, numa pergunta, `updatedInput` com `answers`), retira a pergunta quando a resposta vem do computador e sai sem decisão com o modo remoto desligado ou o portal calado; a Caixa separa por projeto, avisa por Web Push sem corpo, mostra cada pergunta só a quem a fez e prova-se a 390 px e num telemóvel real. Uma conversa lançada do portal nunca fica presa: tem a licença dentro dela, «Parar» no sítio do Enviar, «Fechar», e o sinal do PC diz que conversas corre, para o portal parar as outras.
 
 ## Ver também
 
@@ -149,6 +165,7 @@ Regras gerais em [Design responsivo e multi-dispositivo](../design/design-respon
 
 ## Histórico
 
+- **2026-11-23**: acrescentada a secção «Conversas que nunca ficam presas», linhas em «O que verificar» e em «Por reconfirmar na fonte», e uma frase em «Para uma skill». Reescrito o ponto «Sem nenhuma sessão» de «Publicar com um toque». Antes dizia: «Sem nenhuma sessão, diz para abrir o Claude Code numa pasta com o repositório, num PC com o agente.» O pedido não chegava a uma conversa aberta no portal para isso. Experiência do projeto. Editado a 2026-11-23.
 - **2026-11-22**: acrescentada a secção «Publicar com um toque, de A a Z», e uma linha em «O que verificar». O texto que já lá estava não mudou. Antes, o botão estava na interação de cada projeto, abria sempre uma sessão nova e pedia confirmação. O Cláudio pediu-o no conhecimento e nas skills, numa sessão já aberta e de A a Z. Experiência do projeto. Editado a 2026-11-22.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.
