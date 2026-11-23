@@ -1,9 +1,12 @@
 ---
 name: humanizar
-description: Verifica tudo o que vai ser entregue (texto, código, interface, vídeo, commits, documentação, dados de exemplo) à procura das marcas que denunciam que foi feito por uma ferramenta, mostra cada achado com o que uma pessoa faria no lugar e só corrige com autorização, categoria a categoria. Usar antes de qualquer entrega, como última sessão da orquestração, ou sobre um trabalho que já existe.
+description: Verifica tudo o que vai ser entregue (texto, código, interface, vídeo, commits, documentação, dados de exemplo) à procura das marcas que denunciam que foi feito por uma ferramenta, mostra cada achado com o que uma pessoa faria no lugar e só corrige com autorização, categoria a categoria. Usar antes de qualquer entrega, como última sessão da orquestração, ou sobre um trabalho que já existe. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "Pasta, ficheiros ou «diff» a verificar; junta «commits» para ver também as mensagens de commit"
 metadata:
   estado: produção
+  tipo: sub
+  usa: []
+  impacto: { ia: 0, seguranca: 0, nuvem: 0, desenvolvimento: 10, web: 10 }
 ---
 
 # Humanizar

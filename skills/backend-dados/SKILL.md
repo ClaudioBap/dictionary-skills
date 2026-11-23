@@ -1,9 +1,12 @@
 ---
 name: backend-dados
-description: Mini skill para desenhar e construir a API e a base de dados de um projeto. Começa pelo contrato da API (OpenAPI), desenha o esquema com chaves, restrições e tipos certos, escreve migrações aditivas e reversíveis, torna idempotentes as escritas e o processamento em segundo plano, e prova tudo com testes de contrato no pipeline. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
+description: Mini skill para desenhar e construir a API e a base de dados de um projeto. Começa pelo contrato da API (OpenAPI), desenha o esquema com chaves, restrições e tipos certos, escreve migrações aditivas e reversíveis, torna idempotentes as escritas e o processamento em segundo plano, e prova tudo com testes de contrato no pipeline. Usar sozinha ou numa sessão lançada pela orchestrate-sessions. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "Pasta do projeto e o que se quer: API nova, esquema novo, alteração ao que existe, ou tudo"
 metadata:
   estado: produção
+  tipo: sub
+  usa: [humanizar]
+  impacto: { ia: 0, seguranca: 5, nuvem: 5, desenvolvimento: 10, web: 0 }
 ---
 
 # Backend e dados

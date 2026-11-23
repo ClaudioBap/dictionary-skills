@@ -1,9 +1,12 @@
 ---
 name: start-project-with-trust
-description: Arranca um projeto com um cliente e leva-o até à entrega verificada. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), fecha o marco «Plano aprovado», executa e só termina quando cada critério de sucesso tem prova e o utilizador aceita a entrega. Usar para iniciar ou retomar um projeto.
+description: Arranca um projeto com um cliente e leva-o até à entrega verificada. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), fecha o marco «Plano aprovado», executa e só termina quando cada critério de sucesso tem prova e o utilizador aceita a entrega. Usar para iniciar ou retomar um projeto. É uma skill mãe, que conduz o projeto e chama as sub skills, na execução pela orchestrate-sessions.
 argument-hint: "Nome do projeto, ou nada para retomar o último"
 metadata:
   estado: produção
+  tipo: mãe
+  usa: [orchestrate-sessions, operar, humanizar, documentacao, update-knowledge]
+  impacto: { ia: 7, seguranca: 7, nuvem: 7, desenvolvimento: 7, web: 7 }
 ---
 
 # StartProjectWithTrust

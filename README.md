@@ -188,6 +188,39 @@ Para atualizar o conhecimento:
 npx skills@latest update
 ```
 
+## Skills mãe e sub skills
+
+Cada skill diz no `metadata` do `SKILL.md`:
+
+- `tipo`: `mãe` conduz as outras e reparte o trabalho por elas; `sub` faz uma parte do trabalho, sozinha ou chamada por uma skill mãe;
+- `usa`: as skills a que pede partes do trabalho (`[]` se nenhuma; `todas` só numa mãe que pode usar qualquer uma);
+- `impacto`: de 0 a 10, quanto serve para trabalho em cada área. 10 é a skill a usar, 7 é parte grande do trabalho, 4 a 6 ajuda em alguns casos, 1 a 3 é de passagem e 0 não serve.
+
+Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar», e a descrição diz se é mãe ou sub. Uma skill nova traz tudo isto: `node skills/update-knowledge/scripts/catalogo-skills.mjs .` verifica-o e escreve a tabela abaixo.
+
+<!-- skills:inicio -->
+| Skill | Tipo | Usa | IA | Segurança | Nuvem | Desenvolvimento | Web |
+|---|---|---|---:|---:|---:|---:|---:|
+| `orchestrate-sessions` | mãe | qualquer uma | 10 | 0 | 3 | 4 | 0 |
+| `portal-de-agentes` | mãe | `orchestrate-sessions`, `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |
+| `start-project-with-trust` | mãe | `orchestrate-sessions`, `operar`, `humanizar`, `documentacao`, `update-knowledge` | 7 | 7 | 7 | 7 | 7 |
+| `backend-dados` | sub | `humanizar` | 0 | 5 | 5 | 10 | 0 |
+| `boas-praticas-codigo` | sub | `humanizar` | 0 | 4 | 0 | 10 | 3 |
+| `correction-loop` | sub | nenhuma | 0 | 0 | 3 | 10 | 3 |
+| `design-3d-motion` | sub | `humanizar` | 0 | 0 | 0 | 4 | 10 |
+| `design-ux` | sub | `humanizar` | 0 | 2 | 0 | 4 | 10 |
+| `documentacao` | sub | `humanizar`, `design-ux` | 3 | 2 | 3 | 7 | 2 |
+| `gravacao-video` | sub | `humanizar` | 5 | 0 | 0 | 2 | 10 |
+| `humanizar` | sub | nenhuma | 0 | 0 | 0 | 10 | 10 |
+| `ia-aplicada` | sub | nenhuma | 10 | 3 | 3 | 5 | 0 |
+| `infra-deploy` | sub | nenhuma | 0 | 6 | 10 | 3 | 2 |
+| `operar` | sub | nenhuma | 2 | 3 | 10 | 2 | 0 |
+| `performance-verifier` | sub | nenhuma | 6 | 0 | 7 | 6 | 7 |
+| `produtizar` | sub | `humanizar` | 0 | 0 | 3 | 10 | 0 |
+| `seguranca` | sub | nenhuma | 4 | 10 | 5 | 5 | 2 |
+| `update-knowledge` | sub | nenhuma | 5 | 5 | 5 | 5 | 5 |
+<!-- skills:fim -->
+
 ## Estado de cada skill
 
 Cada `SKILL.md` diz o seu estado em `metadata.estado`:

@@ -32,9 +32,14 @@ const indice = join(dirname(fileURLToPath(import.meta.url)), 'indice.mjs');
 try { execFileSync(process.execPath, [indice, join(RAIZ, KREL), '--verificar'], { encoding: 'utf8' }); }
 catch { falhas.push('INDEX.md/README.md desatualizados: corre «node indice.mjs <knowledge>»'); }
 
+// As skills: cada uma diz se é mãe ou sub, o que usa e o impacto, e tem «Quando usar» (catalogo-skills.mjs).
+const catalogo = join(dirname(fileURLToPath(import.meta.url)), 'catalogo-skills.mjs');
+try { execFileSync(process.execPath, [catalogo, RAIZ, '--verificar'], { encoding: 'utf8' }); }
+catch (e) { for (const l of String(e.stdout ?? '').split('\n').filter(Boolean)) falhas.push(`skills: ${l}`); if (!e.stdout) falhas.push('skills: corre «node catalogo-skills.mjs <raiz>»'); }
+
 if (falhas.length) {
   console.log(`✗ Alterações por registar (${falhas.length}):`);
   for (const f of falhas) console.log(`  - ${f}`);
   process.exit(1);
 }
-console.log(`✓ ${mudados.size} ficheiro(s) alterado(s), todos com linha no CHANGELOG; índice atualizado.`);
+console.log(`✓ ${mudados.size} ficheiro(s) alterado(s), todos com linha no CHANGELOG; índice atualizado; skills conferidas.`);

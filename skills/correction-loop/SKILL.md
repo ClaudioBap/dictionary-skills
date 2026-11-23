@@ -1,10 +1,13 @@
 ---
 name: correction-loop
-description: Encontra e corrige a causa de um erro a partir de pouco mais do que «está a dar erro». Descobre sozinho o sintoma, como se reproduz e o que devia acontecer; localiza a causa com o método que melhor serve o sinal disponível; compara as formas de corrigir e fica com a melhor; e só fecha com a falha provada antes e resolvida depois, sem partir o resto. Não faz perguntas, salvo uma vez, no início, se não houver forma de continuar. Usar quando algo deixou de funcionar, um teste falha, há uma regressão ou uma regra mudou.
+description: Encontra e corrige a causa de um erro a partir de pouco mais do que «está a dar erro». Descobre sozinho o sintoma, como se reproduz e o que devia acontecer; localiza a causa com o método que melhor serve o sinal disponível; compara as formas de corrigir e fica com a melhor; e só fecha com a falha provada antes e resolvida depois, sem partir o resto. Não faz perguntas, salvo uma vez, no início, se não houver forma de continuar. Usar quando algo deixou de funcionar, um teste falha, há uma regressão ou uma regra mudou. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "O erro como o vês; pode ser só «está a dar erro» e onde"
 metadata:
   estado: testes
   internal: true
+  tipo: sub
+  usa: []
+  impacto: { ia: 0, seguranca: 0, nuvem: 3, desenvolvimento: 10, web: 3 }
 ---
 
 # CorrectionLoop

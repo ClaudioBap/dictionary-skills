@@ -28,6 +28,7 @@ A base de conhecimento só vale se cada afirmação puder ser verificada. Por is
    node skills/update-knowledge/scripts/verificar-alteracoes.mjs .
    ```
    O segundo comando tem de terminar com `✓`.
+   O segundo comando também confere as skills. Uma skill nova, ou mudada, diz no `metadata` do `SKILL.md` se é mãe ou sub (`tipo`), que skills usa (`usa`) e o impacto em cada área (`impacto`), diz na descrição se é «skill mãe» ou «sub skill», e tem um `EXEMPLOS.md` com «Quando usar». A tabela do `README.md` escreve-se com `node skills/update-knowledge/scripts/catalogo-skills.mjs .` (ver «Skills mãe e sub skills» no README).
 3. Se mudaste os verificadores ou os hooks, diz no pull request como os testaste.
 4. Escreve sem marcas de texto gerado por IA, com as regras da secção «Regras em todas as fases» do [`SKILL.md`](skills/start-project-with-trust/SKILL.md): sem travessões a ligar frases, sem emojis, sem fórmulas feitas, em português de Portugal.
 5. Mensagens de commit curtas, no estilo das que já existem.

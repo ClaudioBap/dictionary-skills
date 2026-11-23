@@ -1,9 +1,12 @@
 ---
 name: documentacao
-description: "Documenta um projeto enquanto se trabalha e no fim. Cada skill que faz trabalho escreve o relatório do seu processo (Markdown com um cabeçalho de campos) em documentacao/processos/; esta skill junta-os com o git log e as saídas da orquestração e gera um livro Excel com os processos e as estatísticas (em fórmulas), o Word «Entendimento do desenvolvimento» e o relatório final em Word, ligado aos outros. Antes de gerar, pede 2 a 3 ficheiros-padrão da casa (aconselha um Excel, um PowerPoint, um PDF e um Word) para seguir o estilo; sem eles, usa um estilo sóbrio, revisto pela humanizar e pela design-ux. Usar para documentar um projeto, no fim de cada processo, no fim de uma fase da orchestrate-sessions ou na entrega da start-project-with-trust."
+description: "Documenta um projeto enquanto se trabalha e no fim. Cada skill que faz trabalho escreve o relatório do seu processo (Markdown com um cabeçalho de campos) em documentacao/processos/; esta skill junta-os com o git log e as saídas da orquestração e gera um livro Excel com os processos e as estatísticas (em fórmulas), o Word «Entendimento do desenvolvimento» e o relatório final em Word, ligado aos outros. Antes de gerar, pede 2 a 3 ficheiros-padrão da casa (aconselha um Excel, um PowerPoint, um PDF e um Word) para seguir o estilo; sem eles, usa um estilo sóbrio, revisto pela humanizar e pela design-ux. Usar para documentar um projeto, no fim de cada processo, no fim de uma fase da orchestrate-sessions ou na entrega da start-project-with-trust. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
 argument-hint: "«processo» para registar o trabalho que acabou, «gerar» para os documentos, ou nada para perguntar"
 metadata:
   estado: produção
+  tipo: sub
+  usa: [humanizar, design-ux]
+  impacto: { ia: 3, seguranca: 2, nuvem: 3, desenvolvimento: 7, web: 2 }
 ---
 
 # Documentacao

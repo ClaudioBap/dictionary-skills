@@ -1,9 +1,12 @@
 ---
 name: design-3d-motion
-description: "Mini skill para 3D na web, WebGL, animação CSS e SVG, scroll-driven animation e movimento com acessibilidade. É trabalho de nível topo por omissão: corre em fable (ou opus sem Fable), lê só knowledge/3d-webgl/ e as bases de knowledge/design/ que o pedido toca, decide primeiro se o 3D se justifica, cumpre um orçamento de desempenho próprio e prova com medições. Sabe também montar um mundo 3D movido por eventos reais de agentes de IA (quem trabalha, espera ou parou). Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar quando a interface pede 3D, motion ou uma experiência premium."
+description: "Mini skill para 3D na web, WebGL, animação CSS e SVG, scroll-driven animation e movimento com acessibilidade. É trabalho de nível topo por omissão: corre em fable (ou opus sem Fable), lê só knowledge/3d-webgl/ e as bases de knowledge/design/ que o pedido toca, decide primeiro se o 3D se justifica, cumpre um orçamento de desempenho próprio e prova com medições. Sabe também montar um mundo 3D movido por eventos reais de agentes de IA (quem trabalha, espera ou parou). Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar quando a interface pede 3D, motion ou uma experiência premium. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
 argument-hint: "A experiência a criar e onde entra no site, ou nada para perguntar"
 metadata:
   estado: produção
+  tipo: sub
+  usa: [humanizar]
+  impacto: { ia: 0, seguranca: 0, nuvem: 0, desenvolvimento: 4, web: 10 }
 ---
 
 # Design3dMotion

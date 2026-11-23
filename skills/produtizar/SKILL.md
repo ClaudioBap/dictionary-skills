@@ -1,9 +1,12 @@
 ---
 name: produtizar
-description: Mini skill para transformar o que foi feito para um caso (um cliente, uma área, um conjunto de dados) em algo que se transporta para o caso seguinte mudando só configuração e conhecimento. Separa o núcleo do específico, põe o que varia em configuração, versiona o núcleo e prova a modularidade instanciando um segundo caso. Usar quando a decisão «Específico ou modular» escolheu núcleo com adaptadores ou produto, ou quando se quer reutilizar um projeto que já existe.
+description: Mini skill para transformar o que foi feito para um caso (um cliente, uma área, um conjunto de dados) em algo que se transporta para o caso seguinte mudando só configuração e conhecimento. Separa o núcleo do específico, põe o que varia em configuração, versiona o núcleo e prova a modularidade instanciando um segundo caso. Usar quando a decisão «Específico ou modular» escolheu núcleo com adaptadores ou produto, ou quando se quer reutilizar um projeto que já existe. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "Pasta do projeto a produtizar e o segundo caso a instanciar"
 metadata:
   estado: produção
+  tipo: sub
+  usa: [humanizar]
+  impacto: { ia: 0, seguranca: 0, nuvem: 3, desenvolvimento: 10, web: 0 }
 ---
 
 # Produtizar

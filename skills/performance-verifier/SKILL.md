@@ -1,9 +1,12 @@
 ---
 name: performance-verifier
-description: Mini skill que mede antes de propor. Analisa a velocidade e o custo de um site, de uma API ou base de dados, de uma experiência 3D ou de uma solução com IA (tokens por tarefa, cache, modelo e effort, batch), compara com o orçamento de desempenho ou de custo definido, e devolve uma tabela de melhorias ordenada da mais barata à mais cara, cada uma com o ganho estimado e a entrada que a sustenta. Depois de aplicar, volta a medir. Usar sozinha ou numa sessão lançada pela orchestrate-sessions.
+description: Mini skill que mede antes de propor. Analisa a velocidade e o custo de um site, de uma API ou base de dados, de uma experiência 3D ou de uma solução com IA (tokens por tarefa, cache, modelo e effort, batch), compara com o orçamento de desempenho ou de custo definido, e devolve uma tabela de melhorias ordenada da mais barata à mais cara, cada uma com o ganho estimado e a entrada que a sustenta. Depois de aplicar, volta a medir. Usar sozinha ou numa sessão lançada pela orchestrate-sessions. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "URL, pasta ou pedido a medir, e o alvo (tempo, custo) se houver"
 metadata:
   estado: produção
+  tipo: sub
+  usa: []
+  impacto: { ia: 6, seguranca: 0, nuvem: 7, desenvolvimento: 6, web: 7 }
 ---
 
 # Performance verifier

@@ -1,9 +1,12 @@
 ---
 name: orchestrate-sessions
-description: Divide um trabalho em tarefas e distribui-as por sessões Claude a correr ao mesmo tempo, cada uma com a mini skill certa. Pergunta quantas sessões queres em paralelo e onde usar subagentes (no orquestrador, em cada sessão ou em todas), atribui a cada tarefa o modelo e o effort mais baratos que a fazem, prepara o briefing de cada sessão, recolhe as saídas com prova e mede o custo. Usar para executar um trabalho com várias sessões, ou a Fase 4 de um projeto da start-project-with-trust.
+description: Divide um trabalho em tarefas e distribui-as por sessões Claude a correr ao mesmo tempo, cada uma com a mini skill certa. Pergunta quantas sessões queres em paralelo e onde usar subagentes (no orquestrador, em cada sessão ou em todas), atribui a cada tarefa o modelo e o effort mais baratos que a fazem, prepara o briefing de cada sessão, recolhe as saídas com prova e mede o custo. Usar para executar um trabalho com várias sessões, ou a Fase 4 de um projeto da start-project-with-trust. É uma skill mãe e o avaliador, de que nenhuma depende. Pode usar qualquer skill (as deste repositório, as pessoais e as instaladas no Claude Code do PC), escolhe o melhor caminho e no fim dá as notas.
 argument-hint: "Nome do trabalho, ou arranque/<projeto> para executar um plano aprovado"
 metadata:
   estado: produção
+  tipo: mãe
+  usa: todas
+  impacto: { ia: 10, seguranca: 0, nuvem: 3, desenvolvimento: 4, web: 0 }
 ---
 
 # OrchestrateSessions
@@ -17,6 +20,16 @@ Os caminhos `catalogo.md`, `modelo-e-effort.md` e `modelos/` são relativos à p
 - Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`: não inventar e citar a base; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato da Fase 1 dessa skill; o estado vive em ficheiro; nunca respondes pelo utilizador; sem marcas de escrita de IA no que se entrega.
 - Cada tarefa leva o modelo e o effort de `modelo-e-effort.md`, e sobe de nível só pelas regras desse ficheiro.
 - Nunca há mais sessões em paralelo do que grupos de tarefas independentes.
+
+## Que skill faz cada tarefa
+
+Esta é uma skill mãe e o avaliador: nenhuma skill depende dela, e ela pode usar qualquer uma. A skill de cada tarefa escolhe-se entre três origens:
+
+1. as deste repositório, com o `catalogo.md` e a tabela «Skills mãe e sub skills» do `README.md` (o tipo, o que cada uma usa e o impacto em cada área);
+2. as skills pessoais da pessoa, na pasta pessoal do Claude Code (`~/.claude/skills`), onde também chegam as do armazém de skills dela;
+3. as instaladas no Claude Code do projeto (`.claude/skills`) ou por plugin, as que aparecem na lista de skills da sessão.
+
+O melhor caminho é a skill que serve a tarefa: a descrição e o «Quando usar» do `EXEMPLOS.md` dela batem com o pedido, o impacto é alto na área da tarefa e o estado é `produção`. Entre duas que servem, fica a mais específica e, depois, a que teve melhores notas. Uma skill de `testes` ou `demo` só entra se o utilizador o aceitar. A escolha e a razão ficam em «Tarefas», na coluna da skill.
 
 ## Início
 
@@ -40,7 +53,7 @@ Num trabalho avulso, antes do passo 1:
 4. Para cada tarefa, preenche em «Tarefas»:
    - o tipo e o nível de exigência, segundo o que o utilizador pediu para essa tarefa. Uma página estática simples e uma experiência 3D com scroll e motion são ambas design, mas têm níveis diferentes. Se o pedido não deixa claro o nível, pergunta, com um exemplo de cada nível;
    - o modelo e o effort que esse tipo e esse nível pedem em `modelo-e-effort.md`;
-   - a mini skill, segundo `catalogo.md`;
+   - a skill que a faz, escolhida como diz «Que skill faz cada tarefa»;
    - de que tarefas depende.
 5. Mostra a tabela e pede validação.
 
@@ -99,3 +112,4 @@ Quando todas as tarefas tiverem prova:
    - o custo por sessão e o total, a partir do `/usage`;
    - as subidas de nível. Se um tipo de tarefa subiu mais de uma vez, sugere ajustar a linha dele em `modelo-e-effort.md`.
 4. Se a skill `documentacao` estiver instalada (existe `../documentacao/SKILL.md`), corre o modo «gerar» dela e junta ao relatório os caminhos dos documentos. As saídas das sessões, com o cabeçalho de processo, já são os relatórios dos processos.
+5. Dá as notas: cada skill usada leva uma nota de 0 a 10 e uma frase com o que correu bem ou mal, para a skill aprender. Esta skill não se dá nota a si própria. Melhorar uma skill a partir da nota é de quem a pode mudar: uma deste repositório, só quem tem acesso a ele; uma skill pessoal, a pessoa dona dela, no repositório dela.
