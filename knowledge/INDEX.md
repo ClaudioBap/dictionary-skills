@@ -20,7 +20,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 142 entradas fora do PDF; 379 ficheiros de entrada no total.
+- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 143 entradas fora do PDF; 380 ficheiros de entrada no total.
 
 ## Secções
 
@@ -372,7 +372,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
 - [Service tokens do Cloudflare Access (um programa a entrar numa aplicação protegida)](publicacao/service-tokens-do-cloudflare-access.md) — Quando um programa sem pessoa (um script, um hook, outro servidor) tem de entrar numa aplicação atrás do Cloudflare Access, usa um service token: envia o Client ID e o Client Secret em dois cabeçalhos, a política da aplicação tem uma regra «Service Auth», e a origem valida o JWT do Access e reconhece o programa pelo `common_name`. *(fora do PDF)*
 
-### 23. [Construir com IA](ia/README.md) — págs. 65–69 (63 entradas)
+### 23. [Construir com IA](ia/README.md) — págs. 65–69 (64 entradas)
 
 - [Certificação Claude Certified Architect (Foundations e avançado)](ia/certificacao-claude-certified-architect.md) — As quatro certificações da Anthropic com exame e o seu formato; o PDF indica que vêm de fontes da comunidade, a confirmar. *(pág. 65)*
 - [Domínios do exame (o que um bom sistema de IA cobre)](ia/dominios-do-exame.md) — Os domínios dos exames Foundations e Professional, usados como eixos para avaliar um sistema de IA. *(pág. 65)*
@@ -411,6 +411,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Batch e cache entre fornecedores (Claude, OpenAI, Gemini)](ia/fornecedores/batch-e-cache-entre-fornecedores.md) — Os três fornecedores cobram metade em batch e descontam a entrada em cache, mas diferem nos limites, no tempo de resposta, no mínimo para a cache e na duração dela. *(fora do PDF)*
 - [Gemini API: modelos, batch, cache, grounding e dados](ia/fornecedores/gemini-api.md) — O que a API do Gemini oferece para trabalho em lote, cache, pesquisa na web, saída estruturada, ficheiros e voz, e a diferença entre o escalão grátis e o pago no uso dos dados. *(fora do PDF)*
 - [OpenAI API: batch, cache, saída estruturada e controlo de dados](ia/fornecedores/openai-api.md) — O que a API da OpenAI oferece para trabalho em lote, cache, saída estruturada, pesquisa em ficheiros e voz, e em que condições guarda os dados e os mantém na Europa. *(fora do PDF)*
+- [Modelos sem restrições por API (abliteration.ai)](ia/fornecedores/modelos-sem-restricoes-abliteration-ai.md) — A abliteration.ai vende acesso por API a modelos sem restrições («abliterated»), compatível com a API da OpenAI e com a da Anthropic e listado como integração do Claude Code; paga-se por token, os planos mensais dão o mesmo valor em crédito, e a promessa de não guardar perguntas nem respostas é do fornecedor e está por verificar. *(fora do PDF)*
 - [Definição OSI de IA open source](ia/modelos-abertos/definicao-osi-de-ia-open-source.md) — Para a OSI, um sistema de IA só é open source se publicar informação sobre os dados de treino, o código de treino e execução, e os parâmetros; pesos abertos sozinhos não chegam. *(fora do PDF)*
 - [Famílias de modelos abertos e licenças](ia/modelos-abertos/familias-de-modelos-abertos-e-licencas.md) — Pesos abertos não querem dizer licença aberta: a licença confirma-se modelo a modelo, porque a mesma família mistura Apache 2.0, licenças próprias e modelos só por API. *(fora do PDF)*
 - [Adaptar um modelo (LoRA e QLoRA)](ia/modelos-proprios/adaptar-um-modelo-lora-e-qlora.md) — Em vez de treinar todos os pesos, treinam-se só matrizes pequenas por cima do modelo congelado; com quantização a 4 bits, um modelo de 65B afina-se numa só GPU de 48 GB. *(fora do PDF)*

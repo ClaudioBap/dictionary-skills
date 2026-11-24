@@ -49,11 +49,12 @@ Fonte: págs. 65–69 (Dicionario-Boas-Praticas.pdf)
 - [Imagens e PDF](api-claude/visao-e-pdf.md) — O Claude lê imagens e PDFs enviados no pedido, com limites de tamanho, de número e de páginas que decidem como dividir os documentos. *(fora do PDF)*
 - [Web search e web fetch](api-claude/web-search-e-web-fetch.md) — Duas ferramentas de servidor dão ao Claude acesso à web: a pesquisa traz resultados com citações, e o fetch lê o conteúdo completo de páginas e PDFs. *(fora do PDF)*
 
-### Outros fornecedores (OpenAI e Google)
+### Outros fornecedores (OpenAI, Google e modelos sem restrições)
 
 - [Batch e cache entre fornecedores (Claude, OpenAI, Gemini)](fornecedores/batch-e-cache-entre-fornecedores.md) — Os três fornecedores cobram metade em batch e descontam a entrada em cache, mas diferem nos limites, no tempo de resposta, no mínimo para a cache e na duração dela. *(fora do PDF)*
 - [Gemini API: modelos, batch, cache, grounding e dados](fornecedores/gemini-api.md) — O que a API do Gemini oferece para trabalho em lote, cache, pesquisa na web, saída estruturada, ficheiros e voz, e a diferença entre o escalão grátis e o pago no uso dos dados. *(fora do PDF)*
 - [OpenAI API: batch, cache, saída estruturada e controlo de dados](fornecedores/openai-api.md) — O que a API da OpenAI oferece para trabalho em lote, cache, saída estruturada, pesquisa em ficheiros e voz, e em que condições guarda os dados e os mantém na Europa. *(fora do PDF)*
+- [Modelos sem restrições por API (abliteration.ai)](fornecedores/modelos-sem-restricoes-abliteration-ai.md) — A abliteration.ai vende acesso por API a modelos sem restrições («abliterated»), compatível com a API da OpenAI e com a da Anthropic e listado como integração do Claude Code; paga-se por token, os planos mensais dão o mesmo valor em crédito, e a promessa de não guardar perguntas nem respostas é do fornecedor e está por verificar. *(fora do PDF)*
 
 ### Modelos abertos e licenças
 

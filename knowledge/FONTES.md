@@ -331,6 +331,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OWASP CRS releases](https://github.com/coreruleset/coreruleset/releases) | Novas versões e LTS do Core Rule Set |
 | [Coraza releases](https://github.com/corazawaf/coraza/releases) | Novas versões do motor WAF Coraza |
 | [Bunny Shield planos](https://bunny.net/shield/) | Preços e limites da alternativa europeia de WAF |
+| [Hostinger VPS](https://www.hostinger.com/vps-hosting) | Planos KVM, preço promocional e de renovação, cópias de segurança e centros de dados |
 
 ## [Acesso remoto (SSH e RDP)](acesso-remoto/README.md)
 
@@ -349,6 +350,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [AWS Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) | acesso sem portas abertas, bastion nem chaves SSH |
 | [Cloudflare: aplicações não-HTTP](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/non-http/) | SSH/RDP atrás do Access, certificados de curta duração |
 | [Tailscale SSH](https://tailscale.com/kb/1193/tailscale-ssh) | SSH por identidade na tailnet, check mode e gravação |
+| [Tailscale: preços](https://tailscale.com/pricing) | Planos da rede privada (Personal grátis, Standard, Premium, Enterprise) e o que cada um inclui |
 | [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | cofre e ciclo de vida dos segredos |
 
 ## [Plataformas para adotar antes de construir](plataformas/README.md)
@@ -445,6 +447,11 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Langfuse](https://langfuse.com/docs) | Observabilidade, avaliação e gestão de prompts |
 | [Piper: vozes](https://huggingface.co/rhasspy/piper-voices) | Vozes TTS locais, incluindo pt_PT |
 | [Azure AI Speech: preços](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/speech-services/) | Escalão grátis de TTS e STT |
+| [abliteration.ai](https://abliteration.ai/) | Modelos sem restrições por API, compatíveis com a OpenAI e a Anthropic (Claude Code); política de dados declarada pelo fornecedor |
+| [abliteration.ai: preços](https://abliteration.ai/pricing) | Planos, créditos pré-pagos e preço por milhão de tokens dos modelos sem restrições |
+| [Ollama: preços](https://ollama.com/pricing) | Execução local sem limite, planos e preço por token da nuvem Ollama, e onde ficam os modelos |
+| [Fish Audio: planos](https://fish.audio/plan/) | Planos da aplicação de voz e uso comercial em cada um |
+| [Fish Audio: preços da API](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) | Preço por modelo de voz e de transcrição, promoções e limites de pedidos em simultâneo |
 
 ## [Modularização e produtização](produto/README.md)
 
@@ -512,6 +519,7 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | IA | Hugging Face TGI em modo de manutenção: avisar se for descontinuado | [https://huggingface.co/docs/text-generation-inference](https://huggingface.co/docs/text-generation-inference) |
 | IA | Preço do grounding com Google Search: duas páginas oficiais com valores diferentes; confirmar qual vale | [https://aistudio.google.com/docs/google-search](https://aistudio.google.com/docs/google-search) |
 | IA | Licença do Llama por ler (llama.com redireciona para outro site); ler o texto atual da licença | [https://www.llama.com/](https://www.llama.com/) |
+| IA | Fish Audio: o `drama-3` está a 10 USD por milhão de bytes até 2026-11-30 (até 1/12, às 08:00 UTC) e volta a 50 USD; confirmar o preço depois dessa data | [https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
 | Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
 | Publicação | mudanças nos limites e na restrição comercial da Vercel Hobby | [https://vercel.com/docs/plans/hobby](https://vercel.com/docs/plans/hobby) |
@@ -521,6 +529,7 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Publicação | Calendário de validade máxima nas Baseline Requirements (100 dias em 2027, 47 em 2029) | [https://cabforum.org/working-groups/server/baseline-requirements/requirements/](https://cabforum.org/working-groups/server/baseline-requirements/requirements/) |
 | Publicação | Regras geridas WAF disponíveis no plano Free da Cloudflare | [https://developers.cloudflare.com/waf/managed-rules/](https://developers.cloudflare.com/waf/managed-rules/) |
 | Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |
+| Publicação | Hostinger VPS: preços de Black Friday sem data de fim na página (KVM 2 a 210,96 USD por 24 meses, renova a 14,99 USD/mês); confirmar os preços quando a promoção acabar | [https://www.hostinger.com/vps-hosting](https://www.hostinger.com/vps-hosting) |
 | Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6 a 2026-10-06; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |
 | Plataformas | Servidores MCP oficiais: novos projetos com MCP, saída do modo experimental no Dolibarr, MCP oficial no Zammad, Node-RED e LimeSurvey | [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/) |
 | Plataformas | Mudanças de licença (n8n, Directus, Strapi ee/, Odoo Enterprise) | [https://opensource.org/licenses](https://opensource.org/licenses) |

@@ -223,6 +223,13 @@
     "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey": "2026-11-18",
     "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto": "2026-11-18",
     "https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata": "2026-11-18",
-    "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata": "2026-11-18"
+    "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata": "2026-11-18",
+    "https://abliteration.ai/": "2026-11-24",
+    "https://abliteration.ai/pricing": "2026-11-24",
+    "https://ollama.com/pricing": "2026-11-24",
+    "https://fish.audio/plan/": "2026-11-24",
+    "https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits": "2026-11-24",
+    "https://www.hostinger.com/vps-hosting": "2026-11-24",
+    "https://tailscale.com/pricing": "2026-11-24"
   }
 }

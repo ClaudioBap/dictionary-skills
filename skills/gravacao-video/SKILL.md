@@ -121,6 +121,7 @@ Regras de qualidade:
 - Reporta quantas frases ficaram com o fim cortado e com ruído retirado (as frases acabadas em vogal átona são as que o Piper mais corta).
 - **Pede ao utilizador que ouça** o vídeo com a folha de escuta antes de dar a voz como boa, e indica-lhe as frases com pronúncias e as que ficaram com o fim cortado.
 - Para vídeos de clientes, ou quando o utilizador não fica satisfeito com o Piper, propõe o Azure: `"motorVoz": "azure"` e `"voz": "pt-PT-RaquelNeural"` (ou `pt-PT-DuarteNeural`, `pt-PT-FernandaNeural`). Fica em «Por preencher»: as variáveis `AZURE_SPEECH_KEY` (a chave do recurso Speech, no portal do Azure, em «Keys and Endpoint») e `AZURE_SPEECH_REGION` (a região do recurso, por exemplo `westeurope`). O caminho Azure do script segue a documentação da API REST mas ainda não correu com uma chave real: na primeira vez, confirma um ficheiro antes de narrar tudo.
+- Se nem o Piper nem o Azure servem, a entrada de voz tem também a API da Fish Audio, paga à utilização e com um modelo a 0 USD. O português não está confirmado nas páginas dela e o `narrar.mjs` ainda não a suporta: entra pelo passo 3, com uma frase de teste que o utilizador ouve antes de narrar tudo, e com a licença confirmada (o plano gratuito da aplicação é só para uso não comercial).
 
 ### 4.3 Gravação
 
