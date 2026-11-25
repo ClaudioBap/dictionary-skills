@@ -6,7 +6,8 @@ paginas: []
 fonte: "https://www.w3.org/TR/WCAG22/"
 data_lancamento: null
 confianca: alta
-verificado_em: 2026-11-18
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Escolher o mundo de cada público
@@ -15,7 +16,7 @@ verificado_em: 2026-11-18
 
 ## Conteúdo
 
-Origem: os três mundos do projeto de origem (um jornal público, uma administração e uma escola) e as propostas que o dono recusou pelo caminho *(experiência do projeto)*. O desenho de metáforas não tem fonte oficial: o que aqui está é método e experiência. Só a regra da cor vem da WCAG 2.2, lida a 2026-11-18. Os eventos e as animações, o ao vivo e a repetição e o orçamento de desempenho estão em [Mundo 3D movido por agentes](../3d-webgl/mundo-3d-movido-por-agentes.md) e não se repetem aqui.
+Origem: os três mundos do projeto de origem (um jornal público, uma administração e uma escola, que deu lugar a uma cidade da equipa) e as propostas que o dono recusou pelo caminho *(experiência do projeto)*. O desenho de metáforas não tem fonte oficial: o que aqui está é método e experiência. Só a regra da cor vem da WCAG 2.2, lida a 2026-11-18. Os eventos e as animações, o ao vivo e a repetição e o orçamento de desempenho estão em [Mundo 3D movido por agentes](../3d-webgl/mundo-3d-movido-por-agentes.md) e não se repetem aqui.
 
 ### Um público, um mundo
 
@@ -50,13 +51,15 @@ O que o projeto de origem tinha e como ficou em cada um dos dois mundos de traba
 | Pergunta à espera | Braço no ar, com «?» | O professor vira-se para a porta, de braço no ar |
 | Push | Sem elemento | O avaliador passa pelas secretárias e afixa as notas |
 
+Hoje, no projeto de origem, a escola deu lugar a uma cidade aberta à equipa: um quarteirão por pessoa, um edifício por conta git, mais alto quanto mais projetos tem, um andar por projeto e, em cada andar, uma sala por sessão, onde a sessão é o professor e o avaliador fica na primeira sala, que nunca desaparece. A biblioteca com oficina deu lugar a um armazém do conhecimento dentro da mesma cidade, com uma estante por categoria e as skills em plintos *(experiência do projeto, 2026-11-25)*.
+
 ### Propostas recusadas *(experiência do projeto)*
 
 | Proposta | Para quem | Porque saiu |
 |---|---|---|
 | Um painel do conhecimento, com números e pouco conteúdo | O público | O dono queria um jornal que se folheia. O painel era o que ele queria gerir, posto no sítio errado, e passou para a administração |
 | Uma redação de jornal | A administração | A face pública não se estende à ferramenta. Trazia rotativas e tipos de imprensa a uma ferramenta de trabalho; ficou a biblioteca com oficina |
-| Uma só sala com as sessões de todas as pastas | A equipa | Não crescia para várias pessoas e projetos, e juntava pastas com o mesmo nome. Passou a escola, com um edifício por pessoa e um andar por repositório |
+| Uma só sala com as sessões de todas as pastas | A equipa | Não crescia para várias pessoas e projetos, e juntava pastas com o mesmo nome. Passou a escola, com um edifício por pessoa e um andar por repositório, e mais tarde a uma cidade, com um edifício por conta git, um andar por projeto e uma sala por sessão |
 | Um emblema no peito e o tampo da secretária pintado, para dizer de onde vem a skill | A escola | O dono achou a marca feia. Ficaram a silhueta, o cachecol e a placa ([Papéis e aspeto dos agentes na cena](papeis-e-aspeto-dos-agentes.md)) |
 | Sem 3D, por aplicação do critério geral do conhecimento | O público | O dono tinha pedido «topo». O critério serve quando ninguém decidiu |
 

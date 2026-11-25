@@ -6,7 +6,8 @@ paginas: []
 fonte: "https://www.w3.org/TR/WCAG22/"
 data_lancamento: null
 confianca: alta
-verificado_em: 2026-11-18
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Papéis e aspeto dos agentes na cena
@@ -15,7 +16,7 @@ verificado_em: 2026-11-18
 
 ## Conteúdo
 
-Origem: a escola do projeto de origem, onde a sessão é o professor, as skills são alunos, o orquestrador é o avaliador e os subagentes são ajudantes *(experiência do projeto)*. O que se diz do Claude Code e da WCAG vem das fontes oficiais em baixo, lidas a 2026-11-18.
+Origem: a escola do projeto de origem, hoje uma cidade com uma sala por sessão, onde a sessão é o professor, as skills são alunos, o orquestrador é o avaliador e os subagentes são ajudantes *(experiência do projeto)*. O que se diz do Claude Code e da WCAG vem das fontes oficiais em baixo, lidas a 2026-11-18.
 
 ### Dos eventos aos papéis
 
@@ -23,7 +24,7 @@ Os papéis saem dos atores que os eventos mostram. Um papel sem evento que o ali
 
 | Ator | Como o portal o conhece | Papel na escola |
 |---|---|---|
-| Sessão | `session_id` em todos os hooks; `SessionStart` e `SessionEnd` | Professor, se for a mais antiga; auxiliar, se não |
+| Sessão | `session_id` em todos os hooks; `SessionStart` e `SessionEnd` | Professor da sua sala; auxiliar, se estiver numa sala com outra sessão mais antiga de quem vê |
 | Skill | O Claude chama-a pela ferramenta Skill, que um hook `PreToolUse` vê passar | Aluno, um por skill que o projeto usou |
 | Subagente | `SubagentStart` e `SubagentStop`, com `agent_id` e `agent_type` | Ajudante, ao lado de quem o lançou, enquanto trabalha |
 | Orquestrador | Uma skill como as outras; o portal sabe qual é por configuração | Avaliador |
@@ -31,7 +32,7 @@ Os papéis saem dos atores que os eventos mostram. Um papel sem evento que o ali
 
 Regras de cada papel *(experiência do projeto)*:
 
-- A sessão mais antiga é o professor e as outras são auxiliares. A mais antiga dá estabilidade: uma sessão nova não tira o lugar a quem já lá estava. Numa sala partilhada, o professor é a sessão mais antiga de quem está a ver, e as dos colegas são auxiliares com o nome da pessoa.
+- Cada sessão tem a sua sala e é o professor dela. A primeira sala, com o contexto do projeto, a pauta e o avaliador, nunca desaparece; uma continuação, que começa pouco depois de outra acabar, fica com a sala dessa; quando uma sessão acaba, quem estava na sala dela passa para a primeira. Quando várias sessões ficam na mesma sala, a mais antiga de quem está a ver é o professor e as outras são auxiliares: a mais antiga dá estabilidade, e uma sessão nova não tira o lugar a quem já lá estava *(experiência do projeto, 2026-11-25)*. Numa sala partilhada, o professor é a sessão mais antiga de quem está a ver, e as dos colegas são auxiliares com o nome da pessoa.
 - As skills são alunos, e só entram as que o projeto usou. Uma skill nova ocupa a secretária livre seguinte, que fica sua. Numa sala partilhada há um aluno por pessoa que usou a skill.
 - O orquestrador é o avaliador e não se avalia a si próprio: dá as notas e não recebe nenhuma. Qual das skills faz de avaliador é configuração do portal, nem constante no código nem marca na skill.
 - Os subagentes são ajudantes. Aparecem quando começam e saem quando acabam. O `SubagentStop` dispara também quando acaba um agente interno do Claude Code (sugestões, perguntas laterais), e nesses o `agent_type` vem vazio ou com o nome do agente da própria sessão. O projeto de origem ignora os que vêm sem tipo.
@@ -106,5 +107,9 @@ O aspeto nunca se declara dentro da skill. O `SKILL.md` aceita um campo `metadat
 - [Claude Code: skills](https://code.claude.com/docs/en/skills): onde as skills vivem, precedência entre elas, nome `plugin:skill`, chamada pela ferramenta Skill, `metadata` livre sem efeito no Claude Code
 - [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks): `session_id` em todos os eventos; `agent_id` e `agent_type` no `SubagentStart` e no `SubagentStop`; agentes internos no `SubagentStop`
 - [Claude Code: subagentes](https://code.claude.com/docs/en/sub-agents): subagentes lançados pela ferramenta Agent, cada um no seu contexto
+
+## Histórico
+
+- **2026-11-25**: antes, na tabela, «Professor, se for a mais antiga; auxiliar, se não» e, na regra, «A sessão mais antiga é o professor e as outras são auxiliares. A mais antiga dá estabilidade: uma sessão nova não tira o lugar a quem já lá estava.» (experiência do projeto de 2026-11-18). Mudou porque o dono pediu uma sala por sessão, já que com várias sessões os bonecos ficavam uns em cima dos outros: cada sessão passou a professor da sua sala, e a regra da mais antiga ficou só para uma sala com mais de uma sessão. Editado a 2026-11-25.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.
