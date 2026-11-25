@@ -441,6 +441,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Regulamento (UE) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) | texto legal oficial do AI Act (não lida: bloqueia acesso automático) |
 | [European AI Office](https://digital-strategy.ec.europa.eu/en/policies/ai-office) | supervisão europeia e regras para modelos de finalidade geral |
 | [ANACOM – Inteligência Artificial](https://www.anacom.pt/render.jsp?contentId=1816215) | autoridade portuguesa apontada para o Regulamento da IA (não lida: bloqueia acesso automático) |
+| [AI Act Service Desk: artigo 50.º](https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50) | Obrigações de transparência: marcar e divulgar conteúdo gerado por IA |
 | [EDPB Statement 3/2024](https://www.edpb.europa.eu/our-work-tools/our-documents/statements/statement-32024-data-protection-authorities-role-artificial_en) | papel das autoridades de proteção de dados no AI Act |
 | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | gestão de risco de IA, incl. perfil de IA generativa |
 | [OECD.AI](https://oecd.ai/en/) | observatório de políticas, dados e análise sobre IA |

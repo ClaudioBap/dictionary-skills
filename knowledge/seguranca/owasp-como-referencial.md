@@ -4,7 +4,8 @@ titulo: "OWASP como referencial"
 seccao: "Segurança"
 paginas: [9]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 

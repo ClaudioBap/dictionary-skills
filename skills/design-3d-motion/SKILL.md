@@ -79,7 +79,7 @@ Quando nenhuma entrada cobre o que o utilizador precisa (uma técnica, uma bibli
 ## 4. Construir e provar
 
 - Decisões (biblioteca, formato de asset, CSS ou WebGL, carregar logo ou a pedido): opções da mais barata à mais cara, com a base e uma recomendação, no formato das perguntas.
-- Dispositivos: acorda com o utilizador a lista em que se mede (inclui sempre um telemóvel de gama média e um portátil sem placa gráfica dedicada) e regista-a no guião da prova; sem a lista, as medições não contam.
+- Dispositivos e orçamento: acorda com o utilizador a lista em que se mede (inclui sempre um telemóvel de gama média e um portátil sem placa gráfica dedicada) e os números que `orcamento-de-desempenho-3d.md` deixa em aberto (MB comprimidos da cena e FPS mínimos no telemóvel), e regista-os no guião da prova; sem a lista e os números, as medições não contam.
 - Assets: quando é preciso um modelo 3D, segue `pipeline-blender-gltf.md`; o modelo final do cliente fica em «Por preencher» e usa-se um modelo de substituição marcado como tal.
 - Carregamento: a cena carrega a pedido ou depois do conteúdo principal, com um estado de carregamento visível, para a página servir quem não vai ver o 3D.
 - O critério de fim parte da linha «Para uma skill» das entradas usadas. A prova é o que qualquer pessoa pode repetir:

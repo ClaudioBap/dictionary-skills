@@ -87,7 +87,7 @@ Tudo vive em `video/<nome-do-video>/`, no projeto:
 - `gravacao/`: o vídeo bruto, uma captura JPEG por passo, `tempos.json` (o relógio da gravação) e `filtro.txt` (o filtro ffmpeg usado);
 - `legendas.srt`: geradas a partir do guião;
 - `final/`: as exportações, uma por formato e resolução.
-O projeto precisa de `playwright` e `ffmpeg-static` no `package.json` e do Piper em `ferramentas/piper/` (ou nas variáveis `PIPER_EXE`, `PIPER_MODELO` e `PIPER_ESPEAK`). Nada desta pasta vai para o repositório com segredos; `.gitignore` exclui `ferramentas/`, `gravacao/*.webm`, `audio/narracao.wav` e `audio/tomadas/`.
+O projeto precisa de `playwright` e `ffmpeg-static` no `package.json` e do Piper em `ferramentas/piper/`: o executável em `piper/piper.exe` e a voz como `pt_PT-tugao-medium.onnx` e `pt_PT-tugao-medium.onnx.json`, sem o til do nome oficial `pt_PT-tugão-medium` (ou nas variáveis `PIPER_EXE`, `PIPER_MODELO` e `PIPER_ESPEAK`). Nada desta pasta vai para o repositório com segredos; `.gitignore` exclui `ferramentas/`, `gravacao/*.webm`, `audio/narracao.wav` e `audio/tomadas/`.
 
 ## 4. Produzir, segmento a segmento
 

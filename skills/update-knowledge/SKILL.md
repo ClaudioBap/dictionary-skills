@@ -57,7 +57,7 @@ Também não lê páginas que recusam o acesso automático (pede ao utilizador q
 
 | Nível | Quando |
 |---|---|
-| `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. **Entra diretamente no `ATUALIZACOES.md` da secção.** |
+| `alta` | Fonte oficial primária (o próprio fornecedor, organismo ou autor do standard), lida diretamente, com data explícita. **Entra diretamente: edita a entrada, se muda o que ela diz, ou entra no `ATUALIZACOES.md` da secção.** |
 | `media` | Fonte oficial, mas com uma de três limitações: é indireta (feed só com título, página de resumo); foi lida só em parte; ou o conteúdo foi colado pelo utilizador sem que o pudesses confirmar. Também é `media` quando a data não é indicada. **Entra diretamente, como a `alta`, com «Confiança: media».** Sai só se o utilizador o pedir (passo 2). |
 | `baixa` | Fonte não oficial ou da comunidade, ou informação sem fonte verificável. **Nunca altera o conhecimento.** |
 

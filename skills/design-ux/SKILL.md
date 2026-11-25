@@ -66,7 +66,7 @@ Lê o `README.md` de `design/` e as entradas que o pedido toca. Guia por tipo de
 - qualquer interface: `hierarquia-visual-e-tipografia.md`, `cor-com-significado.md`, `consistencia-e-padroes-estabelecidos.md`, `acessibilidade-wcag.md`, `design-responsivo-e-multi-dispositivo.md`, `estados-erros-e-resiliencia-na-ui.md`, `microcopia-erros-e-estados-claros.md`, `botoes-movimento-e-micro-interacoes.md`;
 - formulários: `formularios.md`, `prevencao-de-erros-e-desfazer.md`, `feedback-e-desempenho-percebido.md`;
 - navegação e conteúdos: `navegacao-e-arquitetura-de-informacao.md`, `rotas-por-url-e-estado-recuperavel.md`, `pesquisa-e-filtros.md`, `onboarding-e-estados-vazios.md`;
-- configuração em vários passos ou ações entre dispositivos: `onboarding-e-estados-vazios.md`, `notificacoes-ao-utilizador.md`, `feedback-e-desempenho-percebido.md`;
+- configuração em vários passos ou ações entre dispositivos: `onboarding-e-estados-vazios.md`, `notificacoes-ao-utilizador.md`, `feedback-e-desempenho-percebido.md`, e `avisos-web-push-com-vapid.md` quando o aviso tem de chegar a um telemóvel sem aplicação nativa;
 - dados e administração: `tabelas-e-dados-densos.md`, `painel-de-administracao-e-controlo.md`, `gestao-de-acessos-na-interface.md`, `personificacao-de-utilizadores.md`, `atalhos-e-power-users.md`;
 - desempenho e media: `desempenho-web-core-web-vitals.md`, `orcamento-de-desempenho.md`, `otimizacao-de-imagens-e-media.md`, `assets-e-fontes-locais.md`;
 - sites públicos: `seo/seo-tecnico.md`, `seo/dados-estruturados-e-partilha.md`; se forem para consumidores (loja online, bilhética, banca, transporte), também `ato-europeu-da-acessibilidade.md`;

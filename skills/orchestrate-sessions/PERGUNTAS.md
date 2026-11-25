@@ -19,7 +19,7 @@ As pistas «Liga a» indicam as pastas de `knowledge/` a ler quando se dividem a
 | P9 | Recursos | Que equipa, competências, infraestrutura e licenças estão disponíveis? | `infraestrutura/`, `nuvem/`, `cicd/` |
 | P15 | Acesso remoto | Há servidores ou máquinas a que alguém precisa de aceder remotamente (SSH ou RDP)? Quem, a partir de onde e por que via? | `acesso-remoto/`, `infraestrutura/` |
 | P10 | Restrições técnicas | Há tecnologia imposta ou proibida? | `python/`, `java/`, `csharp/`, `javascript/`, `node/`, `docker/`, `api/`, `plataformas/` |
-| P11 | Dados e conformidade | Há dados pessoais ou sensíveis? Há exigências de RGPD ou de jurisdição? | `privacidade/`, `soberania/`, `seguranca/` |
+| P11 | Dados e conformidade | Há dados pessoais ou sensíveis? Há exigências de RGPD, de jurisdição ou de cibersegurança (o cliente é de um setor abrangido pela NIS2, ou o resultado é um produto vendido ou distribuído na UE)? | `privacidade/`, `soberania/`, `seguranca/` |
 | P12 | Riscos | O que pode correr mal, e o que seria inaceitável? | `seguranca/`, `fiabilidade/` |
 | P13 | Decisão | Quem aprova as decisões do projeto, e como? | `governacao/` |
 | P14 | Publicação | O resultado vai estar acessível ao público ou só internamente? É para testar a título pessoal (grátis) ou para uso da organização (pago ou empresarial)? Há área de administração? | `publicacao/`, `seguranca/`, `nuvem/`, `soberania/` |

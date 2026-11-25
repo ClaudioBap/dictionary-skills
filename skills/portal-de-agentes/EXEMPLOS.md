@@ -14,7 +14,7 @@ Decide e desenha um portal onde uma equipa acompanha o trabalho dos seus agentes
 
 ## Quando não usar
 
-- Só um painel com o estado das sessões, sem mundo: uma lista chega, e a `design-ux` faz-la.
+- Só um painel com o estado das sessões, sem mundo: uma lista chega, e a `design-ux` fá-la.
 - Só a cena 3D de um portal que já tem os eventos: `design-3d-motion`.
 - Só proteger um portal que já existe: `seguranca`.
 - Um portal de clientes, uma intranet ou um site de conteúdos, sem agentes a acompanhar: `design-ux` e `backend-dados`.

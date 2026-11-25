@@ -5,7 +5,7 @@ argument-hint: "Pasta do projeto e o que se quer: pipeline, contentores, alojame
 metadata:
   estado: produção
   tipo: sub
-  usa: []
+  usa: [humanizar]
   impacto: { ia: 0, seguranca: 6, nuvem: 10, desenvolvimento: 3, web: 2 }
 ---
 
@@ -49,7 +49,7 @@ Lança primeiro um subagente (`haiku`, `low`) para inventariar o que o repositó
 
 ## 2. Ler só o que interessa
 
-- Pipeline: `cicd/ci-vs-cd.md`, `cicd/pipeline-como-portao.md`, `cicd/testes-no-pipeline.md`, `cicd/build-reprodutivel-e-artefacto-imutavel.md`, `cicd/ambientes-e-promocao.md`, `cicd/estrategias-de-deploy.md`, `cicd/rollback-e-recuperacao.md`, `cicd/seguranca-do-pipeline.md`, `cicd/infraestrutura-e-migracoes-no-fluxo.md`, `cicd/estrategia-de-branches-e-ci.md`.
+- Pipeline: `cicd/ci-vs-cd.md`, `cicd/pipeline-como-portao.md`, `cicd/testes-no-pipeline.md`, `cicd/build-reprodutivel-e-artefacto-imutavel.md`, `cicd/ambientes-e-promocao.md`, `cicd/estrategias-de-deploy.md`, `cicd/rollback-e-recuperacao.md`, `cicd/seguranca-do-pipeline.md`, `cicd/infraestrutura-e-migracoes-no-fluxo.md`, `cicd/estrategia-de-branches-e-ci.md`, `cicd/observabilidade-do-deploy.md`. Para as verificações que o pipeline corre: `cicd/ferramentas-sast.md`, `cicd/ferramentas-dependencias.md`.
 - Contentores: `docker/imagens-e-dockerfile.md`, `docker/imagem-endurecida.md`, `docker/contentores-execucao-e-configuracao.md`, `docker/docker-compose.md`, `docker/volumes-e-persistencia.md`, `docker/redes-do-docker.md`, `docker/sondas-de-saude.md`; com Kubernetes, as entradas `docker/kubernetes-*.md`.
 - Serviços de apoio: `infraestrutura/proxy-reverso-e-borda.md`, `infraestrutura/base-de-dados-relacional-postgresql.md`, `infraestrutura/cache-e-sessoes-redis-valkey.md`, `infraestrutura/armazenamento-de-objetos-minio-s3.md`, `infraestrutura/mensageria-e-filas.md`.
 - Fornecedor: `nuvem/escolher-o-fornecedor-de-nuvem.md`, `nuvem/multi-cloud-lock-in-e-saida.md` e a entrada do fornecedor em causa (`nuvem/aws.md`, `nuvem/microsoft-azure-e-entra-id.md`, `nuvem/ovhcloud.md`).
@@ -67,7 +67,7 @@ Quando nenhuma entrada cobre o fornecedor ou a ferramenta em causa, ou os limite
 3. **Contentores.** Imagem mínima e endurecida, utilizador sem privilégios, configuração por variáveis de ambiente, sondas de saúde, volumes só onde há estado.
 4. **Segredos e variáveis.** Cada valor que o utilizador tem de criar (conta, domínio, chave de API, segredo de cliente) vai para o `.env.example` com o nome e o formato, e para «Por preencher» de `entrega.md`. O resto continua até ao fim.
 5. **Jurisdição.** Para cada serviço externo, regista a localização dos dados e a fonte; se não está na UE e o projeto o exige (P11), a decisão volta ao utilizador com alternativas.
-6. **Prova.** Pipeline verde com o registo da execução; imagem construída e a correr; deploy e reversão feitos em teste.
+6. **Prova.** Pipeline verde com o registo da execução; imagem construída e a correr; deploy e reversão feitos em teste, e cada deploy seguido do smoke test que confirma a configuração (`cicd/observabilidade-do-deploy.md`).
 
 ## 5. Publicar e verificar
 
@@ -78,6 +78,8 @@ node ../orchestrate-sessions/scripts/verificar-publicacao.mjs https://<domínio>
 ```
 
 Tem de terminar com `✓ Publicação verificada`. Se o projeto não está exposto, escreve «Não aplicável:» e a razão. Base: `publicacao/certificados-tls.md`, `seguranca/tls-e-cabecalhos-versionados.md`, `publicacao/acesso-restrito-a-area-de-administracao.md`.
+
+**Humanizar.** Os ficheiros do pipeline e dos contentores, o `.env.example` e as instruções de publicação não podem deixar perceber que foram feitos por uma IA. Corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria, e a saída final entra no relatório.
 
 ## Relatório
 

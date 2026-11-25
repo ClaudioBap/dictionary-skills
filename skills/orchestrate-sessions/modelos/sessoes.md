@@ -57,6 +57,17 @@
 | Tarefa | De | Para | Porquê |
 |--------|----|------|--------|
 
+## Por preencher
+
+<!-- Uma linha por valor que só o utilizador pode dar (segredos, identificadores, URLs do cliente), sem valores reais. -->
+
+| Valor | Para quê | Onde se obtém | Formato de exemplo |
+|-------|----------|---------------|--------------------|
+
+## Publicação
+
+<!-- Com o trabalho exposto na internet: a saída completa de `node scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho>`, que tem de acabar em «✓ Publicação verificada». Sem exposição: «Não aplicável:» e a razão. -->
+
 ## Validação
 
 - [ ] Plano de delegação validado pelo utilizador em _por definir_

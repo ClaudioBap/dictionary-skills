@@ -102,9 +102,9 @@ It keeps the knowledge base and the personal knowledge up to date. It only runs 
    | Medium | Official source but indirect, partly read or undated | Goes in like a high one, marked «Confiança: media»; it only comes out if you ask for it |
    | Low | Unofficial source | Never changes the knowledge |
 
-   New entries, new sources and edits backed only by medium-confidence sources always require approval, one at a time. After editing an entry, it also updates the skills that used the old value.
+   New entries and new sources always require approval, one at a time, whatever their confidence. After editing an entry, it also updates the skills that used the old value.
 3. It records each change in `CHANGELOG.md`, with source, release date, confidence and who approved it.
-4. It runs the checkers and, with your permission, commits and pushes. Anyone reading the base from `~/.dictionary-skills` gets the new knowledge with `conhecimento.mjs --atualizar`.
+4. It runs the checkers and publishes without asking, with a commit and push to `main`. Anyone reading the base from `~/.dictionary-skills` gets the new knowledge with `conhecimento.mjs --atualizar`.
 5. It also updates the user's personal knowledge: high-confidence changes go in, medium-confidence changes wait for the user's decision on the next run.
 
 It does not get around sites that block automated access: in those cases it asks you to open the page and paste the content, or records the source as unread.

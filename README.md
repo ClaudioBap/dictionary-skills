@@ -100,9 +100,9 @@ Mantém a base de conhecimento e o conhecimento pessoal em dia. Só corre quando
    | Média | Fonte oficial mas indireta, lida em parte ou sem data | Entra como a alta, marcada «Confiança: media»; sai só se pedires para a tirar |
    | Baixa | Fonte não oficial | Nunca altera o conhecimento |
 
-   Novas entradas, fontes novas e edições sustentadas só por fontes de confiança média pedem sempre aprovação, uma a uma. Depois de editar uma entrada, atualiza também as skills que usavam o valor antigo.
+   Novas entradas e fontes novas pedem sempre aprovação, uma a uma, qualquer que seja a confiança. Depois de editar uma entrada, atualiza também as skills que usavam o valor antigo.
 3. Regista cada alteração no `CHANGELOG.md`, com fonte, data de lançamento, confiança e quem aprovou.
-4. Corre os verificadores e, com a tua autorização, faz commit e push. Quem lê a base a partir de `~/.dictionary-skills` recebe o conhecimento novo com `conhecimento.mjs --atualizar`.
+4. Corre os verificadores e publica sem perguntar, com commit e push no `main`. Quem lê a base a partir de `~/.dictionary-skills` recebe o conhecimento novo com `conhecimento.mjs --atualizar`.
 5. Atualiza também o conhecimento pessoal do utilizador: as novidades de confiança alta entram, as de confiança média ficam para ele decidir na corrida seguinte.
 
 Não contorna sites que bloqueiam o acesso automático: nesses casos pede que abras a página e coles o conteúdo, ou regista a fonte como não lida.
@@ -221,8 +221,8 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 | `gravacao-video` | sub | `humanizar` | 5 | 0 | 0 | 2 | 10 |
 | `humanizar` | sub | nenhuma | 0 | 0 | 0 | 10 | 10 |
 | `ia-aplicada` | sub | `humanizar` | 10 | 3 | 3 | 5 | 0 |
-| `infra-deploy` | sub | nenhuma | 0 | 6 | 10 | 3 | 2 |
-| `operar` | sub | nenhuma | 2 | 3 | 10 | 2 | 0 |
+| `infra-deploy` | sub | `humanizar` | 0 | 6 | 10 | 3 | 2 |
+| `operar` | sub | `humanizar` | 2 | 3 | 10 | 2 | 0 |
 | `performance-verifier` | sub | `humanizar` | 6 | 0 | 7 | 6 | 7 |
 | `portal-de-agentes` | sub | `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |
 | `produtizar` | sub | `humanizar` | 0 | 0 | 3 | 10 | 0 |

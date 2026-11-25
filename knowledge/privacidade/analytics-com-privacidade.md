@@ -4,7 +4,8 @@ titulo: "Analytics com privacidade"
 seccao: "Privacidade e conformidade"
 paginas: [10]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 

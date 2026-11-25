@@ -58,7 +58,7 @@ Lê também as regras do projeto (`CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, c
 
 ## 2. Ler só o que interessa
 
-Lê o `README.md` da pasta da linguagem e as entradas que o pedido toca. Em todas as linguagens há uma entrada de estilo (`estilo-e-formatacao.md` ou `convencoes-e-estilo.md`), uma de estrutura do projeto, uma de erros e exceções, uma de testes (`testes.md`), uma de logging e uma de segurança (`seguranca-em-<linguagem>.md`). Para o resto, pelo pedido:
+Lê o `README.md` da pasta da linguagem e as entradas que o pedido toca. Em todas as linguagens há uma entrada de estilo (`estilo-e-formatacao.md` ou `convencoes-e-estilo.md`), uma de estrutura do projeto, uma de erros e exceções, uma de testes (`testes.md`), uma de logging (exceto JavaScript no browser) e uma de segurança (`seguranca-em-<linguagem>.md`; em JavaScript, `seguranca-no-browser.md`). Para o resto, pelo pedido:
 - Python: `type-hints-e-tipagem-estatica.md`, `classes-dataclasses-e-composicao.md`, `funcoes-design-e-armadilhas.md`, `gestao-de-recursos-context-managers.md`, `programacao-assincrona.md`, `ambientes-e-dependencias.md`;
 - Java: `design-oo-e-solid.md`, `imutabilidade-e-records.md`, `null-safety-e-optional.md`, `colecoes-generics-e-streams.md`, `concorrencia.md`, `gestao-de-recursos.md`;
 - C#: `nullable-reference-types.md`, `async-await.md`, `linq-e-colecoes.md`, `design-solid-e-injecao-de-dependencias.md`, `gestao-de-recursos-idisposable.md`, `pattern-matching-e-features-modernas.md`;

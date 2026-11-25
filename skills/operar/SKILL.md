@@ -5,7 +5,7 @@ argument-hint: "Pasta do projeto ou URL da plataforma a preparar para operação
 metadata:
   estado: produção
   tipo: sub
-  usa: []
+  usa: [humanizar]
   impacto: { ia: 2, seguranca: 3, nuvem: 10, desenvolvimento: 2, web: 0 }
 ---
 
@@ -21,7 +21,7 @@ O conhecimento está em `knowledge/`: `fiabilidade/`, `docker/`, `cicd/` e `estr
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: inventariar o que existe é «Ler»; escrever runbooks e configurar monitorização é «Construir»; definir o processo de incidentes e os objetivos de serviço é «Rever e decidir com risco».
 - «Está configurado» não é prova. A prova de uma cópia de segurança é um restauro feito; a de uma sonda é a resposta que devolve; a de um alerta é um disparo de teste.
 - O documento de operação é para quem não construiu a plataforma: cada rotina diz o que fazer, passo a passo, sem exigir que a pessoa perceba o código.
-- Publicar é uma rotina de um só pedido, feita de A a Z (decisão do Cláudio, 2026-11-22: «quando eu pedir isso deves fazer de A a Z»):
+- Publicar é uma rotina de um só pedido, feita de A a Z (o utilizador decidiu a 2026-11-22: «quando eu pedir isso deves fazer de A a Z»):
   - trazer o que há de novo;
   - correr as verificações do próprio repositório e corrigir o que falhar;
   - fazer commit do que está pronto e push;
@@ -88,6 +88,7 @@ Para cada item de `fiabilidade/prontidao-operacional-e-passagem.md`, o critério
 4. **Runbooks**: um por rotina (atualizar, reiniciar, rodar segredos, repor uma cópia) e um por emergência prevista (serviço em baixo, disco cheio, certificado expirado, base de dados inacessível), com passos, comandos e como saber que resultou. Prova: um runbook seguido do início ao fim por alguém que não o escreveu, ou por ti numa sessão nova.
 5. **Processo de incidentes**: quem é avisado, por onde, quem decide, e o postmortem sem culpa depois. Prova: o documento e um exercício de mesa.
 6. **Registo de alterações e reversão**: cada versão com data e alterações, e a reversão testada. Prova: o `CHANGELOG` e uma reversão feita em teste.
+7. **Objetivo de serviço**: o que é «estar bem» em cada serviço (SLO), decidido pelo utilizador, e o indicador que o mede (SLI). Prova: o SLO escrito no `OPERACAO.md` e o valor medido no painel.
 
 O que depender de decisões ou acessos do utilizador (quem recebe os alertas, onde ficam as cópias, o fornecedor de alertas) fica em «Por preencher»; o resto faz-se até ao fim.
 
@@ -97,6 +98,8 @@ O que depender de decisões ou acessos do utilizador (quem recebe os alertas, on
 2. Regista a prontidão com um item por linha: o que ficou feito e a prova, ou «Não aplicável:» e a razão.
    - Se o projeto vem da start-project-with-trust (existe `arranque/<projeto>/entrega.md`), preenche a secção «Operação» desse ficheiro, no formato de `../start-project-with-trust/modelos/entrega.md`, corre `node ../start-project-with-trust/scripts/verificar.mjs <pasta do arranque> --entrega` e mostra a saída.
    - Fora disso, escreve a tabela no fim do `OPERACAO.md`, numa secção «Prontidão» (`| Item | O que ficou feito | Prova |`). Nenhuma linha fica sem prova ou sem razão. Numa sessão lançada pela orchestrate-sessions, a saída da sessão aponta para esta tabela.
+
+**Humanizar.** O `OPERACAO.md` e os runbooks são lidos por quem não construiu a plataforma e não podem deixar perceber que foram feitos por uma IA. Corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria, e a saída final entra no relatório.
 
 ## Relatório
 

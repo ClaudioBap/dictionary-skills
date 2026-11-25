@@ -52,7 +52,7 @@ Preços de referência por milhão de tokens (entrada/saída): Haiku 5.5 $0,10/$
 
 Fonte: documentação oficial, consultada a 2026-11-10 ([model-config](https://code.claude.com/docs/en/model-config), [sub-agents](https://code.claude.com/docs/en/sub-agents), [costs](https://code.claude.com/docs/en/costs)).
 
-- **Sessão nova:** `claude --model sonnet --effort low`. A meio da sessão: `/model` e `/effort`.
+- **Sessão nova:** `claude --model sonnet --effort low`. A meio da sessão: `/model` e `/effort`. Com Enter, ou com o modelo ou o nível escrito a seguir ao comando, a escolha fica como predefinição das sessões seguintes (o effort, guardado por modelo); a tecla `s` no seletor aplica-a só a esta sessão (no effort, a partir da versão 2.1.257). No painel do VS Code, escolher um effort diferente de `max` guarda-o como predefinição desse modelo. Fonte: [model-config](https://code.claude.com/docs/en/model-config) e [VS Code](https://code.claude.com/docs/en/vs-code), lidas a 2026-11-25.
 - **Subagente lançado por uma sessão:** a ferramenta Agent aceita `model` (`haiku`, `sonnet`, `opus`, `fable`) e `effort`. Num agente definido em `.claude/agents/*.md`, os mesmos campos vão no frontmatter.
 - **Subagentes dentro de subagentes:** permitidos até três níveis abaixo da sessão principal.
 - **Effort padrão no Claude Code:** `medium` no Haiku 5.5, Sonnet 5.5, Opus 5.5 e Fable. Aceitam de `low` a `max`. Na API os padrões são outros (`knowledge/ia/pensar-e-esforco.md`).

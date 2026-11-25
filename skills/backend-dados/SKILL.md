@@ -71,6 +71,7 @@ Se parte do pedido é de outra skill (ver «Âmbito»), diz qual e porquê: cham
 - Alterações e dados: `base-de-dados/migracoes.md`, `base-de-dados/auditoria-e-apagamento.md`, `base-de-dados/backups-e-recuperacao.md`, `base-de-dados/seguranca-da-base-de-dados.md`, `seguranca/menor-privilegio-na-base-de-dados.md`, `seguranca/queries-parametrizadas.md`.
 - Só se o pedido falar em big data, Fabric ou MongoDB: `base-de-dados/big-data-e-lakehouse.md`, `base-de-dados/microsoft-fabric.md`, `base-de-dados/mongodb-modelo-indices-e-agregacao.md`, `base-de-dados/mongodb-consistencia-escala-seguranca-e-atlas.md`.
 - Segundo plano: `custo/orquestracao-de-trabalho.md`, `infraestrutura/mensageria-e-filas.md`, `plataformas/tarefas-em-segundo-plano.md`.
+- Só se o pedido falar em pesquisa de texto: `infraestrutura/pesquisa-opensearch-meilisearch.md`.
 
 ## 3. Se a biblioteca não tem a resposta
 
