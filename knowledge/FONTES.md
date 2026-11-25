@@ -62,6 +62,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OpenTelemetry: What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) | Padrão aberto de telemetria: traces, métricas e logs |
 | [CISA: Back up business data](https://www.cisa.gov/audiences/small-and-medium-businesses/secure-your-business/back-up-business-data) | Regra 3-2-1 das cópias de segurança |
 | [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) | Registo de alterações legível por pessoas |
+| [Prometheus: Instrumentation](https://prometheus.io/docs/practices/instrumentation/) | Tarefas em lote: a hora do último sucesso como métrica principal |
+| [Prometheus: Alerting](https://prometheus.io/docs/practices/alerting/) | Alerta de uma tarefa em lote com margem de duas corridas completas |
+| [AWS Well-Architected: OPS07-BP03 Use runbooks](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/ops_ready_to_support_use_runbooks.html) | Runbooks no controlo de versões e atualizados com frequência (página de referência histórica) |
 
 ## [Design e experiência de utilizador](design/README.md)
 

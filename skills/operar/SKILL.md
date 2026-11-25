@@ -24,10 +24,11 @@ O conhecimento está em `knowledge/`: `fiabilidade/`, `docker/`, `cicd/` e `estr
 - Publicar é uma rotina de um só pedido, feita de A a Z (o utilizador decidiu a 2026-11-22: «quando eu pedir isso deves fazer de A a Z»):
   - trazer o que há de novo;
   - correr as verificações do próprio repositório e corrigir o que falhar;
+  - se outras sessões ou pessoas publicam no mesmo repositório, antes do push: rebase sobre a ponta atual, confirmar que não há CI a correr no branch de produção e avisá-las (o utilizador pediu este cuidado a 2026-11-25, com duas sessões a publicar ao mesmo tempo);
   - fazer commit do que está pronto e push;
   - acompanhar o CI e o deploy até ao fim.
 
-  Só se pára numa falha que não se consegue resolver, e diz-se qual. O runbook de publicar escreve-se assim, sem pontos de confirmação pelo caminho. Num portal de agentes, o botão manda este pedido a uma sessão já aberta com o repositório (`portais-de-agentes/caixa-de-perguntas-a-distancia.md`, «Publicar com um toque»).
+  Só se pára numa falha que não se consegue resolver, e diz-se qual. Uma verificação obrigatória a falhar não se contorna com push direto nem com merge de administrador: corrige-se a causa no próprio pedido, ou pára-se aí (`cicd/pipeline-como-portao.md`). O runbook de publicar escreve-se assim, sem pontos de confirmação pelo caminho. Num portal de agentes, o botão manda este pedido a uma sessão já aberta com o repositório (`portais-de-agentes/caixa-de-perguntas-a-distancia.md`, «Publicar com um toque»).
 
 ## Âmbito
 
@@ -82,10 +83,10 @@ Quando nenhuma entrada cobre o que é preciso (uma plataforma de alojamento com 
 
 Para cada item de `fiabilidade/prontidao-operacional-e-passagem.md`, o critério de fim é a linha «Para uma skill» da entrada que o cobre, e a prova é o que qualquer pessoa pode repetir:
 
-1. **Monitorização dos quatro sinais**: latência, tráfego, erros e saturação medidos por serviço, com um alerta por sinal. Prova: o painel e um alerta de teste disparado.
+1. **Monitorização dos quatro sinais**: latência, tráfego, erros e saturação medidos por serviço, com um alerta por sinal. Cada tarefa que corre sozinha (sincronização, cópia, agendamento, hook) tem a hora do último sucesso e um alerta quando passa o tempo de duas corridas sem sucesso, porque os quatro sinais não dão por uma tarefa que parou (`fiabilidade/monitorizacao-quatro-sinais.md`). Prova: o painel, um alerta de teste disparado e a hora do último sucesso de cada tarefa.
 2. **Sondas de saúde**: liveness, readiness e, se o arranque é lento, startup, em cada contentor. Prova: a resposta de cada sonda.
 3. **Cópias de segurança 3-2-1**: três cópias, dois suportes, uma fora do local, com um restauro feito num ambiente de teste. Prova: o restauro e o tempo que demorou.
-4. **Runbooks**: um por rotina (atualizar, reiniciar, rodar segredos, repor uma cópia) e um por emergência prevista (serviço em baixo, disco cheio, certificado expirado, base de dados inacessível), com passos, comandos e como saber que resultou. Prova: um runbook seguido do início ao fim por alguém que não o escreveu, ou por ti numa sessão nova.
+4. **Runbooks**: um por rotina (atualizar, reiniciar, rodar segredos, repor uma cópia) e um por emergência prevista (serviço em baixo, disco cheio, certificado expirado, base de dados inacessível), com passos, comandos e como saber que resultou. Numa plataforma que já existe, confere cada runbook com a plataforma de hoje (como se entra, que tokens há, que comandos correm), e deixa escrito que a alteração que muda uma rotina atualiza o runbook no mesmo commit (`fiabilidade/operacao-padronizada-e-runbooks.md`). Prova: um runbook seguido do início ao fim por alguém que não o escreveu, ou por ti numa sessão nova.
 5. **Processo de incidentes**: quem é avisado, por onde, quem decide, e o postmortem sem culpa depois. Prova: o documento e um exercício de mesa.
 6. **Registo de alterações e reversão**: cada versão com data e alterações, e a reversão testada. Prova: o `CHANGELOG` e uma reversão feita em teste.
 7. **Objetivo de serviço**: o que é «estar bem» em cada serviço (SLO), decidido pelo utilizador, e o indicador que o mede (SLI). Prova: o SLO escrito no `OPERACAO.md` e o valor medido no painel.
