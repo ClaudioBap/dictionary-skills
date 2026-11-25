@@ -54,9 +54,12 @@ function estilo(cores, fonte) {
   gap: 18px; padding: 0 80px; text-align: center; pointer-events: none; color: #fff; font-family: ${letra};
   background: radial-gradient(ellipse at 30% 20%, ${cores.realce}26, transparent 55%), ${cores.fundo}; transition: opacity .6s ease, transform .6s ease; }
 .dg-cartao.dg-sair { opacity: 0; transform: scale(1.04); }
-.dg-cartao h1 { margin: 0; font-weight: 700; font-size: 56px; line-height: 1.1; letter-spacing: -.5px; color: #fff; animation: dg-subir .6s ease-out both; }
-.dg-cartao i { display: block; width: 64px; height: 4px; background: ${cores.realce}; border-radius: 2px; animation: dg-subir .6s ease-out .15s both; }
-.dg-cartao p { margin: 0; font-weight: 400; font-size: 24px; line-height: 1.3; color: #ffffffc0; animation: dg-subir .6s ease-out .3s both; }
+/* all: initial: o CSS do site não chega ao cartão (o Arquivo.pt tem «h1, h2 { visibility: collapse; height: 0 }»). */
+.dg-cartao h1 { all: initial; display: block; text-align: center; font-family: ${letra};
+  margin: 0; font-weight: 700; font-size: 56px; line-height: 1.1; letter-spacing: -.5px; color: #fff; animation: dg-subir .6s ease-out both; }
+.dg-cartao i { all: initial; display: block; width: 64px; height: 4px; background: ${cores.realce}; border-radius: 2px; animation: dg-subir .6s ease-out .15s both; }
+.dg-cartao p { all: initial; display: block; text-align: center; font-family: ${letra};
+  margin: 0; font-weight: 400; font-size: 24px; line-height: 1.3; color: #ffffffc0; animation: dg-subir .6s ease-out .3s both; }
 .dg-rato { position: fixed; left: 0; top: 0; z-index: 2147483647; pointer-events: none; opacity: 0; transition: opacity .3s ease;
   filter: drop-shadow(0 1px 2px #0006); transform-origin: 2px 2px; }
 .dg-rato.dg-ver { opacity: 1; }
@@ -239,8 +242,10 @@ export async function abrirEstudio(opcoes = {}) {
   // ritmo: multiplica a duração dos movimentos do cursor, do scroll, da escrita e do zoom.
   const RITMOS = {
     teaser: { pausaFrases: 0.25, folga: 0.4, ritmo: 1 },
-    demonstracao: { pausaFrases: 0.5, folga: 0.9, ritmo: 1.3 },
-    explicacao: { pausaFrases: 0.7, folga: 1.2, ritmo: 1.5 },
+    // Pausas da demonstração e da explicação alargadas a 2026-11-25: a demonstração em português ouvia-se
+    // apressada, e a voz do Piper não pode abrandar mais sem perder a primeira sílaba das frases.
+    demonstracao: { pausaFrases: 0.7, folga: 1.2, ritmo: 1.3 },
+    explicacao: { pausaFrases: 0.9, folga: 1.5, ritmo: 1.5 },
   };
   const base = RITMOS[guiao.formato] ?? RITMOS.demonstracao;
   const folgaMs = Math.round((guiao.folga ?? base.folga) * 1000);
@@ -290,6 +295,12 @@ export async function abrirEstudio(opcoes = {}) {
     const p = await context.newPage();
     await p.goto(guiao.url, { waitUntil: 'load', timeout: 30000 }).catch(() => {});
     await aceitarCookies(p);
+    // A letra das cenas e dos cartões fica na cache antes de gravar. Sem isto, o cartão de abertura
+    // aparece com a letra de recurso e troca a meio, quando a do Google Fonts chega.
+    if (fonte) {
+      await p.addStyleTag({ url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fonte)}:wght@400;500;600;700;800&display=swap` }).catch(() => {});
+      await p.evaluate((f) => Promise.all([400, 500, 600, 700, 800].map((w) => document.fonts.load(`${w} 24px '${f}'`, 'Aá'))), fonte).catch(() => {});
+    }
     for (const [id, cena] of Object.entries(guiao.cenas ?? {})) {
       if (!cena.capturas?.length) continue;
       capturas[id] = [];

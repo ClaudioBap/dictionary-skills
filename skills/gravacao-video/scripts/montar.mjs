@@ -138,10 +138,15 @@ if (musica) {
   if (!musica.licenca || !musica.fonte) throw new Error('Música sem licença confirmada: escreve "licenca" e "fonte" (a página onde a leste) em "musica" no guiao.json, ou tira a música.');
   const T = (totalMs / 1000).toFixed(3);
   const entrada = musica.entrada ?? 1.5, saidaS = musica.saida ?? 3;
+  // A música desce antes de a voz entrar: o sinal de controlo é a narração adiantada 0,25 s. Sem isto, só
+  // descia depois da primeira sílaba, e uma consoante fraca no arranque («f», «s», «v») ou uma palavra curta
+  // («O», «As») ficava por baixo da música, e a frase ouvia-se cortada no início.
+  const ANTECIPA = 0.25;
   const filtroMusica = [
     `[1:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${T},asetpts=N/SR/TB,loudnorm=I=${musica.nivel ?? -27}:TP=-3:LRA=11,aresample=48000,`
       + `afade=t=in:st=0:d=${entrada},afade=t=out:st=${Math.max(0, totalMs / 1000 - saidaS).toFixed(3)}:d=${saidaS}[m]`,
-    '[0:a]aresample=48000,aformat=channel_layouts=stereo,asplit=2[v][sc]',
+    '[0:a]aresample=48000,aformat=channel_layouts=stereo,asplit=2[v][sc0]',
+    `[sc0]atrim=start=${ANTECIPA},asetpts=PTS-STARTPTS,apad=whole_dur=${T}[sc]`,
     `[m][sc]sidechaincompress=threshold=${musica.limiar ?? 0.02}:ratio=${musica.reducao ?? 6}:attack=40:release=700:knee=3[md]`,
     '[md]asplit=2[md1][md2]',
     '[v][md1]amix=inputs=2:duration=first:normalize=0[mix]',
@@ -163,7 +168,16 @@ if (musica) {
     (fala ? comVoz : semVoz).push(db);
   }
   const media = (l) => (l.length ? l.reduce((a, b) => a + b, 0) / l.length : null);
-  medidaMusica = { comVoz: media(comVoz), semVoz: media(semVoz) };
+  // No arranque de cada frase (os primeiros 200 ms de fala, depois dos 30 ms de silêncio do ficheiro), a
+  // música já tem de estar em baixo: é aí que se perdem as primeiras palavras.
+  const nivelEm = (de, ate) => {
+    const a = Math.round((de / 1000) * m.taxa) * m.canais, b = Math.min(s.length, Math.round((ate / 1000) * m.taxa) * m.canais);
+    let q = 0; for (let k = a; k < b; k++) q += s[k] * s[k];
+    return 20 * Math.log10(Math.max(1, Math.sqrt(q / Math.max(1, b - a))) / 32768);
+  };
+  const arranques = clips.filter((c) => c.inicio > 1500).map((c) => ({ id: c.id, db: nivelEm(c.inicio + 30, c.inicio + 230) }));
+  const pior = arranques.reduce((p, x) => (!p || x.db > p.db ? x : p), null);
+  medidaMusica = { comVoz: media(comVoz), semVoz: media(semVoz), arranque: media(arranques.map((x) => x.db)), pior };
 }
 
 // 4. Zoom em pós-produção: as marcas da gravação viram fotogramas-chave e o zoompan do ffmpeg
@@ -289,9 +303,11 @@ writeFileSync(join(pasta, naLingua('escuta.md')), [
   '',
   '| O que ouviste | Comando, nesta pasta |',
   '|---|---|',
+  ...(guiao.motorVoz === 'gravada' ? [`| Uma frase gravada que soa mal (voz própria) | grava-a outra vez com \`node gravar-voz.mjs${SUFIXO}\`, depois \`node narrar.mjs${SUFIXO}\` e \`node montar.mjs${SUFIXO}\` |`] : []),
   `| Uma palavra mal dita, ou um termo estrangeiro | \`node narrar.mjs${SUFIXO} --lacuna 9 pronuncia "palavra=como se diz"\` (ou \`estrangeirismo\`) |`,
   `| A entoação errada num trecho | \`node narrar.mjs${SUFIXO} --lacuna 9 entoacao "trecho=o trecho com outra pontuação"\` |`,
   `| Uma palavra comida | \`node narrar.mjs${SUFIXO} --lacuna 9 palavra-comida palavra\` |`,
+  `| Um «i» que não existe antes do «ch» («textos» dito «teistos») | \`node narrar.mjs${SUFIXO} --frase 9\` e ouve as tomadas novas; fica com a boa com \`--tomada\`, ou reescreve a frase sem a palavra. Mudar a grafia não resolve |`,
   `| O fim cortado, ou ruído antes da fala | \`node narrar.mjs${SUFIXO} --lacuna 9 fim-cortado\` ou \`node narrar.mjs${SUFIXO} --lacuna 9 ruido\` |`,
   `| Uma frase que saiu mal só desta vez | \`node narrar.mjs${SUFIXO} --frase 9\`, que gera tomadas novas só para ela |`,
   `| Preferes outra tomada de uma frase | \`node narrar.mjs${SUFIXO} --frase 9 --tomada 3\` |`,
@@ -372,5 +388,9 @@ if (graficos.length) console.log(`Gráficos por cima do vídeo: ${graficos.map((
 if (medidaMusica) {
   const voz = -20; // a narração fica a −20 dBFS de RMS na fala (narrar.mjs)
   console.log(`Música: ${medidaMusica.comVoz?.toFixed(1)} dBFS por baixo da voz (${(medidaMusica.comVoz - voz).toFixed(1)} dB face à voz) e ${medidaMusica.semVoz?.toFixed(1)} dBFS nas pausas, antes da normalização final.`);
+  if (medidaMusica.pior) {
+    console.log(`Música no arranque das frases (primeiros 200 ms de fala): ${medidaMusica.arranque.toFixed(1)} dBFS em média; a mais alta em ${medidaMusica.pior.id}, ${medidaMusica.pior.db.toFixed(1)} dBFS.`);
+    if (medidaMusica.pior.db - voz > -12) console.warn(`Aviso: em ${medidaMusica.pior.id} a música está só ${(voz - medidaMusica.pior.db).toFixed(1)} dB abaixo da voz quando a frase começa; as primeiras palavras podem ouvir-se cortadas.`);
+  }
 }
 console.log(`Pacote: final/${nomeBase}.srt, ${miniatura}, final/${nomeBase}-publicar.md${capitulos.length ? ` (${capitulos.length} capítulos)` : ''}`);

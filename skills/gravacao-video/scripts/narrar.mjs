@@ -26,6 +26,9 @@
 // 5. Ouvido: um reconhecimento de fala local (Whisper) transcreve cada tomada, e a escolha prefere a
 //    que diz todas as palavras do texto; as frases a que ainda faltam palavras aparecem no fim.
 //
+// Com "motorVoz": "gravada", a voz é a de uma pessoa: as frases gravam-se antes com gravar-voz.mjs (em
+// audio/gravada/) e este script só as limpa, nivela e confere, uma tomada por frase, sem pronúncias.
+//
 // Correções, da mais geral para a mais específica (a última ganha): pronuncias.json ao lado
 // deste script (o da skill), ~/.start-project-with-trust/voz.json (as pronúncias que esta pessoa
 // ensinou e as lacunas que apontou; o pronuncias.json pessoal antigo continua a ser lido) e
@@ -33,7 +36,7 @@
 // Caminhos do Piper em PIPER_EXE, PIPER_MODELO e PIPER_ESPEAK; sem eles, usa ferramentas/piper/ na raiz do projeto.
 import { execFileSync, execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { pasta, lerJson, escreverJson, lerWav, cabecalhoWav, dividirFrases, lerGuiao, lingua, naLingua, principal } from './comum.mjs';
@@ -45,11 +48,19 @@ const falhar = (mensagem) => { console.error(mensagem); process.exit(1); };
 
 const guiao = lerGuiao();
 const emPortugues = lingua.startsWith('pt');
-const MOTORES = ['piper', 'azure', 'kokoro'];
+const MOTORES = ['piper', 'azure', 'kokoro', 'gravada'];
 const motor = guiao.motorVoz ?? (emPortugues ? 'piper' : 'kokoro');
 if (!MOTORES.includes(motor)) falhar(`Motor de voz desconhecido: ${motor}. Usa ${MOTORES.map((m) => `"${m}"`).join(', ')}.`);
 if (motor === 'kokoro' && emPortugues) falhar('O Kokoro só tem português do Brasil. Em português de Portugal usa "piper" ou "azure".');
-const FALA = { teaser: 1.0, demonstracao: 1.08, explicacao: 1.12 }; // duração dos fonemas no Piper
+// Duração dos fonemas por formato. A voz portuguesa do Piper fala mais depressa do que as outras: a 1,08
+// dizia cerca de 6,3 grupos de vogais por segundo, contra 4,2 do Kokoro em inglês, e numa demonstração
+// ouvia-se apressada (teste de 2026-11-25). Por isso abranda mais. O Piper não abranda na proporção do
+// valor, porque cada fonema curto arredonda para tramas de 11,6 ms: face a 1,08, o 1,2 deu 5% mais tempo,
+// o 1,3 deu 11% e o 1,45 deu 21%. A 1,45 a primeira sílaba passou a perder-se mais («Cada» em 7 tomadas
+// de 8, «Aqui» em 6 de 8; a 1,2 saíam bem), por isso a fala fica em 1,3 e o resto vem das pausas do estúdio.
+const FALA = motor === 'piper' && emPortugues
+  ? { teaser: 1.2, demonstracao: 1.3, explicacao: 1.4 }
+  : { teaser: 1.0, demonstracao: 1.08, explicacao: 1.12 };
 const opcoes = { length_scale: FALA[guiao.formato] ?? FALA.demonstracao, noise_w: 0.6, noise_scale: 0.667, tomadas: 4, ...guiao.vozOpcoes };
 const nTomadas = motor === 'piper' ? Math.max(1, opcoes.tomadas) : 1;
 const VOZ_POR_OMISSAO = { piper: emPortugues ? 'pt_PT-tugao-medium' : 'en_GB-cori-high', azure: emPortugues ? 'pt-PT-RaquelNeural' : 'en-GB-SoniaNeural', kokoro: 'af_heart' };
@@ -163,14 +174,17 @@ const PRONUNCIAS = {
   ...guiao.pronuncias,
 };
 for (const f of todas) {
-  Object.assign(f, comoSeDiz(f.texto));
+  Object.assign(f, motor === 'gravada' ? { dito: f.texto, avisos: [] } : comoSeDiz(f.texto));
   f.tomadas = motor === 'piper' ? Math.max(nTomadas, ...lacunas.filter((l) => l.tomadas && aplicaSe(l, f)).map((l) => l.tomadas)) : 1;
 }
 
 // Uma frase só se refaz quando muda aquilo que a voz diz ou a maneira de o dizer, e também quando uma
 // lacuna lhe pede mais tomadas. Sem lacunas, a assinatura fica a de sempre e nada se refaz.
 const reforco = new Map(todas.filter((f) => f.tomadas > nTomadas).map((f) => [f.dito, f.tomadas]));
-const assinar = (dito) => createHash('sha1').update([dito, motor, guiao.voz ?? '', opcoes.length_scale, opcoes.noise_w, opcoes.noise_scale, ...(reforco.has(dito) ? [reforco.get(dito)] : [])].join('|')).digest('hex').slice(0, 12);
+// Numa voz gravada, a assinatura é a do ficheiro: gravar a frase outra vez obriga a tratá-la de novo.
+const gravacaoDe = (f) => join(pasta, AUDIO, 'gravada', `${f.chave}.wav`);
+const carimbo = (f) => (existsSync(gravacaoDe(f)) ? `${statSync(gravacaoDe(f)).size}:${statSync(gravacaoDe(f)).mtimeMs}` : 'sem gravação');
+const assinar = (f) => createHash('sha1').update((motor === 'gravada' ? [f.dito, motor, carimbo(f)] : [f.dito, motor, guiao.voz ?? '', opcoes.length_scale, opcoes.noise_w, opcoes.noise_scale, ...(reforco.has(f.dito) ? [reforco.get(f.dito)] : [])]).join('|')).digest('hex').slice(0, 12);
 
 // --- 2 e 3. Analisar e limpar ---------------------------------------------------------------
 // Envelope em janelas de 5 ms, em dB relativos à janela mais forte.
@@ -285,7 +299,7 @@ async function tomadaKokoro(dito, nome, voz = vozAtual) {
     try { ({ KokoroTTS } = await import('kokoro-js')); } catch { falhar('Falta o pacote kokoro-js no projeto: npm i kokoro-js (licença Apache-2.0).'); }
     kokoro = await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', { dtype: 'q8', device: 'cpu' });
   }
-  // A mesma regra de ritmo do Piper: uma demonstração fala 8% mais devagar.
+  // Ritmo pelo formato: uma demonstração fala 8% mais devagar.
   const r = await kokoro.generate(dito, { voice: voz, speed: Number((1 / opcoes.length_scale).toFixed(3)) });
   const s = new Int16Array(r.audio.length);
   for (let i = 0; i < s.length; i++) s[i] = Math.max(-32768, Math.min(32767, Math.round(r.audio[i] * 32767)));
@@ -349,7 +363,11 @@ async function ouvir(f, limpo, taxa) {
     return {};
   }
   const ouvido = String(saida?.text ?? '').trim();
-  return { ouvido, semelhanca: Number(Math.max(semelhanca(f.texto, ouvido), semelhanca(f.dito, ouvido)).toFixed(2)) };
+  // A primeira palavra pesa mais: o Piper arranca a frase sem rampa e, em cerca de metade das tomadas, o «b»
+  // de «Basta» ou o «v» de «Vemos» saem fracos, e quem ouve diz que a frase vem cortada no início.
+  const primeiraOuvida = palavrasDe(ouvido)[0];
+  const primeira = [f.texto, f.dito].some((t) => palavrasDe(t)[0] === primeiraOuvida);
+  return { ouvido, primeira, semelhanca: Number(Math.max(semelhanca(f.texto, ouvido), semelhanca(f.dito, ouvido)).toFixed(2)) };
 }
 
 // --- Tomadas --------------------------------------------------------------------------------
@@ -357,7 +375,7 @@ const pastaTomadas = (f) => join(pasta, AUDIO, 'tomadas', f.chave);
 const entrada = (f, t, total) => ({
   texto: f.texto, dito: f.dito === f.texto ? undefined : f.dito, ficheiro: `${f.chave}.wav`, segundos: t.segundos, taxa: t.taxa, canais: 1,
   tomada: t.k, tomadas: total, fimCortado: t.fimCortado || undefined, ruidoRetirado: t.ruidoRetirado || undefined,
-  ouvido: t.ouvido, semelhanca: t.semelhanca, assinatura: assinar(f.dito),
+  ouvido: t.ouvido, semelhanca: t.semelhanca, primeiraPorOuvir: t.primeira === false || undefined, assinatura: assinar(f),
 });
 
 // Gera as tomadas de uma frase, limpa-as, ouve-as, guarda-as todas e fica com a que tem menos defeitos:
@@ -367,27 +385,29 @@ async function gerar(f) {
   rmSync(pastaTomadas(f), { recursive: true, force: true });
   mkdirSync(pastaTomadas(f), { recursive: true });
   const tomadas = [];
-  // Se nenhuma das primeiras tomadas do Piper diz o texto todo, vêm mais 4 (só uma vez): ele não é
-  // determinista, e a mesma frase pode sair inteira à quinta ou à sexta.
+  // Se nenhuma das primeiras tomadas do Piper diz o texto todo, ou nenhuma diz a primeira palavra, vêm mais 4
+  // (só uma vez): ele não é determinista, e a mesma frase pode sair inteira à quinta ou à sexta.
   const melhorSemelhanca = () => Math.max(...tomadas.map((t) => t.semelhanca ?? 1));
-  for (let k = 1; k <= f.tomadas || (motor === 'piper' && k <= f.tomadas + 4 && melhorSemelhanca() < 0.85); k++) {
+  const semPrimeira = () => tomadas.every((t) => t.primeira === false);
+  for (let k = 1; k <= f.tomadas || (motor === 'piper' && k <= f.tomadas + 4 && (melhorSemelhanca() < 0.85 || semPrimeira())); k++) {
     const tomadaCrua = '_tomada.wav';
-    const wav = await tomada(motor, f.dito, tomadaCrua);
+    const wav = motor === 'gravada' ? lerWav(gravacaoDe(f)) : await tomada(motor, f.dito, tomadaCrua);
     if (wav.canais !== 1) throw new Error(`Esperava áudio mono em ${f.chave}`);
     const s = amostras(wav);
     const a = analisar(s, wav.taxa);
     const limpo = limpar(s, wav.taxa, a);
     gravarWav(join(pastaTomadas(f), `${k}.wav`), limpo, wav.taxa);
     rmSync(join(pasta, AUDIO, tomadaCrua), { force: true });
-    const { ouvido, semelhanca: sem } = await ouvir(f, limpo, wav.taxa);
-    tomadas.push({ k, taxa: wav.taxa, segundos: Number((limpo.length / wav.taxa).toFixed(3)), fala: a.fala, fimCortado: a.abrupto, ruidoRetirado: a.ruidoAntes > -45, ouvido, semelhanca: sem });
+    const { ouvido, primeira, semelhanca: sem } = await ouvir(f, limpo, wav.taxa);
+    tomadas.push({ k, taxa: wav.taxa, segundos: Number((limpo.length / wav.taxa).toFixed(3)), fala: a.fala, fimCortado: a.abrupto, ruidoRetirado: a.ruidoAntes > -45, ouvido, primeira, semelhanca: sem });
   }
   const ordenadas = tomadas.map((t) => t.fala).sort((x, y) => x - y);
   const mediana = ordenadas[Math.floor(ordenadas.length / 2)];
-  // Cada palavra em falta pesa mais do que um fim cortado: 10% de palavras a menos valem 1,5 defeitos.
-  const defeitos = (t) => (t.semelhanca === undefined ? 0 : (1 - t.semelhanca) * 15) + (t.fimCortado ? 2 : 0) + (t.ruidoRetirado ? 1 : 0) + (Math.abs(t.fala - mediana) / mediana) * 4;
+  // Cada palavra em falta pesa mais do que um fim cortado: 10% de palavras a menos valem 1,5 defeitos. A
+  // primeira palavra mal ouvida vale 3, por cima disso: é a que dá a sensação de frase cortada.
+  const defeitos = (t) => (t.semelhanca === undefined ? 0 : (1 - t.semelhanca) * 15) + (t.primeira === false ? 3 : 0) + (t.fimCortado ? 2 : 0) + (t.ruidoRetirado ? 1 : 0) + (Math.abs(t.fala - mediana) / mediana) * 4;
   const melhor = tomadas.reduce((m, t) => (defeitos(t) < defeitos(m) ? t : m));
-  escreverJson(`${AUDIO}/tomadas/${f.chave}/tomadas.json`, { assinatura: assinar(f.dito), dito: f.dito, escolhida: melhor.k, tomadas });
+  escreverJson(`${AUDIO}/tomadas/${f.chave}/tomadas.json`, { assinatura: assinar(f), dito: f.dito, escolhida: melhor.k, tomadas });
   copyFileSync(join(pastaTomadas(f), `${melhor.k}.wav`), join(pasta, AUDIO, `${f.chave}.wav`));
   return entrada(f, melhor, tomadas.length);
 }
@@ -399,7 +419,7 @@ function escolher(f, k) {
   const guardadas = lerJson(indice);
   const t = guardadas.tomadas.find((x) => x.k === k);
   if (!t) falhar(`A frase ${f.numero} tem as tomadas 1 a ${guardadas.tomadas.length}; pediste a ${k}.`);
-  if (guardadas.assinatura !== assinar(f.dito)) falhar(`As tomadas guardadas da frase ${f.numero} são de outro texto ou de outra voz. Gera-as de novo com: node narrar.mjs --frase ${f.numero}`);
+  if (guardadas.assinatura !== assinar(f)) falhar(`As tomadas guardadas da frase ${f.numero} são de outro texto ou de outra voz. Gera-as de novo com: node narrar.mjs --frase ${f.numero}`);
   copyFileSync(join(pastaTomadas(f), `${k}.wav`), join(pasta, AUDIO, `${f.chave}.wav`));
   escreverJson(indice, { ...guardadas, escolhida: k });
   return entrada(f, t, guardadas.tomadas.length);
@@ -469,6 +489,10 @@ const alvo = valor('--frase') ? encontrar(valor('--frase')) : null;
 const tomadaPedida = valor('--tomada');
 if (tomadaPedida && !alvo) falhar('--tomada precisa de --frase: node narrar.mjs --frase 9 --tomada 3');
 const tudo = args.includes('--tudo');
+if (motor === 'gravada') {
+  const faltam = todas.filter((f) => !existsSync(gravacaoDe(f)));
+  if (faltam.length) falhar(`Faltam gravar ${faltam.length} de ${todas.length} frases (${faltam.map((f) => f.numero).join(', ')}). Grava-as com: node gravar-voz.mjs${SUFIXO}`);
+}
 
 const frasesDe = {};
 const mexidas = [];
@@ -478,7 +502,7 @@ for (const f of todas) {
   const existe = Boolean(a?.ficheiro) && existsSync(join(pasta, AUDIO, a.ficheiro));
   let e;
   if (alvo === f && tomadaPedida) { e = escolher(f, Number(tomadaPedida)); mexidas.push({ f, e }); }
-  else if (alvo ? alvo === f || !existe : tudo || !existe || a.assinatura !== assinar(f.dito)) { e = await gerar(f); mexidas.push({ f, e }); }
+  else if (alvo ? alvo === f || !existe : tudo || !existe || a.assinatura !== assinar(f)) { e = await gerar(f); mexidas.push({ f, e }); }
   else { e = a; mantidas++; }
   (frasesDe[f.passo] ??= []).push(e);
 }
@@ -506,6 +530,8 @@ if (ouvidas.length) {
   const faltas = ouvidas.filter(({ e }) => e.semelhanca < 0.9);
   console.log(`Palavras ouvidas pelo reconhecimento de fala: ${ouvidas.length - faltas.length} de ${ouvidas.length} frases com o texto todo.`);
   for (const { f, e } of faltas) console.log(`  frase ${f.numero} (${f.passo}/${f.n + 1}), ${Math.round(e.semelhanca * 100)}%: ouvido «${e.ouvido}». Confirma de ouvido; se faltar mesmo uma palavra: node narrar.mjs${SUFIXO} --lacuna ${f.numero} palavra-comida <palavra>`);
+  const semPrimeira = ouvidas.filter(({ e }) => e.primeiraPorOuvir);
+  console.log(`Primeira palavra ouvida: ${ouvidas.length - semPrimeira.length} de ${ouvidas.length} frases.${semPrimeira.length ? ` Sem ela na tomada escolhida: ${semPrimeira.map(({ f }) => f.numero).join(', ')}; ouve o arranque destas frases.` : ''}`);
 } else if (mexidas.length) console.log('Palavras: não verificadas (sem reconhecimento de fala nesta corrida).');
 const avisos = todas.flatMap((f) => f.avisos.map((a) => `frase ${f.numero} (${f.passo}/${f.n + 1}): ${a}`));
 if (avisos.length) {
