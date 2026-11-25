@@ -50,7 +50,7 @@ Um hook que decide (responder a uma pergunta, aprovar uma permissão, entregar u
 
 ### O batimento
 
-Quando a pessoa interrompe um pedido, o Claude Code não corre o `Stop` nem outro hook *(experiência do projeto)*. Sem mais nada, o portal mostrava a sessão a trabalhar para sempre.
+Quando a pessoa interrompe um pedido, o Claude Code não corre o `Stop`: a referência de hooks diz que ele não corre quando a paragem vem de uma interrupção. Que também não corre nenhum outro hook é *(experiência do projeto)*. Sem mais nada, o portal mostrava a sessão a trabalhar para sempre.
 
 - Um hook assíncrono no `PreToolUse` e no `PostToolUse`, sem matcher, manda um sinal sem conteúdo: a sessão, a pasta e o repositório.
 - No máximo um sinal de 20 em 20 s por sessão. A marca grava-se antes de enviar, para duas ferramentas seguidas não mandarem dois sinais.
@@ -65,7 +65,7 @@ O método: o hook refaz a procura que o Claude Code faz, nos sítios e pela orde
 
 | Origem | Onde procurar | Como o nome chega ao hook |
 |---|---|---|
-| Organização | `.claude/skills/<nome>/SKILL.md` na pasta das definições geridas | `nome` |
+| Organização | `.claude/skills/<nome>/SKILL.md` na pasta das definições geridas: `C:\Program Files\ClaudeCode\` no Windows (o Claude Code já não lê `C:\ProgramData\ClaudeCode\`), `/Library/Application Support/ClaudeCode/` no macOS, `/etc/claude-code/` no Linux e no WSL | `nome` |
 | Pessoal | `~/.claude/skills/<nome>/SKILL.md`, ou na pasta de `CLAUDE_CONFIG_DIR` | `nome` |
 | Projeto | `.claude/skills/<nome>/SKILL.md` na pasta da sessão e em cada pasta acima, até à raiz do repositório | `nome` |
 | Plugin | `installed_plugins.json` (cada instalação, com `scope`, `installPath` e `version`) na raiz dos plugins, `~/.claude/plugins` ou a de `CLAUDE_CODE_PLUGIN_CACHE_DIR` | `plugin:skill` |
@@ -113,9 +113,8 @@ De quem é a skill decide-o o portal quando lê os eventos, e não o hook:
 ### Por reconfirmar na fonte
 
 - `tool_input.skill` com o nome da skill, no `PreToolUse` da ferramenta `Skill`: visto nas corridas, não aparece na referência de hooks lida hoje.
-- Interromper um pedido não corre nenhum hook: visto com o Claude Code 2.1.325, a referência não o diz.
+- Que, ao interromper, também não corre nenhum outro hook além do `Stop`: visto com o Claude Code 2.1.325, a referência só fala do `Stop`.
 - O `manifest.json` das skills sincronizadas (com `skills[].source`) e o formato do `skills-lock.json` não vêm na documentação do Claude Code.
-- O caminho da pasta das definições geridas em cada sistema não foi lido.
 
 **Para uma skill:** os eventos de um portal de sessões vêm de hooks `async` registados nas definições do utilizador, em forma exec, que saem sempre com 0, têm prazo curto e pausa depois de uma falha e nunca mandam conteúdo; há um batimento para dar a sessão como parada; e a origem de cada skill sai da ordem documentada (organização, pessoal, projeto, plugin, conta, Claude Code), sem ler a transcrição, provada num perfil temporário com uma skill de cada origem.
 
@@ -137,5 +136,11 @@ De quem é a skill decide-o o portal quando lê os eventos, e não o hook:
 - [Claude Code: definições](https://code.claude.com/docs/en/settings): âmbito de `~/.claude/settings.json` e `CLAUDE_CONFIG_DIR`
 - [Claude Code: sessões](https://code.claude.com/docs/en/sessions): o formato da transcrição é interno e muda entre versões
 - [GitHub CLI: gh auth status](https://cli.github.com/manual/gh_auth_status): `--json hosts` e saída sempre 0 com `--json`
+- [Claude Code: referência de hooks, `Stop`](https://code.claude.com/docs/en/hooks): não corre quando a paragem vem de uma interrupção. Lida a 2026-11-25.
+- [Claude Code: managed settings](https://code.claude.com/docs/en/managed-settings): pasta do sistema das definições geridas no Windows, no macOS e no Linux. Lida a 2026-11-25.
+
+## Histórico
+
+- **2026-11-25**: antes, «Quando a pessoa interrompe um pedido, o Claude Code não corre o `Stop` nem outro hook *(experiência do projeto)*.» e, em «Por reconfirmar na fonte», «Interromper um pedido não corre nenhum hook: visto com o Claude Code 2.1.325, a referência não o diz.» e «O caminho da pasta das definições geridas em cada sistema não foi lido.» (experiência do projeto). Mudou porque a referência de hooks diz que o `Stop` não corre numa interrupção e a página das definições geridas dá a pasta de cada sistema. Fonte: [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks), [Claude Code: managed settings](https://code.claude.com/docs/en/managed-settings). Editado a 2026-11-25.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.

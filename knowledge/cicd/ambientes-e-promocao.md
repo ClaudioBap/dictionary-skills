@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Dev → staging/QA → produção; cada ambiente com a sua configuração e os seus dados, nunca a escrever no de produção.
 - Promover o mesmo artefacto; produção só a partir do branch protegido, com aprovação; staging o mais parecido possível com produção.
+- No GitHub, a aprovação faz-se com revisores obrigatórios no ambiente de produção (até 6 pessoas ou equipas, e basta uma aprovar) e com «Prevent self-review», para que quem lançou a execução não a possa aprovar. Pode também exigir-se que a alteração tenha sido publicada com sucesso em staging antes de entrar no branch principal (regra «Require deployments to succeed before merging»).
 
 **Para uma skill:** nada salta etapas; produção recebe só o que passou por staging e PR.
 

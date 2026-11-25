@@ -28,7 +28,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 *Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
 
-- [RabbitMQ Dead Letter Exchanges](https://www.rabbitmq.com/docs/dlx) — Encaminhar mensagens rejeitadas ou falhadas para reprocessamento
+- [RabbitMQ Dead Letter Exchanges](https://www.rabbitmq.com/docs/dlx) — Encaminhar mensagens rejeitadas ou falhadas para reprocessamento (não lida: bloqueia acesso automático)
 - [Apache Kafka Introduction](https://kafka.apache.org/intro) — Fluxos de eventos guardados de forma durável, retenção configurável
 - [NATS overview](https://docs.nats.io/nats-concepts/overview) — Sistema de mensagens aberto, simples e de alto desempenho
 

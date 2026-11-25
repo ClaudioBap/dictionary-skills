@@ -27,6 +27,10 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - [uv – Locking and syncing](https://docs.astral.sh/uv/concepts/projects/sync/) — uv.lock reprodutível; grupo dev separado
 - [Tool recommendations](https://packaging.python.org/en/latest/guides/tool-recommendations/) — ferramentas oficiais para ambientes, instalação e lock
 
-> **Nota (fonte oficial):** pip-audit não tem página em domínio aprovado verificada; o guia PyPA cita pip-tools/Pipenv para lock e não recomenda ferramenta de auditoria.
+> **Nota (fonte oficial):** o pip-audit tem página no PyPI (https://pypi.org/project/pip-audit/, versão 2.10.1 de 2026-06-10), com o código em github.com/pypa/pip-audit; os comandos estão em [Segurança em Python](seguranca-em-python.md). O guia PyPA cita pip-tools/Pipenv para lock e não recomenda ferramenta de auditoria.
+
+## Histórico
+
+- **2026-06-10**: antes, «pip-audit não tem página em domínio aprovado verificada; o guia PyPA cita pip-tools/Pipenv para lock e não recomenda ferramenta de auditoria.» (nota de 2026-11-04). Mudou porque a página do pip-audit no PyPI foi lida e aponta para o repositório da PyPA. Fonte: [pip-audit](https://pypi.org/project/pip-audit/). Editado a 2026-11-25.
 
 Fonte: págs. 31, 32 (Dicionario-Boas-Praticas.pdf)

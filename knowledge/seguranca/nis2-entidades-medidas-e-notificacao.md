@@ -1,0 +1,36 @@
+---
+id: seguranca/nis2-entidades-medidas-e-notificacao
+titulo: "Diretiva NIS2, entidades abrangidas, medidas mínimas e notificação de incidentes"
+seccao: "Segurança"
+paginas: []
+fonte: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+data_lancamento: 2022-12-14
+confianca: alta
+verificado_em: 2026-11-25
+---
+
+# Diretiva NIS2, entidades abrangidas, medidas mínimas e notificação de incidentes
+
+**Resumo:** A NIS2 obriga as entidades essenciais e importantes dos setores dos seus anexos, a partir das médias empresas, a aplicar dez medidas mínimas de cibersegurança aprovadas pela gestão e a notificar cada incidente significativo em três tempos: aviso prévio em 24 horas, notificação em 72 horas e relatório final num mês. Em Portugal foi transposta pelo Decreto-Lei n.º 125/2025.
+
+## Conteúdo
+
+- Quem está abrangido: as entidades públicas ou privadas de um tipo dos anexos I ou II que sejam médias empresas ou maiores e prestem serviços ou exerçam atividade na União. Alguns tipos entram seja qual for o tamanho, entre eles os prestadores de serviços de DNS, os registos de domínios de topo, os prestadores de serviços de confiança e quem presta serviços de registo de nomes de domínio. Entre os tipos dos anexos estão os prestadores de computação em nuvem e de centros de dados, os prestadores de serviços geridos e de serviços de segurança geridos e os mercados em linha. Fonte: [Diretiva (UE) 2022/2555 (EUR-Lex, 14 de dezembro de 2022, lida a 2026-11-25)](https://eur-lex.europa.eu/eli/dir/2022/2555/oj)
+- Tamanho: uma pequena empresa emprega menos de 50 pessoas e tem volume de negócios anual e/ou balanço total anual até 10 milhões de euros; as micro, pequenas e médias empresas (PME) empregam menos de 250 pessoas e têm volume de negócios até 50 milhões de euros e/ou balanço até 43 milhões. Fonte: [Recomendação 2003/361/CE (EUR-Lex, 6 de maio de 2003, lida a 2026-11-25)](https://eur-lex.europa.eu/eli/reco/2003/361/oj)
+- Essenciais e importantes: são essenciais as entidades do anexo I acima dos limites das médias empresas e, seja qual for o tamanho, os prestadores qualificados de serviços de confiança, os registos de domínios de topo e os prestadores de serviços de DNS, entre outras; as restantes entidades abrangidas dos anexos I e II são importantes. Fonte: a mesma diretiva.
+- Medidas mínimas (artigo 21.º, n.º 2): a) políticas de análise de risco e de segurança dos sistemas de informação; b) tratamento de incidentes; c) continuidade das atividades, como a gestão de cópias de segurança, a recuperação de desastres e a gestão de crises; d) segurança da cadeia de abastecimento, incluindo a relação com os fornecedores e prestadores diretos; e) segurança na aquisição, no desenvolvimento e na manutenção dos sistemas, incluindo o tratamento e a divulgação de vulnerabilidades; f) políticas e procedimentos para avaliar a eficácia das medidas; g) práticas básicas de ciber-higiene e formação em cibersegurança; h) políticas de criptografia e, quando adequado, de cifragem; i) segurança dos recursos humanos, políticas de controlo de acessos e gestão de ativos; j) autenticação multifator ou contínua, comunicações seguras de voz, vídeo e texto e sistemas seguros de comunicação de emergência, quando adequado. Fonte: a mesma diretiva.
+- Gestão: os órgãos de gestão aprovam estas medidas, supervisionam a sua aplicação e podem ser responsabilizados pelo incumprimento; os seus membros têm de seguir formação. Fonte: a mesma diretiva.
+- Incidente significativo: o que causou ou pode causar perturbação grave dos serviços ou perda financeira à entidade, ou afetou ou pode afetar outras pessoas, singulares ou coletivas, com danos materiais ou imateriais consideráveis. Fonte: a mesma diretiva.
+- Notificação (artigo 23.º), à equipa de resposta a incidentes de segurança informática (CSIRT) ou, quando aplicável, à autoridade competente: aviso prévio sem demora injustificada e até 24 horas depois de tomar conhecimento, a dizer se há suspeita de ato ilícito ou malicioso ou de impacto transfronteiriço; notificação do incidente até 72 horas, com uma avaliação inicial da gravidade e do impacto e, se houver, os indicadores de comprometimento; relatório final até um mês depois da notificação. Se o incidente ainda estiver em curso nessa altura, entrega-se um relatório de progresso e o final até um mês depois de o incidente estar tratado. Fonte: a mesma diretiva.
+- Em Portugal: a diretiva foi transposta pelo Decreto-Lei n.º 125/2025, de 4 de dezembro (Diário da República n.º 234/2025, Série I), e o Regulamento n.º 756/2026, de 22 de junho (Diário da República n.º 118/2026, Série II), é o regulamento de execução do Regime Jurídico da Cibersegurança, aprovado por esse decreto-lei. Fonte: [EUR-Lex: medidas nacionais de transposição da NIS2 (sem data, lida a 2026-11-25)](https://eur-lex.europa.eu/legal-content/EN/NIM/?uri=CELEX:32022L2555). A página da Comissão sobre Portugal, atualizada a 2025-07-07, antes do decreto-lei, dá o Centro Nacional de Cibersegurança (CNCS) como ponto único de contacto e o CERT.PT como CSIRT nacional. Fonte: [Comissão Europeia: NIS2 em Portugal (2025-07-07)](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive-portugal). O texto do decreto-lei e do regulamento não foi lido, porque o Diário da República só abre com JavaScript e o site do CNCS bloqueia o acesso automático; os prazos nacionais, o canal de notificação e o registo das entidades confirmam-se nesse texto antes de um parecer.
+- Alterações em curso: a 2026-01-20 a Comissão propôs alterações pontuais à diretiva para simplificar o cumprimento; a página não diz que já foram aprovadas. Fonte: [Comissão Europeia: NIS2 (atualizada a 2026-11-23)](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)
+
+**Para uma skill:** quando o cliente é de um tipo dos anexos I ou II e é média empresa ou maior, ou está num dos casos sem limite de tamanho, o plano diz que a NIS2 se aplica e deixa «Por preencher» a classificação como entidade essencial ou importante, que é do cliente e do seu jurídico. A lista de verificação junta cada uma das dez medidas às entradas da base que a provam, por exemplo a alínea b) com [Deteção e resposta a incidentes](detecao-e-resposta-a-incidentes.md), a c) com [Cópias de segurança 3-2-1](../fiabilidade/copias-de-seguranca-3-2-1.md), a d) com [Cadeia de fornecimento verificada](cadeia-de-fornecimento-verificada.md), a h) com [Criptografia e proteção de dados](criptografia-e-protecao-de-dados.md) e a j) com [Autenticação forte](autenticacao-forte.md); a formação, os recursos humanos e a gestão de crises ficam com o cliente *(interpretação)*. O runbook de incidente tem os três prazos (24 horas, 72 horas e um mês), quem notifica e a quem.
+
+## Ver também
+
+- [Cyber Resilience Act, obrigações de quem coloca software ou equipamentos no mercado da UE](cyber-resilience-act.md) (Segurança)
+- [Deteção e resposta a incidentes](detecao-e-resposta-a-incidentes.md) (Segurança)
+- [RGPD operacional](../privacidade/rgpd-operacional.md) (Privacidade e conformidade)
+
+Fonte: EUR-Lex (texto da diretiva, Recomendação 2003/361/CE e medidas nacionais de transposição) e páginas da Comissão Europeia, ligadas em cada ponto; lidas a 2026-11-25. Não vem do PDF.

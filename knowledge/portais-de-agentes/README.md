@@ -2,7 +2,7 @@
 
 ⚠️ Esta secção não vem do PDF. Foi acrescentada a pedido do utilizador para que quem vier a seguir consiga construir o seu próprio portal de agentes, com o mundo e as regras que fizerem sentido para a sua equipa, sem copiar o portal de onde este conhecimento saiu. Diz quando um portal destes compensa, que decisões pedir ao dono antes de construir, como escolher um mundo para cada público, como os papéis dos agentes se leem na cena, como se organizam pessoas e projetos, que eventos se enviam e quais nunca, como se respondem perguntas à distância, como se avaliam as skills em cada push e o que um agente local tem de cumprir. O portal lê o repositório das skills e adapta-se a qualquer conjunto delas; as skills não sabem que o portal existe.
 
-A mini skill `portal-de-agentes` conduz a construção com estas entradas. O mundo 3D movido por eventos está em [Mundo 3D movido por agentes](../3d-webgl/mundo-3d-movido-por-agentes.md).
+A sub skill `portal-de-agentes` usa estas entradas para decidir e desenhar a maqueta, e devolve o plano por fases à skill mãe que a chamou, que reparte a construção. O mundo 3D movido por eventos está em [Mundo 3D movido por agentes](../3d-webgl/mundo-3d-movido-por-agentes.md).
 
 Fonte: experiência do projeto de origem (2026-11-12 a 18) e a documentação oficial ligada em cada entrada, consultada a 2026-11-18. Não vem do PDF.
 

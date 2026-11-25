@@ -4,7 +4,8 @@ titulo: "Acessibilidade (WCAG 2.1 AA)"
 seccao: "Design e experiência de utilizador"
 paginas: [13]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -16,13 +17,15 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Alvo mínimo WCAG 2.1 AA (obrigatório para serviço público em Portugal, DL 83/2018).
 - Navegável só por teclado; foco visível; diálogos que se anunciam no leitor de ecrã; contraste medido.
-- `axe` ou `pa11y` no CI; funciona a 360 px de largura.
+- `axe` ou `pa11y` no CI; funciona a 320 CSS px de largura sem deslocamento nas duas direções (critério 1.4.10 Reflow, AA). Fonte: [WCAG 2.2 (Recomendação W3C, 2024-12-12)](https://www.w3.org/TR/WCAG22/)
+- Critérios que se medem: contraste de pelo menos 4,5:1 no texto e de 3:1 no texto grande, ou seja 18 pt, ou 14 pt em negrito (1.4.3); 3:1 nos componentes da interface e nos gráficos que dão informação (1.4.11); foco visível (2.4.7). A WCAG 2.2 acrescenta, no nível AA, que o foco não pode ficar totalmente tapado por conteúdo do próprio site (2.4.11) e que os alvos têm pelo menos 24×24 CSS px ou espaço suficiente à volta (2.5.8). Fonte: [WCAG 2.2 (Recomendação W3C, 2024-12-12)](https://www.w3.org/TR/WCAG22/)
 
-**Para uma skill:** cada ecrã passa no axe, é navegável por teclado e tem contraste AA.
+**Para uma skill:** cada ecrã passa no axe, é navegável por teclado e tem contraste AA. Contraste AA quer dizer 4,5:1 no texto e 3:1 no texto grande, nos ícones e nos contornos dos controlos; o foco vê-se e não fica tapado; o conteúdo não obriga a deslocar nas duas direções a 320 CSS px de largura.
 
 ## Ver também
 
 - [Ferramentas: qualidade do frontend](../cicd/ferramentas-qualidade-do-frontend.md) (CI/CD e ferramentas)
+- [Ato Europeu da Acessibilidade (produtos e serviços)](ato-europeu-da-acessibilidade.md) (Design e experiência de utilizador)
 
 ## Fontes oficiais
 
@@ -34,6 +37,8 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 > **Nota (fonte oficial):** WCAG 2.2 é Recomendação W3C (5/10/2023, atualizada a 12/12/2024); acrescenta 9 critérios à 2.1 (ex.: 2.5.8 Target Size Minimum, AA) e o W3C recomenda usar a versão mais recente. O alvo legal português (DL 83/2018) não foi verificado por bloqueio do site.
 
-> **Nota (fonte oficial):** O critério 1.4.10 Reflow (AA) exige funcionamento a 320 CSS px de largura, abaixo dos 360 px da entrada.
+## Histórico
+
+- **2024-12-12**: antes, «`axe` ou `pa11y` no CI; funciona a 360 px de largura.» (PDF pág. 13). Mudou porque o critério 1.4.10 Reflow (AA) da WCAG pede 320 CSS px de largura, como dizia a nota que esta entrada tinha. Fonte: [WCAG 2.2 (Recomendação W3C)](https://www.w3.org/TR/WCAG22/). Editado a 2026-11-25.
 
 Fonte: pág. 13 (Dicionario-Boas-Praticas.pdf)

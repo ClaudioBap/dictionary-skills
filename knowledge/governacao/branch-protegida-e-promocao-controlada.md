@@ -16,8 +16,11 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - O branch principal não aceita pushes diretos; entra tudo por PR com CI verde e revisão.
 - Produção só a partir do branch principal, com portão no workflow e aprovação; promoção dev → QA → produção, sem saltar etapas.
+- No GitHub, as regras do branch principal têm estes nomes: «Require pull request reviews before merging», com «Dismiss stale pull request approvals when new commits are pushed» ou «Require approval of the most recent reviewable push»; «Require status checks to pass before merging», com «Require branches to be up to date before merging»; «Require conversation resolution before merging»; e «Do not allow bypassing the above settings», para os administradores também cumprirem. «Allow force pushes» e «Allow deletions» ficam desligados *(interpretação)*. Fonte: [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
+- Disponibilidade: «Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations», e em repositórios públicos e privados nos planos Pro, Team, Enterprise Cloud e Enterprise Server. Fonte: a mesma página.
+- No ambiente de produção: «Required reviewers», com «Prevent self-review» para quem lança não aprovar o próprio deploy, e os ramos permitidos limitados em «Selected branches and tags». Nos planos Free, Pro e Team, os revisores obrigatórios e o tempo de espera «are only available for public repositories». Fonte: [Managing environments for deployment](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 
-**Para uma skill:** nada chega a produção sem PR aprovado e CI verde.
+**Para uma skill:** nas definições do repositório, o branch principal tem ligadas as revisões obrigatórias (com aprovações antigas descartadas ou aprovação do último push), os status checks obrigatórios com o branch atualizado e «Do not allow bypassing the above settings»; o ambiente de produção tem revisores obrigatórios com «Prevent self-review» e só aceita o branch principal. Num repositório privado, os branches protegidos pedem o plano Pro, Team ou Enterprise e os revisores obrigatórios do ambiente pedem o Enterprise; sem isso, estas proteções não existem e o plano regista isso como risco.
 
 ## Ver também
 

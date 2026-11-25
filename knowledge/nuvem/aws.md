@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - O maior catálogo: computação (EC2, Lambda, ECS/EKS), armazenamento (S3), bases de dados (RDS, Aurora, DynamoDB), rede e IAM.
 - Acesso por IAM com menor privilégio (políticas, roles, sem chaves de longa duração); segredos no Secrets Manager; regiões europeias disponíveis.
+- Para exigências de soberania mais apertadas há a AWS European Sovereign Cloud. Segundo a AWS, é uma nuvem separada das outras regiões AWS, física e logicamente, com a infraestrutura toda na UE e a operação diária só por pessoal residente na UE. A primeira região fica em Brandemburgo (Alemanha), e a AWS anunciou Local Zones na Bélgica, nos Países Baixos e em Portugal. Tem consola própria (console.aws.eu) e começa pelos serviços principais: antes de a propor, confirmar na lista de capacidades por região que os serviços de que o projeto precisa já lá existem (a 2026-11-25).
 
 **Para uma skill:** acesso por roles IAM de menor privilégio, sem chaves estáticas; região europeia quando a soberania o exige.
 

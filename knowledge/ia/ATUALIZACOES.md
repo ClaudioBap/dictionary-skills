@@ -13,7 +13,7 @@ Novidades com confiança alta ou média (as de média levam «Confiança: media�
 
 ## Mistral
 
-- **2026-10-31**: A Mistral descontinuou nesta data o Mistral Medium 3.5 (`mistral-medium-3-5`), o Mistral Large 3 (`mistral-large-2512`), o Voxtral TTS (`voxtral-mini-tts-2603`), o Voxtral Mini Transcribe 2 (`voxtral-mini-2602`) e o Voxtral Mini Transcribe Realtime (`voxtral-mini-transcribe-realtime-2602`). Os cinco são retirados da API a 2027-04-30. Fonte: [Mistral: modelos](https://docs.mistral.ai/getting-started/models/). Confiança: alta. Adicionado a 2026-11-14.
+- **2026-10-31**: A Mistral descontinuou nesta data o Mistral Medium 3.5 (`mistral-medium-3-5`), o Mistral Large 3 (`mistral-large-2512`), o Voxtral TTS (`voxtral-mini-tts-2603`), o Voxtral Mini Transcribe 2 (`voxtral-mini-2602`) e o Voxtral Mini Transcribe Realtime (`voxtral-mini-transcribe-realtime-2602`). Os cinco são retirados da API a 2027-04-30. Fonte: [Mistral: modelos](https://docs.mistral.ai/models). Confiança: alta. Adicionado a 2026-11-14.
 
 ## Model Context Protocol (MCP)
 

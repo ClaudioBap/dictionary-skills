@@ -16,6 +16,8 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Nenhum passo crítico (SQL, merges, deploys) deve depender de uma só pessoa.
 - Automatizar o mecânico (migrações, versão, CHANGELOG) para reduzir a dependência.
+- Um ficheiro `CODEOWNERS` em `.github/`, na raiz ou em `docs/` diz quem responde por cada parte: «Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.» Fonte: [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+- Para o bus factor *(interpretação)*: cada caminho crítico do `CODEOWNERS` tem pelo menos duas pessoas ou uma equipa, para a revisão não parar quando uma falta.
 
 **Para uma skill:** um passo que só uma pessoa sabe fazer é um risco a registar.
 

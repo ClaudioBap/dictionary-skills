@@ -24,6 +24,7 @@ O que a página de condições do Claude Code diz hoje, em «Authentication and 
 - O login com a conta (OAuth) é para quem tem uma subscrição e serve o uso normal do Claude Code e das aplicações da Anthropic.
 - Quem desenvolve produtos ou serviços, também com o Agent SDK, usa chaves de API. A Anthropic não deixa terceiros oferecer o login claude.ai nas suas aplicações nem encaminhar pedidos pelas credenciais de planos Free, Pro, Max ou Ultra em nome dos seus utilizadores; e quem desenvolve não pode recolher, guardar nem intermediar credenciais ou tokens de sessão do claude.ai. O login faz-se sempre pelo fluxo da própria Anthropic.
 - Nada disto impede uma pessoa de entrar com a sua subscrição no binário do Claude Code sem modificações.
+- A mesma frase da página estende isto ao caso em que uma plataforma aloja o Claude Code, nas condições de «Can customers offer Claude Code in their products?». Sem acordo próprio com a Anthropic, quem instala ou corre o Claude Code nos seus produtos ou serviços aceita os Commercial Terms, não modifica o binário e não tira nenhum método de autenticação. Cada utilizador final tem de se autenticar com a sua própria chave de API, credenciais de subscrição ou de fornecedor de inferência, e o cliente não pode pagar, revender nem intermediar esse uso em nome dele. Se um portal interno conta como um desses produtos, a página não o diz: fica junto ao ponto em aberto sobre «intermediar».
 - A página do Agent SDK acrescenta: sem aprovação prévia, terceiros não podem oferecer o login claude.ai nem os limites de uso do claude.ai nos seus produtos, incluindo agentes feitos com o Agent SDK.
 - A Anthropic reserva-se o direito de fazer cumprir estas regras sem aviso.
 
@@ -63,13 +64,14 @@ No projeto de origem, o dono escolheu o caminho A e registou o risco *(experiên
 4. O agente vai buscar o pedido, confere que a impressão é o SHA-256 da chave e que a chave é um ponto da curva, refaz a prova com o seu código e compara em tempo constante. Igual: guarda a chave no cofre, diz ao portal que aceitou, e o código deixa de valer. Ao fim de 10 provas erradas anula o código e avisa no PC que alguém com acesso à conta está a tentar.
 5. O PC e o browser mostram a mesma impressão curta (seis bytes em hexadecimal), para a pessoa conferir.
 
-Cada browser emparelha-se à parte, o do telemóvel incluído. No telemóvel, um QR no ecrã do PC leva o código no fragmento do endereço (depois de `#`), que o browser não manda ao servidor; a página tira-o do histórico assim que o lê *(experiência do projeto)*.
+Cada browser emparelha-se à parte, o do telemóvel incluído. No telemóvel, um QR no ecrã do PC leva o código no fragmento do endereço (depois de `#`), que o browser nunca manda ao servidor com o pedido (confirmado no MDN). A página tira-o do histórico assim que o lê *(experiência do projeto)*.
 
 Porquê 80 bits e não seis algarismos: um portal comprometido vê a prova e pode tentar todos os códigos. Com 80 bits a força bruta não acaba nos 10 minutos, mesmo com muitas placas gráficas; um código curto precisava de uma função lenta e era pior de escrever no telemóvel *(estimativa do projeto)*.
 
 ### Pedidos assinados, verificados pelo agente
 
 - Um pedido é o JSON canónico (chaves por ordem, sem espaços) de `{ conta, maquina, tipo, conteudo, nonce, instante }`, assinado pelo browser com ECDSA P-256 e SHA-256.
+- O WebCrypto entrega a assinatura ECDSA como `r` e `s` seguidos, cada um com o tamanho da curva (32 bytes na P-256, 64 no total). É o formato IEEE P1363. No Node, `crypto.verify` espera DER por omissão (`dsaEncoding: "der"`), por isso esta assinatura verifica-se com `dsaEncoding: "ieee-p1363"`.
 - O portal confere a forma, a conta e a máquina, guarda o texto tal como veio e entrega-o uma vez. Não verifica a assinatura: quem decide é o agente, e assim os pedidos recusados também chegam ao registo local.
 - O agente decide por esta ordem: a assinatura tem 64 bytes; a chave está no cofre; a assinatura confere sobre os bytes recebidos; o texto é o canónico e tem só os seis campos; a máquina é esta; a conta é a da chave; o instante está entre 5 minutos para trás e 2 para a frente; o `nonce` nunca foi aceite. Só depois guarda o `nonce`, para um pedido mal assinado nunca gastar um. Os `nonce` lembram-se o tempo da janela.
 - Cada pedido aceite ou recusado, e cada emparelhamento, fica numa linha do registo local, com o motivo e sem o conteúdo, rodado por tamanho.
@@ -141,8 +143,7 @@ Desenhado no projeto de origem e por construir quando esta entrada foi escrita. 
 ### Por reconfirmar na fonte
 
 - A leitura de «intermediar» (ponto em aberto acima): só a Anthropic a pode dar.
-- A assinatura ECDSA do WebCrypto com 64 bytes (`r` e `s` seguidos), verificada no Node com `dsaEncoding: "ieee-p1363"`, e o par P-256 não exportável a funcionar em todos os browsers, incluindo o Safari do iPhone: vistos no projeto de origem, não lidos hoje.
-- O fragmento do endereço (depois de `#`) não ir ao servidor: não lido hoje.
+- O par P-256 não exportável a funcionar no Safari do iPhone: visto no projeto de origem. O MDN dá o `generateKey` e o `sign` como Baseline desde janeiro de 2020, mas não separa por curva; a prova continua a ser o emparelhamento num telemóvel real.
 - O custo de meio segundo por chamada ao DPAPI pelo PowerShell e a tarefa sem sessão iniciada que não abre o cofre: medidos no projeto de origem.
 
 **Para uma skill:** um agente local que conduz o Claude Code a partir de um portal corre o `claude` oficial sem modificações, com o login da pessoa, sem ler credenciais, sem Agent SDK e sem `ANTHROPIC_API_KEY` no ambiente, depois de o dono escolher entre subscrição, chave de API e Remote Control com o risco escrito; só faz ligações de saída, só executa pedidos assinados por um browser emparelhado com um código mostrado no PC e verificados pelo próprio agente, guarda as chaves num cofre do sistema no âmbito do utilizador e recusa tudo fora das pastas autorizadas no PC; a prova são os casos de recusa registados e um emparelhamento num telemóvel real.
@@ -174,5 +175,12 @@ Desenhado no projeto de origem e por construir quando esta entrada foi escrita. 
 - [Microsoft Learn: CryptProtectData](https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata): quem decifra, entropia, `CRYPTPROTECT_LOCAL_MACHINE`
 - [Microsoft Learn: ProtectedData](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata): DPAPI no .NET, só Windows, perfil carregado
 - [GitHub CLI: gh auth status](https://cli.github.com/manual/gh_auth_status): `--json hosts` e saída sempre 0 com `--json`
+- [Node.js: crypto](https://nodejs.org/api/crypto.html): `dsaEncoding`, `der` por omissão e `ieee-p1363` para `r` e `s` seguidos. Lida a 2026-11-25.
+- [MDN: SubtleCrypto.sign()](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign): assinatura ECDSA em `r` e `s` seguidos, formato IEEE P1363. Lida a 2026-11-25.
+- [MDN: What is a URL?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL): o fragmento nunca vai ao servidor com o pedido. Lida a 2026-11-25.
+
+## Histórico
+
+- **2026-11-25**: antes, em «Por reconfirmar na fonte», «A assinatura ECDSA do WebCrypto com 64 bytes (`r` e `s` seguidos), verificada no Node com `dsaEncoding: "ieee-p1363"`, e o par P-256 não exportável a funcionar em todos os browsers, incluindo o Safari do iPhone: vistos no projeto de origem, não lidos hoje.» e «O fragmento do endereço (depois de `#`) não ir ao servidor: não lido hoje.» (experiência do projeto). Mudou porque as fontes oficiais confirmam o formato da assinatura, a opção do Node e o fragmento; fica por confirmar só o Safari do iPhone. Fonte: [Node.js: crypto](https://nodejs.org/api/crypto.html), [MDN: SubtleCrypto.sign()](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign), [MDN: What is a URL?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL). Editado a 2026-11-25.
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.

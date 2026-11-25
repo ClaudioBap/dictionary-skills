@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - `SECURITY.md` (como reportar), `LICENSE`, DPIA e registo de tratamentos, runbooks (incidente, restauro, rotação de segredos), plano de backups.
 - Uma pasta `governance/` com dono e data de revisão em cada ficheiro.
+- O `SECURITY.md` leva «information about supported versions of your project and how to report a vulnerability». Fonte: [Adding a security policy to your repository](https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository)
 
 **Para uma skill:** um projeto não arranca sem estes ficheiros, nem que sejam esqueletos.
 

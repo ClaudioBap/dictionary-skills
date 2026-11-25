@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Pacotes por domínio invertido (`pt.empresa.projeto`); um tipo público por ficheiro; visibilidade mínima.
 - Build com Maven ou Gradle; gerir versões com BOM; separar módulos por responsabilidade.
+- Projeto novo: a LTS atual, Java SE 25. A Oracle prevê a próxima LTS no Java 29, em setembro de 2027.
 
 **Para uma skill:** dependências geridas centralmente; sem versões soltas por módulo.
 

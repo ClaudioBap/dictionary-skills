@@ -23,6 +23,6 @@ verificado_em: 2026-11-03
 *Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
 
 
-> **Nota (fonte oficial):** sem fonte oficial encontrada
+- [Skill authoring best practices (Anthropic)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) — o SKILL.md «serves as an overview that points Claude to detailed materials as needed, like a table of contents»; «Keep references one level deep»; «organize content by domain to avoid loading irrelevant context». Consultado a 2026-11-25, página sem data.
 
 Fonte: pág. 43 (Dicionario-Boas-Praticas.pdf)

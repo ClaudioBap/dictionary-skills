@@ -17,6 +17,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - Saber detetar: alertas em acessos anómalos, falhas de login em série, escritas sensíveis, picos de erro.
 - Ter um plano escrito: quem faz o quê, como isolar, como comunicar, como preservar provas.
 - Ensaiar; pós-incidente sem culpa, com ações concretas.
+- O plano escrito diz que notificações legais se aplicam, quem as faz e em que prazo: a violação de dados pessoais à CNPD ([RGPD operacional](../privacidade/rgpd-operacional.md)), o incidente significativo numa entidade abrangida pela NIS2 ([Diretiva NIS2](nis2-entidades-medidas-e-notificacao.md)) e a vulnerabilidade explorada ou o incidente grave num produto abrangido pelo [Cyber Resilience Act](cyber-resilience-act.md). Os prazos ficam nessas entradas, para estarem num só sítio *(interpretação)*.
 
 **Para uma skill:** existe um runbook de incidente e alertas que o disparam.
 

@@ -17,6 +17,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - **Medir, não adivinhar:** FPS, tempo de carregamento, peso dos modelos e texturas, memória de GPU.
 - **Metas de partida:** 60 FPS no desktop e um mínimo aceitável no telemóvel; carregar o 3D só quando entra no ecrã; cena pausada quando não está visível.
 - **Técnicas:** `instancedMesh` para repetições, níveis de detalhe (LOD), texturas comprimidas, limitar `pixelRatio`, menos draw calls.
+- **A página à volta da cena:** os Core Web Vitals no percentil 75, em telemóvel e em desktop: LCP até 2,5 s, INP até 200 ms e CLS até 0,1. Ver [Desempenho web (Core Web Vitals)](../design/desempenho-web-core-web-vitals.md).
 
 **Para uma skill:** o 3D tem um orçamento (MB e FPS) verificado, carrega tarde e pausa fora de vista.
 

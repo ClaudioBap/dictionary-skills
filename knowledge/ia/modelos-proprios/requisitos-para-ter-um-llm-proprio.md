@@ -6,7 +6,7 @@ paginas: []
 fonte: "Síntese das entradas desta pasta, cada uma com as suas fontes oficiais; consultadas a 2026-11-10. Não vem do PDF."
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-10
+verificado_em: 2026-11-25
 ---
 
 # Requisitos para ter um LLM próprio
@@ -24,6 +24,17 @@ verificado_em: 2026-11-10
 - Equipa: o caminho de adaptar pede quem prepare dados e avalie resultados; o de treinar de raiz pede também quem gira treino distribuído em várias GPUs *(interpretação)*.
 
 **Para uma skill:** um plano que propõe um modelo próprio regista o caminho escolhido (API, adaptar ou treinar), porque não serve o mais barato, a licença do modelo de base e se o projeto passa a ser fornecedor no AI Act.
+
+## Fontes oficiais
+
+*Ligações das citações acima, abertas a 2026-11-25.*
+
+- [LoRA (arXiv, 2021-06-17)](https://arxiv.org/abs/2106.09685): o LoRA «freezes the pre-trained model weights»
+- [QLoRA (arXiv)](https://arxiv.org/abs/2305.14314): «65B parameter model on a single 48GB GPU»
+- [karpathy/nanochat](https://github.com/karpathy/nanochat): «for only $48 (~2 hours of 8XH100 GPU node)»
+- [Model memory estimator (Hugging Face, página sem data)](https://huggingface.co/docs/accelerate/usage_guides/model_size_estimator): «148.56 GB» em float16 e até mais 20% na inferência
+- [Comissão Europeia: perguntas e respostas sobre modelos GPAI](https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers): fornecedor quando o compute da modificação é «greater than a third of the training compute of the original model»
+- [OSI: Open Source AI Definition 1.0](https://opensource.org/ai/open-source-ai-definition): o que conta como IA open source
 
 ## Ver também
 

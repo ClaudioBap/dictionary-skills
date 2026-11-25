@@ -15,7 +15,7 @@ verificado_em: 2026-11-10
 
 ## Conteúdo
 
-- Mistral: em Apache 2.0, o Mistral Small 4 (v26.03), os Ministral 3 de 14B, 8B e 3B (v25.12), o Voxtral Small (v25.07) e o Shieldstral 1.0. O Mistral Large 4 (v26.10) tem a «Mistral Ecosystem Open Weight License» (termos não lidos). O Timestral 1.0 tem «Modified MIT». Os modelos «Premier» (OCR, Codestral, Mistral Embed, entre outros) não indicam licença aberta. Fonte: [Mistral: modelos](https://docs.mistral.ai/getting-started/models/)
+- Mistral: em Apache 2.0, o Mistral Small 4 (v26.03), os Ministral 3 de 14B, 8B e 3B (v25.12), o Voxtral Small (v25.07) e o Shieldstral 1.0. O Mistral Large 4 (v26.10) tem a «Mistral Ecosystem Open Weight License» (termos não lidos). O Timestral 1.0 tem «Modified MIT». Os modelos «Premier» (OCR, Codestral, Mistral Embed, entre outros) não indicam licença aberta. Fonte: [Mistral: modelos](https://docs.mistral.ai/models/)
 - Gemma: os termos chamam-se «Gemma Terms of Use» e proíbem os usos da «Gemma Prohibited Use Policy»; para o Gemma 4, remetem para uma licença Apache 2.0, cujo texto não foi lido. O Gemma 4 saiu em abril de 2026 (tamanhos E2B, E4B, 12B, 26B e 31B). Fonte: [Gemma Terms of Use](https://ai.google.dev/gemma/terms), [Gemma](https://deepmind.google/models/gemma)
 - Qwen: as famílias Qwen3.8 e Qwen3.6 estão publicadas em vários tamanhos; licença por modelo não confirmada. Fonte: [Qwen no Hugging Face](https://huggingface.co/Qwen)
 - DeepSeek: os modelos mais recentes (V4.1-Flash, V4-Pro, V4-Flash) estão publicados; licença por modelo não confirmada. Fonte: [deepseek-ai no Hugging Face](https://huggingface.co/deepseek-ai)

@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Medir o uso sem rastreamento invasivo: ferramentas sem cookies nem perfis (Plausible, Umami, Matomo self-hosted).
 - Sem enviar dados pessoais a terceiros; agregados, não indivíduos.
+- Em Portugal, a CNPD disse numa nota informativa de 2021-06-25 que os cookies para fins de analítica exigem consentimento, nos termos do artigo 5.º da Lei n.º 41/2004, de 18 de agosto, na sua última redação, e anunciou diretrizes próprias sobre cookies; essas diretrizes não foram encontradas a 2026-11-25. Fonte: [CNPD: nota informativa sobre cookies (2021-06-25, lida a 2026-11-25)](https://www.cnpd.pt/media/x2zdus50/nota-informativa-cnpd_cookies_20210625.pdf)
 
 **Para uma skill:** a medição de uso não depende de cookies de terceiros nem partilha dados pessoais.
 

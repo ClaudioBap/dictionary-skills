@@ -13,7 +13,7 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | Parte | O que é | Para quem |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A versão completa do arranque de projetos, em testes | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) e a instala pelo nome |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->381 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->388 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill por onde se começa: pergunta o que queres, propõe o plano de delegação e distribui o trabalho por sessões, com modelo e effort por tarefa. Tem também as regras comuns, as perguntas e o caminho da base | Toda a gente |
 | `skills/<mini skill>/` | As catorze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
@@ -56,23 +56,23 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 ## Base de conhecimento
 
 <!-- conhecimento:inicio -->
-381 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
+388 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
-| [Segurança](knowledge/seguranca/README.md) | 30 | [Estrutura e documentação](knowledge/estrutura/README.md) | 17 |
+| [Segurança](knowledge/seguranca/README.md) | 32 | [Estrutura e documentação](knowledge/estrutura/README.md) | 17 |
 | [Privacidade e conformidade](knowledge/privacidade/README.md) | 4 | [CI/CD e ferramentas](knowledge/cicd/README.md) | 24 |
 | [Fiabilidade e resiliência](knowledge/fiabilidade/README.md) | 10 | [Docker e orquestração](knowledge/docker/README.md) | 14 |
-| [Design e experiência de utilizador](knowledge/design/README.md) | 30 | [Serviços de infraestrutura](knowledge/infraestrutura/README.md) | 10 |
+| [Design e experiência de utilizador](knowledge/design/README.md) | 31 | [Serviços de infraestrutura](knowledge/infraestrutura/README.md) | 10 |
 | [3D, WebGL e animação](knowledge/3d-webgl/README.md) | 11 | [Soberania digital](knowledge/soberania/README.md) | 6 |
 | [SEO e descoberta](knowledge/seo/README.md) | 2 | [Governação e processo](knowledge/governacao/README.md) | 7 |
 | [Desenho de API](knowledge/api/README.md) | 6 | [Nuvem e identidade](knowledge/nuvem/README.md) | 8 |
 | [Base de dados](knowledge/base-de-dados/README.md) | 18 | [Sessões, orquestração e custo-eficiência](knowledge/custo/README.md) | 8 |
 | [Python](knowledge/python/README.md) | 13 | [Publicação e alojamento web](knowledge/publicacao/README.md) (fora do PDF) | 10 |
-| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 64 |
+| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 65 |
 | [C#](knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](knowledge/plataformas/README.md) (fora do PDF) | 15 |
-| [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 7 |
+| [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 10 |
 | [Portais e mundos de agentes](knowledge/portais-de-agentes/README.md) (fora do PDF) | 9 | | |
 <!-- conhecimento:fim -->
 

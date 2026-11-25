@@ -16,6 +16,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Pedir só as colunas necessárias (sem `SELECT *`); paginar resultados grandes; evitar o problema N+1.
 - Ler o plano de execução (`EXPLAIN`); filtrar na base, não na aplicação; cuidado com funções sobre colunas indexadas.
+- `EXPLAIN ANALYZE` executa mesmo a instrução: numa escrita (`INSERT`, `UPDATE`, `DELETE`, `MERGE`), corre-se entre `BEGIN;` e `ROLLBACK;` para não mudar os dados. A opção `BUFFERS` mostra os blocos encontrados na cache e os lidos do disco.
 
 **Para uma skill:** nenhuma query traz tudo sem paginar; as lentas são analisadas pelo plano.
 

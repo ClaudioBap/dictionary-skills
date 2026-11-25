@@ -74,9 +74,10 @@ Fonte: págs. 65–69 (Dicionario-Boas-Praticas.pdf)
 
 ### Voz e multimodal
 
-- [Voz: síntese (TTS) e reconhecimento (STT)](multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há uma opção local (Piper, com vozes pt_PT) e um escalão gratuito na nuvem (Azure, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
+- [Voz: síntese (TTS) e reconhecimento (STT)](multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há duas opções locais (Piper, com a voz `pt_PT-tugão-medium`, e Chatterbox afinado para pt-PT, com pesos MIT) e dois escalões gratuitos na nuvem (Azure e Google Cloud, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
 - [Gravação do browser com Playwright](multimodal/gravacao-do-browser-com-playwright.md) — O Playwright grava o browser em WebM a partir de um contexto com `recordVideo`; o cursor, os títulos, as caixas, os cartões e as transições desenham-se na própria página, com um script de início, e ficam na gravação; para o zoom ficar nítido grava-se a 2x com a escala forçada do Chromium. *(fora do PDF)*
 - [Montagem e exportação de vídeo com ffmpeg](multimodal/montagem-e-exportacao-com-ffmpeg.md) — Sem instalar nada no sistema, o pacote npm `ffmpeg-static` traz o ffmpeg que alinha o áudio com a gravação pelos momentos escuros, corta os tempos mortos, faz o zoom em pós-produção, grava as legendas na imagem e exporta em MP4; a narração monta-se em Node a partir dos WAV de cada passo. *(fora do PDF)*
+- [Vozes pagas em português de Portugal](multimodal/vozes-pagas-pt-pt.md) — Para quem quiser pagar uma voz em pt-PT há cinco fornecedores com preço público: Amazon Polly, Google Cloud, Azure, ElevenLabs e OpenAI. Diferem nas vozes pt-PT que têm, no preço por milhão de caracteres, na licença comercial e no sítio onde ficam os dados. *(fora do PDF)*
 
 ### Operação em produção
 

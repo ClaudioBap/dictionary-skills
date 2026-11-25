@@ -26,12 +26,19 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [NIST CSRC](https://csrc.nist.gov/) | publicações NIST: autenticação, resposta a incidentes, SSDF, contentores |
 | [ENISA](https://www.enisa.europa.eu/) | ameaças, publicações e orientações de cibersegurança da UE |
 | [CNCS Portugal](https://www.cncs.gov.pt/) | referência nacional e incidentes (não lida: bloqueia acesso automático) |
+| [EUR-Lex: Diretiva NIS2 (2022/2555)](https://eur-lex.europa.eu/eli/dir/2022/2555/oj) | entidades abrangidas, medidas mínimas e prazos de notificação de incidentes |
+| [EUR-Lex: transposição da NIS2](https://eur-lex.europa.eu/legal-content/EN/NIM/?uri=CELEX:32022L2555) | medidas nacionais de cada Estado-Membro (em Portugal, o Decreto-Lei n.º 125/2025 e o Regulamento n.º 756/2026) |
+| [Comissão Europeia: NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) | estado da diretiva e alterações propostas |
+| [Comissão Europeia: NIS2 em Portugal](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive-portugal) | ponto único de contacto e CSIRT nacional |
+| [EUR-Lex: Cyber Resilience Act (2024/2847)](https://eur-lex.europa.eu/eli/reg/2024/2847/oj) | âmbito, datas, notificação e requisitos dos produtos com elementos digitais |
+| [Comissão Europeia: notificação no CRA](https://digital-strategy.ec.europa.eu/en/policies/cra-reporting) | prazos e encaminhamento das notificações dos fabricantes |
+| [ENISA: plataforma única de notificação do CRA](https://www.enisa.europa.eu/topics/product-security/vulnerability-services/eu-incident-response-and-cyber-crisis-management/single-reporting-platform-srp) | onde os fabricantes notificam e versões da plataforma |
 
 ## [Privacidade e conformidade](privacidade/README.md)
 
 | Fonte | Para quê |
 |---|---|
-| [EUR-Lex: RGPD](https://eur-lex.europa.eu/eli/reg/2016/679/oj) | texto oficial (não lida: bloqueia acesso automático) |
+| [EUR-Lex: RGPD](https://eur-lex.europa.eu/eli/reg/2016/679/oj) | texto oficial |
 | [EDPB](https://www.edpb.europa.eu/) | diretrizes europeias sobre RGPD, consentimento e cookies |
 | [EDPB: guia para PME](https://www.edpb.europa.eu/sme-data-protection-guide/home_en) | guia prático de conformidade com o RGPD |
 | [CNPD](https://www.cnpd.pt/) | autoridade portuguesa: orientações, AIPD, violações de dados |
@@ -69,6 +76,13 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) | Autorização no servidor e registo de ações administrativas |
 | [W3C WAI-ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/patterns/) | Padrões de componentes acessíveis, como disclosure e accordion (grupos que abrem e fecham) |
 | [Material Design 3: Motion](https://m3.material.io/styles/motion/overview/how-it-works) | Princípios e durações do movimento na interface (não lida: só mostra texto depois de correr JavaScript) |
+| [Your Europe: requisitos de acessibilidade](https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm) | Ato Europeu da Acessibilidade: o que abrange, desde quando e exceções |
+| [Comissão Europeia: European Accessibility Act](https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/disability/union-equality-strategy-rights-persons-disabilities-2021-2030/european-accessibility-act_en) | Produtos e serviços abrangidos pela Diretiva (UE) 2019/882 |
+| [mosaico.gov.pt: Decreto-Lei n.º 82/2022](https://mosaico.gov.pt/legislacao-e-regulamentos/decreto-lei-82-2022) | Transposição portuguesa do Ato Europeu da Acessibilidade |
+| [Diário da República: Decreto-Lei n.º 82/2022](https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872) | Texto do diploma (não lida: só mostra texto depois de correr JavaScript) |
+| [EUR-Lex: Diretiva (UE) 2019/882](https://eur-lex.europa.eu/eli/dir/2019/882/oj) | Texto da diretiva (não lida: bloqueia acesso automático) |
+| [Lighthouse CI: configuração](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md) | Asserções do orçamento de desempenho no CI |
+| [Chrome for Developers: Lighthouse 10](https://developer.chrome.com/blog/lighthouse-10-0) | Métricas do Lighthouse (o TTI saiu na versão 10) |
 
 ## [3D, WebGL e animação](3d-webgl/README.md)
 
@@ -96,6 +110,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Google — Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) | Relação entre Core Web Vitals e pesquisa |
 | [Google — dados estruturados](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data) | JSON-LD e vocabulário schema.org |
 | [Open Graph protocol](https://ogp.me/) | Metadados de partilha og:title, og:type, og:image, og:url |
+| [Google — noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing) | Tirar páginas dos resultados sem as bloquear no robots.txt |
+| [Google — controlar o que se partilha](https://developers.google.com/search/docs/crawling-indexing/control-what-you-share) | Palavra-passe para o conteúdo privado, noindex para o resto |
+| [Google — versões localizadas](https://developers.google.com/search/docs/specialty/international/localized-versions) | hreflang recíproco e x-default em sites com várias línguas |
 
 ## [Desenho de API](api/README.md)
 
@@ -106,6 +123,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [RFC 9745 Deprecation header](https://www.rfc-editor.org/rfc/rfc9745.html) | Sinalizar depreciação de recursos por cabeçalho HTTP |
 | [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) | Contrato de APIs HTTP legível por pessoas e máquinas |
 | [OpenAPI — Best Practices](https://learn.openapis.org/best-practices.html) | Design-first, fonte única, CI contra desvios |
+| [OpenAPI — esquemas oficiais](https://spec.openapis.org/oas/) | Validar o documento OpenAPI contra o esquema da sua versão |
 | [Pact](https://docs.pact.io/) | Testes de contrato consumidor–fornecedor |
 | [OWASP API4:2023](https://api-security.owasp.org/editions/2023/en/0xa4-unrestricted-resource-consumption) | Limites de paginação, taxa e tamanho de payload |
 | [GraphQL — Security](https://graphql.org/learn/security/) | Profundidade, complexidade, trusted documents, rate limiting |
@@ -150,6 +168,8 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html) | verificação estática de tipos |
 | [pytest good practices](https://docs.pytest.org/en/stable/explanation/goodpractices.html) | organização de projeto e testes |
 | [Security Considerations](https://docs.python.org/3/library/security_warnings.html) | módulos da stdlib com avisos de segurança |
+| [pip-audit](https://pypi.org/project/pip-audit/) | auditoria de vulnerabilidades nas dependências |
+| [Bandit](https://bandit.readthedocs.io/en/latest/) | análise estática de segurança do código Python |
 
 ## [Boas práticas de Java](java/README.md)
 
@@ -162,18 +182,22 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [SLF4J manual](https://www.slf4j.org/manual.html) | fachada de logging |
 | [Maven dependency mechanism](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html) | dependencyManagement e BOM |
 | [OWASP Deserialization](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html) | desserialização segura em Java |
+| [OWASP Dependency-Check](https://dependency-check.github.io/DependencyCheck/) | vulnerabilidades conhecidas nas dependências (plugins Maven e Gradle) |
 
 ## [Boas práticas de C#](csharp/README.md)
 
 | Fonte | Para quê |
 |---|---|
 | [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history) | versões da linguagem e novidades |
-| [What's new in C# 15](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-15) | próxima versão (pré-lançamento com .NET 11) |
+| [What's new in C# 15](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-15) | novidades do C# 15, lançado com o .NET 11 em novembro de 2026 |
 | [.NET Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions) | convenções oficiais de código C# |
 | [Code analysis in .NET](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview) | analisadores Roslyn, .editorconfig, warnings como erros |
 | [Best practices for exceptions](https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions) | tratamento de exceções em .NET |
 | [Unit testing best practices](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices) | testes unitários em .NET |
 | [OWASP .NET Security](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html) | segurança em .NET |
+| [dotnet package list](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-list) | pacotes vulneráveis (`--vulnerable`) |
+| [Auditing package dependencies](https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages) | auditoria do NuGet no restore |
+| [dotnet/core releases-index.json](https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json) | fases e datas de fim de suporte de cada versão do .NET |
 
 ## [Boas práticas de JavaScript](javascript/README.md)
 
@@ -197,6 +221,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Node.js: calendário de releases](https://github.com/nodejs/Release) | Datas de LTS, manutenção e EOL |
 | [Documentação do npm](https://docs.npmjs.com/) | Comandos e configuração do npm |
 | [GitHub changelog: npm](https://github.blog/changelog/label/npm/) | Novidades do npm e do registo |
+| [npm CLI: CHANGELOG](https://github.com/npm/cli/blob/latest/CHANGELOG.md) | Mudanças incompatíveis de cada versão do npm |
 | [OWASP: segurança em Node.js](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html) | Boas práticas de segurança em Node.js |
 
 ## [Estrutura e documentação](estrutura/README.md)
@@ -229,6 +254,8 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Sigstore cosign](https://docs.sigstore.dev/cosign/signing/overview/) | Assinatura de imagens e artefactos |
 | [OpenSSF Scorecard](https://scorecard.dev/) | Avaliar dependências fixadas, permissões de token, proteção de branches |
 | [The Practical Test Pyramid (Fowler)](https://martinfowler.com/articles/practical-test-pyramid.html) | Camadas de testes e quantos ter em cada uma |
+| [GitHub: deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments) | Que branches podem publicar num ambiente e regras de proteção |
+| [GitHub Actions: OpenID Connect](https://docs.github.com/en/actions/concepts/security/openid-connect) | Tokens de nuvem de curta duração por job, em vez de segredos guardados |
 
 ## [Docker e orquestração](docker/README.md)
 
@@ -243,6 +270,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Argo CD docs](https://argo-cd.readthedocs.io/en/stable/) | Entrega GitOps declarativa para Kubernetes |
 | [Trivy (Aqua Security)](https://github.com/aquasecurity/trivy) | Scan de vulnerabilidades, segredos e misconfigurações em imagens |
 | [Kubernetes: Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/) | Definições oficiais das três sondas de saúde |
+| [Kubernetes: Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) | Rollback com rollout undo, histórico de revisões e prazo de progresso |
+| [Docker Engine security](https://docs.docker.com/engine/security/) | Retirar todas as capacidades Linux menos as necessárias |
+| [Docker: running containers](https://docs.docker.com/engine/containers/run/) | Capacidades, privilégios e opções de execução |
 
 ## [Serviços de infraestrutura](infraestrutura/README.md)
 
@@ -251,7 +281,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [AWS SSM Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) | Acesso a servidores sem bastion, portas abertas ou chaves SSH |
 | [Teleport docs](https://goteleport.com/docs/) | Acesso a infraestrutura por identidade, com auditoria de sessões |
 | [Tailscale](https://tailscale.com/kb/1151/what-is-tailscale) | Rede de confiança zero sobre WireGuard |
-| [PostgreSQL](https://www.postgresql.org/about/) | Base relacional aberta; documentação atual é a versão 18 |
+| [PostgreSQL](https://www.postgresql.org/about/) | Base relacional aberta; documentação atual é a versão 19 |
 | [Valkey](https://valkey.io/) | Armazém chave-valor BSD da Linux Foundation |
 | [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/) | Alertas a partir de várias fontes de dados |
 | [OpenBao](https://openbao.org/) | Gestor de segredos aberto, fork comunitário do Vault |
@@ -268,6 +298,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [CNPD: AIPD](https://www.cnpd.pt/organizacoes/outras-obrigacoes/avaliacao-de-impacto/) | Quando a AIPD é obrigatória em Portugal |
 | [Gaia-X](https://gaia-x.eu/) | Infraestrutura de dados federada europeia e soberania de dados |
 | [OpenID Foundation](https://openid.net/developers/how-connect-works/) | Norma OIDC para identidade sem amarra a fornecedor |
+| [Decisões de adequação (CE)](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en) | Países para onde os dados pessoais circulam sem outras garantias |
+| [Cláusulas contratuais-tipo (CE)](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc_en) | Garantias para transferências para países sem adequação |
+| [Uso seguro do GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use) | Riscos dos runners self-hosted em repositórios públicos |
 
 ## [Governação e processo](governacao/README.md)
 
@@ -324,7 +357,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [FAQ AWS Free Tier](https://aws.amazon.com/free/free-tier-faqs/) | créditos, duração e apagamento de contas Free |
 | [Google Cloud Free](https://docs.cloud.google.com/free/docs/free-cloud-features) | crédito de teste, Free Tier e regiões elegíveis |
 | [Cloudflare changelog](https://developers.cloudflare.com/changelog/) | Novidades de WAF, SSL, DNS, Access e Registrar |
-| [Planos Cloudflare](https://www.cloudflare.com/plans/network-cdn/) | Preços e funcionalidades Free, Pro, Business, Enterprise |
+| [Planos Cloudflare](https://www.cloudflare.com/plans/) | Preços e funcionalidades Free, Pro, Business, Enterprise |
 | [Cloudflare Access planos](https://www.cloudflare.com/zero-trust/products/access/) | Limite de utilizadores do plano Free do Access |
 | [Let's Encrypt news](https://letsencrypt.org/blog/) | Mudanças de validade, perfis ACME e ARI |
 | [CA/Browser Forum posts](https://cabforum.org/posts/) | Ballots que alteram Baseline Requirements e EV Guidelines |
@@ -426,6 +459,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [getzep/graphiti](https://github.com/getzep/graphiti) | Versões do Graphiti (grafo temporal para memória de agentes) |
 | [letta-ai/letta](https://github.com/letta-ai/letta) | Versões do Letta (agentes com estado) |
 | [Claude: Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) | Memory tool da Claude Platform |
+| [Claude: boas práticas de skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) | Régua de autoria de skills: limites do name e da description, 500 linhas, referências, avaliações |
 | [MCP: especificação](https://modelcontextprotocol.io/specification/latest) | Versão atual da especificação MCP |
 | [Gemini API: modelos](https://aistudio.google.com/docs/models) | Modelos Gemini, estado e descontinuações |
 | [Gemini API: preços](https://aistudio.google.com/docs/pricing) | Preços do Gemini, batch, cache e grounding |
@@ -436,7 +470,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Hugging Face PEFT](https://huggingface.co/docs/peft) | Fine-tuning eficiente (LoRA) |
 | [karpathy/nanochat](https://github.com/karpathy/nanochat) | Treinar um LLM de raiz, de ponta a ponta |
 | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | Construir um LLM de raiz, capítulo a capítulo |
-| [Mistral: modelos](https://docs.mistral.ai/getting-started/models/) | Modelos Mistral e licença de cada um |
+| [Mistral: modelos](https://docs.mistral.ai/models/) | Modelos Mistral e licença de cada um |
 | [Gemma: termos](https://ai.google.dev/gemma/terms) | Licença dos modelos Gemma |
 | [OSI: Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) | O que conta como IA open source |
 | [Comissão Europeia: perguntas e respostas sobre modelos GPAI](https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers) | Quem é fornecedor de um modelo de finalidade geral e o que deve |
@@ -452,6 +486,17 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Ollama: preços](https://ollama.com/pricing) | Execução local sem limite, planos e preço por token da nuvem Ollama, e onde ficam os modelos |
 | [Fish Audio: planos](https://fish.audio/plan/) | Planos da aplicação de voz e uso comercial em cada um |
 | [Fish Audio: preços da API](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) | Preço por modelo de voz e de transcrição, promoções e limites de pedidos em simultâneo |
+| [Chatterbox pt-PT (Resemble AI)](https://huggingface.co/ResembleAI/Chatterbox-Multilingual-pt-pt) | Modelo de voz aberto afinado para português de Portugal, licença e ficheiros |
+| [Kokoro-82M: vozes](https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md) | Línguas e vozes do Kokoro |
+| [XTTS-v2: licença](https://huggingface.co/coqui/XTTS-v2/blob/main/LICENSE.txt) | Termos da Coqui Public Model License (só uso não comercial) |
+| [Google Cloud TTS: preços](https://cloud.google.com/text-to-speech/pricing) | Escalão grátis por tipo de voz, preço por milhão de caracteres e preço do Gemini TTS |
+| [Google Cloud TTS: vozes](https://cloud.google.com/text-to-speech/docs/list-voices-and-types) | Vozes pt-PT disponíveis por tipo |
+| [Amazon Polly: preços](https://aws.amazon.com/polly/pricing/) | Escalão grátis e preço por tipo de voz |
+| [Amazon Polly: perguntas frequentes](https://aws.amazon.com/polly/faqs/) | Uso dos dados, região, opt-out e direitos sobre o áudio |
+| [ElevenLabs: preços](https://elevenlabs.io/pricing) | Planos, créditos por carácter e licença comercial por plano |
+| [ElevenLabs: residência de dados](https://elevenlabs.io/docs/overview/administration/data-residency) | Onde ficam os dados e residência na UE |
+| [OpenAI: text to speech](https://developers.openai.com/api/docs/guides/text-to-speech) | Modelos de voz, línguas, aviso de voz gerada por IA e descontinuação |
+| [Azure: API de preços de retalho](https://prices.azure.com/api/retail/prices?currencyCode=EUR) | Preço por região das vozes neurais e HD, em euros |
 
 ## [Modularização e produtização](produto/README.md)
 
@@ -468,6 +513,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Feature Toggles (Hodgson)](https://martinfowler.com/articles/feature-toggles.html) | Categorias de flags e quando usar cada uma |
 | [Cookiecutter](https://cookiecutter.readthedocs.io) | Gerar projetos a partir de um modelo |
 | [Copier](https://copier.readthedocs.io) | Modelos de projeto que atualizam os projetos gerados |
+| [Stripe Entitlements](https://docs.stripe.com/billing/entitlements) | Direitos por funcionalidade ligados à subscrição; webhook e leitura dos direitos ativos |
+| [OpenFeature Specification](https://openfeature.dev/specification/) | Padrão aberto de avaliação de flags: contexto, targeting key e valor por omissão |
+| [OWASP Top 10:2025, A01](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/) | Controlo de acesso no servidor e negar por omissão |
 
 ## [Portais e mundos de agentes](portais-de-agentes/README.md)
 
@@ -506,6 +554,10 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [MDN: SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) | Guardar chaves no browser |
 | [Microsoft Learn: CryptProtectData](https://learn.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata) | Cifrar o cofre local com a conta do Windows |
 | [Microsoft Learn: ProtectedData](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata) | O mesmo, a partir do .NET |
+| [MDN: SubtleCrypto.sign()](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign) | Formato da assinatura ECDSA do browser (`r` e `s` seguidos) |
+| [Node.js: crypto](https://nodejs.org/api/crypto.html) | Verificar no servidor a assinatura do browser com `dsaEncoding` |
+| [MDN: What is a URL?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL) | O fragmento depois de `#` não vai ao servidor |
+| [Claude Code: managed settings](https://code.claude.com/docs/en/managed-settings) | Pasta das definições e das skills geridas em cada sistema |
 
 ## A vigiar
 
@@ -520,6 +572,8 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | IA | Preço do grounding com Google Search: duas páginas oficiais com valores diferentes; confirmar qual vale | [https://aistudio.google.com/docs/google-search](https://aistudio.google.com/docs/google-search) |
 | IA | Licença do Llama por ler (llama.com redireciona para outro site); ler o texto atual da licença | [https://www.llama.com/](https://www.llama.com/) |
 | IA | Fish Audio: o `drama-3` está a 10 USD por milhão de bytes até 2026-11-30 (até 1/12, às 08:00 UTC) e volta a 50 USD; confirmar o preço depois dessa data | [https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) |
+| IA | OpenAI: `tts-1`, `tts-1-hd` e `gpt-4o-mini-tts` desligam a 2027-01-06; a substituição é o `gpt-realtime-2.1-mini` pela Realtime API; confirmar a data e o preço | [https://developers.openai.com/api/docs/guides/text-to-speech](https://developers.openai.com/api/docs/guides/text-to-speech) |
+| IA | Google Cloud: o Gemini 3.8 Flash TTS (pré-visualização) passa de 0,50 e 9,00 USD para 1,00 e 18,00 USD por milhão de tokens de texto e de áudio a 2027-01-01; confirmar o preço e se o pt-PT sai da pré-visualização | [https://cloud.google.com/text-to-speech/pricing](https://cloud.google.com/text-to-speech/pricing) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
 | Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
 | Publicação | mudanças nos limites e na restrição comercial da Vercel Hobby | [https://vercel.com/docs/plans/hobby](https://vercel.com/docs/plans/hobby) |
@@ -530,15 +584,16 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Publicação | Regras geridas WAF disponíveis no plano Free da Cloudflare | [https://developers.cloudflare.com/waf/managed-rules/](https://developers.cloudflare.com/waf/managed-rules/) |
 | Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |
 | Publicação | Hostinger VPS: preços de Black Friday sem data de fim na página (KVM 2 a 210,96 USD por 24 meses, renova a 14,99 USD/mês); confirmar os preços quando a promoção acabar | [https://www.hostinger.com/vps-hosting](https://www.hostinger.com/vps-hosting) |
-| Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6 a 2026-10-06; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |
+| Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6p2 a 2026-11-05, ainda a mais recente a 2026-11-25; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |
 | Plataformas | Servidores MCP oficiais: novos projetos com MCP, saída do modo experimental no Dolibarr, MCP oficial no Zammad, Node-RED e LimeSurvey | [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/) |
 | Plataformas | Mudanças de licença (n8n, Directus, Strapi ee/, Odoo Enterprise) | [https://opensource.org/licenses](https://opensource.org/licenses) |
-| C# | Fim de suporte do .NET 8 e do .NET 9 (2026-11-10 segundo o índice oficial) e próximas datas de fim de suporte | [https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json](https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json) |
+| C# | Fim de suporte do .NET 10 (LTS) e do .NET 11 (STS), ambos a 2028-11-14 segundo o índice oficial (lido a 2026-11-25), e próximas datas de fim de suporte | [https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json](https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json) |
 | Soberania | Data Act: fim total dos custos de mudança de fornecedor de nuvem e de saída de dados a 2027-01-12 | [https://digital-strategy.ec.europa.eu/en/policies/data-act-explained](https://digital-strategy.ec.europa.eu/en/policies/data-act-explained) |
 | Base de dados | Notas de versão do Microsoft Fabric: capacidades, preços das SKUs F, estado das funcionalidades em pré-visualização (SQL database, OneLake security) e mudanças ao consumo (as taxas «are subject to change at any time») | [https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new](https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new) |
 | Base de dados | MongoDB: versão do servidor (9.0 a 2026-11-16, fim de vida a 2031-10-31), datas de fim de vida das 8.0 e 7.0, e a descontinuação do LDAP | [https://www.mongodb.com/legal/support-policy/lifecycles](https://www.mongodb.com/legal/support-policy/lifecycles) |
 | Base de dados | Apache Spark (4.3.0) e Delta Lake (4.3.x, compatível com Spark 4.0.x e 4.1.x): a compatibilidade muda a cada versão | [https://docs.delta.io/latest/releases.html](https://docs.delta.io/latest/releases.html) |
 | Base de dados | Especificação do Iceberg: versão 4 em desenvolvimento, ainda não adotada (a 2026-11-16) | [https://iceberg.apache.org/spec/](https://iceberg.apache.org/spec/) |
 | Segurança | Claim `amr` do id_token: a página do Entra não o documenta (a 2026-11-16); verificar se passa a documentá-lo | [https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference) |
+| Segurança (regulação) | NIS2: se as alterações pontuais que a Comissão propôs a 2026-01-20 são aprovadas e o que mudam; e o texto do Decreto-Lei n.º 125/2025 e do Regulamento n.º 756/2026, por ler (o Diário da República só abre com JavaScript e o CNCS bloqueia o acesso automático), para confirmar os prazos nacionais, o canal de notificação e o registo das entidades | [https://digital-strategy.ec.europa.eu/en/policies/nis2-directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) |
 | Portais de agentes | Leitura de «intermediate» na página legal do Claude Code (credenciais e uso «on their end users' behalf»): confirmar com a Anthropic se um agente local que conduz o `claude` com a subscrição da própria pessoa é permitido | [https://code.claude.com/docs/en/legal-and-compliance](https://code.claude.com/docs/en/legal-and-compliance) |
 | Portais de agentes | Comportamentos vistos só em corridas (o nome da skill em `tool_input.skill` no `PreToolUse`; o `PermissionRequest` também para o `AskUserQuestion`, com a primeira resposta a ganhar): verificar se passam a estar documentados ou mudam | [https://code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) |

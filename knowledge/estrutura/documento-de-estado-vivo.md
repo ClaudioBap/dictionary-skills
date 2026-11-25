@@ -24,6 +24,6 @@ verificado_em: 2026-11-03
 *Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
 
 
-> **Nota (fonte oficial):** sem fonte oficial encontrada
+- [Effective harnesses for long-running agents (Anthropic, 2025-11-26)](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — um ficheiro `claude-progress.txt` «that keeps a log of what agents have done», lido no início de cada sessão com o histórico do git para perceber depressa o estado do trabalho. Consultado a 2026-11-25.
 
 Fonte: pág. 42 (Dicionario-Boas-Praticas.pdf)

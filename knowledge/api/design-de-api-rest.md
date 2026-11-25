@@ -4,7 +4,8 @@ titulo: "Design de API REST"
 seccao: "Desenho de API"
 paginas: [25]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -16,6 +17,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Recursos no plural, verbos HTTP com o seu significado (GET lê, POST cria, PUT/PATCH altera, DELETE apaga), estados HTTP corretos.
 - Sem verbos no URL; representação consistente; erros num formato único (ex.: Problem Details).
+- Em Problem Details (RFC 9457), o erro é um objeto JSON com o tipo de conteúdo `application/problem+json` e os membros `type`, `title`, `status`, `detail` e `instance`; sem `type`, vale `about:blank`.
 
 **Para uma skill:** a API usa os verbos e estados HTTP corretos e um formato de erro único.
 

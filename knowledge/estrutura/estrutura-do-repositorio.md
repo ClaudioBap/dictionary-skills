@@ -24,6 +24,6 @@ verificado_em: 2026-11-03
 *Ligações externas que apoiam esta entrada, consultadas a 2026-11-04. Não alteram o texto acima.*
 
 
-> **Nota (fonte oficial):** sem fonte oficial encontrada
+> **Nota:** sem fonte primária encontrada a 2026-11-25. A prática vem do PDF e da forma como este repositório se organiza *(experiência do projeto)*.
 
 Fonte: pág. 41 (Dicionario-Boas-Praticas.pdf)

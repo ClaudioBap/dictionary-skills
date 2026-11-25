@@ -20,11 +20,11 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - A entrada «Decisões registadas (ADR)» aparece nas págs. 42 e 59; está num só ficheiro (`estrutura/`) e a secção Governação aponta para ele.
 - **⚠️ Fora do PDF:** as secções `javascript/`, `node/`, `publicacao/`, `acesso-remoto/` e `plataformas/` não vêm do PDF. Cada ponto liga à fonte oficial que o apoia (MDN, Node.js, npm, OWASP, etc., consulta a 2026-11-03); os pontos marcados «sem fonte oficial» são convenções escritas pelo assistente. Têm `paginas: []` e a origem no campo `fonte`.
 - **Fontes oficiais:** as entradas que vêm do PDF têm, quando foi possível, uma secção «Fontes oficiais» com ligações externas que as apoiam (consulta a 2026-11-04). Quando uma fonte oficial diz algo diferente ou mais atual, fica uma «Nota (fonte oficial)» e o texto do PDF mantém-se. A lista dos sites por tema, que o agente de atualização percorre, está em [FONTES.md](FONTES.md).
-- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 143 entradas fora do PDF; 380 ficheiros de entrada no total.
+- Totais: 27 secções; 238 entradas do PDF em 237 ficheiros; 150 entradas fora do PDF; 387 ficheiros de entrada no total.
 
 ## Secções
 
-### 1. [Segurança](seguranca/README.md) — págs. 3–9 (30 entradas)
+### 1. [Segurança](seguranca/README.md) — págs. 3–9 (32 entradas)
 
 - [Autorização no servidor, negar por omissão](seguranca/autorizacao-no-servidor.md) — A decisão de quem pode o quê vive no servidor, cada endpoint declara o que exige e, sem declaração, recusa. *(pág. 3)*
 - [Defesa contra XSS: escapar e CSP](seguranca/defesa-contra-xss.md) — Escapar por omissão todo o texto do utilizador e ter uma CSP sem `unsafe-inline` como segunda rede. *(pág. 3)*
@@ -56,10 +56,12 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Login por OIDC: código com PKCE, state, nonce e validação do id_token](seguranca/oidc-codigo-com-pkce-state-e-nonce.md) — Num login por OIDC com servidor, usa-se o fluxo de código com PKCE (S256), um `state` ligado ao navegador que começou o pedido, um `nonce` no id_token, o URI de retorno exato, e valida-se o id_token (assinatura, emissor, audiência, validade e nonce) antes de abrir sessão, identificando a pessoa por `oid` ou `sub`. *(fora do PDF)*
 - [Sessões: tempos, rotação do identificador, resumo guardado e cookies](seguranca/sessoes-tempos-rotacao-e-cookies.md) — Os números que a OWASP dá para uma sessão: identificador com pelo menos 64 bits de entropia, renovado a cada mudança de privilégio, timeout por inatividade mais curto nas áreas de maior valor e um limite absoluto, invalidação no servidor, só um resumo do identificador guardado e cookie `__Host-` com `SameSite`. *(fora do PDF)*
 - [Um link enviado por email nunca dá sessão](seguranca/links-por-email-sem-sessao.md) — Um email de convite, de aceitação ou de recuperação leva quem o recebe à página de entrada; é lá que a pessoa se autentica. Um token num link é de uso único, expira e não abre sessão. *(fora do PDF)*
+- [Cyber Resilience Act, obrigações de quem coloca software ou equipamentos no mercado da UE](seguranca/cyber-resilience-act.md) — O Regulamento (UE) 2024/2847 aplica-se aos produtos com elementos digitais disponibilizados no mercado da UE numa atividade comercial, a pagar ou de graça. Desde 11 de setembro de 2026 o fabricante notifica as vulnerabilidades ativamente exploradas e os incidentes graves pela plataforma única da ENISA, em 24 e 72 horas; a partir de 11 de dezembro de 2027 aplicam-se os requisitos dos produtos, entre eles a lista de materiais do software (SBOM), a política de divulgação coordenada de vulnerabilidades e um período de suporte de pelo menos cinco anos. *(fora do PDF)*
+- [Diretiva NIS2, entidades abrangidas, medidas mínimas e notificação de incidentes](seguranca/nis2-entidades-medidas-e-notificacao.md) — A NIS2 obriga as entidades essenciais e importantes dos setores dos seus anexos, a partir das médias empresas, a aplicar dez medidas mínimas de cibersegurança aprovadas pela gestão e a notificar cada incidente significativo em três tempos: aviso prévio em 24 horas, notificação em 72 horas e relatório final num mês. Em Portugal foi transposta pelo Decreto-Lei n.º 125/2025. *(fora do PDF)*
 
 ### 2. [Privacidade e conformidade](privacidade/README.md) — pág. 10 (4 entradas)
 
-- [RGPD operacional](privacidade/rgpd-operacional.md) — Cada tratamento tem base legal e registo, há processo para os direitos do titular e privacidade desde a conceção. *(pág. 10)*
+- [RGPD operacional](privacidade/rgpd-operacional.md) — Cada tratamento tem base legal e registo, há processo para os direitos do titular e privacidade desde a conceção. Uma violação de dados pessoais notifica-se à CNPD sem demora e, sempre que possível, até 72 horas, salvo se não for suscetível de resultar num risco para as pessoas. *(pág. 10)*
 - [Cookies e consentimento](privacidade/cookies-e-consentimento.md) — Só cookies essenciais sem consentimento; recusar é tão fácil como aceitar e nada carrega antes do «sim». *(pág. 10)*
 - [Analytics com privacidade](privacidade/analytics-com-privacidade.md) — Medir o uso sem cookies nem perfis, com agregados e sem enviar dados pessoais a terceiros. *(pág. 10)*
 - [Minimização e retenção](privacidade/minimizacao-e-retencao.md) — Recolher o mínimo, com justificação por campo, prazo de retenção e apagamento automático. *(pág. 10)*
@@ -77,7 +79,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Operação padronizada e runbooks](fiabilidade/operacao-padronizada-e-runbooks.md) — As operações de rotina, pontuais e de emergência seguem procedimentos escritos e iguais para todos, apoiados em infraestrutura como código, monitorização e entregas seguras. *(fora do PDF)*
 - [Prontidão operacional e passagem](fiabilidade/prontidao-operacional-e-passagem.md) — Uma plataforma só se entrega a quem a vai operar quando existem, com prova, monitorização, runbooks, cópias testadas, processo de incidentes, registo de alterações e sondas de saúde. *(fora do PDF)*
 
-### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (30 entradas)
+### 4. [Design e experiência de utilizador](design/README.md) — págs. 13–19 (31 entradas)
 
 - [Design system como código](design/design-system-como-codigo.md) — Tokens no `:root`, componentes construídos sobre os tokens e um catálogo com todos os estados. *(pág. 13)*
 - [Acessibilidade (WCAG 2.1 AA)](design/acessibilidade-wcag.md) — Alvo mínimo WCAG 2.1 AA: teclado, foco visível, leitor de ecrã, contraste e axe/pa11y no CI. *(pág. 13)*
@@ -109,6 +111,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Atalhos e power users](design/atalhos-e-power-users.md) — Atalhos de teclado e paleta de comandos para quem usa muito, sem prejudicar os ocasionais. *(pág. 19)*
 - [Avisos Web Push com VAPID, sem corpo](design/avisos-web-push-com-vapid.md) — Para avisar um telemóvel sem aplicação nativa, a aplicação web subscreve o Web Push com a chave pública VAPID e o servidor envia um POST sem corpo, assinado com um JWT ES256; o service worker mostra um texto fixo e o conteúdo só se lê na aplicação. No iPhone exige o iOS 16.4 e a aplicação no ecrã principal. *(fora do PDF)*
 - [Botões, movimento e micro-interações](design/botoes-movimento-e-micro-interacoes.md) — As ações são botões que se reconhecem como botões, com estados ao passar, premir, focar e carregar; o movimento responde à ação ou explica uma mudança, e com `prefers-reduced-motion` a interface funciona sem ele. Tirar as marcas de IA não é achatar: uma interface toda reta e parada também denuncia ferramenta. *(fora do PDF)*
+- [Ato Europeu da Acessibilidade (produtos e serviços)](design/ato-europeu-da-acessibilidade.md) — Desde 28 de junho de 2025, as lojas online, a bilhética, a banca e outros produtos e serviços ao consumidor colocados no mercado da UE têm de ser acessíveis; em Portugal, pelo Decreto-Lei n.º 82/2022. Ficam de fora as microempresas de serviços e há exceções limitadas. *(fora do PDF)*
 
 ### 5. [3D, WebGL e animação](3d-webgl/README.md) — págs. 20–23 (11 entradas)
 
@@ -372,7 +375,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Acesso restrito à área de administração](publicacao/acesso-restrito-a-area-de-administracao.md) — A área de administração fica atrás de SSO com MFA obrigatório (Cloudflare Access, Entra application proxy ou OIDC com Keycloak) ou só numa rede privada (Tailscale), seguindo as cheat sheets OWASP de autenticação e MFA. *(fora do PDF)*
 - [Service tokens do Cloudflare Access (um programa a entrar numa aplicação protegida)](publicacao/service-tokens-do-cloudflare-access.md) — Quando um programa sem pessoa (um script, um hook, outro servidor) tem de entrar numa aplicação atrás do Cloudflare Access, usa um service token: envia o Client ID e o Client Secret em dois cabeçalhos, a política da aplicação tem uma regra «Service Auth», e a origem valida o JWT do Access e reconhece o programa pelo `common_name`. *(fora do PDF)*
 
-### 23. [Construir com IA](ia/README.md) — págs. 65–69 (64 entradas)
+### 23. [Construir com IA](ia/README.md) — págs. 65–69 (65 entradas)
 
 - [Certificação Claude Certified Architect (Foundations e avançado)](ia/certificacao-claude-certified-architect.md) — As quatro certificações da Anthropic com exame e o seu formato; o PDF indica que vêm de fontes da comunidade, a confirmar. *(pág. 65)*
 - [Domínios do exame (o que um bom sistema de IA cobre)](ia/dominios-do-exame.md) — Os domínios dos exames Foundations e Professional, usados como eixos para avaliar um sistema de IA. *(pág. 65)*
@@ -422,9 +425,10 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Obrigações do AI Act para modelos próprios](ia/modelos-proprios/obrigacoes-do-ai-act-para-modelos-proprios.md) — Quem treina um modelo de finalidade geral, ou o modifica com mais de um terço do compute de treino original, passa a ser fornecedor no AI Act, com documentação, política de direitos de autor e resumo público dos dados de treino. *(fora do PDF)*
 - [Requisitos para ter um LLM próprio](ia/modelos-proprios/requisitos-para-ter-um-llm-proprio.md) — Há três caminhos (usar uma API, adaptar um modelo aberto, treinar de raiz) e cada um pede coisas diferentes em dados, hardware, equipa, custo e obrigações legais; começa-se pelo mais barato que cumpre o pedido. *(fora do PDF)*
 - [Servir um modelo próprio](ia/modelos-proprios/servir-um-modelo-proprio.md) — Para servir em escala, o vLLM com API compatível com a da OpenAI e a da Anthropic; para correr em local ou em CPU, o llama.cpp ou o Ollama; o TGI da Hugging Face está em modo de manutenção. *(fora do PDF)*
-- [Voz: síntese (TTS) e reconhecimento (STT)](ia/multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há uma opção local (Piper, com vozes pt_PT) e um escalão gratuito na nuvem (Azure, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
+- [Voz: síntese (TTS) e reconhecimento (STT)](ia/multimodal/voz-tts-e-stt.md) — Para narrar em português de Portugal sem custo há duas opções locais (Piper, com a voz `pt_PT-tugão-medium`, e Chatterbox afinado para pt-PT, com pesos MIT) e dois escalões gratuitos na nuvem (Azure e Google Cloud, com vozes pt-PT); a licença do motor, das vozes e do modelo decide o que se pode usar com clientes. *(fora do PDF)*
 - [Gravação do browser com Playwright](ia/multimodal/gravacao-do-browser-com-playwright.md) — O Playwright grava o browser em WebM a partir de um contexto com `recordVideo`; o cursor, os títulos, as caixas, os cartões e as transições desenham-se na própria página, com um script de início, e ficam na gravação; para o zoom ficar nítido grava-se a 2x com a escala forçada do Chromium. *(fora do PDF)*
 - [Montagem e exportação de vídeo com ffmpeg](ia/multimodal/montagem-e-exportacao-com-ffmpeg.md) — Sem instalar nada no sistema, o pacote npm `ffmpeg-static` traz o ffmpeg que alinha o áudio com a gravação pelos momentos escuros, corta os tempos mortos, faz o zoom em pós-produção, grava as legendas na imagem e exporta em MP4; a narração monta-se em Node a partir dos WAV de cada passo. *(fora do PDF)*
+- [Vozes pagas em português de Portugal](ia/multimodal/vozes-pagas-pt-pt.md) — Para quem quiser pagar uma voz em pt-PT há cinco fornecedores com preço público: Amazon Polly, Google Cloud, Azure, ElevenLabs e OpenAI. Diferem nas vozes pt-PT que têm, no preço por milhão de caracteres, na licença comercial e no sítio onde ficam os dados. *(fora do PDF)*
 - [Gateway de LLM (LiteLLM)](ia/operacao/gateway-de-llm-litellm.md) — Um gateway põe todas as aplicações a falar com os modelos por um só ponto, com uma chave por aplicação ou pessoa, orçamento, limite de pedidos e custo registado por pedido. *(fora do PDF)*
 - [Observabilidade de aplicações com LLM](ia/operacao/observabilidade-de-llm.md) — Cada chamada ao modelo e às ferramentas fica num trace com tokens, custo e resultado, para depurar, avaliar e comparar versões de prompts; há convenções abertas e ferramentas open source que se podem alojar. *(fora do PDF)*
 - [Uso e custo da Claude API](ia/operacao/uso-e-custo-da-claude-api.md) — A organização lê por API os tokens e o custo em dólares, por modelo, workspace ou chave, com uma chave de administração; a Usage and Cost API passou a legacy e a recomendada para integrações novas é a Usage and Cost Analytics API. *(fora do PDF)*
@@ -464,7 +468,7 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Pesquisa (Meilisearch, Typesense)](plataformas/pesquisa.md) — Pesquisa de texto com tolerância a erros e facetas vem de um motor próprio; a licença do Meilisearch é dupla (MIT, e BUSL-1.1 na edição Enterprise) e a do Typesense não se conseguiu ler. *(fora do PDF)*
 - [Tarefas em segundo plano (Temporal, BullMQ)](plataformas/tarefas-em-segundo-plano.md) — Trabalho que demora ou pode falhar sai do pedido HTTP para uma fila com repetições (BullMQ) ou para um motor de workflows duráveis que retoma onde parou (Temporal); ambos têm licença MIT. *(fora do PDF)*
 
-### 26. [Modularização e produtização](produto/README.md) — ⚠️ fora do PDF (7 entradas)
+### 26. [Modularização e produtização](produto/README.md) — ⚠️ fora do PDF (10 entradas)
 
 - [Configuração fora do código (os doze fatores)](produto/configuracao-fora-do-codigo.md) — O que muda de instalação para instalação vive no ambiente, e os serviços de que a aplicação depende são recursos ligados que se trocam sem tocar no código. *(fora do PDF)*
 - [Específico ou modular](produto/especifico-ou-modular.md) — Antes de construir, decide-se se o resultado serve um caso só ou vai ser reutilizado; a opção mais barata que cumpre o pedido é a certa, e abstrair sem um segundo caso à vista é custo sem retorno. *(fora do PDF)*
@@ -473,6 +477,9 @@ Mapa de todos os ficheiros de `knowledge/`, extraídos do PDF **Dicionário de B
 - [Multi-inquilino (modelos de tenancy)](produto/multi-inquilino.md) — Servir vários clientes com uma instalação partilhada é mais barato e mais arriscado do que uma instalação por cliente; a escolha depende do número de clientes previsto e é também uma decisão comercial. *(fora do PDF)*
 - [Núcleo e adaptadores (arquitetura hexagonal)](produto/nucleo-e-adaptadores.md) — A aplicação fala com o exterior por portas, e cada dispositivo, base de dados ou cliente liga-se por um adaptador; o que é específico de um caso fica no adaptador e o núcleo mantém-se igual. *(fora do PDF)*
 - [Versionamento e registo de alterações (SemVer, Conventional Commits, Keep a Changelog)](produto/versionamento-e-registo-de-alteracoes.md) — Um núcleo partilhado por vários casos precisa de um número de versão que diga se uma atualização parte alguma coisa, de commits que permitam derivar esse número e de um registo de alterações escrito para pessoas. *(fora do PDF)*
+- [Direitos por plano no servidor](produto/direitos-por-plano-no-servidor.md) — O que cada cliente comprou decide-se no servidor, a partir de uma cópia dos direitos guardada do lado do servidor e atualizada pela faturação; sem direito ativo, a resposta é recusar. *(fora do PDF)*
+- [Não entregar o que não se comprou](produto/nao-entregar-o-que-nao-se-comprou.md) — O que o cliente não comprou não chega ao lado dele, nem em código, nem em dados, nem em rotas que respondam; esconder na interface não chega. *(fora do PDF)*
+- [Segmentar em partes vendáveis](produto/segmentar-em-partes-vendaveis.md) — Quando um projeto se vai vender por partes, cada parte vendável é uma funcionalidade com chave estável e módulo próprio, e o que cada plano inclui vive fora do código. *(fora do PDF)*
 
 ### 27. [Portais e mundos de agentes](portais-de-agentes/README.md) — ⚠️ fora do PDF (9 entradas)
 
