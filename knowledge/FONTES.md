@@ -257,6 +257,9 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [The Practical Test Pyramid (Fowler)](https://martinfowler.com/articles/practical-test-pyramid.html) | Camadas de testes e quantos ter em cada uma |
 | [GitHub: deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments) | Que branches podem publicar num ambiente e regras de proteção |
 | [GitHub Actions: OpenID Connect](https://docs.github.com/en/actions/concepts/security/openid-connect) | Tokens de nuvem de curta duração por job, em vez de segredos guardados |
+| [GitHub Actions: workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) | Permissões do `GITHUB_TOKEN` e grupos de concorrência (`cancel-in-progress`) |
+| [GitHub: keeping your actions up to date with Dependabot](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot) | O Dependabot a propor as versões novas das ações dos workflows |
+| [GitHub Changelog: Node 20 nos runners](https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/) | O Node 24 por omissão nos runners a partir de 16 de junho de 2026 |
 
 ## [Docker e orquestração](docker/README.md)
 

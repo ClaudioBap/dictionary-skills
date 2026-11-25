@@ -64,10 +64,12 @@ Quando nenhuma entrada cobre o fornecedor ou a ferramenta em causa, ou os limite
 
 1. **Onde publicar.** Se a decisão «Publicação e exposição» do projeto ainda não existe, apresenta as opções do grátis ao empresarial (numa tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e a recomendação no fim): alojamento, domínio, certificado TLS, borda com WAF e proteção contra DDoS, e como se fecha a área de administração. Na coluna «Risco» entram as condições dos planos gratuitos e a jurisdição dos dados. A decisão é do utilizador.
 2. **Pipeline como portão.** Build reprodutível, testes, análise estática e verificação de dependências antes de qualquer deploy; ambientes com promoção; migrações no fluxo; reversão definida. O critério de fim de cada parte é a linha «Para uma skill» da entrada correspondente.
+   - O deploy só publica a ponta do branch. Compara o commit com a ponta atual e sai sem publicar se já foi ultrapassado, ou o CI do branch de produção cancela o anterior com `cancel-in-progress: true`. Um grupo de concorrência sozinho não chega, porque não ordena por commit (`cicd/pipeline-como-portao.md`).
+   - As ações ficam fixadas por SHA, com um `.github/dependabot.yml` (`package-ecosystem: "github-actions"`) que as atualiza. O token leva declaradas as permissões que cada passo lê, e nenhuma além delas (`cicd/seguranca-do-pipeline.md`).
 3. **Contentores.** Imagem mínima e endurecida, utilizador sem privilégios, configuração por variáveis de ambiente, sondas de saúde, volumes só onde há estado.
 4. **Segredos e variáveis.** Cada valor que o utilizador tem de criar (conta, domínio, chave de API, segredo de cliente) vai para o `.env.example` com o nome e o formato, e para «Por preencher» de `entrega.md`. O resto continua até ao fim.
 5. **Jurisdição.** Para cada serviço externo, regista a localização dos dados e a fonte; se não está na UE e o projeto o exige (P11), a decisão volta ao utilizador com alternativas.
-6. **Prova.** Pipeline verde com o registo da execução; imagem construída e a correr; deploy e reversão feitos em teste, e cada deploy seguido do smoke test que confirma a configuração (`cicd/observabilidade-do-deploy.md`).
+6. **Prova.** Pipeline verde em cada evento que ouve, com o registo de cada execução: um push ao branch de produção e um pull request de teste, porque um passo pode precisar de uma permissão que só falta no pull request (`cicd/seguranca-do-pipeline.md`); imagem construída e a correr; deploy e reversão feitos em teste, e cada deploy seguido do smoke test que confirma a configuração (`cicd/observabilidade-do-deploy.md`).
 
 ## 5. Publicar e verificar
 
