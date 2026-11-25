@@ -20,6 +20,8 @@ const CARACTERES_POR_SEGUNDO = 13; // estimativa quando ainda não há áudio
 
 // Sessão de um site com login, guardada por entrar.mjs fora do projeto (tem cookies de sessão).
 export const caminhoSessao = (url) => process.env.SESSAO_GRAVACAO ?? join(homedir(), '.start-project-with-trust', 'sessoes', `${new URL(url).host}.json`);
+// O sessionStorage, que o Playwright não guarda, fica ao lado, num ficheiro próprio.
+export const caminhoSessionStorage = (sessao) => `${sessao.replace(/\.json$/, '')}.sessionstorage.json`;
 
 // Uma imagem do disco (relativa à pasta do vídeo) passa à página como data URL.
 const TIPOS_IMAGEM = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml' };
@@ -264,6 +266,16 @@ export async function abrirEstudio(opcoes = {}) {
     bypassCSP: true, // os estilos do estúdio e a letra das cenas entram mesmo em sites com CSP estrita
     storageState,
   });
+
+  // O sessionStorage que entrar.mjs guardou repõe-se em cada documento do mesmo site, antes dos scripts dele.
+  if (storageState && existsSync(caminhoSessionStorage(storageState))) {
+    const porOrigem = JSON.parse(readFileSync(caminhoSessionStorage(storageState), 'utf8'));
+    await context.addInitScript((mapa) => {
+      const itens = mapa[location.origin];
+      if (!itens) return;
+      try { for (const [k, v] of Object.entries(JSON.parse(itens))) if (sessionStorage.getItem(k) === null) sessionStorage.setItem(k, v); } catch {}
+    }, porOrigem);
+  }
 
   const aceitarCookies = async (page) => {
     const botao = page.getByRole('button', { name: /aceitar|aceito|concordo|accept/i }).first();

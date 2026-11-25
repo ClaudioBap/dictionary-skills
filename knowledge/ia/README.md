@@ -79,6 +79,7 @@ Fonte: págs. 65–69 (Dicionario-Boas-Praticas.pdf)
 - [Gravação do browser com Playwright](multimodal/gravacao-do-browser-com-playwright.md) — O Playwright grava o browser em WebM a partir de um contexto com `recordVideo`; o cursor, os títulos, as caixas, os cartões e as transições desenham-se na própria página, com um script de início, e ficam na gravação; para o zoom ficar nítido grava-se a 2x com a escala forçada do Chromium. *(fora do PDF)*
 - [Montagem e exportação de vídeo com ffmpeg](multimodal/montagem-e-exportacao-com-ffmpeg.md) — Sem instalar nada no sistema, o pacote npm `ffmpeg-static` traz o ffmpeg que alinha o áudio com a gravação pelos momentos escuros, corta os tempos mortos, faz o zoom em pós-produção, grava as legendas na imagem e exporta em MP4; a narração monta-se em Node a partir dos WAV de cada passo. *(fora do PDF)*
 - [Vozes pagas em português de Portugal](multimodal/vozes-pagas-pt-pt.md) — Para quem quiser pagar uma voz em pt-PT há cinco fornecedores com preço público: Amazon Polly, Google Cloud, Azure, ElevenLabs e OpenAI. Diferem nas vozes pt-PT que têm, no preço por milhão de caracteres, na licença comercial e no sítio onde ficam os dados. *(fora do PDF)*
+- [Música para vídeos](multimodal/musica-para-videos.md) — A música de um vídeo de empresa vem de uma fonte com a licença lida (o Wikimedia Commons mostra-a por ficheiro, também pela API), entra com o crédito que a licença pede e mistura-se por baixo da voz, a descer quando ela fala. *(fora do PDF)*
 
 ### Operação em produção
 

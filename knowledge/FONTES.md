@@ -501,6 +501,13 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Fish Audio: preços da API](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) | Preço por modelo de voz e de transcrição, promoções e limites de pedidos em simultâneo |
 | [Chatterbox pt-PT (Resemble AI)](https://huggingface.co/ResembleAI/Chatterbox-Multilingual-pt-pt) | Modelo de voz aberto afinado para português de Portugal, licença e ficheiros |
 | [Kokoro-82M: vozes](https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md) | Línguas e vozes do Kokoro |
+| [kokoro.js](https://github.com/hexgrad/kokoro/tree/main/kokoro.js) | Kokoro em Node (pacote kokoro-js): licença, uso e vozes |
+| [Piper: vozes en_GB](https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_GB) | Vozes inglesas do Piper e licença do dataset de cada uma |
+| [Wikimedia Commons: API](https://commons.wikimedia.org/w/api.php) | Licença, autor e texto de atribuição de cada ficheiro de música |
+| [incompetech: licenças](https://incompetech.com/music/royalty-free/licenses/) | Licenças da música de Kevin MacLeod, gratuita com crédito ou paga |
+| [Pixabay: resumo da licença](https://pixabay.com/service/license-summary/) | Uso comercial e proibições do conteúdo da Pixabay, também música |
+| [Pixabay: termos](https://pixabay.com/service/terms/) | Termos completos da licença da Pixabay |
+| [Playwright: Authentication](https://playwright.dev/docs/auth) | Guardar e reabrir sessões com login (storageState) e o que fica de fora (sessionStorage) |
 | [XTTS-v2: licença](https://huggingface.co/coqui/XTTS-v2/blob/main/LICENSE.txt) | Termos da Coqui Public Model License (só uso não comercial) |
 | [Google Cloud TTS: preços](https://cloud.google.com/text-to-speech/pricing) | Escalão grátis por tipo de voz, preço por milhão de caracteres e preço do Gemini TTS |
 | [Google Cloud TTS: vozes](https://cloud.google.com/text-to-speech/docs/list-voices-and-types) | Vozes pt-PT disponíveis por tipo |

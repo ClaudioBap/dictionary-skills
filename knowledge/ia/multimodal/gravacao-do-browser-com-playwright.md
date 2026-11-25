@@ -6,7 +6,8 @@ paginas: []
 fonte: "Documentação do Playwright (vídeos, scripts de início, licença), ligada em cada ponto, e testes feitos a 2026-11-10 com o Playwright 1.65 em Windows 11, marcados como tal. Não vem do PDF."
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-10
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Gravação do browser com Playwright
@@ -27,6 +28,10 @@ verificado_em: 2026-11-10
 - O relógio do script e o do vídeo não coincidem exatamente: o script anota quando o ecrã fica escuro (cartão de abertura, pela primeira pintura do documento; cartão de fecho; cortinas), o ffmpeg encontra os mesmos momentos no vídeo e a diferença é o desvio (entre 50 e 180 ms nos testes). Ver `montagem-e-exportacao-com-ffmpeg.md`.
 - Aquecer antes de gravar: uma primeira página abre o site, aceita os cookies e fecha; a página gravada herda a cache e os cookies do contexto e já não mostra o aviso.
 
+- Cenas de ecrã inteiro num shadow root (`attachShadow({ mode: 'open' })`): o CSS do site não lhes toca, e a letra do Google Fonts carregada no documento chega lá dentro. `bypassCSP: true` no contexto deixa entrar a letra e os estilos em sites com CSP estrita. *(verificado em teste, 2026-11-25)*
+- Capturas para uma cena tiram-se no aquecimento, numa página que não fica na gravação, com `scale: 'css'` (a 1x, sem o problema da gravação a 2x). *(verificado em teste, 2026-11-25)*
+- Sites com login: `browserContext.storageState({ path })` guarda «current cookies, local storage snapshot, IndexedDB snapshot, origin private file system snapshot and virtual WebAuthn credentials», mas o IndexedDB só entra com a opção `indexedDB: true`; a sessão reabre-se com `browser.newContext({ storageState })`. O Playwright não guarda o `sessionStorage` («Playwright does not provide API to persist session storage»): guarda-se à parte com `page.evaluate` e repõe-se com `context.addInitScript`, filtrado pelo site. O ficheiro de estado «may contain sensitive cookies and headers that could be used to impersonate you» e não vai para o repositório; quando a sessão expira, apaga-se e entra-se outra vez. As páginas não falam de MFA: entrar à mão numa janela à vista, uma vez, é o que o resolve *(interpretação)*. Fonte: [Playwright: Authentication](https://playwright.dev/docs/auth), [BrowserContext.storageState](https://playwright.dev/docs/api/class-browsercontext#browser-context-storage-state)
+
 **Para uma skill:** a gravação de um site usa `recordVideo` num contexto a 2x (flag e `deviceScaleFactor`), desenha cursor, títulos, caixas, cartões e cortinas na própria página por um script de início que espera pelo `<head>`, move o cursor com `page.mouse.move` ao longo de uma curva, faz scroll com `behavior: 'instant'` frame a frame, espera por elementos e não por tempo, e anota os momentos escuros para a montagem alinhar o áudio.
 
-Fonte: documentação do Playwright ligada em cada ponto; os pontos marcados *(verificado em teste)* vêm de testes feitos a 2026-11-10 com o Playwright 1.65 em Windows 11 e não da documentação. Não vem do PDF.
+Fonte: documentação do Playwright ligada em cada ponto; os pontos marcados *(verificado em teste)* vêm de testes feitos a 2026-11-10 e a 2026-11-25 com o Playwright 1.65 em Windows 11 e não da documentação. Não vem do PDF.

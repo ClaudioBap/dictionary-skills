@@ -6,7 +6,8 @@ paginas: []
 fonte: "Documentação dos filtros do ffmpeg, a ajuda do próprio binário (ffmpeg -h filter=...) e o README do pacote ffmpeg-static, ligados em cada ponto, e testes feitos a 2026-11-10 com o ffmpeg-static 5.3 em Windows 11, marcados como tal. Não vem do PDF."
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-10
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Montagem e exportação de vídeo com ffmpeg
@@ -24,8 +25,15 @@ verificado_em: 2026-11-10
 - Legendas gravadas na imagem: `subtitles=legendas.srt:force_style='FontName=Segoe UI,FontSize=13,PrimaryColour=&H00FFFFFF,OutlineColour=&H80000000,Outline=1,Shadow=0,MarginV=96'`. O tamanho é em unidades de estilo ASS, que a libass escala ao fotograma, por isso o mesmo `FontSize` fica proporcional a 720p e a 1080p. Fonte: [subtitles](https://ffmpeg.org/ffmpeg-filters.html#subtitles-1)
 - Narração: os WAV PCM de 16 bits de cada passo copiam-se para um só buffer no tempo certo (Node, sem ffmpeg), com silêncio entre eles, e escreve-se um cabeçalho RIFF de 44 bytes; as legendas SRT nascem da mesma lista de tempos, cada uma até 300 ms depois do fim do áudio ou 100 ms antes da seguinte.
 - Exportar: `-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 25 -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -ac 2 -c:a aac -b:a 160k -movflags +faststart -shortest`. `yuv420p` e `faststart` são o que os reprodutores e os browsers esperam; o `loudnorm` põe a narração a −16 LUFS e precisa de `-ar` explícito, porque trabalha internamente a 192 kHz. Um vídeo de 45 s a 1080p ficou com cerca de 6 MB e um de 90 s com cerca de 20 MB.
-- Remotion e Motion Canvas não foram precisos para títulos, cartões, caixas, cursor e transições: tudo isso desenha-se na página durante a gravação e o zoom faz-se no ffmpeg. As licenças deles não foram lidas; ficam por confirmar se um vídeo precisar de animação além disto.
+- Gráficos por cima do zoom: o Chromium desenha cada gráfico como PNG transparente à resolução de saída (`omitBackground: true`); entra no ffmpeg como imagem em ciclo (`-loop 1 -framerate 25 -t <duração>`), com `fade=alpha=1` à entrada e à saída e `overlay` com `enable='between(t,a,b)'` e `eval=frame`, depois do `zoompan`. Assim não fica cortado nem ampliado pelo zoom. *(verificado em teste, 2026-11-25)*
+- Legendas numa caixa: `BorderStyle=3` desenha uma caixa atrás de cada linha com a cor de `OutlineColour`, e `Outline` dá a margem. *(verificado em teste, 2026-11-25)*
+- Com vários filtros e entradas, `-filter_complex_script` e um `-af` no áudio que vem direto de uma entrada convivem no mesmo comando. *(verificado em teste, 2026-11-25)*
+- Remotion e Motion Canvas não foram precisos para títulos, cartões, caixas, cursor, transições nem para as cenas de ecrã inteiro (gancho, ligações, frase, grelha, apelo e marca): tudo isso desenha-se na página durante a gravação (as cenas num shadow root) e o zoom faz-se no ffmpeg. As licenças deles não foram lidas; ficam por confirmar se um vídeo precisar de animação além disto.
 
 **Para uma skill:** a montagem de um vídeo de site usa o ffmpeg do `ffmpeg-static`, alinha o áudio pela mediana das diferenças entre as marcas escuras do script e o `blackdetect`, corta tempos mortos com `select` e `setpts`, faz o zoom com `zoompan` a partir de uma gravação a 2x, grava as legendas com `subtitles` e exporta em H.264 e AAC com `faststart`; a narração monta-se em Node a partir dos WAV de cada passo.
 
-Fonte: documentação dos filtros do ffmpeg e página do `ffmpeg-static` ligadas em cada ponto; os pontos marcados *(verificado em teste)* vêm de testes feitos a 2026-11-10 com o ffmpeg-static 5.3 em Windows 11 e não da documentação. Não vem do PDF.
+Fonte: documentação dos filtros do ffmpeg e página do `ffmpeg-static` ligadas em cada ponto; os pontos marcados *(verificado em teste)* vêm de testes feitos a 2026-11-10 e a 2026-11-25 com o ffmpeg-static 5.3 em Windows 11 e não da documentação. Não vem do PDF.
+
+## Histórico
+
+- **2026-11-25**: antes, «Remotion e Motion Canvas não foram precisos para títulos, cartões, caixas, cursor e transições: tudo isso desenha-se na página durante a gravação e o zoom faz-se no ffmpeg. As licenças deles não foram lidas; ficam por confirmar se um vídeo precisar de animação além disto.» (fonte anterior: teste de 2026-11-10). Mudou porque as cenas de ecrã inteiro da gravacao-video também se desenham na página, num shadow root. Fonte: teste de 2026-11-25. Editado a 2026-11-25.

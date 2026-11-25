@@ -7,11 +7,11 @@
 //   node entrar.mjs
 //   node entrar.mjs https://outra.aplicacao.exemplo
 import { chromium } from 'playwright';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { lerGuiao } from './comum.mjs';
-import { caminhoSessao } from './estudio.mjs';
+import { caminhoSessao, caminhoSessionStorage } from './estudio.mjs';
 
 const guiao = lerGuiao();
 const url = process.argv.slice(2).find((a) => /^https?:\/\//.test(a)) ?? guiao.url;
@@ -27,7 +27,16 @@ const leitor = createInterface({ input: process.stdin, output: process.stdout })
 await leitor.question('');
 leitor.close();
 mkdirSync(dirname(destino), { recursive: true });
-await context.storageState({ path: destino });
+// Cookies, localStorage e IndexedDB (que só entra com indexedDB: true).
+await context.storageState({ path: destino, indexedDB: true });
+// O Playwright não guarda o sessionStorage, onde muitas aplicações (as do Microsoft 365, por exemplo)
+// têm a sessão: guarda-se à parte, por origem, e o estúdio repõe-no ao gravar.
+const porOrigem = {};
+for (const p of context.pages()) {
+  const dados = await p.evaluate(() => ({ origem: location.origin, itens: JSON.stringify(sessionStorage) })).catch(() => null);
+  if (dados && dados.origem !== 'null' && dados.itens !== '{}') porOrigem[dados.origem] = dados.itens;
+}
+writeFileSync(caminhoSessionStorage(destino), JSON.stringify(porOrigem));
 await browser.close();
-console.log(`Sessão guardada em ${destino}.`);
+console.log(`Sessão guardada em ${destino}${Object.keys(porOrigem).length ? ` e o sessionStorage de ${Object.keys(porOrigem).length} site(s) em ${caminhoSessionStorage(destino)}` : ''}.`);
 console.log('Tem cookies de sessão: não a partilhes nem a juntes ao repositório. Quando expirar, corre outra vez node entrar.mjs.');
