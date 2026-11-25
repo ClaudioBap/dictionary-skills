@@ -2,7 +2,7 @@
 
 ## O que faz
 
-Grava vídeos de um site com narração em português de Portugal, legendas, cursor visível e zoom ao que a voz refere. Há três formatos: teaser (até 30 s), demonstração (1 a 3 min) e explicação (3 a 10 min), cada um com o seu ritmo. O trabalho passa por segmentos (guião, voz, gravação, montagem e prova) e um defeito corrige-se no segmento onde nasce. Grava o browser com Playwright, gera a voz com uma das vozes gratuitas (a do Piper ou as do escalão gratuito do Azure), escolhida de ouvido com uma frase de teste, e monta com ffmpeg. Cada lacuna da voz que se aponta fica no `voz.json` e corrige-se sozinha nos vídeos seguintes.
+Grava vídeos de um site ou de várias aplicações com narração em português de Portugal e, do mesmo guião, noutras línguas, com legendas, cursor visível e zoom ao que a voz refere. Por cima do vídeo põe o nome da secção e a frase-chave de cada passo; entre partes do site, cenas animadas de ecrã inteiro (gancho, ligações, frase, grelha, apelo e marca); por baixo da voz, música com licença confirmada. Há três formatos: teaser (até 30 s), demonstração (1 a 3 min) e explicação (3 a 10 min), cada um com o seu ritmo. O trabalho passa por segmentos (guião, voz, gravação, montagem e prova) e um defeito corrige-se no segmento onde nasce. Grava o browser com Playwright, gera a voz com vozes gratuitas (Piper ou Azure em português, Kokoro em inglês), escolhidas de ouvido com uma frase de teste, e monta com ffmpeg. Cada lacuna da voz que se aponta fica no `voz.json` e corrige-se sozinha nos vídeos seguintes. No fim entrega o pacote para publicar: legendas em ficheiro, miniatura e descrição com capítulos e créditos.
 
 ## Quando usar
 
@@ -43,6 +43,20 @@ Grava vídeos de um site com narração em português de Portugal, legendas, cur
 5. Confirma nos fotogramas que cada frase mostra aquilo de que fala e que nenhum dado pessoal aparece.
 
 **Resultado:** É o vídeo `video-teste/video/dados-gov-demo/`, com 12 passos.
+
+## Exemplo: vídeo de produto em português e inglês, com música
+
+**Pedido:** «Quero um vídeo do portal ao nível dos vídeos de produto que se veem no YouTube, em português e em inglês, com música.»
+
+**O que a skill faz:**
+
+1. Escreve o guião como uma história: um gancho com a pergunta de quem vê, o portal a responder (pesquisa, um conjunto de dados, a licença, os ficheiros, as reutilizações), e cenas para as ligações entre partes, os perfis de quem usa, a frase de marca, o apelo e o fecho. Escreve o inglês como um falante nativo, com as frases na mesma ordem.
+2. Narra cada língua à parte: `node narrar.mjs` com o Piper e `node narrar.mjs --lingua en` com o Kokoro.
+3. Grava as duas com o mesmo `gravar.mjs` (`--lingua en` na segunda). O estúdio fotografa oito páginas do portal antes de gravar, para o gancho as mostrar a flutuar em 3D.
+4. Junta a música «Inspired», de Kevin MacLeod, com a licença CC BY 3.0 lida no Wikimedia Commons e escrita no guião. Na montagem, a música fica cerca de 18 dB abaixo da voz quando ela fala e cerca de 8 dB abaixo nas pausas.
+5. Entrega os dois MP4, as legendas em `.srt`, as miniaturas e a descrição com capítulos e o crédito da música.
+
+**Resultado:** É o vídeo `video-teste/video/dados-gov-nivel/`, com 74 s em português e 85 s em inglês.
 
 ## Exemplo: corrigir a voz depois de ouvir
 

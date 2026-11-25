@@ -4,16 +4,34 @@
 // de abertura e fecho, dissolve entre páginas e marcas de zoom para a montagem.
 // A narração é por frases: cada chamada a narrar() encaixa a frase seguinte no momento em que
 // é feita, e a montagem coloca o áudio e as legendas nesses tempos.
-// Lê guiao.json; escreve gravacao/bruto.webm, gravacao/<passo>.png e gravacao/tempos.json.
+// Também desenha cenas de ecrã inteiro (cenas.mjs) e anota o nome da secção e a frase-chave de
+// cada passo, que a montagem põe por cima do vídeo já com zoom, para não ficarem cortadas.
+// Lê guiao.json; escreve gravacao/bruto.webm, gravacao/<passo>.jpg e gravacao/tempos.json
+// (numa língua que não é a principal, em <lingua>/gravacao/).
 import { chromium } from 'playwright';
-import { existsSync, mkdirSync } from 'node:fs';
-import { join } from 'node:path';
-import { pasta, lerJson, escreverJson, dividirFrases } from './comum.mjs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { extname, join } from 'node:path';
+import { pasta, lerJson, escreverJson, dividirFrases, lerGuiao, lingua, naLingua } from './comum.mjs';
+import { mostrarCena } from './cenas.mjs';
 
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 const CARACTERES_POR_SEGUNDO = 13; // estimativa quando ainda não há áudio
 
-function estilo(cores) {
+// Sessão de um site com login, guardada por entrar.mjs fora do projeto (tem cookies de sessão).
+export const caminhoSessao = (url) => process.env.SESSAO_GRAVACAO ?? join(homedir(), '.start-project-with-trust', 'sessoes', `${new URL(url).host}.json`);
+
+// Uma imagem do disco (relativa à pasta do vídeo) passa à página como data URL.
+const TIPOS_IMAGEM = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml' };
+function imagemDados(caminho) {
+  if (!caminho || /^(data:|https?:)/.test(caminho)) return caminho;
+  const tipo = TIPOS_IMAGEM[extname(caminho).toLowerCase()];
+  if (!tipo) throw new Error(`Imagem num formato que a cena não conhece: ${caminho}`);
+  return `data:${tipo};base64,${readFileSync(join(pasta, caminho)).toString('base64')}`;
+}
+
+function estilo(cores, fonte) {
+  const letra = `${fonte ? `'${fonte}', ` : ''}"Segoe UI", system-ui, sans-serif`;
   return `
 @keyframes dg-subir { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes dg-descer { to { opacity: 0; transform: translateY(10px); } }
@@ -21,7 +39,7 @@ function estilo(cores) {
 @keyframes dg-pulsar { 0%, 100% { box-shadow: 0 0 0 0 ${cores.realce}73; } 50% { box-shadow: 0 0 0 10px ${cores.realce}00; } }
 @keyframes dg-onda { from { opacity: .9; transform: translate(-50%, -50%) scale(.2); } to { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } }
 .dg-titulo { position: fixed; left: 32px; bottom: 24px; z-index: 2147482000; max-width: 720px; padding: 10px 18px;
-  background: ${cores.fundo}eb; color: #fff; font: 600 24px/1.25 "Segoe UI", system-ui, sans-serif;
+  background: ${cores.fundo}eb; color: #fff; font: 600 24px/1.25 ${letra};
   border-left: 4px solid ${cores.realce}; border-radius: 4px; animation: dg-subir .4s ease-out both; pointer-events: none; }
 .dg-titulo.dg-sair { animation: dg-descer .3s ease-in both; }
 .dg-caixa { position: fixed; z-index: 2147482000; border: 3px solid ${cores.realce}; border-radius: 6px; pointer-events: none;
@@ -31,7 +49,7 @@ function estilo(cores) {
   transition: opacity .55s ease, transform .55s ease; }
 .dg-ponte.dg-sair { opacity: 0; transform: scale(1.05); }
 .dg-cartao { position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 18px; padding: 0 80px; text-align: center; pointer-events: none; color: #fff; font-family: "Segoe UI", system-ui, sans-serif;
+  gap: 18px; padding: 0 80px; text-align: center; pointer-events: none; color: #fff; font-family: ${letra};
   background: radial-gradient(ellipse at 30% 20%, ${cores.realce}26, transparent 55%), ${cores.fundo}; transition: opacity .6s ease, transform .6s ease; }
 .dg-cartao.dg-sair { opacity: 0; transform: scale(1.04); }
 .dg-cartao h1 { margin: 0; font-weight: 700; font-size: 56px; line-height: 1.1; letter-spacing: -.5px; color: #fff; animation: dg-subir .6s ease-out both; }
@@ -49,7 +67,7 @@ function estilo(cores) {
 }
 
 // Corre dentro da página, em cada documento novo (addInitScript) e sempre que falte (evaluate).
-function instalarNaPagina({ css, capa }) {
+function instalarNaPagina({ css, capa, fonte }) {
   if (window.__dg) return;
   const guardar = (k, v) => { try { v === null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch {} };
   const ler = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
@@ -183,6 +201,12 @@ function instalarNaPagina({ css, capa }) {
     if (!document.head) { setTimeout(instalar, 0); return; }
     dg.estilo = document.getElementById('dg-estilo');
     if (!dg.estilo) { dg.estilo = document.createElement('style'); dg.estilo.id = 'dg-estilo'; dg.estilo.textContent = css; document.head.appendChild(dg.estilo); }
+    // Letra das cenas, dos cartões e dos títulos, do Google Fonts (o contexto ignora a CSP do site).
+    if (fonte && !document.getElementById('dg-fonte')) {
+      const l = document.createElement('link'); l.id = 'dg-fonte'; l.rel = 'stylesheet';
+      l.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fonte)}:wght@400;500;600;700;800&display=swap`;
+      document.head.appendChild(l);
+    }
     if (location.href === 'about:blank') return;
     const manter = () => {
       if (!dg.estilo.isConnected) document.head.appendChild(dg.estilo);
@@ -200,12 +224,14 @@ function instalarNaPagina({ css, capa }) {
 }
 
 export async function abrirEstudio(opcoes = {}) {
-  const guiao = lerJson('guiao.json');
+  const guiao = lerGuiao(); // os textos já na língua desta corrida
   const escala = guiao.escala ?? 2;
   const apresentacao = (guiao.estilo ?? 'apresentacao') === 'apresentacao';
   const cores = { fundo: '#0b1f33', realce: '#e8601c', ...guiao.cores };
-  const css = estilo(cores);
-  const duracoes = existsSync(join(pasta, 'audio/duracoes.json')) ? lerJson('audio/duracoes.json') : null;
+  const fonte = guiao.fonte ?? null;
+  const css = estilo(cores, fonte);
+  const GRAVACAO = naLingua('gravacao');
+  const duracoes = existsSync(join(pasta, naLingua('audio/duracoes.json'))) ? lerJson(naLingua('audio/duracoes.json')) : null;
   // O ritmo segue o formato: um teaser é rápido; uma demonstração ou uma explicação dão tempo de olhar.
   // pausaFrases: entre frases seguidas; folga: depois da última frase de cada passo;
   // ritmo: multiplica a duração dos movimentos do cursor, do scroll, da escrita e do zoom.
@@ -218,15 +244,25 @@ export async function abrirEstudio(opcoes = {}) {
   const folgaMs = Math.round((guiao.folga ?? base.folga) * 1000);
   const pausaMs = Math.round((guiao.pausaFrases ?? base.pausaFrases) * 1000);
   const ritmo = guiao.ritmo ?? base.ritmo;
-  mkdirSync(join(pasta, 'gravacao'), { recursive: true });
+  mkdirSync(join(pasta, GRAVACAO), { recursive: true });
 
+  // Site com login: a sessão que entrar.mjs guardou (fora do projeto). Sem ela, não se grava.
+  let storageState;
+  if (guiao.sessao) {
+    storageState = caminhoSessao(guiao.url);
+    if (!existsSync(storageState)) throw new Error(`Falta a sessão de ${new URL(guiao.url).host}. Corre primeiro: node entrar.mjs (abre o browser para entrares com a conta de teste).`);
+  }
+
+  const LOCALE = { pt: 'pt-PT', en: 'en-GB', es: 'es-ES', fr: 'fr-FR' };
   const browser = await chromium.launch({ args: escala !== 1 ? [`--force-device-scale-factor=${escala}`] : [] });
   const context = await browser.newContext({
     viewport: { width: guiao.largura, height: guiao.altura },
     deviceScaleFactor: escala,
-    recordVideo: { dir: join(pasta, 'gravacao'), size: { width: guiao.largura * escala, height: guiao.altura * escala } },
-    locale: guiao.locale ?? 'pt-PT',
+    recordVideo: { dir: join(pasta, GRAVACAO), size: { width: guiao.largura * escala, height: guiao.altura * escala } },
+    locale: guiao.locale ?? LOCALE[lingua] ?? 'pt-PT',
     timezoneId: guiao.fuso ?? 'Europe/Lisbon',
+    bypassCSP: true, // os estilos do estúdio e a letra das cenas entram mesmo em sites com CSP estrita
+    storageState,
   });
 
   const aceitarCookies = async (page) => {
@@ -235,29 +271,43 @@ export async function abrirEstudio(opcoes = {}) {
   };
 
   // Aquecer: a primeira visita carrega a cache e aceita os cookies, para a gravação não mostrar esperas.
+  // É também aqui que se tiram as capturas que as cenas pedem ("capturas": lista de endereços),
+  // antes de a gravação começar.
+  const capturas = {};
   if (opcoes.aquecer ?? true) {
     const p = await context.newPage();
     await p.goto(guiao.url, { waitUntil: 'load', timeout: 30000 }).catch(() => {});
     await aceitarCookies(p);
+    for (const [id, cena] of Object.entries(guiao.cenas ?? {})) {
+      if (!cena.capturas?.length) continue;
+      capturas[id] = [];
+      for (const url of cena.capturas) {
+        await p.goto(new URL(url, guiao.url).href, { waitUntil: 'load', timeout: 30000 }).catch(() => {});
+        await esperar(1200);
+        const foto = await p.screenshot({ type: 'jpeg', quality: 72, scale: 'css' });
+        capturas[id].push(`data:image/jpeg;base64,${foto.toString('base64')}`);
+      }
+      console.log(`Cena ${id}: ${capturas[id].length} capturas tiradas antes de gravar`);
+    }
     const v = p.video();
     await p.close();
     await v?.delete();
   }
 
   const capa = apresentacao && guiao.capa ? { titulo: guiao.capa.titulo, subtitulo: guiao.capa.subtitulo } : null;
-  await context.addInitScript(instalarNaPagina, { css, capa });
+  await context.addInitScript(instalarNaPagina, { css, capa, fonte });
   const page = await context.newPage();
   const t0 = Date.now();
   const agora = () => Date.now() - t0;
 
   const e = {
-    page, guiao, agora, apresentacao,
-    tempos: [], marcas: [], zooms: [], esperas: [], scrolls: [],
+    page, guiao, agora, apresentacao, lingua,
+    tempos: [], marcas: [], zooms: [], esperas: [], scrolls: [], graficos: [], cenas: [],
     rato: { x: Math.round(guiao.largura * 0.58), y: Math.round(guiao.altura * 0.55) },
-    ratoVisivel: false, zoomAtivo: false, passoAtual: null, inicioVideo: 0,
+    ratoVisivel: false, zoomAtivo: false, passoAtual: null, inicioVideo: 0, cenaAtiva: null,
   };
 
-  const garantir = () => page.evaluate(instalarNaPagina, { css, capa });
+  const garantir = () => page.evaluate(instalarNaPagina, { css, capa, fonte });
   const dg = async (fn, arg) => { await garantir(); return page.evaluate(fn, arg); };
 
   e.pausa = esperar;
@@ -301,21 +351,32 @@ export async function abrirEstudio(opcoes = {}) {
     if (!passo) throw new Error(`O passo ${id} não está no guiao.json`);
     const inicio = agora();
     e.passoAtual = { passo, inicio, frases: frasesDe(passo), agenda: [] };
+    // O nome da secção e a frase-chave podem vir do guião, passo a passo ("etiqueta", "manchete").
+    // Com uma cena no ecrã, esperam por semCena(): não aparecem por cima dela.
+    const aplicar = () => {
+      const antes = new Set(e.graficos.filter((g) => g.ate === undefined));
+      if (passo.etiqueta !== undefined && passo.etiqueta !== e.etiquetaAtual?.texto) e.etiqueta(passo.etiqueta, passo.etiquetaSobre);
+      if (passo.manchete !== undefined) e.manchete(passo.manchete);
+      // Se o passo começar por mudar de página, navegar() passa esta troca para o momento em que a página nova aparece.
+      e.passoAtual.troca = { novos: e.graficos.filter((g) => g.ate === undefined && !antes.has(g)), fechados: [...antes].filter((g) => g.ate !== undefined) };
+    };
+    if (e.cenaAtiva) e.aoSairDaCena = aplicar; else aplicar();
     await fn(e);
     encadearRestantes();
     const fimPrevisto = fimAgendado() + folgaMs;
     if (agora() < fimPrevisto) await esperar(fimPrevisto - agora());
     // À escala do dispositivo: com scale 'css' o Playwright muda a escala para 1x durante a captura
     // e a gravação apanha fotogramas pequenos com cinzento à volta.
-    await page.screenshot({ path: join(pasta, 'gravacao', `${id}.jpg`), type: 'jpeg', quality: 85 });
+    await page.screenshot({ path: join(pasta, GRAVACAO, `${id}.jpg`), type: 'jpeg', quality: 85 });
     const fim = agora();
-    e.tempos.push({ id, inicio, fim, frases: e.passoAtual.agenda });
+    e.tempos.push({ id, inicio, fim, frases: e.passoAtual.agenda, capitulo: passo.capitulo });
     console.log(`${id}: ${(inicio / 1000).toFixed(2)} s a ${(fim / 1000).toFixed(2)} s; frases aos ${e.passoAtual.agenda.map((f) => (f.em / 1000).toFixed(2)).join(', ')} s`);
   };
 
   // Abre a primeira página. Com cartão de abertura, a página carrega tapada; a primeira frase
-  // começa ainda sobre o cartão e a página revela-se enquanto a voz fala.
-  e.abrir = async (url = guiao.url) => {
+  // começa ainda sobre o cartão e a página revela-se enquanto a voz fala. Com { cena: 'id' }, o
+  // cartão revela uma cena em vez da página (um gancho antes de entrar no site).
+  e.abrir = async (url = guiao.url, { cena } = {}) => {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
     await aceitarCookies(page);
@@ -334,13 +395,15 @@ export async function abrirEstudio(opcoes = {}) {
       if (agora() > minimo + 40) e.esperas.push({ de: minimo, ate: agora() });
       await e.narrar();
       await esperar(antes);
+      if (cena) await e.cena(cena, { imediato: true }); // por baixo do cartão, já inteira
       await dg(() => window.__dg.semCartao());
       await esperar(650);
     } else {
       e.inicioVideo = agora();
       await e.narrar();
+      if (cena) await e.cena(cena);
     }
-    if (apresentacao) await e.mostrarCursor();
+    if (apresentacao && !cena) await e.mostrarCursor();
   };
 
   e.mostrarCursor = async () => {
@@ -477,7 +540,12 @@ export async function abrirEstudio(opcoes = {}) {
   // antes de a frase em curso acabar, e o tempo a mais à espera da página nova sai na montagem.
   // Devolve assim que o desvanecer começa, para a frase seguinte entrar com a página nova.
   e.navegar = async (acao, { url, visivel, timeout = 15000 } = {}) => {
-    if (e.zoomAtivo) { e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false; } // sai em paralelo
+    if (e.zoomAtivo) {
+      // Também aqui o zoom fica pelo menos 1,5 s antes de sair; depois sai em paralelo com a transição.
+      const falta = 1500 - (agora() - (e.zoomDesde ?? 0));
+      if (falta > 0) await esperar(falta);
+      e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false;
+    }
     await e.retirarDestaque();
     await e.esconderTitulo();
     await e.ateFrase(-500);
@@ -497,6 +565,13 @@ export async function abrirEstudio(opcoes = {}) {
     if (visivel) await page.locator(visivel).first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
     await esperar(apresentacao ? 100 : 400);
     const pronto = agora();
+    // Um passo que começa a mudar de página troca o nome da secção e a frase-chave com a página, e não antes.
+    const troca = e.passoAtual?.troca;
+    if (troca && e.passoAtual.agenda.length === 0) {
+      for (const g of troca.novos) g.de = pronto;
+      for (const g of troca.fechados) g.ate = pronto;
+    }
+    if (e.passoAtual) e.passoAtual.troca = null;
     if (apresentacao) {
       await dg(() => window.__dg.semPonte());
       await page.addInitScript(() => { window.__dgPonte = null; });
@@ -509,10 +584,69 @@ export async function abrirEstudio(opcoes = {}) {
     if (pronto - parado > margem + 300) e.esperas.push({ de: parado + margem, ate: pronto - 100 });
   };
 
+  // Outra aplicação ou outro endereço no mesmo vídeo, com a mesma transição de página.
+  e.irPara = (url, { visivel } = {}) => e.navegar(() => page.goto(new URL(url, guiao.url).href, { waitUntil: 'domcontentloaded' }), { visivel });
+
+  // Nome da secção (canto superior esquerdo) e frase-chave do passo (canto superior direito).
+  // Não se desenham na página: ficam anotados e a montagem põe-nos por cima do vídeo já com zoom,
+  // por isso nunca ficam cortados nem ampliados. Ficam no ecrã até serem trocados ou retirados.
+  const fecharGrafico = (tipo) => {
+    const aberto = e.graficos.find((g) => g.tipo === tipo && g.ate === undefined);
+    if (aberto) aberto.ate = agora();
+  };
+  e.etiqueta = (texto, sobre = guiao.etiquetaSobre) => {
+    fecharGrafico('etiqueta');
+    e.etiquetaAtual = texto ? { texto, sobre } : null;
+    if (texto) e.graficos.push({ tipo: 'etiqueta', texto, sobre, de: agora() });
+  };
+  e.manchete = (texto) => {
+    fecharGrafico('manchete');
+    if (texto) e.graficos.push({ tipo: 'manchete', texto, de: agora() });
+  };
+  e.semManchete = () => fecharGrafico('manchete');
+
+  // Cena de ecrã inteiro (cenas.mjs), descrita em "cenas" no guião. Entra sobre a página, o
+  // cursor e os gráficos saem, e a narração do passo fala por cima. semCena() devolve a página.
+  e.cena = async (id, extra = {}) => {
+    const def = { ...guiao.cenas?.[id], ...extra };
+    if (!def.tipo) throw new Error(`A cena ${id} não está em "cenas" no guiao.json, ou não tem "tipo".`);
+    await e.retirarDestaque();
+    await e.esconderTitulo();
+    if (e.zoomAtivo) { e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false; }
+    e.etiquetaAntesDaCena = e.etiquetaAtual;
+    fecharGrafico('etiqueta'); fecharGrafico('manchete');
+    // O ritmo da cena segue o que falta da narração do passo (as frases já encaixadas contam pelo que falta delas).
+    const p = e.passoAtual;
+    const total = p ? p.frases.reduce((s, f) => s + f.ms, 0) + Math.max(0, p.frases.length - 1) * pausaMs : 4000;
+    const duracao = Math.max(2000, total - (p?.agenda[0] ? agora() - p.agenda[0].em : 0));
+    const dados = {
+      ...def,
+      imagens: [...(capturas[id] ?? []), ...(def.imagens ?? []).map(imagemDados)],
+      logo: imagemDados(def.logo),
+      cartoes: def.cartoes?.map((c) => ({ ...c, imagem: imagemDados(c.imagem) })),
+    };
+    await dg(mostrarCena, { tipo: def.tipo, dados, cores, fonte, duracao, imediato: Boolean(extra.imediato) });
+    if (e.cenaAtiva) e.cenas.at(-1).ate = agora(); // a anterior sai por baixo da nova
+    e.cenas.push({ id, tipo: def.tipo, de: agora() });
+    e.cenaAtiva = id;
+    if (e.ratoVisivel) { await dg(({ x, y }) => window.__dg.rato(x, y, false), e.rato); e.ratoVisivel = false; }
+    await esperar(250);
+  };
+  e.semCena = async ({ etiqueta = true } = {}) => {
+    if (!e.cenaAtiva) return;
+    await dg(() => window.__dg.semCena?.());
+    e.cenas.at(-1).ate = agora();
+    e.cenaAtiva = null;
+    if (etiqueta && e.etiquetaAntesDaCena) e.etiqueta(e.etiquetaAntesDaCena.texto, e.etiquetaAntesDaCena.sobre);
+    if (e.aoSairDaCena) { e.aoSairDaCena(); e.aoSairDaCena = null; } // o que o passo novo pediu ganha
+    await esperar(650);
+  };
+
   // Cartão de fecho: o zoom sai, o cursor some e o cartão entra, tudo em sobreposição.
   e.fecho = async (cartao = guiao.fecho) => {
     await e.retirarDestaque();
     await e.esconderTitulo();
+    fecharGrafico('etiqueta'); fecharGrafico('manchete');
     if (e.zoomAtivo) { e.zooms.push({ tipo: 'out', em: agora(), ms: 600 }); e.zoomAtivo = false; }
     if (e.ratoVisivel) await e.esconderCursor();
     await dg((c) => window.__dg.cartao(c, false), { titulo: cartao?.titulo ?? '', subtitulo: cartao?.subtitulo ?? '' });
@@ -524,19 +658,21 @@ export async function abrirEstudio(opcoes = {}) {
     await e.zoomFora();
     await esperar(800);
     const fechoEm = agora();
+    for (const g of e.graficos) g.ate ??= fechoEm;
+    for (const c of e.cenas) c.ate ??= fechoEm;
     const video = page.video();
     await context.close();
-    await video.saveAs(join(pasta, 'gravacao', 'bruto.webm'));
+    await video.saveAs(join(pasta, GRAVACAO, 'bruto.webm'));
     await video.delete();
     await browser.close();
-    escreverJson('gravacao/tempos.json', {
-      gravado_em: new Date(t0).toISOString(),
+    escreverJson(`${GRAVACAO}/tempos.json`, {
+      gravado_em: new Date(t0).toISOString(), lingua,
       largura: guiao.largura, altura: guiao.altura, escala,
       estilo: apresentacao ? 'apresentacao' : 'sobrio',
       inicioVideo: e.inicioVideo, fechoEm, comAudio: Boolean(duracoes),
-      marcas: e.marcas, esperas: e.esperas, zooms: e.zooms, scrolls: e.scrolls, passos: e.tempos,
+      marcas: e.marcas, esperas: e.esperas, zooms: e.zooms, scrolls: e.scrolls, graficos: e.graficos, cenas: e.cenas, passos: e.tempos,
     });
-    console.log(`Gravação: gravacao/bruto.webm, ${(fechoEm / 1000).toFixed(1)} s de relógio do script`);
+    console.log(`Gravação: ${GRAVACAO}/bruto.webm, ${(fechoEm / 1000).toFixed(1)} s de relógio do script`);
     console.log(`Scrolls: ${e.scrolls.length}${e.scrolls.length ? ` (${e.scrolls.map((s) => `${s.passo} ${s.pixeis > 0 ? '+' : ''}${s.pixeis} px`).join(', ')})` : ''}`);
   };
 

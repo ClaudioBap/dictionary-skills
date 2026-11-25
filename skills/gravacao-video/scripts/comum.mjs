@@ -1,5 +1,5 @@
 // Funções partilhadas pelos scripts de gravação, narração e montagem.
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,6 +8,31 @@ export const pasta = dirname(fileURLToPath(import.meta.url));
 export function lerJson(nome) {
   return JSON.parse(readFileSync(join(pasta, nome), 'utf8'));
 }
+
+// Línguas. O guião pode ter "linguas": ["pt", "en"] e qualquer texto como { "pt": "...", "en": "..." }.
+// Cada script trabalha numa língua de cada vez (--lingua en, ou a variável LINGUA). A primeira da
+// lista é a principal e usa as pastas de sempre (audio/, gravacao/); as outras vivem em <lingua>/.
+const bruto = existsSync(join(pasta, 'guiao.json')) ? lerJson('guiao.json') : {};
+const iLingua = process.argv.indexOf('--lingua');
+export const linguas = bruto.linguas ?? [bruto.lingua ?? 'pt'];
+export const lingua = (iLingua >= 0 ? process.argv[iLingua + 1] : process.env.LINGUA) || linguas[0];
+if (!linguas.includes(lingua)) {
+  console.error(`A língua «${lingua}» não está em "linguas" no guiao.json (${linguas.join(', ')}).`);
+  process.exit(1);
+}
+export const principal = lingua === linguas[0];
+// Caminho de um ficheiro desta língua, relativo à pasta do vídeo.
+export const naLingua = (rel) => (principal ? rel : `${lingua}/${rel}`);
+
+// Troca cada objeto { pt, en } pelo texto da língua; o resto do guião fica igual.
+function escolher(v) {
+  if (Array.isArray(v)) return v.map(escolher);
+  if (!v || typeof v !== 'object') return v;
+  const chaves = Object.keys(v);
+  if (chaves.length && chaves.every((k) => linguas.includes(k))) return escolher(v[lingua] ?? v[linguas[0]]);
+  return Object.fromEntries(chaves.map((k) => [k, escolher(v[k])]));
+}
+export const lerGuiao = () => ({ ...escolher(bruto), lingua });
 
 export function escreverJson(nome, dados) {
   mkdirSync(dirname(join(pasta, nome)), { recursive: true });
