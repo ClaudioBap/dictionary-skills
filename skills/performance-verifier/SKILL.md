@@ -5,26 +5,45 @@ argument-hint: "URL, pasta ou pedido a medir, e o alvo (tempo, custo) se houver"
 metadata:
   estado: produção
   tipo: sub
-  usa: []
+  usa: [humanizar]
   impacto: { ia: 6, seguranca: 0, nuvem: 7, desenvolvimento: 6, web: 7 }
 ---
 
 # Performance verifier
 
-O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 O conhecimento está em `knowledge/`. Lê só o que o pedido toca (passo 2). Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`, incluindo a autonomia depois da decisão: o que só o utilizador pode dar (acessos a painéis de consumo, chaves de administração) fica «Por preencher», e o resto continua.
+- Seguem-se as regras de `../orchestrate-sessions/regras.md`, incluindo a autonomia depois da decisão: o que só o utilizador pode dar (acessos a painéis de consumo, chaves de administração) fica «Por preencher», e o resto continua.
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: medir e recolher números é «Ler»; decidir o que mudar é «Rever e decidir com risco»; aplicar uma melhoria já decidida é «Construir».
 - Sem medição não há proposta. Um número só entra com a forma como foi obtido (ferramenta, comando, data). O que for estimativa leva a marca *(estimativa)*.
 - O custo mede-se por tarefa concluída, não por pedido. Base: `ia/otimizacao-de-custo-da-ia.md`, `custo/custo-eficiencia-finops.md`.
 
+## Âmbito
+
+Sabe medir e propor melhorias para o que as entradas do passo 2 cobrem: os Core Web Vitals e o peso de um site; a latência, as queries e os índices de uma API e da sua base de dados, também sob carga; os tokens, a cache, o modelo, o effort e o batch de uma solução com IA; o orçamento de uma cena 3D; a capacidade, a escala e os alertas de custo da infraestrutura.
+
+Não sabe fazer, e para onde vai:
+
+- Escolher o modelo ou o fornecedor para uma funcionalidade que ainda não existe: `ia-aplicada`.
+- Construir a interface ou a cena: `design-ux` e `design-3d-motion`, que já trazem o seu orçamento.
+- Montar monitorização permanente, alertas de operação e runbooks: `operar`.
+- O desempenho de computadores, da rede do escritório ou da ligação à internet: fora da base. Diz-o ao utilizador e, se ele quiser continuar, vai às fontes oficiais do fabricante ou da ferramenta e regista o que encontrares, como no passo 3.
+
+Pedidos que se confundem:
+
+- «O site está lento»: o tempo de carregamento e de resposta das páginas, sim; um PC lento ou a ligação à internet, não, ficam fora da base.
+- «Quanto custa a IA»: o custo por tarefa de uma solução que já corre, sim; quanto vai custar uma funcionalidade nova, é da `ia-aplicada`, que escolhe com os preços citados.
+- «Vigiar o desempenho»: uma medição com o antes e o depois, sim; vigilância contínua com alertas, é da `operar`.
+
+Quando parte do pedido é de outra skill, diz qual e porquê. Chamada por uma mãe, devolve-lhe essa parte no relatório; sozinha, recomenda a skill e continua com a parte que é tua.
+
 ## 1. O que medir e contra quê
 
-Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 da `start-project-with-trust`, com estas opções:
+Se o pedido já diz o que medir, o alvo e até onde ir, passa ao passo 2. Se não, faz só as perguntas que faltam, uma de cada vez, segundo o padrão de `../orchestrate-sessions/regras.md`, e pára quando tens as três respostas. Primeiro o que medir, com estas opções:
 
 1. **Site ou aplicação web**: tempos de carregamento e interação (Core Web Vitals), peso das páginas e dos media.
 2. **API e base de dados**: latência por endpoint, queries lentas, índices em falta.
@@ -32,7 +51,9 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 
 4. **3D e animação**: orçamento de triângulos, texturas e frames.
 5. **Infraestrutura**: capacidade, escala, serverless ou sempre ligado, alertas de custo.
 
-Pergunta também o alvo: o critério de sucesso (P3) ou o orçamento (P8) do projeto, ou um valor concreto («até 2 segundos», «menos de 50 euros por mês»). Sem alvo, propõe um a partir da entrada de orçamento e pede que o aceite.
+Depois o alvo: o critério de sucesso (P3) ou o orçamento (P8) do projeto, ou um valor concreto («até 2 segundos», «menos de 50 euros por mês»). Sem alvo, propõe um a partir da entrada de orçamento e pede que o aceite.
+
+Por fim, até onde ir, do mais barato ao mais caro: só a linha de base e a tabela de melhorias, sem mexer em nada; ou medir, aplicar o que escolheres e voltar a medir. Recomenda o primeiro num sistema de terceiros ou em produção sem janela de alterações, e o segundo num projeto em curso. Com o primeiro, a skill acaba no passo 5.
 
 ## 2. Ler só o que interessa
 
@@ -44,12 +65,7 @@ Pergunta também o alvo: o critério de sucesso (P3) ou o orçamento (P8) do pro
 
 ## 3. Se a biblioteca não tem a resposta
 
-Quando nenhuma entrada cobre o que é preciso, ou a entrada está desatualizada face ao que o utilizador descreve (uma ferramenta nova, um preço que mudou):
-
-1. Escolhe as fontes oficiais primárias certas (o fornecedor, a documentação da ferramenta) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
-2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md` (`alta`, `media`, `baixa`). Um facto `baixa` não serve de base.
-3. Regista o que encontraste antes de responder: numa cópia git do repositório, propõe a entrada nova na secção certa, no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com a aprovação do utilizador; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/<secção>/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`: a entrada passa a dizer o que vale hoje e o texto anterior fica no «Histórico» dela.
-4. Diz ao utilizador que fontes leste e o que registaste.
+Quando nenhuma entrada cobre o que é preciso, ou a entrada está desatualizada face ao que o utilizador descreve (uma ferramenta nova, um preço que mudou), segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de responder. Fontes oficiais deste tema: o fornecedor e a documentação da ferramenta.
 
 ## 4. Medir
 

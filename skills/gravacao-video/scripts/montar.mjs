@@ -180,11 +180,14 @@ writeFileSync(join(pasta, 'escuta.md'), [
   '',
   '| O que ouviste | Comando, nesta pasta |',
   '|---|---|',
-  '| Uma palavra mal dita | `node narrar.mjs --ensinar "palavra=como se diz"` |',
-  '| Uma frase que saiu mal (palavra comida, entoação, ruído) | `node narrar.mjs --frase 9`, que gera tomadas novas só para ela |',
+  '| Uma palavra mal dita, ou um termo estrangeiro | `node narrar.mjs --lacuna 9 pronuncia "palavra=como se diz"` (ou `estrangeirismo`) |',
+  '| A entoação errada num trecho | `node narrar.mjs --lacuna 9 entoacao "trecho=o trecho com outra pontuação"` |',
+  '| Uma palavra comida | `node narrar.mjs --lacuna 9 palavra-comida palavra` |',
+  '| O fim cortado, ou ruído antes da fala | `node narrar.mjs --lacuna 9 fim-cortado` ou `node narrar.mjs --lacuna 9 ruido` |',
+  '| Uma frase que saiu mal só desta vez | `node narrar.mjs --frase 9`, que gera tomadas novas só para ela |',
   '| Preferes outra tomada de uma frase | `node narrar.mjs --frase 9 --tomada 3` |',
   '',
-  'Uma pronúncia ensinada fica guardada e vale para os vídeos seguintes. Depois de cada correção, `node montar.mjs` refaz o vídeo; se o `narrar.mjs` disser que a frase nova não cabe no tempo gravado, corre antes `node gravar.mjs`.',
+  'Cada lacuna fica em `~/.start-project-with-trust/voz.json` e corrige-se sozinha nos vídeos seguintes. Depois de cada correção, `node montar.mjs` refaz o vídeo; se o `narrar.mjs` disser que a frase nova não cabe no tempo gravado, corre antes `node gravar.mjs`.',
   '',
 ].join('\n'));
 

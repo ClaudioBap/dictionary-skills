@@ -10,6 +10,7 @@ Procura em tudo o que vai ser entregue (texto, código, interface, commits, docu
 - Como última tarefa de uma orquestração, sobre tudo o que as sessões produziram.
 - Nas mensagens de commit, para os commits seguintes seguirem o estilo do repositório.
 - Durante o trabalho, com o hook opcional que verifica cada ficheiro à medida que é escrito.
+- No CI do projeto, para as marcas de gravidade alta não voltarem.
 
 ## Quando não usar
 

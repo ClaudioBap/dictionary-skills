@@ -11,21 +11,57 @@ metadata:
 
 # Backend e dados
 
-O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 O conhecimento está em `knowledge/`: `api/`, `base-de-dados/` e `fiabilidade/`. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`, incluindo a autonomia depois da decisão: decidido o contrato e o esquema, constróis até ao fim; as credenciais da base de dados e os acessos a sistemas existentes ficam «Por preencher», e o resto continua.
+- Seguem-se as regras de `../orchestrate-sessions/regras.md`, incluindo a autonomia depois da decisão: decidido o contrato e o esquema, constróis até ao fim; as credenciais da base de dados e os acessos a sistemas existentes ficam «Por preencher», e o resto continua.
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: o contrato, o esquema e uma migração sobre dados existentes são «Rever e decidir com risco»; implementar endpoints e repositórios já desenhados é «Construir»; ler o esquema atual é «Ler».
 - O contrato vem antes do código: nenhum endpoint se implementa sem estar no OpenAPI validado. Base: `api/contrato-e-documentacao-de-api.md`.
 - Migrações só aditivas e reversíveis em produção; o que remove ou renomeia faz-se em dois passos. Base: `base-de-dados/migracoes.md`, `seguranca/integridade-e-migracoes-aditivas.md`.
 - Dados reais nunca entram em testes nem em documentos. Base: `seguranca/dados-de-teste-sinteticos-e-minimizacao.md`.
 
+## Âmbito
+
+Sabe fazer, com base em `api/`, `base-de-dados/` e `fiabilidade/`:
+
+- o contrato de uma API REST em OpenAPI, com paginação, filtros, limites, versões e testes de contrato; em GraphQL, decidir se compensa e com que cuidados;
+- o esquema relacional: normalização, nomes, chaves, restrições, tipos e índices, com transações, isolamento e consultas;
+- migrações aditivas e reversíveis, também sobre dados que já existem;
+- escritas e tarefas em segundo plano idempotentes, com filas;
+- retenção, apagamento e auditoria de dados pessoais no esquema;
+- MongoDB, lakehouse e Microsoft Fabric, quando o pedido os nomeia.
+
+Não sabe fazer, e para onde vai:
+
+- autenticação, autorização e auditoria de segurança da API: `seguranca`;
+- uma consulta ou uma API lenta sem se saber porquê: `performance-verifier`, que mede primeiro;
+- cópias de segurança com restauro, alertas e runbooks da base em produção: `operar`;
+- alojar a base, o pipeline e os contentores: `infra-deploy`;
+- bases vetoriais e recuperação para RAG: `ia-aplicada`;
+- gRPC e WebSockets: fora da base. Segue a secção «Quando falta conhecimento» de `../update-knowledge/SKILL.md` antes de responder.
+
+Pedidos que se confundem:
+
+- «Base de dados» é muita coisa. Desenhar o esquema e as migrações de uma aplicação, sim. Afinar o motor de uma base em produção (parâmetros, réplicas, cópias), não: a base não cobre a afinação do motor, as cópias são da `operar` e o alojamento é da `infra-deploy`.
+- «Uma API»: o contrato e o servidor da nossa API, sim. Chamar a API de um modelo de IA é da `ia-aplicada`.
+- «Relatórios sobre os dados»: nenhuma skill os constrói. A entrada `plataformas/bi-e-dashboards.md` manda considerar o Metabase ou o Superset antes de construir.
+
 ## 1. O que vamos construir
 
-Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 da `start-project-with-trust`, com as opções: API nova, esquema de base de dados novo, alteração a uma API ou esquema que já existe, processamento em segundo plano (filas, tarefas), ou tudo. Confirma as restrições que contam aqui: tecnologia imposta (P10), dados pessoais e retenção (P11), objetivos de desempenho (P3). Lança um subagente (`haiku`, `low`) para inventariar o que existe: contrato atual, esquema, migrações, testes.
+Chamada por uma mãe, o briefing já traz o objeto, o objetivo e o nível: passa ao passo 2. Sozinha, se o pedido não o diz, pergunta como diz `../orchestrate-sessions/regras.md` e pára quando tiver o que precisa (no máximo 5 perguntas):
+
+1. **O quê:** API nova; esquema de base de dados novo; alteração a uma API ou esquema que já existe; processamento em segundo plano (filas, tarefas); ou tudo.
+2. **Para quê:** o que tem de ficar garantido, por exemplo um voto por visitante, mudar uma coluna sem parar a produção ou uma tarefa que não repete trabalho. É daqui que saem os critérios de fim.
+3. **Até onde**, do mais barato ao mais caro:
+   - só o desenho: o contrato validado e o esquema aplicado numa base vazia;
+   - o desenho e as migrações, aplicadas e revertidas numa cópia;
+   - tudo, até aos testes de contrato verdes no pipeline (recomendado quando o código vai para produção).
+4. **Restrições**, só as que faltam: tecnologia imposta (P10), dados pessoais e retenção (P11), objetivos de desempenho (P3), de `../orchestrate-sessions/PERGUNTAS.md`.
+
+Se parte do pedido é de outra skill (ver «Âmbito»), diz qual e porquê: chamada por uma mãe, devolve-lhe essa parte; sozinha, recomenda a skill. Depois lança um subagente (`haiku`, `low`) para inventariar o que existe: contrato atual, esquema, migrações, testes.
 
 ## 2. Ler só o que interessa
 
@@ -38,18 +74,13 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 
 
 ## 3. Se a biblioteca não tem a resposta
 
-Quando nenhuma entrada cobre a tecnologia em causa (um motor de base de dados, uma biblioteca de migrações, um formato de contrato):
-
-1. Escolhe as fontes oficiais primárias certas (a documentação do motor ou da biblioteca, a especificação do standard) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
-2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md` (`alta`, `media`, `baixa`). Um facto `baixa` não serve de base.
-3. Regista o que encontraste antes de responder: numa cópia git do repositório, propõe a entrada nova na secção certa, no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com a aprovação do utilizador; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/<secção>/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`: a entrada passa a dizer o que vale hoje e o texto anterior fica no «Histórico» dela.
-4. Diz ao utilizador que fontes leste e o que registaste.
+Quando nenhuma entrada cobre a tecnologia em causa (um motor de base de dados, uma biblioteca de migrações, um formato de contrato), segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de responder. Fontes oficiais deste tema: a documentação do motor ou da biblioteca e a especificação do standard.
 
 ## 4. Construir, pela ordem
 
 O critério de fim de cada passo é a linha «Para uma skill» da entrada que o cobre.
 
-1. **Contrato.** Escreve ou altera o OpenAPI: recursos, verbos, códigos de erro, paginação, filtros e limites, versão. Valida-o com a ferramenta do projeto. Mostra o resumo ao utilizador; as escolhas com mais de uma opção (estilo de paginação, estratégia de versão) vão a ele no formato da Fase 1. Prova: o contrato validado.
+1. **Contrato.** Escreve ou altera o OpenAPI: recursos, verbos, códigos de erro, paginação, filtros e limites, versão. Valida-o com a ferramenta do projeto. Mostra o resumo ao utilizador; as escolhas com mais de uma opção (estilo de paginação, estratégia de versão) vão a ele no formato das perguntas de `../orchestrate-sessions/regras.md`. Prova: o contrato validado.
 2. **Esquema.** Entidades normalizadas, nomes pela convenção do projeto, chaves primárias e estrangeiras, restrições e tipos que impedem dados inválidos, índices para as consultas do contrato. Prova: o esquema aplicado numa base vazia sem erros.
 3. **Migrações.** Uma migração por alteração, aditiva, com reversão. Prova: aplicar e reverter numa cópia da base, com a saída.
 4. **Implementação.** Endpoints que cumprem o contrato, queries parametrizadas, transações onde há mais de uma escrita, escritas e tarefas idempotentes com chave de idempotência, erros devolvidos como o contrato diz. Prova: os testes unitários e de integração a passar.
@@ -57,7 +88,7 @@ O critério de fim de cada passo é a linha «Para uma skill» da entrada que o 
 6. **Dados pessoais.** Se P11 os tem: retenção, apagamento e auditoria no esquema, e privilégios mínimos no utilizador da aplicação. Prova: o apagamento de um registo de teste e o registo de auditoria.
 7. **Humanizar.** O código, o contrato, os dados de exemplo e os commits não podem deixar perceber que foram feitos por uma IA. Corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria. Prova: a saída final do verificador.
 
-As credenciais da base de dados e os acessos a sistemas que já existem ficam no `.env.example` e em «Por preencher» de `entrega.md`; o resto faz-se até ao fim.
+As credenciais da base de dados e os acessos a sistemas que já existem ficam no `.env.example` e em «O que ficou por preencher» do relatório; se o projeto vem da start-project-with-trust, também em «Por preencher» de `entrega.md`. O resto faz-se até ao fim.
 
 ## Relatório
 

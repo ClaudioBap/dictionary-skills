@@ -112,12 +112,12 @@ export function verificarRastreabilidade(pasta, substituir = {}, { cobertura = t
 }
 
 function idsObrigatorios() {
-  for (const p of [join(AQUI, 'PERGUNTAS.md'), join(AQUI, '..', 'PERGUNTAS.md')]) {
+  for (const p of [join(AQUI, 'PERGUNTAS.md'), join(AQUI, '..', '..', 'orchestrate-sessions', 'PERGUNTAS.md')]) {
     if (existsSync(p)) {
       return linhasDeTabela(readFileSync(p, 'utf8')).map((c) => c[0]).filter((id) => /^P\d+$/.test(id));
     }
   }
-  throw new Error('PERGUNTAS.md não encontrado junto do verificador.');
+  throw new Error('PERGUNTAS.md não encontrado junto do verificador nem na orchestrate-sessions instalada ao lado.');
 }
 
 /**

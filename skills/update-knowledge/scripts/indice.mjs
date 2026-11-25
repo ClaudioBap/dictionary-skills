@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Reconstrói as listas de entradas de knowledge/INDEX.md e de cada <secção>/README.md
 // a partir dos próprios ficheiros (título, resumo e páginas no frontmatter).
+// Escreve também as contagens do README.md e do README.en.md da raiz entre <!-- conhecimento:inicio --> e <!-- conhecimento:fim -->.
 // Mantém a ordem existente, acrescenta entradas novas no fim da secção e retira as apagadas.
 // Uso: node indice.mjs <pasta knowledge> [--verificar]   (--verificar: não escreve; sai com 1 se estiver desatualizado)
 
@@ -87,6 +88,24 @@ index = index.replace(/^- Totais: .*$/m,
 // Secções novas que ainda não estão no INDEX
 for (const sec of seccoes) if (!new RegExp(`\\]\\(${sec}/README\\.md\\)`).test(index)) console.error(`AVISO: a secção ${sec} não está no INDEX.md; acrescenta o cabeçalho à mão.`);
 if (index !== original) { alterados.push('INDEX.md'); if (!SO_VERIFICAR) writeFileSync(join(K, 'INDEX.md'), index); }
+
+// README.md e README.en.md da raiz: as contagens entre <!-- conhecimento:inicio --> e <!-- conhecimento:fim -->
+// (total de entradas e de secções, e a coluna de cada secção na tabela) saem das mesmas listas do INDEX.md.
+const nPorSeccao = Object.fromEntries(Object.entries(listaPorSeccao).map(([s, itens]) => [s, itens.length]));
+const nEntradas = Object.values(nPorSeccao).reduce((a, b) => a + b, 0);
+const totais = (_t, a, b) => `${nEntradas}${a}${seccoes.length}${b}`;
+for (const nome of ['README.md', 'README.en.md']) {
+  const p = join(K, '..', nome);
+  if (!existsSync(p)) continue;
+  const texto = readFileSync(p, 'utf8');
+  if (!texto.includes('<!-- conhecimento:inicio -->')) { console.error(`AVISO: ${nome} não tem as marcas <!-- conhecimento:inicio --> e <!-- conhecimento:fim -->.`); continue; }
+  const novo = texto.replace(/(<!-- conhecimento:inicio -->)([\s\S]*?)(<!-- conhecimento:fim -->)/g, (_todo, ini, meio, fim) => ini + meio
+    .replace(/\d+( entradas(?: de boas práticas)? em )\d+( secções)/g, totais)
+    .replace(/\d+( (?:good-practice )?entries in )\d+( sections)/g, totais)
+    .replace(/(\]\(knowledge\/([\w-]+)\/README\.md\)[^|\n]*\| )\d+( \|)/g, (todo, antes, sec, depois) => (sec in nPorSeccao ? `${antes}${nPorSeccao[sec]}${depois}` : todo))
+    + fim);
+  if (novo !== texto) { alterados.push(nome); if (!SO_VERIFICAR) writeFileSync(p, novo); }
+}
 
 if (SO_VERIFICAR) {
   if (alterados.length) { console.log(`✗ Índice desatualizado: ${alterados.join(', ')}`); process.exit(1); }

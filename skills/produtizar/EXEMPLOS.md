@@ -10,6 +10,7 @@ Pega no que foi feito para um caso (um cliente, uma área, um conjunto de dados)
 - Um projeto feito para um cliente que outro cliente quer igual, com os seus dados.
 - Uma ferramenta interna de uma área que outra área quer usar.
 - Preparar um modelo de projeto atualizável (Copier) ou um produto multi-inquilino.
+- Vender um produto por partes (por plano, funcionalidade, separador, ecrã, API ou módulo) sem que quem comprou uma parte receba as outras.
 
 ## Quando não usar
 

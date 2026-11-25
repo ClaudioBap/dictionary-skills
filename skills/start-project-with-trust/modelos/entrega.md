@@ -17,7 +17,7 @@
 
 ## Publicação
 
-<!-- Cola aqui a saída completa de: node <pasta da skill>/scripts/verificar-publicacao.mjs <url> --admin <caminho sem barra inicial ou URL completo>
+<!-- Cola aqui a saída completa de: node <pasta da orchestrate-sessions>/scripts/verificar-publicacao.mjs <url> --admin <caminho sem barra inicial ou URL completo>
      Tem de terminar com «✓ Publicação verificada». Se o projeto não tem exposição pública, escreve «Não aplicável:» e a razão (P14). -->
 _por definir_
 

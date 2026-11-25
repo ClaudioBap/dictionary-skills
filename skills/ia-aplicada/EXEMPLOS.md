@@ -17,6 +17,7 @@ Serve para qualquer trabalho com IA: usar a API do Claude ou de outro fornecedor
 - Baixar o custo de uma solução com IA que já está a correr: a `performance-verifier` mede o custo por tarefa antes de propor.
 - Auditar a segurança de uma aplicação inteira: `seguranca`, que lê `ia/seguranca/` quando há LLM.
 - Gravar um vídeo narrado: `gravacao-video`.
+- Prever valores a partir de dados em tabela, como as vendas do próximo mês (machine learning clássico): a base não o cobre.
 
 ## Exemplo: perguntas aos procedimentos internos
 

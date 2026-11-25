@@ -2,18 +2,18 @@
 
 ## O que faz
 
-Atualiza a base de conhecimento da `start-project-with-trust` e o conhecimento pessoal de quem a usa. Percorre as fontes aprovadas em `knowledge/FONTES.md`, encontra as novidades com a data de lançamento e dá a cada uma uma confiança: o que vem de fonte oficial primária com data (`alta`) entra sem pedir aprovação, o de confiança `media` entra da mesma forma mas marcado como médio, e o de confiança `baixa` é ignorado. Cada alteração tem uma linha no `CHANGELOG.md`, e cada corrida termina publicada no GitHub, com commit e push. Só corre quando alguém a chama com `/update-knowledge`.
+Atualiza a base de conhecimento partilhada, que a `orchestrate-sessions` e as sub skills leem, e o conhecimento pessoal de quem as usa. Percorre as fontes aprovadas em `knowledge/FONTES.md`, encontra as novidades com a data de lançamento e dá a cada uma uma confiança: o que vem de fonte oficial primária com data (`alta`) entra sem pedir aprovação, o de confiança `media` entra da mesma forma mas marcado como médio, e o de confiança `baixa` é ignorado. Cada alteração tem uma linha no `CHANGELOG.md`, e cada corrida termina publicada no GitHub, com commit e push. Só corre quando alguém a chama com `/update-knowledge`.
 
 ## Quando usar
 
 - De tempos a tempos, para pôr a base em dia com as fontes oficiais.
-- Quando a `start-project-with-trust` avisa que o conhecimento tem mais de 3 meses.
+- Quando a `orchestrate-sessions` avisa que o conhecimento tem mais de 3 meses.
 - Para um tema só, por exemplo `/update-knowledge ia`.
 - Para atualizar só o conhecimento pessoal, com `/update-knowledge pessoal`, mesmo sem cópia git do repositório.
 
 ## Quando não usar
 
-- Uma pergunta pontual que a base não cobre: as mini skills já vão às fontes e registam o que encontram.
+- Uma pergunta pontual que a base não cobre: as mini skills já vão às fontes e registam o que encontram, com «Quando falta conhecimento» do `SKILL.md` desta skill.
 - Para mudar o conhecimento sem fonte: a skill nunca inventa, e uma novidade sem data fica no máximo com confiança `media`.
 
 ## Exemplo: todas as secções de uma vez
@@ -52,7 +52,7 @@ Atualiza a base de conhecimento da `start-project-with-trust` e o conhecimento p
 
 1. Salta a base partilhada e lê `~/.start-project-with-trust/FONTES.md` e as novidades pessoais à espera de decisão, perguntando a decisão de cada uma.
 2. Procura novidades nas fontes pessoais com as mesmas regras de data e confiança; uma fonte que recusa o acesso automático fica por ler, ou o utilizador cola o conteúdo.
-3. Quando uma novidade `alta` muda uma entrada partilhada, cria uma cópia pessoal da entrada já editada, que a `start-project-with-trust` passa a usar no lugar da partilhada.
+3. Quando uma novidade `alta` muda uma entrada partilhada, cria uma cópia pessoal da entrada já editada, que as skills passam a usar no lugar da partilhada.
 4. Grava a data de hoje em `~/.start-project-with-trust/fontes-verificadas.json`.
 
 **Resultado:** O conhecimento pessoal em dia, sem nada enviado para o repositório da skill.

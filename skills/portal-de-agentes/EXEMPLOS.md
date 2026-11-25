@@ -2,19 +2,22 @@
 
 ## O que faz
 
-Conduz a construção de um portal onde uma equipa acompanha o trabalho dos seus agentes de IA. Faz as perguntas uma a uma, propõe um mundo para cada público a partir do que o produto é, desenha a maqueta antes do código, divide o trabalho em fases e passa a execução às mini skills. O portal que sai daqui lê o repositório das skills e mostra qualquer skill nova sem mudar código.
+Decide e desenha um portal onde uma equipa acompanha o trabalho dos seus agentes de IA. Faz as perguntas uma a uma, propõe um mundo para cada público a partir do que o produto é, desenha a maqueta antes do código, divide o trabalho em fases e devolve o plano à skill mãe que a chamou, que reparte a execução pelas mini skills. Também recria o portal de origem com as escolhas dele, e aí só pergunta o nome, as contas, o domínio e os segredos. O portal que sai daqui lê o repositório das skills e mostra qualquer skill nova sem mudar código.
 
 ## Quando usar
 
 - Ver, a partir do telemóvel, o que as sessões do Claude Code de uma equipa estão a fazer e responder-lhes.
 - Dar a uma equipa um sítio com o trabalho de cada pessoa e de cada repositório.
 - Criar outro mundo para um portal que já existe.
+- Recriar o portal de origem com as escolhas dele, mudando só o nome, as contas, o domínio e os segredos.
+- Quando a `orchestrate-sessions` ou a `start-project-with-trust` têm um trabalho que pede um portal: decide, desenha a maqueta e devolve-lhes o plano.
 
 ## Quando não usar
 
 - Só um painel com o estado das sessões, sem mundo: uma lista chega, e a `design-ux` faz-la.
 - Só a cena 3D de um portal que já tem os eventos: `design-3d-motion`.
 - Só proteger um portal que já existe: `seguranca`.
+- Um portal de clientes, uma intranet ou um site de conteúdos, sem agentes a acompanhar: `design-ux` e `backend-dados`.
 
 ## Exemplo: um portal para a equipa
 
@@ -39,6 +42,6 @@ Conduz a construção de um portal onde uma equipa acompanha o trabalho dos seus
 1. Lê `decisoes.md` e vê que as contas, os projetos e a Caixa já estão decididos; só o mundo muda.
 2. Aplica `um-mundo-por-publico.md`: o que o produto tem (projetos, skills, sessões, perguntas) passa a aviões em manutenção, especialistas e o chefe de turno. Põe de parte o que só traz estética (pistas, torre de controlo).
 3. Confirma que nenhuma regra do portal entra nas skills: o aspeto de cada especialista calcula-se a partir do nome da skill e ajusta-se na administração.
-4. Pede a maqueta à `design-3d-motion` e só depois passa a fase à `orchestrate-sessions`.
+4. Pede a maqueta à `design-3d-motion` e só depois devolve a fase à mãe que a chamou.
 
 **Resultado:** O hangar substitui a escola sem mexer nos eventos, nas contas nem na Caixa, porque a cena lê do mesmo modelo.

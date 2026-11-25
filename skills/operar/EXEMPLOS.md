@@ -7,7 +7,7 @@ Deixa uma plataforma pronta para quem a vai operar sem saber como foi construíd
 ## Quando usar
 
 - Antes de passar uma plataforma a outra equipa ou a um cliente.
-- Na Fase 5 da `start-project-with-trust`, para a secção «Operação» da entrega.
+- Numa sessão lançada pela `orchestrate-sessions` antes da entrega, ou na Fase 5 da `start-project-with-trust`, para a secção «Operação» da entrega.
 - Numa plataforma que já existe e em que ninguém sabe fazer a cópia nem o restauro.
 - Para escrever o que fazer quando o serviço cai, o disco enche ou o certificado expira.
 
@@ -42,4 +42,4 @@ Deixa uma plataforma pronta para quem a vai operar sem saber como foi construíd
 4. Escreve um runbook por rotina e por emergência, e pede a alguém que não o escreveu, ou a uma sessão nova, que siga um do início ao fim.
 5. Define quem é avisado, por onde e quem decide, e faz um exercício de mesa; quem recebe os alertas e onde ficam as cópias fora do local ficam «Por preencher».
 
-**Resultado:** O `OPERACAO.md` com as rotinas e as emergências, e a secção «Operação» de `entrega.md` com uma prova por item, conferida por `verificar.mjs --entrega`.
+**Resultado:** O `OPERACAO.md` com as rotinas, as emergências e, no fim, a tabela «Prontidão» com uma prova por item.

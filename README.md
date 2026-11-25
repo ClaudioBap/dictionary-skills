@@ -2,26 +2,25 @@
 
 [English version](README.en.md)
 
-Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há três skills principais e catorze mini skills:
+Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas skills principais e catorze mini skills:
 
-- **`start-project-with-trust`** conduz um projeto de cliente da primeira conversa à entrega verificada: descoberta guiada, plano, plano custo-benefício, execução e verificação com prova. Não termina enquanto cada critério de sucesso não tiver prova e o cliente não aceitar a entrega.
-- **`orchestrate-sessions`** divide um trabalho por várias sessões Claude em paralelo, cada uma com a sua mini skill. Pergunta quantas sessões queres e onde usar subagentes, e dá a cada tarefa o modelo e o effort mais baratos que a fazem. A `start-project-with-trust` usa-a na Fase 3 e na Fase 4.
-- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video` (em desenvolvimento), `humanizar`, `portal-de-agentes` e `documentacao`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável. A `humanizar` verifica tudo o que vai ser entregue à procura de marcas de IA (texto, código, interface, commits) e só corrige com autorização. A `portal-de-agentes` conduz a construção de um portal onde uma equipa acompanha os seus agentes de IA (um mundo por público, contas, perguntas respondidas à distância, notas às skills), com o método da secção «Portais e mundos de agentes». A `documentacao` está ligada a todas as outras: cada skill escreve o relatório do seu processo, e ela gera daí um livro Excel de processos e estatísticas, o Word «Entendimento do desenvolvimento» e o relatório final, no estilo da casa quando lhe dão ficheiros-padrão.
+- **`orchestrate-sessions`** é por onde se começa. Faz uma pergunta de cada vez até perceber o que queres e propõe um plano de delegação: que skills entram e quando, com que autonomia (que decide se as dúvidas te chegam pelo caminho ou juntas no fim), quantas sessões do VS Code se abrem e quantos agentes correm em cada uma, com o modelo e o effort mais baratos que fazem cada tarefa. Depois distribui o trabalho, recolhe as saídas com prova e, no fim, dá uma nota a cada skill que usou.
+- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video`, `humanizar`, `portal-de-agentes` e `documentacao`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável. A `humanizar` verifica tudo o que vai ser entregue à procura de marcas de IA (texto, código, interface, commits) e só corrige com autorização. A `portal-de-agentes` decide e desenha um portal onde uma equipa acompanha os seus agentes de IA (um mundo por público, contas, perguntas respondidas à distância, notas às skills), com o método da secção «Portais e mundos de agentes». A `documentacao` está ligada a todas as outras: cada skill escreve o relatório do seu processo, e ela gera daí um livro Excel de processos e estatísticas, o Word «Entendimento do desenvolvimento» e o relatório final, no estilo da casa quando lhe dão ficheiros-padrão.
 - **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou e aplica-o segundo o nível de confiança. Quando algo é substituído por uma prática melhor, reescreve a entrada, guarda o texto anterior no «Histórico» e atualiza as skills que o usavam.
 
 ## O que está neste repositório
 
 | Parte | O que é | Para quem |
 |---|---|---|
-| [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A skill que arranca e conduz projetos | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) |
-| [`knowledge/`](knowledge/INDEX.md) | 356 entradas de boas práticas em 26 secções, cada uma com fonte | Usada pela skill; também se lê diretamente |
-| [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill que distribui o trabalho por sessões, com modelo e effort por tarefa | Quem executa trabalho com várias sessões em paralelo |
+| [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A versão completa do arranque de projetos, em testes | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) e a instala pelo nome |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->381 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill por onde se começa: pergunta o que queres, propõe o plano de delegação e distribui o trabalho por sessões, com modelo e effort por tarefa. Tem também as regras comuns, as perguntas e o caminho da base | Toda a gente |
 | `skills/<mini skill>/` | As catorze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
 
 ## start-project-with-trust
 
-Conduz um projeto sempre pela mesma ordem, e cada fase só avança com a validação do utilizador:
+Está em testes e instala-se à parte (ver [Em testes](#em-testes)). Conduz um projeto sempre pela mesma ordem, e cada fase só avança com a validação do utilizador:
 
 1. **Descoberta.** Uma pergunta de cada vez, com opções ordenadas da mais barata à mais cara e uma recomendação. São 16 perguntas obrigatórias (o quê, porquê, como se mede o sucesso, para quem, âmbito, prazo, orçamento, recursos, restrições, dados e RGPD, riscos, quem decide, publicação, acesso remoto, reutilização). Se a resposta for vaga, pergunta até ficar verificável.
 2. **Plano com o que temos.** Cruza as necessidades com a base de conhecimento e usa só os recursos que o cliente declarou. Antes de propor código, procura uma plataforma open source que já resolva a necessidade.
@@ -54,30 +53,28 @@ A skill trabalha na pasta `arranque/<nome-do-projeto>/`:
 
 Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou.
 
-### Conhecimento pessoal
-
-Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill, para não se perder nas atualizações. Guarda o perfil dos tipos de trabalho da pessoa e as fontes oficiais que a skill foi buscar para os seus projetos. A `update-knowledge` mantém-no atualizado. Fica sempre só na máquina do utilizador: nunca vai para este repositório.
-
 ## Base de conhecimento
 
-356 entradas em 26 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
+<!-- conhecimento:inicio -->
+381 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
-| [Segurança](knowledge/seguranca/README.md) | 25 | [Estrutura e documentação](knowledge/estrutura/README.md) | 17 |
+| [Segurança](knowledge/seguranca/README.md) | 30 | [Estrutura e documentação](knowledge/estrutura/README.md) | 17 |
 | [Privacidade e conformidade](knowledge/privacidade/README.md) | 4 | [CI/CD e ferramentas](knowledge/cicd/README.md) | 24 |
 | [Fiabilidade e resiliência](knowledge/fiabilidade/README.md) | 10 | [Docker e orquestração](knowledge/docker/README.md) | 14 |
-| [Design e experiência de utilizador](knowledge/design/README.md) | 28 | [Serviços de infraestrutura](knowledge/infraestrutura/README.md) | 10 |
-| [3D, WebGL e animação](knowledge/3d-webgl/README.md) | 10 | [Soberania digital](knowledge/soberania/README.md) | 6 |
+| [Design e experiência de utilizador](knowledge/design/README.md) | 30 | [Serviços de infraestrutura](knowledge/infraestrutura/README.md) | 10 |
+| [3D, WebGL e animação](knowledge/3d-webgl/README.md) | 11 | [Soberania digital](knowledge/soberania/README.md) | 6 |
 | [SEO e descoberta](knowledge/seo/README.md) | 2 | [Governação e processo](knowledge/governacao/README.md) | 7 |
-| [Desenho de API](knowledge/api/README.md) | 6 | [Nuvem e identidade](knowledge/nuvem/README.md) | 7 |
-| [Base de dados](knowledge/base-de-dados/README.md) | 14 | [Sessões, orquestração e custo-eficiência](knowledge/custo/README.md) | 8 |
-| [Python](knowledge/python/README.md) | 13 | [Publicação e alojamento web](knowledge/publicacao/README.md) (fora do PDF) | 9 |
-| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 61 |
+| [Desenho de API](knowledge/api/README.md) | 6 | [Nuvem e identidade](knowledge/nuvem/README.md) | 8 |
+| [Base de dados](knowledge/base-de-dados/README.md) | 18 | [Sessões, orquestração e custo-eficiência](knowledge/custo/README.md) | 8 |
+| [Python](knowledge/python/README.md) | 13 | [Publicação e alojamento web](knowledge/publicacao/README.md) (fora do PDF) | 10 |
+| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 64 |
 | [C#](knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](knowledge/plataformas/README.md) (fora do PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 7 |
 | [Portais e mundos de agentes](knowledge/portais-de-agentes/README.md) (fora do PDF) | 9 | | |
+<!-- conhecimento:fim -->
 
 Ficheiros de referência:
 
@@ -85,6 +82,10 @@ Ficheiros de referência:
 - [`FONTES.md`](knowledge/FONTES.md): as fontes oficiais de cada secção e a lista «A vigiar» (prazos e limites que se verificam em cada atualização, como a validade dos certificados TLS ou os planos gratuitos de alojamento).
 - `<secção>/ATUALIZACOES.md`: as novidades de cada secção que não mudam o texto de nenhuma entrada, por categoria e data. Quando uma novidade muda o que uma entrada diz, a entrada é reescrita e o texto anterior fica na secção «Histórico» dela. As que entraram há mais de um ano passam para `ATUALIZACOES-ARQUIVO.md`, sem se apagarem.
 - [`CHANGELOG.md`](knowledge/CHANGELOG.md): cada alteração, com fonte, data de lançamento, confiança e quem aprovou.
+
+### Conhecimento pessoal
+
+Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta das skills, para não se perder nas atualizações. Guarda o perfil dos tipos de trabalho da pessoa e as fontes oficiais que as skills foram buscar para os seus projetos. A `update-knowledge` mantém-no atualizado. Fica sempre só na máquina do utilizador: nunca vai para este repositório.
 
 ## update-knowledge
 
@@ -108,7 +109,7 @@ Não contorna sites que bloqueiam o acesso automático: nesses casos pede que ab
 
 Para manter a base partilhada, trabalha numa cópia git deste repositório (`gh repo clone ClaudioBap/dictionary-skills`) e não na cópia instalada. Quem só instalou as skills corre-a em **modo local**: percorre as mesmas fontes da base partilhada, mas guarda as novidades no conhecimento pessoal, sem alterar a cópia instalada (que o `npx skills update` substituiria).
 
-Ao abrir, a `start-project-with-trust` mostra a data da última atualização da base partilhada e a do conhecimento local. Se a mais recente tiver mais de 3 meses, pergunta se queres correr `/update-knowledge` antes de começar, avisando que as novidades ficam no teu conhecimento local e que a atualização gasta tokens.
+Ao abrir, a `orchestrate-sessions` mostra a data da última atualização da base partilhada e a do conhecimento local. Se a mais recente tiver mais de 3 meses, pergunta se queres correr `/update-knowledge` antes de começar, avisando que as novidades ficam no teu conhecimento local e que a atualização gasta tokens.
 
 ## Instalação
 
@@ -124,22 +125,30 @@ Todas as skills da coleção, com um só comando:
 npx skills@latest add ClaudioBap/dictionary-skills --skill '*'
 ```
 
-As skills que se juntarem à coleção entram neste comando sem mudar nada. Para instalar só uma, troca `'*'` pelo nome, por exemplo `--skill start-project-with-trust`.
+As skills que se juntarem à coleção entram neste comando sem mudar nada, menos as que estão em testes (ver [Em testes](#em-testes)). Depois de instalar, começa-se pela `orchestrate-sessions` (ver [Utilização](#utilização)).
+
+Para instalar só uma mini skill, junta-lhe a `orchestrate-sessions`, a `update-knowledge` e a `humanizar`, de que todas precisam: a primeira tem o caminho da base de conhecimento, as regras comuns e as perguntas, a segunda mantém o conhecimento em dia e a terceira verifica o que se entrega. Por exemplo:
+
+```bash
+npx skills@latest add ClaudioBap/dictionary-skills --skill seguranca --skill orchestrate-sessions --skill update-knowledge --skill humanizar
+```
 
 - Sem opções, a skill fica instalada no projeto atual e só aparece nas sessões abertas nessa pasta. Para a teres em todos os projetos, junta `-g`.
 - O instalador deteta os agentes que tens. Para escolher um diretamente, junta `-a claude-code` (ou outro agente).
-- A base de conhecimento (`knowledge/`) vive na raiz do repositório e não vem dentro das skills. Na primeira vez que uma skill a procura, `skills/start-project-with-trust/scripts/conhecimento.mjs` clona o repositório para `~/.dictionary-skills` (precisa de Git) e as skills leem-na daí. Para atualizar, corre `node skills/start-project-with-trust/scripts/conhecimento.mjs --atualizar`. Quem já tem um clone aponta-lhe com a variável `DICTIONARY_SKILLS_KNOWLEDGE` ou com o campo `repositorio` de `~/.start-project-with-trust/config.json`.
+- A base de conhecimento (`knowledge/`) vive na raiz do repositório e não vem dentro das skills. Na primeira vez que uma skill a procura, `skills/orchestrate-sessions/scripts/conhecimento.mjs` clona o repositório para `~/.dictionary-skills` (precisa de Git) e as skills leem-na daí. Para atualizar, corre `node skills/orchestrate-sessions/scripts/conhecimento.mjs --atualizar`. Quem já tem um clone aponta-lhe com a variável `DICTIONARY_SKILLS_KNOWLEDGE` ou com o campo `repositorio` de `~/.start-project-with-trust/config.json`.
 - No Windows, se o PowerShell não encontrar o `npx` ou bloquear scripts, usa `npx.cmd` e confirma que a pasta do Node.js está no PATH.
 
 ## Utilização
 
-No agente, pede para arrancar um projeto, ou invoca a skill pelo nome:
+No agente, começa pela `orchestrate-sessions`, com o que queres fazer ou sem nada:
 
 ```
-/start-project-with-trust <nome-do-projeto>
+/orchestrate-sessions <o que queres fazer>
 ```
 
-Podes responder às perguntas uma a uma, ou dar logo no primeiro pedido o que já sabes do projeto: a skill marca como respondidas as perguntas que o teu texto já cobre e só pergunta o que falta.
+Ela faz uma pergunta de cada vez até perceber o que queres e propõe o plano de delegação antes de começar. Podes dar logo no primeiro pedido o que já sabes, e ela só pergunta o que falta.
+
+Uma mini skill também se chama sozinha, por exemplo `/seguranca`. Com um pedido vago ou sem pedido, pergunta primeiro o que queres e diz quando uma parte é de outra skill.
 
 Para atualizar o conhecimento:
 
@@ -166,9 +175,9 @@ Para atualizar o conhecimento:
   - todas as perguntas obrigatórias têm pelo menos uma ação ou decisão que lhes responde.
 
   Com `--entrega`, verifica também a entrega: cada ação `feito` e com prova `✓`, a publicação verificada, a operação documentada com prova, `acessos.md` e «Por preencher» sem segredos, e a aceitação com nome e data.
-- **Verificador da publicação** (`scripts/verificar-publicacao.mjs`): confirma HTTP→HTTPS, certificado válido, TLS 1.2 ou superior, cabeçalhos de segurança e que a área de administração não abre sem login.
+- **Verificador da publicação** (`scripts/verificar-publicacao.mjs`, na `orchestrate-sessions`): confirma o redirecionamento de HTTP para HTTPS, certificado válido, TLS 1.2 ou superior, cabeçalhos de segurança e que a área de administração não abre sem login.
   ```bash
-  node .claude/skills/start-project-with-trust/scripts/verificar-publicacao.mjs https://<domínio> --admin admin
+  node .claude/skills/orchestrate-sessions/scripts/verificar-publicacao.mjs https://<domínio> --admin admin
   ```
 - **Hooks do Claude Code**, que a skill propõe instalar no projeto na primeira execução (configuração em `scripts/hooks-settings.json`):
 
@@ -202,8 +211,7 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 | Skill | Tipo | Usa | IA | Segurança | Nuvem | Desenvolvimento | Web |
 |---|---|---|---:|---:|---:|---:|---:|
 | `orchestrate-sessions` | mãe | qualquer uma | 10 | 0 | 3 | 4 | 0 |
-| `portal-de-agentes` | mãe | `orchestrate-sessions`, `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |
-| `start-project-with-trust` | mãe | `orchestrate-sessions`, `operar`, `humanizar`, `documentacao`, `update-knowledge` | 7 | 7 | 7 | 7 | 7 |
+| `start-project-with-trust` | mãe | `orchestrate-sessions`, `operar`, `humanizar`, `documentacao`, `update-knowledge`, `portal-de-agentes` | 7 | 7 | 7 | 7 | 7 |
 | `backend-dados` | sub | `humanizar` | 0 | 5 | 5 | 10 | 0 |
 | `boas-praticas-codigo` | sub | `humanizar` | 0 | 4 | 0 | 10 | 3 |
 | `correction-loop` | sub | nenhuma | 0 | 0 | 3 | 10 | 3 |
@@ -212,12 +220,13 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 | `documentacao` | sub | `humanizar`, `design-ux` | 3 | 2 | 3 | 7 | 2 |
 | `gravacao-video` | sub | `humanizar` | 5 | 0 | 0 | 2 | 10 |
 | `humanizar` | sub | nenhuma | 0 | 0 | 0 | 10 | 10 |
-| `ia-aplicada` | sub | nenhuma | 10 | 3 | 3 | 5 | 0 |
+| `ia-aplicada` | sub | `humanizar` | 10 | 3 | 3 | 5 | 0 |
 | `infra-deploy` | sub | nenhuma | 0 | 6 | 10 | 3 | 2 |
 | `operar` | sub | nenhuma | 2 | 3 | 10 | 2 | 0 |
-| `performance-verifier` | sub | nenhuma | 6 | 0 | 7 | 6 | 7 |
+| `performance-verifier` | sub | `humanizar` | 6 | 0 | 7 | 6 | 7 |
+| `portal-de-agentes` | sub | `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |
 | `produtizar` | sub | `humanizar` | 0 | 0 | 3 | 10 | 0 |
-| `seguranca` | sub | nenhuma | 4 | 10 | 5 | 5 | 2 |
+| `seguranca` | sub | `humanizar` | 4 | 10 | 5 | 5 | 2 |
 | `update-knowledge` | sub | nenhuma | 5 | 5 | 5 | 5 | 5 |
 <!-- skills:fim -->
 
@@ -229,20 +238,29 @@ Cada `SKILL.md` diz o seu estado em `metadata.estado`:
 - `testes`: está a ser experimentada.
 - `demo`: serve só para mostrar.
 
-As de `testes` e `demo` aparecem no armazém do conhecimento, mas o agente não as leva. Uma skill sem estado conta
+As de `testes` e `demo` não vão para os computadores, e as que têm `metadata.internal` também não aparecem no armazém do conhecimento. Uma skill sem estado conta
 como `testes`. Para mudar o estado, muda-se essa linha.
 
-Hoje, `correction-loop` está em testes e `gravacao-video` em demo. As outras estão em produção.
+Hoje, `correction-loop` está em testes. As outras estão em produção.
 
 ## Em testes
 
 `skills/correction-loop/` é uma skill em testes e não se instala com `--skill '*'`: o campo `metadata.internal` do `SKILL.md` deixa-a de fora. Foi um teste para aumentar a performance, à procura de respostas mais rápidas a problemas: a partir de pouco mais do que «está a dar erro», descobrir como reproduzir o erro, localizar a causa com métodos de procura escolhidos pelo sinal disponível e entregar a melhor correção, provada.
 
-Nos ensaios, num erro com um teste a falhar, uma prompt simples chegou à mesma correção em menos de metade do tempo e por cerca de metade do custo. Os resultados estão em [`medicao.md`](skills/correction-loop/medicao.md). Quem a quiser experimentar instala-a pelo nome:
+Nos ensaios, num erro com um teste a falhar, uma prompt simples chegou à mesma correção em menos de metade do tempo e por cerca de metade do custo. Os resultados estão em [`medicao.md`](skills/correction-loop/medicao.md). O utilizador decidiu fechá-la a 2026-11-25, sem mais investimento. Só volta a contar se ganhar a uma prompt simples num caso em que a localização por bissecção (testar versões pelo meio do histórico) faz diferença, como uma regressão sem nenhum teste que aponte a causa. Quem a quiser experimentar instala-a pelo nome:
 
 ```bash
 npx skills@latest add ClaudioBap/dictionary-skills --skill correction-loop
 ```
+
+`skills/start-project-with-trust/` também está em testes e fica de fora do `--skill '*'` pelo mesmo campo. É a versão completa do arranque de um projeto com um cliente, com o goal-loop até ao «Plano aprovado», os verificadores e os hooks (ver [start-project-with-trust](#start-project-with-trust) e [Como o goal-loop é garantido](#como-o-goal-loop-é-garantido)). Usa as regras, as perguntas e o caminho da base da `orchestrate-sessions`, por isso instala-se depois da coleção. São dois comandos, porque o instalador só traz uma skill em testes quando é pedida pelo nome, sem `'*'` no mesmo pedido:
+
+```bash
+npx skills@latest add ClaudioBap/dictionary-skills --skill '*'
+npx skills@latest add ClaudioBap/dictionary-skills --skill start-project-with-trust
+```
+
+Depois chama-se com `/start-project-with-trust <nome-do-projeto>`.
 
 ## Contribuir
 
@@ -251,19 +269,20 @@ Fontes novas, correções ao conhecimento e melhorias às skills são bem-vindas
 ## Estrutura
 
 ```
-skills/start-project-with-trust/
+skills/start-project-with-trust/   em testes
 ├── SKILL.md        instruções das fases e do goal-loop
-├── PERGUNTAS.md    lista fixa de perguntas obrigatórias
 ├── modelos/        esqueletos dos documentos
-└── scripts/        verificadores (plano, entrega, publicação), conhecimento.mjs (caminho da base) e hooks do goal-loop
+└── scripts/        verificadores do plano e da entrega, e hooks do goal-loop
 knowledge/          base de conhecimento (INDEX.md, FONTES.md, CHANGELOG.md, e um ATUALIZACOES.md e um ATUALIZACOES-ARQUIVO.md por secção)
 skills/orchestrate-sessions/
 ├── SKILL.md            tarefas, número de sessões, agentes, briefings, execução e recolha
+├── regras.md           regras comuns a todas as skills e formato das perguntas
+├── PERGUNTAS.md        perguntas obrigatórias, P1 a P16
 ├── catalogo.md         mini skills e as secções de knowledge/ que cada uma usa
 ├── modelo-e-effort.md  modelo e effort por tipo de tarefa, e quando subir de nível
 ├── modelos/            sessoes.md, briefing.md, estado.json e retoma-permissoes.json
 ├── modo-continuo.md    trabalhar até ao fim, esperar pela reposição do limite e retomar
-└── scripts/            estado-uso.mjs (linha de estado que grava o uso do plano), retomar.mjs, retomar.vbs e agendar-retoma.mjs (retoma agendada)
+└── scripts/            conhecimento.mjs (caminho da base), verificar-publicacao.mjs, estado-uso.mjs (linha de estado que grava o uso do plano), retomar.mjs, retomar.vbs e agendar-retoma.mjs (retoma agendada)
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
 │                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar,
 │                             portal-de-agentes, documentacao

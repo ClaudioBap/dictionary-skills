@@ -1,6 +1,6 @@
 ---
 name: update-knowledge
-description: Atualiza a base de conhecimento da skill start-project-with-trust e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
+description: Atualiza a base de conhecimento partilhada em knowledge/, que a orchestrate-sessions e as sub skills leem, e o conhecimento pessoal do utilizador (~/.start-project-with-trust). Percorre as fontes aprovadas em knowledge/FONTES.md e as fontes pessoais, encontra novidades com a data de lançamento e um nível de confiança, aplica-as segundo o fluxo por confiança, regista tudo no CHANGELOG e, com autorização, publica a base partilhada no GitHub para que cada «npx skills update» traga o conhecimento atualizado. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe.
 argument-hint: "Tema a atualizar (ex.: ia), «pessoal» para só o conhecimento pessoal, ou nada para todos"
 disable-model-invocation: true
 metadata:
@@ -15,6 +15,24 @@ metadata:
 # Atualizar o conhecimento
 
 Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo o resto exige aprovação explícita do utilizador, alteração a alteração.
+
+## Âmbito
+
+Faz:
+- pôr a base partilhada em dia com as fontes de `knowledge/FONTES.md` e os pontos «A vigiar», em todos os temas ou num só;
+- aplicar as novidades pela confiança: editar a entrada e guardar o anterior no «Histórico», ou acrescentar ao `ATUALIZACOES.md` da secção, e arquivar o que tem mais de um ano;
+- atualizar as passagens das skills que copiam um valor que mudou (passo 4, ponto 1b);
+- propor fontes e entradas novas, uma de cada vez, também para um tema que a base ainda não cobre;
+- tirar uma novidade que entrou, a pedido;
+- manter o conhecimento pessoal, também sem cópia git (modo local), e publicar a corrida no GitHub.
+
+Pedidos que se confundem:
+- «Atualiza o .NET»: o que a base diz sobre o .NET, sim; migrar um projeto para o .NET 10, não, porque esta skill muda a base e não o código de um projeto. Vai para a `boas-praticas-codigo`; as imagens e o pipeline, para a `infra-deploy`.
+- «Atualiza as skills»: os valores que uma skill copia da base, sim. Instalar a versão nova das skills é o `npx skills@latest update`. Mudar o que uma skill faz fica fora desta skill e propõe-se com o `CONTRIBUTING.md`.
+- «Falta isto na base»: acrescentar o tema à base partilhada, sim, como proposta. A resposta para o trabalho em curso é da sub skill do tema, que segue «Quando falta conhecimento».
+- «Põe isto na base»: com fonte oficial, sim; de memória, de um blogue ou de uma rede social, não: fica fora da base.
+
+Também não lê páginas que recusam o acesso automático (pede ao utilizador que cole o conteúdo), não documenta um projeto (`documentacao`) e não revê marcas de escrita de IA (`humanizar`).
 
 ## Regras
 
@@ -45,6 +63,13 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
 
 ## 0. Preparar
 
+Antes de tudo, o pedido. Sem argumento, faz uma só pergunta: todos os temas (recomendado) ou um só. Com um tema, `pessoal` ou o caminho de uma entrada, não perguntes nada. Com um pedido vago (por exemplo «vê o que mudou na segurança» ou «põe isto na base»), pergunta uma coisa de cada vez, no máximo três, no formato de `../orchestrate-sessions/regras.md`, com uma recomendação, e pára quando tens o que precisas:
+- o quê: uma entrada ou um ponto «A vigiar» (o mais barato), um tema, ou todos (o mais caro); recomenda o tema que o pedido nomeia;
+- onde: a base partilhada, numa cópia git, ou só o conhecimento pessoal; recomenda a partilhada quando há cópia git;
+- para fazer o quê: procurar novidades, tirar uma novidade que entrou (passo 2, ponto 1) ou propor uma fonte ou uma entrada nova (passo 2, ponto 4).
+
+Se parte do pedido é de outra skill (ver «Âmbito»), diz qual e porquê antes da primeira pergunta e recomenda-a. Esta skill só corre com `/update-knowledge`, por isso nenhuma skill mãe a chama e não há parte a devolver.
+
 1. **Encontrar o repositório.** A base partilhada trabalha-se numa cópia git de `ClaudioBap/dictionary-skills`, e não na cópia instalada pelo `npx`.
    - Se o diretório atual (ou um pai) tiver `knowledge/INDEX.md`, usa-o.
    - Senão, pergunta ao utilizador onde está a cópia, ou propõe clonar com `gh repo clone ClaudioBap/dictionary-skills`.
@@ -56,7 +81,7 @@ Esta skill só altera o conhecimento segundo o fluxo por confiança abaixo. Tudo
    - `knowledge/INDEX.md`: a taxonomia;
    - `fontes-verificadas.json`, na pasta desta skill: a data a partir da qual procurar em cada fonte. Sem data, usa a última data do `CHANGELOG.md`.
 
-Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório. Em modo local, `knowledge/` é a pasta que `node ../start-project-with-trust/scripts/conhecimento.mjs` imprime.
+Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta deste `SKILL.md`. `knowledge/` é relativo à raiz do repositório. Em modo local, `knowledge/` é a pasta que `node ../orchestrate-sessions/scripts/conhecimento.mjs` imprime.
 
 ## 1. Procurar novidades
 
@@ -150,18 +175,18 @@ As rejeitadas também têm uma linha no `CHANGELOG.md`, marcada como rejeitada, 
 1. Atualiza as datas em `fontes-verificadas.json`.
 1a. **Arquiva o que tem mais de um ano.** Em cada `ATUALIZACOES.md`, passa para `ATUALIZACOES-ARQUIVO.md` da mesma secção as linhas com «Adicionado a» há mais de 12 meses, sem alterar o texto, na mesma categoria. Se o arquivo não existir, cria-o com o título `# Arquivo de atualizações: <título da secção>`. Uma linha no `CHANGELOG.md` por secção arquivada.
 1b. **Atualiza as skills que dependem do que mudou.** As skills da coleção (`skills/*/`) citam entradas e às vezes copiam valores delas, como nomes de modelos, preços ou algoritmos. Para cada entrada editada, procura em `skills/`, fora de `knowledge/`, o caminho da entrada e o valor antigo, e atualiza essas passagens para o valor novo, citando a entrada. Se a novidade tira o sentido a um passo de uma skill (por exemplo, uma ferramenta descontinuada que a skill manda usar), não o reescrevas sozinho: mostra-o ao utilizador e pergunta.
-2. Corre `node scripts/indice.mjs <repo>/knowledge` para pôr o `INDEX.md` e os `README.md` em dia.
+2. Corre `node scripts/indice.mjs <repo>/knowledge` para pôr em dia o `INDEX.md`, os `README.md` das secções e as contagens do `README.md` e do `README.en.md` da raiz.
 3. Corre `node scripts/verificar-alteracoes.mjs <repo>` e **mostra a saída**. Se falhar, corrige (normalmente falta uma linha no CHANGELOG) e corre outra vez. Não avances sem `✓`.
 4. **Publica, sem perguntar:** corre `node scripts/publicar.mjs <repo>`, com `--incluir <caminho>` para cada skill alterada no passo 1b, e **mostra a saída**. O utilizador decidiu a 2026-11-16 que cada corrida termina publicada, para o trabalho não se acumular por gravar. O script:
    - volta a correr o índice e o verificador;
    - faz commit no `main`, com uma mensagem que junta as alterações do `CHANGELOG.md`;
    - faz `git pull --rebase` e `git push`.
    Se o pull trouxer conflitos ou o push for recusado, o commit fica local: mostra o erro ao utilizador e nunca forces o push.
-5. A partir daí, `npx skills update start-project-with-trust` traz o conhecimento novo a quem tem a skill instalada, e o site de notícias apanha-o na sincronização seguinte.
+5. A partir daí, quem lê a base a partir de `~/.dictionary-skills` recebe o conhecimento novo com `node ../orchestrate-sessions/scripts/conhecimento.mjs --atualizar`, e o site de notícias apanha-o na sincronização seguinte.
 
 ## 5. Conhecimento pessoal
 
-Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizador em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), criado pela skill `start-project-with-trust` com as fontes do tipo de trabalho dessa pessoa. Se a pasta não existir (por exemplo, numa primeira instalação), cria-a com `perfil.md`, `FONTES.md`, `CHANGELOG.md` e `pendentes.md` só com o título, e diz ao utilizador onde fica e para que serve.
+Sempre que esta skill corre, atualiza também o conhecimento pessoal do utilizador em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), criado com as fontes do tipo de trabalho dessa pessoa. Se a pasta não existir (por exemplo, numa primeira instalação), cria-a com `perfil.md`, `FONTES.md`, `CHANGELOG.md` e `pendentes.md` só com o título, e diz ao utilizador onde fica e para que serve.
 
 ### Modo local
 
@@ -175,10 +200,10 @@ Para quem só instalou as skills, sem cópia git do repositório. A cópia insta
 1. **Validações pendentes.** Lê `pendentes.md`. Para cada novidade lá registada, pergunta ao utilizador se entra: se sim, aplica-a como em 2; se não, regista-a como rejeitada no `CHANGELOG.md` pessoal. Tira-a de `pendentes.md` em ambos os casos.
 2. **Procurar.** Para cada fonte de `FONTES.md` pessoal (e de `perfil.md`, se indicar temas sem fonte), procura novidades desde a última verificação, com as mesmas regras do passo 1: data como a fonte a indica, sem contornar bloqueios e com os mesmos níveis de confiança.
 3. **Aplicar por confiança:**
-   - `alta`: se a novidade muda o que uma entrada da base partilhada diz, cria no conhecimento pessoal uma cópia dessa entrada no mesmo caminho (`knowledge/<secção>/<slug>.md`), já editada como no passo 3, com o «Histórico»; a `start-project-with-trust` usa a pessoal em vez da partilhada. Se não muda o texto, acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa. Sem pedir aprovação;
+   - `alta`: se a novidade muda o que uma entrada da base partilhada diz, cria no conhecimento pessoal uma cópia dessa entrada no mesmo caminho (`knowledge/<secção>/<slug>.md`), já editada como no passo 3, com o «Histórico»; as skills que leem a base usam a pessoal em vez da partilhada (ponto 1 de «Quando falta conhecimento»). Se não muda o texto, acrescenta a linha a `knowledge/<secção>/ATUALIZACOES.md` pessoal, na categoria certa. Sem pedir aprovação;
    - `media`: não altera nada; regista-a em `pendentes.md` (data, título, fonte, motivo da confiança) para o utilizador decidir na corrida seguinte;
    - `baixa`: ignora.
-4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal. Em qualquer modo, grava em `~/.start-project-with-trust/fontes-verificadas.json` (mesmo formato do desta skill) a data de hoje em `atualizado_em` e, em modo local, a data de cada fonte da base partilhada verificada. A `start-project-with-trust` usa esta data para saber há quanto tempo o conhecimento não é atualizado.
+4. **Registar.** Uma linha no `CHANGELOG.md` pessoal por alteração, e a data da verificação de cada fonte em `FONTES.md` pessoal. Em qualquer modo, grava em `~/.start-project-with-trust/fontes-verificadas.json` (mesmo formato do desta skill) a data de hoje em `atualizado_em` e, em modo local, a data de cada fonte da base partilhada verificada. A `orchestrate-sessions` usa esta data para saber há quanto tempo o conhecimento não é atualizado.
 4a. **Arquivar.** A mesma regra de um ano da base partilhada: as linhas com «Adicionado a» há mais de 12 meses passam para `ATUALIZACOES-ARQUIVO.md` da secção, sem se apagarem.
 5. **Nunca partilhar.** O conhecimento pessoal não vai para o repositório da skill, nem para o `CHANGELOG.md` partilhado, e não tem commit nem push.
 
@@ -193,6 +218,19 @@ Mostra:
 - o commit publicado;
 - no conhecimento pessoal: o que entrou, o que ficou em `pendentes.md` e as fontes por ler.
 
+
+## Quando falta conhecimento
+
+Esta secção não faz parte de uma corrida da update-knowledge. É o procedimento que as outras skills seguem quando a base não tem a resposta, ou quando uma entrada está desatualizada face ao que o utilizador descreve ou à versão que o projeto usa. Cada skill diz, numa linha, quando o usa e que fontes oficiais servem o seu tema.
+
+1. Vê primeiro o conhecimento pessoal em `~/.start-project-with-trust/knowledge/`: o que falta pode já lá estar, de uma vez anterior. Se uma entrada pessoal tem o mesmo caminho que uma da base partilhada, vale a pessoal, porque é a versão já atualizada.
+2. Lê as fontes oficiais primárias do tema: as que a skill indica, ou as do fornecedor, do autor ou do organismo em causa. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
+3. Dá a cada facto a confiança de «Níveis de confiança» (`alta`, `media`, `baixa`). Um facto `baixa` não serve de base.
+4. Regista o que encontraste antes de responder, construir ou usar:
+   - numa cópia git do repositório (existe `knowledge/INDEX.md` no diretório atual ou acima), propõe ao utilizador a entrada nova na secção certa, ou a secção nova se a base não a tem, no formato do passo 3, e só a escreves com a aprovação dele;
+   - fora disso, no conhecimento pessoal: a entrada em `~/.start-project-with-trust/knowledge/<secção>/<slug>.md`, a fonte em `FONTES.md` pessoal e uma linha no `CHANGELOG.md` pessoal;
+   - se o que encontraste substitui o que uma entrada diz, segue a regra de edição do passo 3: a entrada passa a dizer o que vale hoje e o texto anterior fica no «Histórico» dela (fora de uma cópia git, numa cópia pessoal da entrada).
+5. Diz ao utilizador que fontes leste e o que registaste.
 
 ## Documentação
 

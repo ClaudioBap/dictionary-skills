@@ -77,7 +77,7 @@ if (admin) {
     else falhas.push(`administração ${u.pathname} responde ${r.status} sem login${destino ? ` (Location ${destino})` : ''}: está aberta`);
   } catch (e) { falhas.push(`administração: pedido falhou (${e.cause?.code || e.message})`); }
 } else {
-  avisos.push('sem --admin: a área de administração não foi verificada. Se não existe, regista-o em entrega.md.');
+  avisos.push('sem --admin: a área de administração não foi verificada. Se não existe, regista-o no relatório ou em entrega.md.');
 }
 
 console.log(`Verificação de ${alvo} a ${new Date().toISOString()}`);

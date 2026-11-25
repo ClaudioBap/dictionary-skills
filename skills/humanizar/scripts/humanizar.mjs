@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Verificador de marcas de escrita e de construção de IA. Sem dependências.
-// Uso: node humanizar.mjs <caminho...> [--json] [--commits N] [--incluir-conhecimento] [--permitir-emojis]
+// Uso: node humanizar.mjs <caminho...> [--json] [--commits N] [--incluir-conhecimento] [--permitir-emojis] [--permitir id1,id2] [--gravidade alta]
 //      node humanizar.mjs --hook        (hook PostToolUse do Claude Code: lê o evento no stdin)
 // Sai com 0 se não há achados e com 1 se há. Nunca altera ficheiros: a correção é decidida pelo utilizador.
 // Cada achado diz onde está, o que é e o que uma pessoa faria no lugar.
@@ -12,7 +12,7 @@ import { execFileSync } from 'node:child_process';
 const args = process.argv.slice(2);
 const flag = (f) => args.includes(f);
 const valorDe = (f, d) => { const i = args.indexOf(f); return i >= 0 && args[i + 1] ? args[i + 1] : d; };
-const caminhos = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--commits');
+const caminhos = args.filter((a, i) => !a.startsWith('--') && !['--commits', '--permitir', '--gravidade'].includes(args[i - 1]));
 
 const PROSA = new Set(['.md', '.mdx', '.txt', '.rst', '.adoc']);
 const CODIGO = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '.py', '.java', '.cs', '.go', '.rb', '.php', '.kt', '.swift', '.rs', '.sql', '.sh', '.ps1', '.vue', '.svelte']);
@@ -37,7 +37,13 @@ function listar(caminho) {
 }
 
 const achados = [];
-const achado = (ficheiro, linha, id, categoria, gravidade, excerto, sugestao) => achados.push({ ficheiro, linha, id, categoria, gravidade, excerto: excerto.trim().slice(0, 110), sugestao });
+// --permitir tira as marcas que são convenção do projeto; --gravidade alta deixa só as de gravidade alta, para o CI.
+const permitidos = new Set(valorDe('--permitir', '').split(',').map((s) => s.trim()).filter(Boolean));
+const soGravidade = valorDe('--gravidade', '');
+const achado = (ficheiro, linha, id, categoria, gravidade, excerto, sugestao) => {
+  if (permitidos.has(id) || (soGravidade && gravidade !== soGravidade)) return;
+  achados.push({ ficheiro, linha, id, categoria, gravidade, excerto: excerto.trim().slice(0, 110), sugestao });
+};
 
 // Para as verificações de prosa, tira-se o que não é texto do autor: código, URLs e citações entre «».
 const limparProsa = (l) => l.replace(/<!--.*?-->/g, ' ').replace(/<!--|-->/g, ' ').replace(/`[^`]*`/g, ' ').replace(/https?:\/\/\S+/g, ' ').replace(/«[^»]*»/g, ' ').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ');
@@ -218,7 +224,7 @@ if (flag('--hook')) {
 }
 
 if (!caminhos.length && !args.includes('--commits')) {
-  console.error('Uso: node humanizar.mjs <caminho...> [--json] [--commits N] [--incluir-conhecimento] [--permitir-emojis]');
+  console.error('Uso: node humanizar.mjs <caminho...> [--json] [--commits N] [--incluir-conhecimento] [--permitir-emojis] [--permitir id1,id2] [--gravidade alta]');
   process.exit(2);
 }
 const ficheiros = caminhos.flatMap((c) => (existsSync(c) ? listar(resolve(c)) : (console.error(`Não existe: ${c}`), [])));
@@ -232,7 +238,8 @@ if (flag('--json')) {
   process.exit(achados.length ? 1 : 0);
 }
 
-if (!achados.length) { console.log(`✓ Sem marcas de escrita de IA em ${ficheiros.length} ficheiro(s).`); process.exit(0); }
+const filtros = [soGravidade && `só gravidade ${soGravidade}`, permitidos.size && `sem ${[...permitidos].join(', ')}`].filter(Boolean).join('; ');
+if (!achados.length) { console.log(`✓ Sem marcas de escrita de IA em ${ficheiros.length} ficheiro(s)${filtros ? ` (${filtros})` : ''}.`); process.exit(0); }
 const ordem = ['Pontuação', 'Fórmulas', 'Estrutura', 'Língua', 'Código', 'Interface', 'Dados', 'Commits'];
 const ficheirosComAchados = new Set(achados.map((a) => a.ficheiro)).size;
 console.log(`✗ ${achados.length} achado(s) em ${ficheirosComAchados} ficheiro(s). Nada foi alterado: decide por categoria o que corrigir.\n`);

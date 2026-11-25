@@ -16,6 +16,7 @@ Audita ou protege um site ou uma aplicação. Em auditoria corre o verificador d
 
 - Testes de intrusão ou ataques reais: a skill não os faz, e qualquer teste ativo pede autorização do dono.
 - Montar o pipeline e o alojamento: `infra-deploy`, que também corre o verificador de publicação no fim.
+- Testes a uma firewall de rede ou à rede de um escritório: a skill nunca explora, e a base não cobre firewalls de rede nem segmentação.
 
 ## Exemplo: revisão antes de publicar
 

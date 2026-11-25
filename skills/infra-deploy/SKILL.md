@@ -11,21 +11,41 @@ metadata:
 
 # Infra e deploy
 
-O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 O conhecimento está em `knowledge/`: `cicd/`, `docker/`, `infraestrutura/`, `nuvem/`, `publicacao/` e `soberania/`. Se `~/.start-project-with-trust/knowledge/` tiver uma entrada com o mesmo caminho, vale a pessoal: é a versão já atualizada.
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`, incluindo a autonomia depois da decisão: decidido o alojamento, preparas tudo até ao fim e só ficam «Por preencher» as contas, os domínios e as chaves que o utilizador tem de criar.
+- Seguem-se as regras de `../orchestrate-sessions/regras.md`, incluindo a autonomia depois da decisão: decidido o alojamento, preparas tudo até ao fim e só ficam «Por preencher» as contas, os domínios e as chaves que o utilizador tem de criar.
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: escolher fornecedor, borda e topologia é «Rever e decidir com risco»; escrever o pipeline e os ficheiros de contentores é «Construir»; recolher o estado atual é «Ler».
 - Segredos nunca entram no repositório nem nos registos do pipeline: ficam no cofre ou nas variáveis do fornecedor, com um `.env.example` só com nomes e formatos. Base: `cicd/ferramentas-segredos.md`, `infraestrutura/gestao-de-segredos-vault-openbao.md`, `soberania/um-so-cofre-de-segredos-soberano.md`.
 - Cada serviço externo que entra (alojamento, base de dados, cache, email, DNS) leva a jurisdição dos dados registada. Base: `soberania/inventario-de-dependencias-por-jurisdicao.md`, `soberania/minimizacao-e-residencia-dos-dados.md`.
 - Planos gratuitos e preços mudam: confirma na fonte antes de decidir. Base: `publicacao/limites-e-condicoes-dos-planos-gratuitos.md`.
 
+## Âmbito
+
+Publica aplicações com as secções do passo 2: decide onde, do grátis ao empresarial (alojamento, domínio, TLS, borda com WAF e proteção contra DDoS, administração fechada), monta o pipeline como portão, os contentores e os serviços de apoio (proxy, PostgreSQL, Redis ou Valkey, armazenamento de objetos, filas), e regista onde ficam os dados.
+
+| Pedido | Esta skill | Porquê, e para onde vai |
+|---|---|---|
+| Publicar uma aplicação ou um site, com pipeline, contentores, alojamento, domínio e TLS | Sim | É o passo 4. |
+| Pôr uma WAF, proteção contra DDoS ou um proxy à frente da aplicação | Sim | Escolhe e monta (`publicacao/waf-e-protecao-ddos.md`, `infraestrutura/proxy-reverso-e-borda.md`). Auditar se ficou bem é da `seguranca`. |
+| Montar a rede ou os servidores de um escritório (firewall, VPN entre sedes, Wi-Fi, virtualização) | Não | A base só cobre as redes dos contentores, o proxy, o bastion e o acesso por identidade: fica fora da base. |
+| Auditar a segurança do que está publicado | Não | `seguranca`. Aqui só se corre o verificador de publicação no fim (passo 5). |
+| Esquema, migrações e dados da base de dados | Não | `backend-dados`. Aqui aloja-se a base e as migrações entram no fluxo do deploy (`cicd/infraestrutura-e-migracoes-no-fluxo.md`). |
+| Monitorização, runbooks, cópias de segurança e incidentes | Não | `operar`. |
+| Custo ou velocidade de uma infraestrutura que já corre | Não | `performance-verifier`. |
+
+Quando parte do pedido cai numa linha que não é desta skill, encaminha essa parte como diz `../orchestrate-sessions/regras.md`.
+
 ## 1. O que falta montar
 
-Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 da `start-project-with-trust`, com as opções: pipeline (CI e CD), contentores, alojamento e domínio, publicação com TLS e borda, ou tudo. Confirma as restrições do projeto se ainda não estão registadas: exposição pública e área de administração (P14), orçamento (P8), dados pessoais ou jurisdição (P11), tecnologia imposta (P10). Lança um subagente (`haiku`, `low`) para inventariar o que o repositório já tem: ficheiros de pipeline, `Dockerfile`, `compose`, manifestos, variáveis.
+Lança primeiro um subagente (`haiku`, `low`) para inventariar o que o repositório já tem: ficheiros de pipeline, `Dockerfile`, `compose`, manifestos, variáveis. Chamada por uma mãe, o briefing traz o objeto, o objetivo e o nível: passa ao passo 2. Sozinha, com um pedido que não diz o que falta, ou sem pedido, pergunta só o que o inventário não responde, uma pergunta de cada vez, no formato de `../orchestrate-sessions/regras.md`, e pára quando souberes o que montar, para quê e com que limites:
+
+1. **Objeto.** O que falta montar: pipeline (CI e CD), contentores, alojamento e domínio, publicação com TLS e borda, ou tudo. Recomenda o que o inventário mostra que falta. Se o pedido falar de rede ou de firewall, pergunta se é a da aplicação (redes dos contentores, proxy, WAF) ou a de um escritório: a primeira é desta skill, a segunda fica fora da base. Para outra linha do «Âmbito» que não é desta skill, diz para onde vai antes de continuar.
+2. **Objetivo e nível** (P14 de `../orchestrate-sessions/PERGUNTAS.md`), do mais barato ao mais caro: teste pessoal, grátis; uso da organização, pago; empresarial. Inclui se fica público ou só interno, e se há área de administração. O nível dá a coluna de `../orchestrate-sessions/modelo-e-effort.md`: teste pessoal é simples, uso da organização ou empresarial é profissional, e com dados sensíveis ou desempenho crítico é topo *(interpretação)*.
+3. **Limites**, um de cada vez e só os que mudam a decisão: orçamento (P8), dados pessoais e onde podem ficar (P11), tecnologia imposta (P10).
 
 ## 2. Ler só o que interessa
 
@@ -38,16 +58,11 @@ Se o pedido já o diz, passa ao passo 2. Se não, pergunta no formato da Fase 1 
 
 ## 3. Se a biblioteca não tem a resposta
 
-Quando nenhuma entrada cobre o fornecedor ou a ferramenta em causa, ou os limites de um plano mudaram:
-
-1. Escolhe as fontes oficiais primárias certas (a documentação, os preços e os termos do fornecedor) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
-2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md` (`alta`, `media`, `baixa`). Um facto `baixa` não serve de base.
-3. Regista o que encontraste antes de responder: numa cópia git do repositório, propõe a entrada nova na secção certa, no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com a aprovação do utilizador; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/<secção>/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`: a entrada passa a dizer o que vale hoje e o texto anterior fica no «Histórico» dela.
-4. Diz ao utilizador que fontes leste e o que registaste.
+Quando nenhuma entrada cobre o fornecedor ou a ferramenta em causa, ou os limites de um plano mudaram, segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de responder. Fontes oficiais deste tema: a documentação, os preços e os termos do fornecedor.
 
 ## 4. Decidir e montar
 
-1. **Onde publicar.** Se a decisão «Publicação e exposição» do projeto ainda não existe, apresenta as opções do grátis ao empresarial, como na Fase 3 da `start-project-with-trust`: alojamento, domínio, certificado TLS, borda com WAF e proteção contra DDoS, e como se fecha a área de administração. Na coluna «Risco» entram as condições dos planos gratuitos e a jurisdição dos dados. A decisão é do utilizador.
+1. **Onde publicar.** Se a decisão «Publicação e exposição» do projeto ainda não existe, apresenta as opções do grátis ao empresarial (numa tabela com as colunas opção, custo, benefício, risco e base no conhecimento, e a recomendação no fim): alojamento, domínio, certificado TLS, borda com WAF e proteção contra DDoS, e como se fecha a área de administração. Na coluna «Risco» entram as condições dos planos gratuitos e a jurisdição dos dados. A decisão é do utilizador.
 2. **Pipeline como portão.** Build reprodutível, testes, análise estática e verificação de dependências antes de qualquer deploy; ambientes com promoção; migrações no fluxo; reversão definida. O critério de fim de cada parte é a linha «Para uma skill» da entrada correspondente.
 3. **Contentores.** Imagem mínima e endurecida, utilizador sem privilégios, configuração por variáveis de ambiente, sondas de saúde, volumes só onde há estado.
 4. **Segredos e variáveis.** Cada valor que o utilizador tem de criar (conta, domínio, chave de API, segredo de cliente) vai para o `.env.example` com o nome e o formato, e para «Por preencher» de `entrega.md`. O resto continua até ao fim.
@@ -59,7 +74,7 @@ Quando nenhuma entrada cobre o fornecedor ou a ferramenta em causa, ou os limite
 Com o projeto exposto, corre a partir da pasta desta skill e cola a saída completa em `entrega.md` («Publicação»):
 
 ```
-node ../start-project-with-trust/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho da administração, sem barra inicial>
+node ../orchestrate-sessions/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho da administração, sem barra inicial>
 ```
 
 Tem de terminar com `✓ Publicação verificada`. Se o projeto não está exposto, escreve «Não aplicável:» e a razão. Base: `publicacao/certificados-tls.md`, `seguranca/tls-e-cabecalhos-versionados.md`, `publicacao/acesso-restrito-a-area-de-administracao.md`.
@@ -70,6 +85,7 @@ Tem de terminar com `✓ Publicação verificada`. Se o projeto não está expos
 - O pipeline, as imagens e os ambientes montados, cada um com a prova.
 - A tabela de serviços externos com a jurisdição dos dados.
 - O que ficou por preencher pelo utilizador, com onde se obtém cada valor.
+- O que ficou fora do âmbito e para onde foi: a skill, pelo nome, ou «fora da base».
 - A saída do verificador de publicação.
 - As fontes que foste buscar, se a biblioteca não chegava.
 

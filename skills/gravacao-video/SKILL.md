@@ -1,9 +1,9 @@
 ---
 name: gravacao-video
-description: "Mini skill para gravar vídeos de um site: teaser, demonstração ou explicação detalhada, com narração em português de Portugal, legendas, cartões de abertura e fecho, cursor visível a mover-se e a clicar, zoom ao que a narração refere e transições. Trabalha por segmentos (guião, voz, gravação, montagem, prova), cada um com regras de qualidade que os scripts da pasta scripts/ aplicam e verificam. Grava o browser com Playwright, usa credenciais só de variáveis de ambiente, gera a voz com uma opção gratuita (Piper pt_PT ou o escalão gratuito do Azure), monta e exporta com ffmpeg. Usar quando se quer mostrar um site ou uma funcionalidade em vídeo. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
+description: "Mini skill para gravar vídeos de um site: teaser, demonstração ou explicação detalhada, com narração em português de Portugal, legendas, cartões de abertura e fecho, cursor visível a mover-se e a clicar, zoom ao que a narração refere e transições. Trabalha por segmentos (guião, voz, gravação, montagem, prova), cada um com regras de qualidade que os scripts da pasta scripts/ aplicam e verificam. Grava o browser com Playwright, usa credenciais só de variáveis de ambiente, gera a voz com uma das vozes gratuitas em português de Portugal (Piper ou o escalão gratuito do Azure), escolhida de ouvido, e guarda cada lacuna da voz para os vídeos seguintes, monta e exporta com ffmpeg. Usar quando se quer mostrar um site ou uma funcionalidade em vídeo. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
 argument-hint: "URL do site, formato (teaser, demo, explicação), estilo (apresentação ou sóbrio) e guião, ou nada para perguntar"
 metadata:
-  estado: demo
+  estado: produção
   tipo: sub
   usa: [humanizar]
   impacto: { ia: 5, seguranca: 0, nuvem: 0, desenvolvimento: 2, web: 10 }
@@ -11,23 +11,49 @@ metadata:
 
 # GravacaoVideo
 
-> **Em desenvolvimento.** Já grava, narra e monta vídeos, mas as regras de voz, ritmo e scroll ainda estão a ser afinadas com cada vídeo feito.
-
-O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 O conhecimento está em `knowledge/ia/multimodal/`: `voz-tts-e-stt.md` para a voz, `gravacao-do-browser-com-playwright.md` para a gravação e `montagem-e-exportacao-com-ffmpeg.md` para a montagem e a exportação. Se `~/.start-project-with-trust/knowledge/ia/multimodal/` tiver uma entrada com o mesmo caminho, vale a pessoal. Os scripts em `scripts/` aplicam essas entradas; o que fizeres fora deles passa pelo passo 3 e fica registado.
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`: cada facto cita o ficheiro da base ou o URL da fonte; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato da Fase 1; sem marcas de escrita de IA no guião, nos títulos e nas legendas; autonomia depois da decisão, com o que só o utilizador pode dar (credenciais, marca, música licenciada) em «Por preencher».
+- Seguem-se as regras comuns de `../orchestrate-sessions/regras.md`: cada facto cita o ficheiro da base ou o URL da fonte; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato que lá está; sem marcas de escrita de IA no guião, nos títulos e nas legendas; autonomia depois da decisão, com o que só o utilizador pode dar (credenciais, marca, música licenciada) em «Por preencher».
 - Credenciais vêm de variáveis de ambiente, lidas pelos scripts. Nunca ficam no guião, no briefing, nos ficheiros do projeto nem no vídeo. Sempre que possível grava-se com uma conta de teste.
 - Licenças antes de instalar: cada ferramenta e cada voz entram só depois de leres a licença na página oficial e de a registares. Um modelo de voz com licença não comercial não entra em vídeos de clientes sem os termos confirmados (ver a entrada de voz).
 - Tu não ouves o áudio. O que os scripts medem (ruído no arranque, fins cortados, pronúncias por rever, silêncios) reportas com números; o que só o ouvido decide (timbre, naturalidade, uma palavra mal dita) pedes ao utilizador que ouça, e dizes-lhe em que frases.
 - O modelo e o effort seguem `../orchestrate-sessions/modelo-e-effort.md`: o guião e o desenho das transições são «Design e interface» ao nível pedido; a gravação e a montagem são «Construir»; a leitura de documentação é `haiku low`.
 
+## Âmbito
+
+Sabe fazer, com as três entradas de `ia/multimodal/`: vídeos de um site gravados no browser (teaser, demonstração ou explicação), com narração em português de Portugal por uma voz gratuita, legendas tiradas do guião, cursor, zoom, cartões e transições, exportados em MP4; e corrigir a voz de um vídeo que fez, frase a frase.
+
+Não sabe fazer:
+
+| Pedido | Para onde vai |
+|---|---|
+| Filmagem com pessoas ou câmara, avatares, animação feita à mão, vídeo programático (Remotion, Motion Canvas) | fora da base: passo 3, com a documentação e a licença oficiais lidas antes de usar |
+| Gravar uma aplicação de secretária ou o ecrã fora do browser | fora da base: o Playwright só grava o browser; passo 3 |
+| Transcrever ou legendar um vídeo que já existe | `ia-aplicada` (voz e reconhecimento de fala) |
+| Corrigir o site para ficar bem no vídeo (um ecrã partido, um texto errado) | `design-ux` ou `boas-praticas-codigo`, antes de gravar |
+| Animação ou 3D dentro do próprio site | `design-3d-motion` |
+
+Pedidos que se confundem:
+- «Um vídeo do site»: uma demonstração gravada no browser, sim; um vídeo promocional com filmagens ou animação feita à mão, não.
+- «Legendas»: as do vídeo que esta skill grava, tiradas do guião, sim; legendar um vídeo que já existe, não (`ia-aplicada`).
+- «Uma voz melhor»: escolher entre as vozes gratuitas e corrigir as lacunas no `voz.json`, sim; uma voz paga só a pedido, com o custo dito à partida.
+- «Animação»: cursor, zoom e transições na montagem, sim; animação dentro do site, não (`design-3d-motion`).
+
+Quando parte do pedido é de outra skill, segue `../orchestrate-sessions/regras.md`: diz qual e porquê; chamada por uma mãe, devolve-lhe essa parte; sozinha, recomenda-a.
+
 ## 1. O que vamos gravar?
 
-Se o pedido já o diz, passa ao passo 2. Se não, pergunta numa só pergunta: o URL, o que mostrar, o público, se é preciso login (e em que variáveis de ambiente estão as credenciais), o formato e o estilo.
+Se o pedido, ou o briefing da mãe, já diz o site, o que mostrar e o formato, passa ao passo 2. Se não, pergunta só o que falta, uma coisa de cada vez, no formato de `../orchestrate-sessions/regras.md`, e pára quando tiveres as três:
+
+1. **O site e o que mostrar:** o URL e o percurso ou a funcionalidade. Se o site pede login, em que variáveis de ambiente estão as credenciais de uma conta de teste.
+2. **Para quem e para quê:** quem nunca usou o site, quem o vai usar a seguir, ou quem decide se o compra.
+3. **O formato**, do mais curto ao mais longo: `teaser` (até 30 s), `demonstracao` (1 a 3 min) ou `explicacao` (3 a 10 min). Recomenda pelo objetivo: o teaser para apresentar, a demonstração para mostrar uma funcionalidade, a explicação para quem vai usar o sistema.
+
+No máximo quatro perguntas (a do login só se o site o pedir). O estilo é o de apresentação, salvo se o utilizador pedir o sóbrio, e a voz escolhe-se de ouvido no passo 4.2.
 
 Formatos. O formato define a duração e o ritmo (a fala, as pausas e a velocidade do cursor):
 
@@ -43,16 +69,11 @@ Estilos:
 
 ## 2. Ler só o que interessa
 
-Lê as três entradas de `ia/multimodal/`. Na de voz, aplica a linha «Para uma skill»: primeiro uma voz local gratuita (Piper, voz `pt_PT-tugão-medium`), depois o escalão gratuito do Azure com uma voz pt-PT; conta os caracteres do guião face ao limite mensal do escalão gratuito. Nas de gravação e montagem, lê as linhas «Para uma skill» e as armadilhas conhecidas (escala a 2x, scripts de início antes do `<head>`, sites de página única em que a navegação não cria documento novo, sites que limpam os filhos de `<html>`, diálogos na camada de topo, `scroll-behavior: smooth`, caminhos com acentos no Piper, fins de frase cortados pelo Piper).
+Lê as três entradas de `ia/multimodal/`. Na de voz, aplica a linha «Para uma skill»: as vozes gratuitas vêm primeiro (a do Piper, `pt_PT-tugão-medium`, e as pt-PT do escalão gratuito do Azure), e a escolha faz-se de ouvido no passo 4.2; com o Azure, conta os caracteres do guião face ao limite mensal do escalão gratuito. As vozes pagas ficam na entrada, para quem quiser pagar. Nas de gravação e montagem, lê as linhas «Para uma skill» e as armadilhas conhecidas (escala a 2x, scripts de início antes do `<head>`, sites de página única em que a navegação não cria documento novo, sites que limpam os filhos de `<html>`, diálogos na camada de topo, `scroll-behavior: smooth`, caminhos com acentos no Piper, fins de frase cortados pelo Piper).
 
 ## 3. Se a biblioteca não tem a resposta
 
-Os scripts cobrem gravação, narração com Piper ou Azure, montagem e exportação em MP4. Quando precisares de algo fora disso (outra voz, música, outro formato de saída, uma ferramenta de vídeo programático como Remotion ou Motion Canvas), antes de instalar ou usar:
-
-1. Lê a documentação oficial e a licença no site do próprio projeto. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
-2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md`. Um facto `baixa` não serve de base.
-3. Regista antes de usar: numa cópia git do repositório, propõe uma entrada nova ou uma edição em `ia/multimodal/` no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com aprovação; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/ia/multimodal/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`, com o texto anterior no «Histórico». Se mudaste um script de `scripts/`, a alteração entra na skill com a razão no commit.
-4. Diz ao utilizador que fontes leste, que licenças confirmaste e o que registaste.
+Os scripts cobrem gravação, narração com Piper ou Azure, montagem e exportação em MP4. Para algo fora disso (outra voz, música, outro formato de saída, uma ferramenta de vídeo programático como Remotion ou Motion Canvas), segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de instalar ou usar, com o registo em `ia/multimodal/`. Fontes oficiais: a documentação e a licença no site do próprio projeto; diz também que licenças confirmaste. Se mudaste um script de `scripts/`, a alteração entra na skill com a razão no commit.
 
 ## Onde fica cada coisa
 
@@ -61,7 +82,7 @@ Tudo vive em `video/<nome-do-video>/`, no projeto:
 - `guiao.json`: o que os scripts leem (ver o passo 4.1);
 - `estudio.mjs`, `narrar.mjs`, `montar.mjs`, `comum.mjs` e `pronuncias.json`: cópias de `scripts/` desta skill, sem alterações;
 - `gravar.mjs`: o script deste vídeo, escrito sobre o estúdio; lê as credenciais do ambiente;
-- `audio/`: um ficheiro por frase (`<passo>-<n>.wav`), `duracoes.json`, a narração completa e `tomadas/`, com todas as tomadas de cada frase;
+- `audio/`: um ficheiro por frase (`<passo>-<n>.wav`), `duracoes.json`, a narração completa, `tomadas/`, com todas as tomadas de cada frase, e `vozes/`, com a frase de teste dita por cada voz gratuita;
 - `escuta.md`: a folha de escuta, com as frases numeradas e o tempo de cada uma no vídeo;
 - `gravacao/`: o vídeo bruto, uma captura JPEG por passo, `tempos.json` (o relógio da gravação) e `filtro.txt` (o filtro ffmpeg usado);
 - `legendas.srt`: geradas a partir do guião;
@@ -94,6 +115,8 @@ Regras de qualidade:
 
 ### 4.2 Voz
 
+Antes de narrar, se o `guiao.json` ainda não tem `voz`, corre `node narrar.mjs --vozes`. O script diz a primeira frase do guião com cada voz gratuita em português de Portugal e grava-a em `audio/vozes/<voz>.wav`. As vozes do Azure só entram com `AZURE_SPEECH_KEY` e `AZURE_SPEECH_REGION`; sem elas, o script diz que as saltou. Pede ao utilizador que as ouça e escolha. A escolhida vai para `motorVoz` e `voz` no `guiao.json`. Num vídeo de cliente só entram vozes cuja licença, na entrada de voz, permite uso comercial; uma licença não comercial só serve para vídeos que não são de clientes.
+
 `node narrar.mjs` gera um ficheiro por frase e `audio/duracoes.json`. Faz isto antes de gravar: a gravação usa as durações para encaixar cada frase. Só narra o que falta ou mudou; o que já estava bom fica como está.
 
 O script trata de:
@@ -102,14 +125,37 @@ O script trata de:
 - cortar o que vem antes da fala, entrar e sair com um desvanecer curto (mais longo quando o modelo cortou a última vogal) e nivelar o volume entre frases;
 - abrandar a fala conforme o formato.
 
-Os dicionários de pronúncias são três, e o mais específico ganha: `pronuncias.json` da skill (para todos), `~/.start-project-with-trust/pronuncias.json` (o que esta pessoa ensinou, e que vale para todos os vídeos dela) e `pronuncias` no `guiao.json` (só deste vídeo).
+As correções vêm de três sítios, e a mais específica ganha: `pronuncias.json` da skill (para todos), `~/.start-project-with-trust/voz.json` (o que esta pessoa ensinou e as lacunas que apontou, para todos os vídeos dela; o `pronuncias.json` pessoal antigo continua a ser lido) e `pronuncias` no `guiao.json` (só deste vídeo).
+
+O `voz.json` tem duas partes:
+
+```json
+{
+  "pronuncias": { "INE": "iné" },
+  "lacunas": [
+    { "tipo": "estrangeirismo", "termo": "Commons", "diz": "cómons", "visto": "dados-gov-demo, frase 9, 2026-11-25" },
+    { "tipo": "fim-cortado", "voz": "pt_PT-tugao-medium", "termo": "aberta", "tomadas": 8, "visto": "dados-gov-demo, frase 3, 2026-11-25" }
+  ]
+}
+```
+
+- `tipo`: `pronuncia`, `estrangeirismo`, `palavra-comida`, `entoacao`, `fim-cortado` ou `ruido`;
+- `voz`: a voz em que se ouviu. Sem ela, vale para todas (as pronúncias e os estrangeirismos não dependem da voz);
+- `termo`: a palavra ou o trecho onde se ouviu; numa lacuna `fim-cortado`, a última palavra da frase. Sem termo, vale para todas as frases dessa voz;
+- a correção: `diz`, como a voz o deve dizer (as legendas ficam com o texto do guião), ou `tomadas`, quantas tomadas gerar nas frases onde aparece;
+- `visto`: o vídeo, a frase e a data.
+
+O `narrar.mjs` aplica-as sozinho: um `diz` entra no texto dito, um `tomadas` sobe as tomadas dessas frases, e as frases que uma lacuna nova toca refazem-se na corrida seguinte. Uma correção `diz` sem `voz` sai igual em todas as vozes. Mais tomadas só ajudam no Piper, que não é determinista, e tornam o defeito menos provável sem o garantir. Se ele voltar, a correção passa a ser de texto.
 
 Corrigir com o utilizador. Ele ouve o vídeo com `escuta.md` ao lado e aponta o problema pelo número da frase ou pelo tempo. A cada tipo de reparo corresponde um comando:
 
 | O que ele diz | O que fazes |
 |---|---|
-| Uma palavra soa mal, ou devia soar de certa maneira | `node narrar.mjs --ensinar "palavra=como se diz"`: guarda a pronúncia no dicionário pessoal e refaz só as frases que a usam |
-| Uma frase saiu mal (palavra comida, entoação, ruído, fim cortado) | `node narrar.mjs --frase 9`: gera tomadas novas só para essa frase |
+| Uma palavra soa mal, ou um termo estrangeiro | `node narrar.mjs --lacuna 9 pronuncia "palavra=como se diz"` (ou `estrangeirismo`): fica no `voz.json` e refaz as frases que a usam, neste vídeo e nos seguintes |
+| A entoação errada num trecho | `node narrar.mjs --lacuna 9 entoacao "trecho=o trecho com outra pontuação"` |
+| Uma palavra comida | `node narrar.mjs --lacuna 9 palavra-comida palavra` (mais tomadas nas frases que a têm), ou `"palavra=outra grafia"` |
+| O fim cortado, ou ruído antes da fala | `node narrar.mjs --lacuna 9 fim-cortado` (mais tomadas nas frases que acabam na mesma palavra) ou `node narrar.mjs --lacuna 9 ruido` (mais tomadas em todas as frases desta voz) |
+| Uma frase saiu mal só desta vez | `node narrar.mjs --frase 9`: gera tomadas novas só para essa frase |
 | Prefere outra tomada | `node narrar.mjs --frase 9 --tomada 3`: fica com a tomada 3, sem gerar nada |
 | O fim continua cortado em todas as tomadas | muda a última palavra da frase no guião e corre `node narrar.mjs` |
 | O timbre ou a naturalidade | não se corrige neste motor: propõe outra voz |
@@ -120,8 +166,9 @@ Regras de qualidade:
 - **Zero avisos de pronúncia** antes de gravar: reescreve a frase em português ou ensina a pronúncia.
 - Reporta quantas frases ficaram com o fim cortado e com ruído retirado (as frases acabadas em vogal átona são as que o Piper mais corta).
 - **Pede ao utilizador que ouça** o vídeo com a folha de escuta antes de dar a voz como boa, e indica-lhe as frases com pronúncias e as que ficaram com o fim cortado.
-- Para vídeos de clientes, ou quando o utilizador não fica satisfeito com o Piper, propõe o Azure: `"motorVoz": "azure"` e `"voz": "pt-PT-RaquelNeural"` (ou `pt-PT-DuarteNeural`, `pt-PT-FernandaNeural`). Fica em «Por preencher»: as variáveis `AZURE_SPEECH_KEY` (a chave do recurso Speech, no portal do Azure, em «Keys and Endpoint») e `AZURE_SPEECH_REGION` (a região do recurso, por exemplo `westeurope`). O caminho Azure do script segue a documentação da API REST mas ainda não correu com uma chave real: na primeira vez, confirma um ficheiro antes de narrar tudo.
-- Se nem o Piper nem o Azure servem, a entrada de voz tem também a API da Fish Audio, paga à utilização e com um modelo a 0 USD. O português não está confirmado nas páginas dela e o `narrar.mjs` ainda não a suporta: entra pelo passo 3, com uma frase de teste que o utilizador ouve antes de narrar tudo, e com a licença confirmada (o plano gratuito da aplicação é só para uso não comercial).
+- Cada reparo que possa voltar fica como lacuna no `voz.json`, e não só como tomada nova.
+- As vozes do Azure (`"motorVoz": "azure"`, com `pt-PT-RaquelNeural`, `pt-PT-DuarteNeural` ou `pt-PT-FernandaNeural`) entram na frase de teste quando há chave. Fica em «Por preencher»: as variáveis `AZURE_SPEECH_KEY` (a chave do recurso Speech, no portal do Azure, em «Keys and Endpoint») e `AZURE_SPEECH_REGION` (a região do recurso, por exemplo `westeurope`). O caminho Azure do script segue a documentação da API REST mas ainda não correu com uma chave real: na primeira vez, confirma um ficheiro antes de narrar tudo.
+- Se nenhuma voz gratuita serve, as pagas ficam na entrada de voz, para quem quiser pagar, e só entram a pedido do utilizador, com o custo dito à partida. Entre elas está a API da Fish Audio, paga à utilização e com um modelo a 0 USD. O português não está confirmado nas páginas dela e o `narrar.mjs` ainda não a suporta: entra pelo passo 3, com uma frase de teste que o utilizador ouve antes de narrar tudo, e com a licença confirmada (o plano gratuito da aplicação é só para uso não comercial).
 
 ### 4.3 Gravação
 
@@ -173,7 +220,7 @@ Cola os comandos corridos, as durações e os caminhos dos ficheiros.
 ## Relatório
 
 - O formato, o estilo, a duração e o guião final.
-- As ferramentas e a voz usadas, com a licença de cada uma e a fonte.
+- As ferramentas e a voz usadas, com a licença de cada uma e a fonte, e as lacunas registadas no `voz.json` neste vídeo.
 - As provas, segmento a segmento, com os números; e o que fica para o ouvido do utilizador.
 - As entradas novas registadas e o que ficou por preencher.
 

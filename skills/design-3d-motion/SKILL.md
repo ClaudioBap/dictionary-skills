@@ -11,22 +11,52 @@ metadata:
 
 # Design3dMotion
 
-O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 O conhecimento está em `knowledge/3d-webgl/`, com a base de interface em `knowledge/design/`. Se `~/.start-project-with-trust/knowledge/3d-webgl/` tiver uma entrada com o mesmo caminho, vale a pessoal. A interface à volta (layout, formulários, navegação) é da `design-ux`.
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`: cada facto cita o ficheiro da base ou o URL da fonte; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato da Fase 1; sem marcas de escrita de IA no que se entrega; autonomia depois da decisão, com o que só o utilizador pode dar (modelos 3D finais, texturas, marca) em «Por preencher».
+- Seguem-se as regras de `../orchestrate-sessions/regras.md`: cada facto cita o ficheiro da base ou o URL da fonte; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato das perguntas; sem marcas de escrita de IA no que se entrega; autonomia depois da decisão, com o que só o utilizador pode dar (modelos 3D finais, texturas, marca) em «Por preencher».
 - Nível e modelo: 3D, WebGL e scroll com motion são o nível «topo» da linha «Design e interface» de `../orchestrate-sessions/modelo-e-effort.md`: `fable medium`, ou `opus high` sem Fable. Uma animação CSS simples num elemento é nível «profissional» (`opus medium`); diz ao utilizador quando baixas o nível e porquê.
 - Movimento só com `prefers-reduced-motion` respeitado e com alternativa estática. Base: `acessibilidade-e-movimento.md`.
 - O orçamento de desempenho de `orcamento-de-desempenho-3d.md` tem de se cumprir e conta como critério de sucesso.
 
+## Âmbito
+
+Sabe fazer, com base em `3d-webgl/` e nas entradas de `design/` do passo 2:
+- cenas e objetos 3D no browser com three.js, ou React Three Fiber num projeto React, com materiais PBR e luz;
+- o caminho de um modelo do Blender ao glTF comprimido;
+- animação em CSS e SVG, animação ligada ao scroll e transições entre vistas;
+- movimento acessível (`prefers-reduced-motion`, alternativa parada, alternativa sem WebGL) com orçamento de desempenho medido;
+- um mundo 3D movido por eventos reais de agentes de IA.
+
+Não sabe fazer, e para onde vai:
+- o layout, os formulários, a navegação e o SEO à volta da cena: `design-ux`;
+- medir uma cena que já existe, sem a mudar: `performance-verifier`;
+- o portal de agentes inteiro, com contas, perguntas e notas: `portal-de-agentes`; o servidor e os eventos que alimentam o mundo: `backend-dados`;
+- um vídeo do site ou da cena: `gravacao-video`;
+- modelar ou texturizar o modelo final do cliente (a skill usa um de substituição), personagens com esqueleto e animação, jogos completos, realidade virtual ou aumentada (WebXR), renders para vídeo ou impressão: fora da base. Se o utilizador quiser avançar, segue o passo 3 com as fontes oficiais (documentação da biblioteca, Khronos Group, W3C) e diz-lhe que a base não o cobre.
+
+Pedidos que se confundem:
+- «Animação»: micro-interações de botões e transições de estado num ecrã são da `design-ux` (`botoes-movimento-e-micro-interacoes.md`); movimento ligado ao scroll, animação de SVG e transições entre vistas, desta skill.
+- «3D»: um objeto ou uma cena que corre no browser, sim; um render ou um vídeo 3D para pôr na página, não, porque produzir o render fica fora da base e mostrar o ficheiro é da `design-ux` (`otimizacao-de-imagens-e-media.md`).
+- «Experiência de topo»: a parte com 3D e movimento, sim; a interface completa à volta, não: `design-ux`, ao mesmo nível.
+- «Ver o que os agentes fazem»: a cena e a metáfora, sim; o portal com contas, perguntas à distância e notas, não: `portal-de-agentes`.
+
+Quando parte do pedido é de outra skill, segue o padrão de `../orchestrate-sessions/regras.md`: diz qual e porquê; chamada por uma mãe, devolve-lhe essa parte; sozinha, recomenda a skill e continua com a tua parte.
+
 ## 1. O que vamos criar, e justifica-se 3D?
 
-Se o pedido já o diz, passa ao passo 2. Se não, pergunta numa só pergunta: a experiência (cena 3D, produto rotativo, fundo animado, secção com scroll e motion, animação de SVG), onde entra no site, que dispositivos tem de servir e o que o utilizador quer que a pessoa sinta ou perceba.
+Se o pedido já diz a experiência, onde entra e o que a pessoa deve sentir ou perceber, ou se uma mãe te chamou com isso no plano de delegação, passa ao passo 2. Se não, faz um pequeno «grill me» no formato de `../orchestrate-sessions/regras.md`: uma pergunta de cada vez, só as que faltam, no máximo quatro, cada uma com opções e uma recomendação. Pára quando tens o que precisas.
+1. **A experiência e onde entra:** animação de SVG, fundo animado, secção com scroll e motion, produto que roda, cena 3D ou mundo movido por agentes, e em que página ou vista.
+2. **O que a pessoa deve sentir ou perceber:** é a frase que `3d-na-web-quando-e-porque.md` exige antes de propor 3D.
+3. **A técnica**, da mais barata à mais cara, pela escala dessa entrada: CSS ou SVG, animação ligada ao scroll, WebGL com three.js, cena com modelos do Blender. Recomenda a mais barata que dá o efeito, com o 3D como opção seguinte.
+4. **Dispositivos:** em que aparelhos tem de funcionar; é a lista do passo 4.
 
-Antes de desenhar, aplica `3d-na-web-quando-e-porque.md`: se o mesmo efeito se consegue com CSS ou SVG, propõe isso primeiro como opção mais barata, no formato da Fase 1, com o 3D como opção seguinte.
+Se uma resposta cai fora do «Âmbito», diz para onde vai antes da pergunta seguinte.
+
+Antes de desenhar, aplica `3d-na-web-quando-e-porque.md`: se o mesmo efeito se consegue com CSS ou SVG, propõe isso primeiro como opção mais barata, no formato de `../orchestrate-sessions/regras.md`, com o 3D como opção seguinte. A exceção é o nível topo: o utilizador decidiu a 2026-11-13 que, quando escolhe topo para uma interface, o 3D e o movimento ligados ao tema estão decididos. Nesse caso não se faz a pergunta 3, e só se decide onde o 3D entra, nunca em formulários, tabelas ou texto denso.
 
 Se o produto tem agentes de IA a trabalhar e o utilizador quer vê-los, propõe o mundo 3D movido por eventos de `mundo-3d-movido-por-agentes.md` só quando mostra algo que uma lista de estados não mostra, e propõe a metáfora a partir do que o produto é. Para escolher o mundo de cada público e os papéis dos bonecos, lê `knowledge/portais-de-agentes/um-mundo-por-publico.md` e `knowledge/portais-de-agentes/papeis-e-aspeto-dos-agentes.md`. Um portal inteiro, com contas, perguntas e notas, é da `portal-de-agentes`.
 
@@ -44,16 +74,11 @@ Não leias o que o pedido não toca.
 
 ## 3. Se a biblioteca não tem a resposta
 
-Quando nenhuma entrada cobre o que o utilizador precisa (uma técnica, uma biblioteca, um formato), ou a entrada está desatualizada:
-
-1. Escolhe as fontes oficiais primárias (a documentação da biblioteca, o Khronos Group para glTF e WebGL, o W3C e a documentação do browser para scroll-driven animations e `prefers-reduced-motion`) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida.
-2. Dá a cada facto a confiança segundo os critérios de `../update-knowledge/SKILL.md`. Um facto `baixa` não serve de base.
-3. Regista antes de construir: numa cópia git do repositório, propõe a entrada nova em `3d-webgl/` no formato do passo 3 de `../update-knowledge/SKILL.md`, e só a escreves com aprovação; fora disso, no conhecimento pessoal (`~/.start-project-with-trust/knowledge/3d-webgl/<slug>.md`, fonte em `FONTES.md` pessoal, linha no `CHANGELOG.md` pessoal). Se o que encontraste substitui o que uma entrada diz, segue a regra de edição da `update-knowledge`, com o texto anterior no «Histórico».
-4. Diz ao utilizador que fontes leste e o que registaste.
+Quando nenhuma entrada cobre o que o utilizador precisa (uma técnica, uma biblioteca, um formato), ou a entrada está desatualizada, segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de construir, com o registo em `3d-webgl/`. Fontes oficiais deste tema: a documentação da biblioteca, o Khronos Group para glTF e WebGL, e o W3C e a documentação do browser para scroll-driven animations e `prefers-reduced-motion`.
 
 ## 4. Construir e provar
 
-- Decisões (biblioteca, formato de asset, CSS ou WebGL, carregar logo ou a pedido): opções da mais barata à mais cara, com a base e uma recomendação, no formato da Fase 1.
+- Decisões (biblioteca, formato de asset, CSS ou WebGL, carregar logo ou a pedido): opções da mais barata à mais cara, com a base e uma recomendação, no formato das perguntas.
 - Dispositivos: acorda com o utilizador a lista em que se mede (inclui sempre um telemóvel de gama média e um portátil sem placa gráfica dedicada) e regista-a no guião da prova; sem a lista, as medições não contam.
 - Assets: quando é preciso um modelo 3D, segue `pipeline-blender-gltf.md`; o modelo final do cliente fica em «Por preencher» e usa-se um modelo de substituição marcado como tal.
 - Carregamento: a cena carrega a pedido ou depois do conteúdo principal, com um estado de carregamento visível, para a página servir quem não vai ver o 3D.

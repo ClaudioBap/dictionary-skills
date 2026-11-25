@@ -2,20 +2,19 @@
 
 ## O que faz
 
-Divide um trabalho em tarefas e distribui-as por sessões do Claude a correr ao mesmo tempo, cada uma com a mini skill certa. A sessão que a corre é o orquestrador: pergunta quantas sessões se querem em paralelo e onde usar subagentes, dá a cada tarefa o modelo e o effort mais baratos que a fazem (`modelo-e-effort.md`), escreve os briefings e recolhe as saídas com prova. O estado fica em `orquestracao/<trabalho>/sessoes.md`, por isso o trabalho pára e retoma onde ficou.
+É por onde se começa um trabalho. Primeiro faz um questionário, uma pergunta de cada vez, até não haver dúvidas sobre o que se quer, e tira dele um plano de delegação: que skills entram e quando, o nível de autonomia, quantas sessões do VS Code se abrem e quantos agentes corre cada uma. Depois divide o trabalho em tarefas e distribui-as por essas sessões, cada uma com a mini skill certa. A sessão que a corre é o orquestrador: dá a cada tarefa o modelo e o effort mais baratos que a fazem (`modelo-e-effort.md`), escreve os briefings e recolhe as saídas com prova. O estado fica em `orquestracao/<trabalho>/sessoes.md`, por isso o trabalho pára e retoma onde ficou.
 
 ## Quando usar
 
+- Começar um trabalho, sobretudo com um pedido vago ou que toca mais de uma skill: o questionário percebe o que se quer, e o plano de delegação diz que skills entram.
 - Um trabalho grande que se divide em partes independentes.
-- A Fase 4 de um projeto da `start-project-with-trust`, com o plano já aprovado.
 - Quando o trabalho deve continuar sozinho depois de um limite de uso (modo contínuo).
 - Para saber quanto custou cada sessão e que tarefas pediram um modelo acima do previsto.
 
 ## Quando não usar
 
-- Uma tarefa que uma sessão faz sozinha: cada sessão nova paga o arranque a ler o contexto do projeto.
-- Tarefas que mexem todas nos mesmos ficheiros: nunca há mais sessões do que grupos independentes, e aqui haveria um só.
-- Descobrir o que o cliente quer: `start-project-with-trust`.
+- Um pedido claro que cabe numa só skill: chama-se essa skill, que faz o seu pequeno questionário se faltar alguma coisa.
+- O arranque de um projeto de cliente com goal-loop e os verificadores do plano e da entrega: a `start-project-with-trust`, que está em testes e se instala pelo nome.
 
 ## Exemplo: a fase 1 do site de notícias
 

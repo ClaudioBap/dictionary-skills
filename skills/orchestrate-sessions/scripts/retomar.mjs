@@ -126,7 +126,7 @@ Lê, por esta ordem: plano.md (se existir), sessoes.md ou custo-beneficio.md, es
 
 Depois continua:
 1. Para cada tarefa «em curso» em estado.json: se a saída existe e tem as provas pedidas no briefing, confirma as que puderes reproduzir e marca «feito»; se não existe, relança-a com a ferramenta Agent, com o modelo indicado em estado.json e o pedido «lê o briefing <caminho> e executa-o até ao fim», dizendo-lhe para começar por ver o que já está feito no disco.
-2. Lança as tarefas «por fazer» cujas dependências estão feitas. Se o briefing ainda não existe, escreve-o a partir do plano e das saídas anteriores, no estilo dos briefings que já lá estão. Em paralelo, só tarefas de sessões diferentes. As tarefas da sessão 0 fazes tu.
+2. Lança as tarefas «por fazer» cujas dependências estão feitas. Se o briefing ainda não existe, escreve-o a partir do plano e das saídas anteriores, no estilo dos briefings que já lá estão. Em paralelo, só tarefas de sessões diferentes, e em lotes de 3 a 4, para um limite de uso levar só o que está a meio. Cada subagente grava a saída que o briefing indica antes de devolver. As tarefas da sessão 0 fazes tu.
 3. No fim de cada onda, corre os verificadores que o plano ou os briefings indicam e faz um commit local por repositório com o que essa onda mudou, se o nível de autonomia em «Decisões» o permitir.
 4. Atualiza estado.json e sessoes.md a cada tarefa. Acrescenta uma linha a «Pausas e retomas».
 5. Quando todas as tarefas estiverem feitas, põe "terminado": true em estado.json.

@@ -2,7 +2,7 @@
 
 O que denuncia que um texto, um código ou uma interface foi feito por uma ferramenta, e o que uma pessoa da equipa faria no lugar. Cada marca tem a indicação de quem a apanha: **V** o verificador `scripts/humanizar.mjs`, por padrão; **L** só a leitura da skill, porque depende do contexto.
 
-As marcas de texto repetem a regra «Sem marcas de escrita de IA» da `start-project-with-trust`, que continua a valer em todas as skills. As outras secções acrescentam o que essa regra não cobria.
+As marcas de texto repetem a regra «Sem marcas de escrita de IA» de `../orchestrate-sessions/regras.md`, que vale em todas as skills. As outras secções acrescentam o que essa regra não cobria.
 
 ## Texto
 
@@ -152,3 +152,12 @@ Corrigir as marcas só por subtração (sem sombras, sem cantos, sem movimento, 
 | CHANGELOG que repete o diff | O que muda para quem usa | L |
 | Documentação que explica o óbvio e cala o difícil (como configurar, o que falha, porquê esta decisão) | O que a pessoa seguinte não consegue descobrir sozinha | L |
 | Datas, versões e nomes inventados em exemplos | Os reais, ou marcados como exemplo | L |
+
+## Convenções da casa
+
+Neste repositório, há duas marcas que são convenção e não se corrigem:
+
+- `titulo-subtitulo` nos títulos «# Exemplos: <skill>» e «## Exemplo: <caso>» dos `EXEMPLOS.md`, que é o formato desses ficheiros;
+- `simbolos` no ✓ e no ✗ que os verificadores imprimem, porque o `CONTRIBUTING.md` pede que terminem em ✓, e nos ficheiros que citam ou definem as marcas, como este e o `humanizar.mjs`.
+
+Para verificar as skills sem esse ruído: `node skills/humanizar/scripts/humanizar.mjs skills --permitir titulo-subtitulo,simbolos`. Num projeto de cliente, as convenções são as do projeto e passam-se da mesma forma.

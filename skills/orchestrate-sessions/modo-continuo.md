@@ -4,7 +4,7 @@ Trabalhar até o plano estar feito, mesmo quando o limite de uso pára as sessõ
 
 ## O que a skill pergunta antes de arrancar
 
-Três perguntas, uma de cada vez, no formato da Fase 1 da `start-project-with-trust`. As respostas ficam em «Decisões» de `sessoes.md` (ou de `custo-beneficio.md`).
+Três perguntas, uma de cada vez, no formato de `regras.md`. A primeira, o nível de autonomia, faz-se em todos os trabalhos, como parte 2 do plano de delegação (`SKILL.md`); as outras duas, só quando o trabalho deve continuar sozinho. As respostas ficam em «Decisões» de `sessoes.md` (ou de `custo-beneficio.md`).
 
 1. **Nível de autonomia**, do mais cauteloso ao mais autónomo:
 

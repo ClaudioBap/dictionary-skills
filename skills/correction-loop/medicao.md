@@ -287,3 +287,7 @@ Dois agentes novos em Opus 5.5, ao mesmo tempo, cada um com uma cópia do mesmo 
 Os dois corrigiram a causa na função partilhada, encontraram o commit culpado, e corrigiram também valores que o arredondamento original já errava (4,015, 20,295, 2,135). A skill acrescentou a localização pelo meio (quatro versões testadas), a comparação de três formas de corrigir, a correção num ramo com commit e a árvore com as provas. A prompt simples deixou as alterações por fazer commit.
 
 Conclusão: num erro pequeno com um teste que o mostra, a skill não chega mais depressa; é 2,3 vezes mais lenta e custa cerca do dobro, pelo tempo de ler as instruções e pelo rigor que impõe. Os casos em que os métodos de localização poderiam compensar (sem teste que mostre o erro, teste instável, histórico longo, falha que só aparece com várias alterações juntas) não foram medidos. Uma corrida por configuração.
+
+## Critério de saída
+
+O utilizador decidiu a 2026-11-25 fechar a skill: fica em testes, sem mais investimento. Só volta a contar se ganhar a uma prompt simples, medida como no ensaio acima (dois agentes novos, o mesmo repositório, o mesmo pedido e testes escondidos), num caso em que a localização por bissecção faz diferença: uma regressão sem nenhum teste que aponte a causa. Ganhar quer dizer o critério já usado nestes ensaios: os mesmos testes escondidos, com pelo menos 20% menos tempo e tokens.

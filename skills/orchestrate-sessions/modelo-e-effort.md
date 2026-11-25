@@ -1,6 +1,6 @@
 # Modelo e effort por tarefa
 
-Cada tarefa leva o modelo e o effort que o nível pedido exige, e não mais. Decidem duas coisas: o tipo de tarefa e o nível de exigência que o utilizador quer para ela. O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; os caminhos `knowledge/` são relativos a ele.
+Cada tarefa leva o modelo e o effort que o nível pedido exige, e não mais. Decidem duas coisas: o tipo de tarefa e o nível de exigência que o utilizador quer para ela. O caminho do conhecimento obtém-se com `node scripts/conhecimento.mjs`, na pasta desta skill; os caminhos `knowledge/` são relativos a ele.
 
 ## Nível de exigência
 

@@ -1,11 +1,12 @@
 ---
 name: start-project-with-trust
-description: Arranca um projeto com um cliente e leva-o até à entrega verificada. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), fecha o marco «Plano aprovado», executa e só termina quando cada critério de sucesso tem prova e o utilizador aceita a entrega. Usar para iniciar ou retomar um projeto. É uma skill mãe, que conduz o projeto e chama as sub skills, na execução pela orchestrate-sessions.
+description: Arranca um projeto com um cliente e leva-o até à entrega verificada. É a versão completa do arranque, com goal-loop e verificadores, e está em testes, por isso só se instala pelo nome. Faz uma descoberta guiada, uma pergunta de cada vez, cruza as necessidades com a base de conhecimento em knowledge/, produz um plano e um plano custo-benefício (com orquestrador e sessões), fecha o marco «Plano aprovado», executa e só termina quando cada critério de sucesso tem prova e o utilizador aceita a entrega. Usar para conduzir um projeto de cliente do arranque à entrega aceite, ou para retomar um que ficou a meio em arranque/. Para qualquer outro trabalho, começa-se pela orchestrate-sessions. É uma skill mãe, que conduz o projeto e chama as sub skills, na execução pela orchestrate-sessions.
 argument-hint: "Nome do projeto, ou nada para retomar o último"
 metadata:
-  estado: produção
+  estado: testes
+  internal: true
   tipo: mãe
-  usa: [orchestrate-sessions, operar, humanizar, documentacao, update-knowledge]
+  usa: [orchestrate-sessions, operar, humanizar, documentacao, update-knowledge, portal-de-agentes]
   impacto: { ia: 7, seguranca: 7, nuvem: 7, desenvolvimento: 7, web: 7 }
 ---
 
@@ -17,68 +18,25 @@ Conduz um projeto do arranque à entrega verificada, sempre por esta ordem:
 2. **Plano com o que temos**: cruzar as necessidades com `knowledge/`.
 3. **Plano custo-benefício**: opções, orquestrador e sessões.
 4. **Goal-loop**: voltar a perguntar até não haver nada em aberto e o utilizador confirmar. Termina no marco **«Plano aprovado»**.
-5. **Fase 4 — Execução**: fazer cada ação do plano.
-6. **Fase 5 — Verificação**: provar cada critério de sucesso, incluindo a publicação e os acessos, até o utilizador aceitar a entrega.
+5. **Execução (Fase 4)**: fazer cada ação do plano.
+6. **Verificação (Fase 5)**: provar cada critério de sucesso, incluindo a publicação e os acessos, até o utilizador aceitar a entrega.
 
 O goal-loop só fecha com a entrega verificada (`Concluído`), não com o plano.
 
-Os caminhos `modelos/`, `scripts/` e `PERGUNTAS.md` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+Os caminhos `modelos/` e `scripts/` são relativos à pasta deste `SKILL.md`. As regras comuns, o formato das perguntas e as perguntas obrigatórias estão na `orchestrate-sessions`, instalada ao lado, em `../orchestrate-sessions/regras.md` e `../orchestrate-sessions/PERGUNTAS.md`. O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
-**Conhecimento pessoal.** Além da base partilhada em `knowledge/`, cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/` (no Windows, `%USERPROFILE%\.start-project-with-trust\`), fora da pasta da skill para não se perder num `npx skills update`. Guarda as fontes oficiais e as práticas que a skill foi buscar para o tipo de trabalho dessa pessoa:
-- `perfil.md`: os tipos de trabalho do utilizador (domínios, tecnologias, setores), atualizados a cada projeto;
-- `FONTES.md`: as fontes pessoais por tema, no formato do `knowledge/FONTES.md`;
-- `knowledge/<secção>/<slug>.md`: entradas com a mesma estrutura das da base partilhada, e `knowledge/<secção>/ATUALIZACOES.md` para as novidades;
-- `CHANGELOG.md`: uma linha por alteração, só de acrescentar.
-
-O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva fontes públicas e práticas gerais: nada de nomes, dados ou segredos de clientes. A skill `update-knowledge` mantém-no atualizado.
+**Conhecimento pessoal.** Cada utilizador tem um conhecimento pessoal em `~/.start-project-with-trust/`, descrito em «Conhecimento pessoal» de `../orchestrate-sessions/regras.md`, com a regra de nunca levar dados de clientes.
 
 ## Regras em todas as fases
 
-- **Não inventar.** Tudo o que vem do conhecimento cita o ficheiro e a página, por exemplo `knowledge/seguranca/autorizacao-no-servidor.md` (pág. 3), ou, no conhecimento pessoal, o ficheiro em `~/.start-project-with-trust/knowledge/` e o URL da fonte. O que for interpretação tua leva a marca *(interpretação)*.
-- **Os factos são teus, as decisões são do utilizador.** Se um facto se pode verificar no ambiente (ficheiros, repositório, ferramentas), verifica-o tu e não perguntes. As decisões vão sempre ao utilizador.
-- **Uma pergunta de cada vez**, sempre no formato da Fase 1, e espera pela resposta.
-- **O estado vive em ficheiro.** Depois de cada resposta, atualiza os documentos em `arranque/<projeto>/` antes de fazer a pergunta seguinte.
-- **Não saltar fases.** Cada fase termina com validação do utilizador.
-- **Nunca respondes pelo utilizador.** Validações, pressupostos aceites e a confirmação final só se marcam quando o utilizador os deu na própria mensagem.
-- **Sem marcas de escrita de IA no que se entrega.** Código, textos da interface, documentação, mensagens de commit e conteúdos do projeto têm de parecer escritos por uma pessoa da equipa:
-  - sem travessões (— ou –) a ligar frases: usa vírgula, ponto, dois pontos ou parênteses;
-  - sem ponto médio (·) nem outros símbolos decorativos como separadores;
-  - sem emojis em interfaces, logs, comentários ou commits, salvo se o design do cliente os pedir;
-  - títulos com maiúscula só na primeira palavra e nos nomes próprios;
-  - sem fórmulas feitas («é importante notar», «em suma», «não só… mas também», «robusto», «perfeito», «sem complicações») nem enumerações de três só por ritmo;
-  - negrito só onde ajuda a ler, listas só quando há de facto itens;
-  - comentários no código só onde explicam o porquê; nada de narrar o que a linha seguinte faz;
-  - alinhamento e formatação de quem formata o projeto (formatter e linter do repositório), sem alinhar à mão com espaços nem desenhar caixas em ASCII;
-  - sem aberturas e fechos de assistente («Claro!», «Ótima pergunta», «Se precisares de mais alguma coisa…») nem resumos finais que repetem o que já foi dito;
-  - sem a construção «não é X, é Y», sem perguntas retóricas seguidas da resposta («O resultado? …») e sem reticências de suspense;
-  - sem palavras de brochura: «crucial», «fundamental», «poderoso», «intuitivo», «de ponta», «potenciar», «elevar», «desbloquear», «mergulhar», «jornada», «ecossistema», «panorama», «no mundo atual», «em constante evolução»;
-  - sem ressalvas em cascata («pode potencialmente», «de certa forma») nem pontos de exclamação em texto técnico;
-  - sem itens de lista todos no formato «**Termo:** explicação» quando uma frase normal chega;
-  - sem setas (→) nem símbolos (✓, ✨, 🚀) em texto do produto, títulos ou botões;
-  - frases de comprimento variado, sem paralelismos perfeitos nem títulos com dois pontos e subtítulo («Gestão: simples e eficaz»);
-  - uma só variante da língua: em português de Portugal, nada de «você», «tela», «arquivo», «usuário»; e as aspas da convenção do projeto, sem misturar «» com “”;
-  - no código: nomes que dizem o que a coisa é (nada de `data`, `result`, `handleStuff`), sem comentário de cabeçalho em todas as funções, sem `try/catch` que só regista e relança, sem verificações para casos impossíveis, sem logs como «✅ Done!»;
-  - nos commits: mensagem curta no estilo do repositório, sem emojis nem listas longas;
-  - nada de texto de exemplo em produção («Lorem ipsum», «John Doe») nem números ou estatísticas inventados.
-
-  Antes de entregar, corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <pasta>`) sobre o que vai ser entregue e relê o que o verificador não apanha, com o catálogo de `../humanizar/marcas.md`. A correção só se faz com autorização do utilizador, categoria a categoria.
-- **Adotar antes de construir.** Antes de propores desenvolvimento, procura uma plataforma que já resolva a necessidade, ou uma forma de ligar plataformas que sirva de atalho (API, webhooks, MCP, automação). Open source primeiro. Desenvolver de raiz é uma das opções, nunca a única. Se o utilizador preferir desenvolver, segue o desenvolvimento normal.
-- **Autonomia depois da decisão.** Uma decisão do utilizador leva-se até ao fim sem voltar a perguntar o que decorre dela. Se ele decide «o login é pelo Entra», preparas a integração completa (código, configuração, testes, instruções para registar a aplicação) e deixas por preencher só o que não podes saber: identificadores, segredos e URLs do cliente. Esses valores ficam em variáveis de ambiente, com um `.env.example` no repositório e uma linha por valor na secção «Por preencher» de `entrega.md` (nome, para quê, onde se obtém, formato de exemplo), nunca com valores reais. Um bloqueio que só o utilizador resolve não pára o resto: regista-se e continua-se o que não depende dele. As perguntas que surgem na execução juntam-se e fazem-se no fim do trabalho possível, uma de cada vez. O critério de sucesso dessa ação passa a «preenchidos os valores, o fluxo funciona», provado na Fase 5 depois de ele os preencher.
+Seguem-se as regras de `../orchestrate-sessions/regras.md`. Nesta skill, os documentos do trabalho são os de `arranque/<projeto>/`, a lista «Por preencher» fica em `entrega.md` e os valores que o utilizador preencher provam-se na Fase 5.
 
 ## Início
 
-1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Se o utilizador não disser o nome do projeto, pergunta-o.
-1a. **Conhecimento em dia.** Sempre que a skill abre, vê duas datas:
-   - a última atualização da base partilhada: `atualizado_em` de `../update-knowledge/fontes-verificadas.json` (a skill `update-knowledge` instalada ao lado desta); se não existir, a data mais recente de `knowledge/CHANGELOG.md`;
-   - a última atualização local: `atualizado_em` de `~/.start-project-with-trust/fontes-verificadas.json`, se existir.
-
-   Diz ao utilizador as duas datas. Se a mais recente tiver mais de 3 meses, pergunta, no formato da Fase 1, se quer atualizar o conhecimento a partir das fontes antes de começar, e explica que:
-   - as novidades ficam no conhecimento local dele (`~/.start-project-with-trust/`) e esta skill usa-as no plano, para tirar o máximo proveito;
-   - a atualização gasta tokens antes de o desenvolvimento do projeto começar.
-
-   Se aceitar, pede-lhe que corra `/update-knowledge` e depois volte a chamar esta skill, que retoma o projeto onde ficou. Se recusar, continua com o conhecimento que há. Com menos de 3 meses, não perguntes.
+1. A pasta de trabalho é `arranque/<projeto>/`, no diretório atual. Chamada sem nada, pergunta que projeto é, no formato das perguntas: as opções são os projetos que já há em `arranque/`, cada um com o «Estado» do seu `objetivo.md`, o de «Última atualização» mais recente primeiro e recomendado, e um projeto novo. Sem nenhum em `arranque/`, pergunta o nome do projeto. Com um pedido que não é um projeto a conduzir até à entrega aceite (uma tarefa de um tema, uma correção, um trabalho já dividido em tarefas), segue «Pedido vago ou vazio» de `../orchestrate-sessions/regras.md` e só continua aqui se o utilizador quiser o projeto completo.
+1a. **Conhecimento em dia.** Segue «Conhecimento em dia» de `../orchestrate-sessions/regras.md`.
 2. **Se a pasta já existe**, lê `objetivo.md`, diz em que fase o trabalho ficou e retoma a partir daí.
-3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `PERGUNTAS.md`, com o estado `aberta`.
+3. **Se não existe**, cria-a com cópias de `modelos/objetivo.md`, `modelos/necessidades.md`, `modelos/plano.md` e `modelos/custo-beneficio.md`. Depois preenche a tabela «Perguntas obrigatórias» de `objetivo.md` com todas as perguntas de `../orchestrate-sessions/PERGUNTAS.md`, com o estado `aberta`.
 3a. **Conhecimento pessoal.** Se `~/.start-project-with-trust/` existe, lê `perfil.md` e `FONTES.md` para saberes que tipos de trabalho e que fontes o utilizador já tem. Se não existe, cria a pasta com `perfil.md`, `FONTES.md` e `CHANGELOG.md` vazios (só com o título) e diz ao utilizador onde fica e para que serve.
 3b. **Modelo da sessão.** As fases 1 a 3 e o goal-loop são planeamento, que nunca desce de `opus` (`../orchestrate-sessions/modelo-e-effort.md`). Num projeto novo, pergunta no formato da Fase 1 se o utilizador tem acesso ao Fable e aceita o custo dele nos planos e nas tarefas de topo, e regista a resposta em `objetivo.md` como pergunta de seguimento com origem P8. Se a sessão não estiver em `fable` (ou em `opus`, sem Fable), pede-lhe para mudar com `/model` antes da primeira pergunta da descoberta.
 4. **Hooks do goal-loop (só no Claude Code).** Se `.claude/hooks/start-project-with-trust/` ainda não existe no projeto, pergunta ao utilizador se quer instalar os três hooks. Explica-lhe o que cada um faz:
@@ -87,7 +45,7 @@ O conhecimento pessoal nunca é enviado para o repositório da skill. Só leva f
    - **Verificador semântico** (PostToolUse, usa um modelo; funcionalidade experimental do Claude Code): confirma que cada decisão responde de facto ao que o utilizador pediu e não contradiz as restrições dele. Gasta tokens a cada edição desses ficheiros.
 
    Se ele aceitar:
-   1. copia `scripts/verificar.mjs`, `scripts/guarda-hook.mjs`, `scripts/rastreabilidade-hook.mjs` e `PERGUNTAS.md` para `.claude/hooks/start-project-with-trust/`;
+   1. copia `scripts/verificar.mjs`, `scripts/guarda-hook.mjs`, `scripts/rastreabilidade-hook.mjs` e `../orchestrate-sessions/PERGUNTAS.md` para `.claude/hooks/start-project-with-trust/`;
    2. junta as entradas de `scripts/hooks-settings.json` a `hooks.PreToolUse` e `hooks.PostToolUse` em `.claude/settings.json`. Se o ficheiro não existe, cria-o. Se já existe, acrescenta sem apagar nada do que lá está. Se o utilizador recusar só o verificador semântico, não copies o handler `"type": "agent"`;
    3. diz ao utilizador que os hooks normalmente ficam ativos logo, mas que pode confirmar em `/hooks` ou reiniciar a sessão.
 
@@ -98,28 +56,11 @@ Os estados possíveis de cada pergunta em `objetivo.md`:
 - `respondida`: tem resposta concreta.
 - `assumida`: o utilizador aceitou explicitamente um pressuposto, que fica registado na tabela «Pressupostos».
 
-## Fase 1 — Descoberta
+## Fase 1. Descoberta
 
-Faz uma pergunta de cada vez, neste formato:
+Faz uma pergunta de cada vez, no formato das perguntas de `../orchestrate-sessions/regras.md`, e espera pela resposta.
 
-```
-❓ **P9 — Recursos**: <pergunta, com o contexto que já se sabe>
-
-Opções, da mais barata à mais cara:
-1. **<opção>**: <o que implica>. Custo: <valor com fonte, ou baixo/médio/alto *(estimativa)*>
-2. **<opção>**: <o que implica>. Custo: <…>
-3. **<opção>**: <o que implica>. Custo: <…>
-✏️ **Outra**: descreve a tua, se nenhuma servir.
-
-➡️ Recomendação: <número da opção> (<porquê, numa frase>)
-```
-
-- **Opções:** 2 a 4 soluções concretas, ordenadas por custo da mais barata para a mais cara. Inclui sempre a alternativa «Outra», para o utilizador propor a sua.
-- **Custo:** um valor em dinheiro só pode vir do utilizador ou de `knowledge/`, com a fonte indicada. Fora disso, usa a escala relativa marcada como *(estimativa)*. Quando uma opção tem base no conhecimento, cita o ficheiro.
-- **Perguntas sobre factos que só o utilizador sabe** (por exemplo P4 «para quem» ou P7 «prazo»): mostra as respostas típicas como opções. Se o custo não as distingue, escreve «sem impacto direto no custo» em vez de inventar uma ordem.
-- Formula a pergunta de modo a que um «sim» aceite a recomendação. A resposta pode ser o número de uma opção, «sim» ou uma alternativa do utilizador.
-
-**Que pergunta fazer a seguir.** As perguntas obrigatórias de `PERGUNTAS.md` são a base, mas a próxima pergunta depende da resposta anterior:
+**Que pergunta fazer a seguir.** As perguntas obrigatórias de `../orchestrate-sessions/PERGUNTAS.md` são a base, mas a próxima pergunta depende da resposta anterior:
 - se a resposta abre uma dúvida que muda as perguntas seguintes, faz primeiro uma pergunta de seguimento e regista-a em `objetivo.md` como `S<n>`, com a pergunta de origem;
 - se uma resposta já responde a outra pergunta obrigatória, marca essa também como `respondida` e diz ao utilizador que o fizeste;
 - uma resposta vaga não fecha a pergunta: faz um seguimento até ela ser verificável. Por exemplo, «rápido» não chega; «até 2 segundos» chega;
@@ -133,13 +74,14 @@ Opções, da mais barata à mais cara:
 
 Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os tipos de trabalho deste projeto que ainda lá não estão (domínio, tecnologias, setor), sem dados do cliente, e uma linha no `CHANGELOG.md` pessoal.
 
-## Fase 2 — Plano com o que temos
+## Fase 2. Plano com o que temos
 
 1. Lê `knowledge/INDEX.md` e as entradas do conhecimento pessoal em `~/.start-project-with-trust/knowledge/`, incluindo os `ATUALIZACOES.md` pessoais (onde ficam as novidades das fontes da base partilhada encontradas em modo local), e escolhe as relevantes para as necessidades. As pistas «Liga a» de `PERGUNTAS.md` ajudam. Lê esses ficheiros. Se uma entrada pessoal tem o mesmo caminho que uma da base partilhada, vale a pessoal: é a versão já atualizada. As secções podem ter subpastas (por exemplo `knowledge/ia/rag/`).
 1a. **Atalhos antes do código.** Para cada necessidade funcional (tickets, contratos, faturação, CRM, conteúdos, dashboards, formulários, automações…):
    - procura em `knowledge/plataformas/` uma plataforma que a cubra, toda ou em parte, e como se liga ao resto (API, webhooks, MCP);
    - se lá não houver nenhuma adequada, pesquisa nas fontes oficiais (site, documentação ou repositório do próprio projeto) plataformas open source que a cubram. Cita cada URL e marca o resultado como *(pesquisa de <data>, fora de knowledge/)*. Nunca apresentes como oficial um servidor MCP da comunidade;
    - regista os candidatos em `plano.md`, na secção «Plataformas candidatas», com o que cobrem, o que falta e como se ligam. A escolha entre adotar e construir é feita na Fase 3.
+1b. **Portal de agentes.** Se o projeto é um portal onde uma equipa acompanha os seus agentes de IA, chama a `portal-de-agentes`, se estiver instalada (existe `../portal-de-agentes/SKILL.md`). Ela conduz as decisões e a maqueta e devolve um plano por fases, que entra em «Ações» de `plano.md`, cada ação com o seu «Responde a».
 2. Para cada necessidade, escreve em `plano.md`:
    - em «Responde a», os IDs das perguntas de `objetivo.md` (P/S) cujas respostas pedem esta ação. Uma ação que não responde a nenhum pedido não entra no plano;
    - a ação a tomar;
@@ -156,7 +98,7 @@ Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os t
    Diz ao utilizador que fontes foste buscar e o que registaste.
 5. Mostra o resumo do plano e pede validação.
 
-## Fase 3 — Plano custo-benefício
+## Fase 3. Plano custo-benefício
 
 Escreve `custo-beneficio.md` com quatro partes:
 
@@ -187,7 +129,7 @@ Escreve `custo-beneficio.md` com quatro partes:
      «Específico» é uma resposta válida: se P16 diz que é um caso só, recomenda-a e justifica. Nas duas últimas opções, o critério de sucesso é um segundo caso instanciado só com configuração e conhecimento novos, provado na Fase 5. Base: `knowledge/produto/`.
    - **Decisão obrigatória: execução em paralelo e agentes.** Segue os passos 1 a 3 de `../orchestrate-sessions/SKILL.md`, com as ações de `plano.md` como tarefas:
      - escreve cada ação em «Tarefas», com a mini skill de `../orchestrate-sessions/catalogo.md`, o tipo, o nível de exigência que o utilizador pediu para ela (simples, profissional ou topo) e o modelo e o effort que esse tipo e esse nível pedem em `../orchestrate-sessions/modelo-e-effort.md`. Se as necessidades validadas não deixam claro o nível de uma ação, pergunta;
-     - pergunta quantas sessões queres em paralelo, e depois onde usar subagentes (sem agentes, só no orquestrador, em cada sessão ou em todas), cada uma no formato da Fase 1. Regista-as em `objetivo.md` como perguntas de seguimento com origem P7 e P8, e cita-as em «Responde a» desta decisão.
+     - pergunta o nível de autonomia (a tabela de `../orchestrate-sessions/modo-continuo.md`), depois quantas sessões queres em paralelo e onde usar subagentes (sem agentes, só no orquestrador, em cada sessão ou em todas), cada uma no formato da Fase 1. Regista-as em `objetivo.md` como perguntas de seguimento com origem P7 e P8, e cita-as em «Responde a» desta decisão.
 
      Base: `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): só há paralelo quando o trabalho é independente.
 2. **Orquestrador.** Por omissão, o orquestrador é a **sessão 0**, a própria sessão que corre esta skill. Faz cinco coisas:
@@ -247,22 +189,22 @@ O objetivo é a informação toda que foi sendo produzida sobre o projeto: `obje
    - **Sim:** marca a confirmação em `objetivo.md` com o nome do utilizador e a data, e **corre outra vez o verificador, mostrando a saída**. Só com `✓` é que mudas o estado para `Plano aprovado` e passas à Fase 4.
    - **Não:** o que faltar passa a pergunta `aberta`, e voltas ao passo 1.
 
-## Fase 4 — Execução
+## Fase 4. Execução
 
 1. Muda o estado para `Fase 4` e cria `entrega.md` a partir de `modelos/entrega.md`.
 2. Executa as ações do plano pela ordem e com as sessões decididas em `custo-beneficio.md`, seguindo os passos 5 e 6 de `../orchestrate-sessions/SKILL.md`: dás ao utilizador o comando e o briefing de cada sessão, lanças os subagentes do orquestrador com o modelo e o effort de cada tarefa, e recolhes as saídas com a prova e o custo do `/usage`.
 3. Por cada ação terminada, preenche a linha em «Execução» com o mesmo número do plano: `feito` e onde ficou (commit, ficheiro ou URL).
 4. Uma ação que não se consegue fazer como planeado não se muda em silêncio: passa a pergunta `aberta` em `objetivo.md`, voltas ao goal-loop com o utilizador, e o plano revisto volta a ser validado.
-4a. Se o utilizador quiser que a execução continue sozinha até ao fim, incluindo depois de um limite de uso, segue `../orchestrate-sessions/modo-continuo.md`: as três perguntas (autonomia, onde corre, quota) fazem-se uma vez, no formato da Fase 1, e ficam em «Decisões» de `custo-beneficio.md`.
+4a. Se o utilizador quiser que a execução continue sozinha até ao fim, incluindo depois de um limite de uso, segue `../orchestrate-sessions/modo-continuo.md`: as perguntas de onde corre e da quota fazem-se uma vez (a autonomia já ficou decidida na Fase 3), no formato da Fase 1, e ficam em «Decisões» de `custo-beneficio.md`.
 5. Uma ação bloqueada só por valores que o utilizador tem de dar (segredos, identificadores, acessos) não volta ao goal-loop: fica `por preencher` em «Execução», com uma linha por valor em «Por preencher», e passas à ação seguinte. No fim da sessão pedes os valores, e a prova dessa ação faz-se na Fase 5 depois de ele os preencher.
 
-## Fase 5 — Verificação com prova
+## Fase 5. Verificação com prova
 
 1. Muda o estado para `Fase 5`. Para cada ação, copia o critério de sucesso do plano para «Verificação» e prova-o: corre o comando ou o teste e cola a saída, ou indica o URL ou o ficheiro que qualquer pessoa pode abrir. Resultado `✓` só com prova. Se der `✗`, corrige (Fase 4) e volta a provar.
 2. **Publicação (P14).** Se o projeto está exposto, corre e cola em «Publicação» a saída completa de:
 
    ```
-   node <pasta desta skill>/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho da administração, sem barra inicial, ou URL completo>
+   node <pasta da orchestrate-sessions>/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho da administração, sem barra inicial, ou URL completo>
    ```
 
    O script confirma que o HTTP redireciona para HTTPS, que o certificado é válido, que o TLS é 1.2 ou superior, que os cabeçalhos de segurança estão presentes e que a área de administração não abre sem login. Tem de terminar com `✓ Publicação verificada`. Sem exposição pública, escreve «Não aplicável:» e a razão.

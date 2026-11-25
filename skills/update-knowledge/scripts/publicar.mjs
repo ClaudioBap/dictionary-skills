@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Publica o fim de uma corrida: índice, verificador, commit no main, pull --rebase e push.
 // Corre sem perguntar no fim de cada corrida (decisão do utilizador a 2026-11-16), para o conhecimento não se acumular
-// por gravar. Só junta ao commit knowledge/, fontes-verificadas.json e os caminhos dados com --incluir.
+// por gravar. Só junta ao commit knowledge/, fontes-verificadas.json, o README.md e o README.en.md (as contagens que o
+// indice.mjs escreve) e os caminhos dados com --incluir.
 // Uso: node publicar.mjs <raiz do repositório> [--incluir <caminho>]... [--mensagem "<primeira linha>"] [--coautor "<Nome <email>>"]
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -37,7 +38,7 @@ process.stdout.write(verificacao.stdout);
 if (verificacao.status !== 0) parar('o verificador falhou: corrige e volta a correr.');
 
 // 3. O que entra no commit.
-const caminhos = [KREL, 'skills/update-knowledge/fontes-verificadas.json', ...incluir];
+const caminhos = [KREL, 'skills/update-knowledge/fontes-verificadas.json', ...['README.md', 'README.en.md'].filter((f) => existsSync(join(RAIZ, f))), ...incluir];
 git('add', '-A', '--', ...caminhos);
 const fora = git('status', '--porcelain', '--', 'skills').split('\n').filter((l) => l && !/^[MADR] /.test(l));
 if (fora.length) console.log(`Ficam fora do commit (não são da corrida; usa --incluir se forem):\n${fora.map((l) => `  ${l}`).join('\n')}`);

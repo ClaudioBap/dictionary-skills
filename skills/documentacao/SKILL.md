@@ -11,7 +11,27 @@ metadata:
 
 # Documentacao
 
-Os caminhos `modelos/` e `scripts/` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node ../start-project-with-trust/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+Os caminhos `modelos/` e `scripts/` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+
+## Âmbito
+
+Sabe registar cada processo de um projeto. A partir desses registos, do `git log` e das saídas da orquestração, gera o livro Excel de processos e estatísticas, o Word «Entendimento do desenvolvimento» e o relatório final, no estilo da casa quando lhe dão ficheiros-padrão. Também reconstrói os relatórios de um projeto que já vai a meio. Lê as entradas de `knowledge/estrutura/` do passo «Recolher».
+
+Não sabe:
+
+- escrever o README, um ADR ou a documentação técnica do código. São documentos do próprio projeto, feitos com as entradas de `knowledge/estrutura/`; os comentários do código são da `boas-praticas-codigo`, e o contrato de uma API é da `backend-dados`;
+- escrever o runbook e o documento de operação: é da `operar`;
+- fazer um manual ou um tutorial em vídeo: é da `gravacao-video`;
+- rever só o texto de um documento que já existe: é da `humanizar`;
+- fazer apresentações, propostas comerciais ou atas, que ficam fora da base. Gera só o Excel e os Word, a partir de `modelos/`; para outro formato, diz que não o faz.
+
+Pedidos que se confundem:
+
+- «Documenta o projeto»: é desta skill quando se quer o registo do que se fez e porquê, e da `operar` quando se quer saber como manter a plataforma de pé.
+- «Documenta a API»: é da `backend-dados`.
+- «Faz o relatório»: é o relatório final desta skill se é sobre um projeto com processos; o resultado de uma auditoria é da `seguranca`, e uma medição de desempenho é da `performance-verifier`.
+
+Quando parte do pedido é de outra skill, diz qual e porquê. Se foi chamada por uma skill mãe, devolve-lhe essa parte no relatório; se está sozinha, recomenda a skill pelo nome. O padrão comum está em `../orchestrate-sessions/regras.md`.
 
 ## O que fica no projeto
 
@@ -31,11 +51,24 @@ As saídas das sessões da `orchestrate-sessions` (`orquestracao/*/saidas/*.md`)
 
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`: não inventar; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato da Fase 1; sem marcas de escrita de IA; autonomia depois da decisão.
+- Seguem-se as regras comuns de `../orchestrate-sessions/regras.md`: não inventar; os factos verificas tu, as decisões são do utilizador; uma pergunta de cada vez, no formato que lá está; sem marcas de escrita de IA; autonomia depois da decisão.
 - **Cada número vem de algum lado.** As contagens saem dos relatórios e do `git log`, pelo script. No Entendimento e no relatório final, cada afirmação sobre o projeto cita o ficheiro de onde vem (ADR, plano, saída, commit). O que não se sabe escreve-se assim: «não registado». Nunca se estima uma duração, um modelo ou um custo que ninguém mediu.
 - **Sem segredos nem dados pessoais.** Os documentos podem sair para o cliente: nada de tokens, chaves, palavras-passe, emails, IPs internos nem dados de clientes que não estejam já no âmbito do documento.
 - **Do ficheiro-padrão só se tira o estilo**, nunca o conteúdo. Os ficheiros que o utilizador dá ficam fora do repositório; só o `padrao.json` e o logo entram.
 - **Nível e modelo** (`../orchestrate-sessions/modelo-e-effort.md`): o relatório de um processo escreve-o a própria sessão que fez o trabalho, sem sessão nova. O Entendimento e o relatório final são «Escrever para outros», no nível do projeto. Gerar e verificar são scripts, sem modelo.
+
+## Perceber o pedido
+
+Chamada por outra skill no fim de um trabalho, é o modo «processo» e não pergunta nada. Sozinha, com «processo» ou «gerar» no pedido, segue para esse modo. Com um pedido vago ou vazio, pergunta só o que falta, uma coisa de cada vez e no formato de `../orchestrate-sessions/regras.md`, e pára quando tiver as respostas:
+
+1. **Que projeto:** o repositório onde está, ou outro (diz qual). Fora de um repositório git, o `gerar.mjs` precisa de `--raiz`.
+2. **Para quem,** do mais barato ao mais caro:
+   - registar o trabalho que acabou: o modo «processo», um relatório;
+   - quem decide: os relatórios, o Excel e o relatório final;
+   - quem vai manter o projeto: tudo isto e o Entendimento (recomendado quando o projeto muda de mãos ou se entrega).
+3. **Desde quando,** só se há commits sem relatório: a partir de agora (mais barato), ou também o trabalho já feito, reconstruído a partir das saídas, dos planos e dos commits, como no passo 2 de «Recolher» (recomendado num projeto que se vai entregar).
+
+O estilo da casa pergunta-se depois, no passo 1 do modo «gerar».
 
 ## Modo «processo»
 
@@ -63,7 +96,7 @@ Chamado no fim do trabalho por outra skill, ou diretamente.
 
 ### 1. O padrão da casa
 
-Se já existe `documentacao/padrao.json`, usa-o e diz de que ficheiros veio. Se não existe, pergunta, numa só pergunta no formato da Fase 1:
+Se já existe `documentacao/padrao.json`, usa-o e diz de que ficheiros veio. Se não existe, pergunta, numa só pergunta no formato de `../orchestrate-sessions/regras.md`:
 
 ```
 📌 Estilo dos documentos

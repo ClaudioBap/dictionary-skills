@@ -8,12 +8,12 @@ Conduz um projeto com um cliente do arranque à entrega verificada. Faz a descob
 
 - Arrancar um projeto novo com um cliente, interno ou externo.
 - Retomar um projeto a meio: a skill lê `arranque/<projeto>/objetivo.md` e diz em que fase ficou.
-- Um pedido vago que tem de chegar a critérios de sucesso que se provam.
+- Um pedido vago de um cliente que tem de acabar num plano aprovado e numa entrega aceite, com prova de cada critério de sucesso.
 - Decidir entre adotar uma plataforma e desenvolver de raiz.
 
 ## Quando não usar
 
-- Um trabalho já definido e dividido em tarefas: `orchestrate-sessions`.
+- Um trabalho já definido e dividido em tarefas, ou um pedido em que ainda não se sabe que skills entram: `orchestrate-sessions`, que é por onde se começa.
 - Uma tarefa técnica isolada: a mini skill do tema, como `backend-dados` ou `design-ux`.
 - Uma correção pequena: as 16 perguntas obrigatórias e os documentos do arranque pesam mais do que o trabalho.
 
@@ -51,7 +51,7 @@ Conduz um projeto com um cliente do arranque à entrega verificada. Faz a descob
 **O que a skill faz:**
 
 1. Prova cada critério de sucesso do plano com um comando, um teste, um URL ou um ficheiro, e cola a saída em `entrega.md`.
-2. Corre `scripts/verificar-publicacao.mjs` sobre o domínio, que tem de terminar em `✓ Publicação verificada`.
+2. Corre `../orchestrate-sessions/scripts/verificar-publicacao.mjs` sobre o domínio, que tem de terminar em `✓ Publicação verificada`.
 3. Revê os acessos com o utilizador, preenche a secção «Operação» e corre a `humanizar` sobre o que vai ser entregue.
 4. Corre `node scripts/verificar.mjs arranque/<projeto> --entrega` e, quando só falta a aceitação, pede-a.
 

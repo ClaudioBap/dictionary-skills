@@ -2,7 +2,7 @@
 
 ## O que faz
 
-Grava vídeos de um site com narração em português de Portugal, legendas, cursor visível e zoom ao que a voz refere. Há três formatos: teaser (até 30 s), demonstração (1 a 3 min) e explicação (3 a 10 min), cada um com o seu ritmo. O trabalho passa por segmentos (guião, voz, gravação, montagem e prova) e um defeito corrige-se no segmento onde nasce. Grava o browser com Playwright, gera a voz com o Piper, que é gratuito, ou com o escalão gratuito do Azure, e monta com ffmpeg. Está em desenvolvimento: as regras de voz, ritmo e scroll afinam-se a cada vídeo.
+Grava vídeos de um site com narração em português de Portugal, legendas, cursor visível e zoom ao que a voz refere. Há três formatos: teaser (até 30 s), demonstração (1 a 3 min) e explicação (3 a 10 min), cada um com o seu ritmo. O trabalho passa por segmentos (guião, voz, gravação, montagem e prova) e um defeito corrige-se no segmento onde nasce. Grava o browser com Playwright, gera a voz com uma das vozes gratuitas (a do Piper ou as do escalão gratuito do Azure), escolhida de ouvido com uma frase de teste, e monta com ffmpeg. Cada lacuna da voz que se aponta fica no `voz.json` e corrige-se sozinha nos vídeos seguintes.
 
 ## Quando usar
 
@@ -50,9 +50,9 @@ Grava vídeos de um site com narração em português de Portugal, legendas, cur
 
 **O que a skill faz:**
 
-1. Para a sigla, corre `node narrar.mjs --ensinar "INE=iné"`, que guarda a pronúncia no dicionário pessoal e refaz só as frases que a usam.
-2. Para a frase cortada, corre `node narrar.mjs --frase 3` e gera tomadas novas só dessa frase.
+1. Para a sigla, corre `node narrar.mjs --lacuna 9 pronuncia "INE=iné"`, que a guarda no `voz.json` e refaz só as frases que a usam.
+2. Para a frase cortada, corre `node narrar.mjs --lacuna 3 fim-cortado`: as frases que acabam na mesma palavra passam a ter mais tomadas, neste vídeo e nos seguintes.
 3. Se o fim continua cortado em todas as tomadas, muda a última palavra da frase no guião.
 4. Vê se as frases novas cabem no tempo gravado: se cabem, basta `node montar.mjs`; se não, grava outra vez primeiro.
 
-**Resultado:** O vídeo com a voz corrigida e a pronúncia guardada para os vídeos seguintes. A skill não ouve o áudio, por isso a última palavra é sempre de quem ouve.
+**Resultado:** O vídeo com a voz corrigida e as duas lacunas guardadas para os vídeos seguintes. A skill não ouve o áudio, por isso a última palavra é sempre de quem ouve.

@@ -16,6 +16,7 @@ Monta o pipeline, os contentores, o alojamento e a publicação de um projeto. D
 - Auditar a segurança de um site já publicado: `seguranca`.
 - Monitorização, runbooks e cópias de segurança: `operar`.
 - O custo de uma infraestrutura que já está a correr: `performance-verifier`.
+- Montar a rede ou os servidores de um escritório (firewall, VPN entre sedes, Wi-Fi, virtualização): a base não os cobre.
 
 ## Exemplo: esqueleto e CI de um projeto novo
 
@@ -52,6 +53,6 @@ Monta o pipeline, os contentores, o alojamento e a publicação de um projeto. D
 1. Confirma a exposição, a área de administração, o orçamento e a jurisdição dos dados, e manda um subagente `haiku` inventariar o que o repositório já tem.
 2. Apresenta as opções do grátis ao empresarial (alojamento, domínio, certificado TLS, borda com WAF e como se fecha a administração), com as condições dos planos e a localização dos dados no risco.
 3. Depois da decisão, regista a jurisdição de cada serviço externo; se algum guarda dados fora da UE, a decisão volta ao utilizador com alternativas.
-4. Monta o pipeline e os contentores, faz um deploy e uma reversão em teste e corre `node ../start-project-with-trust/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho>`.
+4. Monta o pipeline e os contentores, faz um deploy e uma reversão em teste e corre `node ../orchestrate-sessions/scripts/verificar-publicacao.mjs https://<domínio> --admin <caminho>`.
 
 **Resultado:** A aplicação publicada, com a saída do verificador a terminar em `✓ Publicação verificada` colada em `entrega.md`.

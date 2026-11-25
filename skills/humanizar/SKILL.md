@@ -15,29 +15,54 @@ O objetivo é que ninguém consiga distinguir se o trabalho foi feito por uma pe
 
 **Menos é mais.** Uma ferramenta tende a mostrar tudo o que sabe; uma pessoa mostra o que quem usa precisa. Num ecrã, cada dado aparece uma vez, o que é novo vem primeiro, um gráfico só fica se responder a uma pergunta de quem o vê, e a explicação de como se calcula fica para os programadores, fora do ecrã. Quem quer analisar prefere um gráfico a um parágrafo.
 
-**Humanizar não é achatar.** Tirar as marcas (comprimidos, listas com bolas, tudo centrado, caixas iguais) não quer dizer tirar o movimento nem a forma. Uma interface toda reta e parada, com as ações em texto sublinhado, também denuncia ferramenta: é o que sai quando se corrige só por subtração. A interface mantém botões que se reconhecem como botões, transições ao passar, carregar e focar, a entrada das secções, micro-interações que respondem a cada ação e, onde ajuda a perceber o que se vê, algum 3D (three.js, pela `design-3d-motion`), sempre com `prefers-reduced-motion` respeitado. A base está em `knowledge/design/botoes-movimento-e-micro-interacoes.md` (o caminho do conhecimento dá-o `node ../start-project-with-trust/scripts/conhecimento.mjs`).
+**Humanizar não é achatar.** Tirar as marcas (comprimidos, listas com bolas, tudo centrado, caixas iguais) não quer dizer tirar o movimento nem a forma. Uma interface toda reta e parada, com as ações em texto sublinhado, também denuncia ferramenta: é o que sai quando se corrige só por subtração. A interface mantém botões que se reconhecem como botões, transições ao passar, carregar e focar, a entrada das secções, micro-interações que respondem a cada ação e, onde ajuda a perceber o que se vê, algum 3D (three.js, pela `design-3d-motion`), sempre com `prefers-reduced-motion` respeitado. A base está em `knowledge/design/botoes-movimento-e-micro-interacoes.md` (o caminho do conhecimento dá-o `node ../orchestrate-sessions/scripts/conhecimento.mjs`).
 
 O catálogo das marcas, por meio, está em `marcas.md`; o verificador em `scripts/humanizar.mjs`. Os caminhos são relativos à pasta deste `SKILL.md`.
 
+## Âmbito
+
+Sabe procurar as marcas de `marcas.md` no que vai ser entregue: texto, código, interface, guião, voz e ações de um vídeo, commits, documentação e dados de exemplo. Aponta cada uma com o que uma pessoa faria no lugar e corrige só o que for autorizado. Para a interface, lê `knowledge/design/botoes-movimento-e-micro-interacoes.md`.
+
+Não sabe:
+
+- dizer se um trabalho de outra pessoa foi feito por uma IA. Aponta marcas, não prova autoria: fica fora da base, e a skill diz que não o faz;
+- reescrever um texto inteiro, mudar o tom ou traduzir, porque só mexe no que apontou. Isso fica fora da base, e a skill diz que não o faz;
+- rever a ortografia e a gramática por completo, que fica fora da base. Numa dúvida de língua ou de pontuação, vai ao Código de Redação Interinstitucional da UE, em português (https://style-guide.europa.eu/pt/content/), e regista o que encontrar como diz a `update-knowledge`;
+- avaliar a acessibilidade, o contraste e a usabilidade de uma interface: é da `design-ux`;
+- procurar erros e falhas de segurança no código, além das marcas: é da `boas-praticas-codigo` e da `seguranca`;
+- procurar segredos e dados pessoais num documento: é da `seguranca`.
+
+Pedidos que se confundem:
+
+- «Humaniza este texto», aqui, quer dizer tirar as marcas com autorização, não reescrevê-lo.
+- «Vê se isto parece feito por IA»: sobre um trabalho nosso, sim; para provar a autoria de um trabalho de terceiros, não.
+- «Revê a interface»: é desta skill se a pergunta é se parece feita por uma ferramenta, e da `design-ux` se é se funciona para quem a usa.
+
+Quando parte do pedido é de outra skill, diz qual e porquê. Se foi chamada por uma skill mãe, devolve-lhe essa parte no relatório; se está sozinha, recomenda a skill pelo nome. O padrão comum está em `../orchestrate-sessions/regras.md`.
+
 ## Regras
 
-- Seguem-se as regras da secção «Regras em todas as fases» de `../start-project-with-trust/SKILL.md`.
+- Seguem-se as regras comuns de `../orchestrate-sessions/regras.md`.
 - **Nunca corrigir sem autorização.** O verificador não altera ficheiros. A skill mostra os achados e pergunta, por categoria, o que corrigir. Uma categoria autorizada corrige-se inteira; o resto fica como está e é registado.
 - **Só o que foi apontado.** Corrigir uma marca não é reescrever o parágrafo, o componente ou a função. O sentido, os factos, os nomes do domínio e as citações entre «» ficam iguais. Uma citação de uma fonte mantém a pontuação original, mesmo com travessões. Numa interface, corrigir troca a forma genérica por uma com intenção e nunca a tira: um filtro em comprimido passa a lista pendente, um botão em pílula passa a botão com cantos ligeiramente arredondados, a mesma animação em tudo passa a transição onde algo muda. Estados, transições e profundidade que já serviam ficam.
 - **O estilo do projeto manda.** Formatter, linter, convenção de aspas e de commits do repositório valem mais do que qualquer regra daqui. Se o design do cliente pede emojis, os emojis ficam.
 - Trabalho de leitura e correção mecânica: `sonnet`, `low` ou `medium`. A decisão sobre uma interface genérica ou sobre o tom de um texto é «Rever e decidir com risco» em `../orchestrate-sessions/modelo-e-effort.md`.
 
-## 1. Âmbito
+## 1. O que verificar
 
-Se o pedido não diz o que verificar, pergunta, no formato da Fase 1 da `start-project-with-trust`: a pasta do projeto, só os ficheiros alterados (`git diff --name-only`), ou um conjunto de ficheiros. Pergunta também se as mensagens de commit entram.
+Se o pedido diz o que verificar, para quê e até onde, segue para o passo 2. Se não diz, pergunta só o que falta, uma coisa de cada vez e no formato de `../orchestrate-sessions/regras.md`, e pára quando tiver as respostas:
+
+1. **O quê:** só os ficheiros alterados (`git diff --name-only`, recomendado antes de uma entrega), uma pasta ou um conjunto de ficheiros, ou o projeto inteiro. E se as mensagens de commit entram.
+2. **Para quê:** só apontar, sem mexer; apontar e corrigir com autorização (recomendado); ou também deixar as marcas de gravidade `alta` verificadas sempre, no hook ou no CI (passo 5).
+3. **Até onde,** do mais barato ao mais caro: só o verificador, e o passo 3 não se faz; o verificador e a leitura do que está marcado com **L** em `marcas.md` (recomendado); ou isto mais, numa interface ou num vídeo, a leitura com capturas de cada ecrã ou com o vídeo à frente.
 
 ## 2. Verificador
 
 ```
-node <pasta desta skill>/scripts/humanizar.mjs <caminhos> [--commits 20] [--json]
+node <pasta desta skill>/scripts/humanizar.mjs <caminhos> [--commits 20] [--json] [--permitir <ids>] [--gravidade alta]
 ```
 
-Por omissão não entra na pasta `knowledge/` (as entradas citam fontes com a pontuação delas) e apanha emojis em todo o lado (`--permitir-emojis` desliga isso quando o design os pede). Cola a saída completa. Cada achado tem o ficheiro e a linha, o identificador da marca, a gravidade (`alta` é quase sempre marca; `media` depende do contexto) e o que uma pessoa faria.
+Por omissão não entra na pasta `knowledge/` (as entradas citam fontes com a pontuação delas) e apanha emojis em todo o lado (`--permitir-emojis` desliga isso quando o design os pede). `--permitir <ids>`, separados por vírgula, deixa de fora as marcas que são convenção do projeto (as deste repositório estão em «Convenções da casa» de `marcas.md`). `--gravidade alta` mostra só as de gravidade `alta`, como no CI. Cola a saída completa. Cada achado tem o ficheiro e a linha, o identificador da marca, a gravidade (`alta` é quase sempre marca; `media` depende do contexto) e o que uma pessoa faria.
 
 ## 3. Leitura
 
@@ -70,6 +95,14 @@ As categorias de gravidade `media` levam a nota «confirmar a ler» e um exemplo
 ## 5. Corrigir e voltar a verificar
 
 Aplica só o autorizado, corre o formatter do projeto se o houver, e volta a correr o verificador até a saída ser `✓` ou só restarem achados que o utilizador decidiu manter. Numa entrega da `start-project-with-trust`, a saída final vai para «Verificação» de `entrega.md` como prova do critério «sem marcas de escrita de IA».
+
+Se o projeto tem CI e o verificador ainda não está lá, oferece pô-lo, numa pergunta. As marcas voltam quando ninguém corre o verificador: foi assim que 176 pontos médios chegaram a um portal publicado. Uma regra que importa vive no CI, e não só nas instruções ao agente (`knowledge/governacao/regras-no-ci-nao-so-no-agente.md`). Começa pelas marcas de gravidade `alta`:
+
+1. copia `scripts/humanizar.mjs` para o repositório do projeto (para o mesmo sítio do hook, se já o tiver);
+2. junta ao pipeline um passo que corre `node <caminho>/humanizar.mjs <pastas entregues> --gravidade alta`. O passo falha quando há achados, porque o verificador sai com 1;
+3. para travar o merge, põe esse passo nas verificações obrigatórias da branch.
+
+As de gravidade `media` só entram depois de o projeto as limpar, com `--permitir` para as convenções dele. Só se instala com autorização, como o hook.
 
 ## Hook opcional
 

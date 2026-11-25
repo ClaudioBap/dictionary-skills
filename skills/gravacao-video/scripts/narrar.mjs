@@ -8,6 +8,9 @@
 //   node narrar.mjs --frase 9                    gera tomadas novas só para a frase 9 (ou 05-resultados/1)
 //   node narrar.mjs --frase 9 --tomada 3         fica com a tomada 3 da frase 9, sem gerar nada
 //   node narrar.mjs --ensinar "CSV=cê ésse vê"   aprende uma pronúncia e refaz as frases que a usam
+//   node narrar.mjs --vozes                      diz a primeira frase com cada voz gratuita, para escolher de ouvido
+//   node narrar.mjs --lacuna 9 fim-cortado       guarda uma lacuna da frase 9 em voz.json e refaz o que ela toca
+//   node narrar.mjs --lacuna 9 estrangeirismo "Commons=cómons"
 //
 // Cada frase passa por quatro cuidados, porque uma voz sintética crua nota-se:
 // 1. Pronúncia: siglas, endereços e termos estrangeiros dizem-se pelos dicionários de pronúncias
@@ -19,9 +22,10 @@
 //    longo quando o modelo cortou a última vogal) e nivela-se o volume.
 // 4. Ritmo da fala pelo formato: um teaser fala depressa, uma demonstração ou explicação não.
 //
-// Dicionários, do mais geral para o mais específico (o último ganha): pronuncias.json ao lado
-// deste script (o da skill), ~/.start-project-with-trust/pronuncias.json (o que esta pessoa
-// ensinou) e "pronuncias" no guiao.json (só deste vídeo).
+// Correções, da mais geral para a mais específica (a última ganha): pronuncias.json ao lado
+// deste script (o da skill), ~/.start-project-with-trust/voz.json (as pronúncias que esta pessoa
+// ensinou e as lacunas que apontou; o pronuncias.json pessoal antigo continua a ser lido) e
+// "pronuncias" no guiao.json (só deste vídeo).
 // Caminhos do Piper em PIPER_EXE, PIPER_MODELO e PIPER_ESPEAK; sem eles, usa ferramentas/piper/ na raiz do projeto.
 import { execFileSync, execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -41,24 +45,30 @@ if (motor !== 'piper' && motor !== 'azure') falhar(`Motor de voz desconhecido: $
 const FALA = { teaser: 1.0, demonstracao: 1.08, explicacao: 1.12 }; // duração dos fonemas no Piper
 const opcoes = { length_scale: FALA[guiao.formato] ?? FALA.demonstracao, noise_w: 0.6, noise_scale: 0.667, tomadas: 4, ...guiao.vozOpcoes };
 const nTomadas = motor === 'piper' ? Math.max(1, opcoes.tomadas) : 1;
+const vozAtual = guiao.voz ?? (motor === 'piper' ? 'pt_PT-tugao-medium' : 'pt-PT-RaquelNeural');
 
 // --- 1. Pronúncia ---------------------------------------------------------------------------
 const DIC_SKILL = join(pasta, 'pronuncias.json');
-const DIC_PESSOAL = join(homedir(), '.start-project-with-trust', 'pronuncias.json');
+const DIC_PESSOAL = join(homedir(), '.start-project-with-trust', 'pronuncias.json'); // o formato antigo, só lido
+const VOZ_PESSOAL = join(homedir(), '.start-project-with-trust', 'voz.json');
 const lerDicionario = (f) => (existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : {});
-const pessoal = lerDicionario(DIC_PESSOAL);
-const ensinadas = valores('--ensinar').map((par) => {
-  const corte = par.indexOf('=');
-  if (corte < 1 || corte === par.length - 1) falhar(`--ensinar espera "termo=como se diz" e recebeu «${par}».`);
-  return [par.slice(0, corte).trim(), par.slice(corte + 1).trim()];
-});
-if (ensinadas.length) {
-  for (const [termo, dito] of ensinadas) pessoal[termo] = dito;
-  mkdirSync(dirname(DIC_PESSOAL), { recursive: true });
-  writeFileSync(DIC_PESSOAL, JSON.stringify(Object.fromEntries(Object.entries(pessoal).sort(([a], [b]) => a.localeCompare(b, 'pt'))), null, 2) + '\n');
-  console.log(`Aprendi que ${ensinadas.map(([t, d]) => `«${t}» se diz «${d}»`).join(', ')}. Ficou em ${DIC_PESSOAL}`);
+const vozPessoal = { pronuncias: {}, lacunas: [], ...lerDicionario(VOZ_PESSOAL) };
+function guardarVoz() {
+  const pronuncias = Object.fromEntries(Object.entries(vozPessoal.pronuncias).sort(([a], [b]) => a.localeCompare(b, 'pt')));
+  mkdirSync(dirname(VOZ_PESSOAL), { recursive: true });
+  writeFileSync(VOZ_PESSOAL, JSON.stringify({ ...vozPessoal, pronuncias }, null, 2) + '\n');
 }
-const PRONUNCIAS = { ...lerDicionario(DIC_SKILL), ...pessoal, ...guiao.pronuncias };
+const separar = (par, opcao) => {
+  const corte = par.indexOf('=');
+  if (corte < 1 || corte === par.length - 1) falhar(`${opcao} espera "termo=como se diz" e recebeu «${par}».`);
+  return [par.slice(0, corte).trim(), par.slice(corte + 1).trim()];
+};
+const ensinadas = valores('--ensinar').map((par) => separar(par, '--ensinar'));
+if (ensinadas.length) {
+  for (const [termo, dito] of ensinadas) vozPessoal.pronuncias[termo] = dito;
+  guardarVoz();
+  console.log(`Aprendi que ${ensinadas.map(([t, d]) => `«${t}» se diz «${d}»`).join(', ')}. Ficou em ${VOZ_PESSOAL}`);
+}
 
 const LETRAS = { a: 'á', b: 'bê', c: 'cê', d: 'dê', e: 'é', f: 'éfe', g: 'gê', h: 'agá', i: 'i', j: 'jota', k: 'capa', l: 'éle', m: 'éme', n: 'éne', o: 'ó', p: 'pê', q: 'quê', r: 'érre', s: 'ésse', t: 'tê', u: 'u', v: 'vê', w: 'dâblio', x: 'xis', y: 'ípsilon', z: 'zê' };
 const soletrar = (t) => [...t.toLowerCase()].map((c) => LETRAS[c] ?? c).join(' ');
@@ -86,7 +96,7 @@ function comoSeDiz(texto) {
 const todas = [];
 for (const passo of guiao.passos) {
   for (const [n, texto] of dividirFrases(passo.narracao).entries()) {
-    todas.push({ numero: todas.length + 1, passo: passo.id, n, chave: `${passo.id}-${n + 1}`, texto, ...comoSeDiz(texto) });
+    todas.push({ numero: todas.length + 1, passo: passo.id, n, chave: `${passo.id}-${n + 1}`, texto });
   }
 }
 function encontrar(ref) {
@@ -95,8 +105,45 @@ function encontrar(ref) {
   if (!f) falhar(`Não encontrei a frase «${ref}». Usa o número da folha de escuta ou "passo/frase", por exemplo ${todas[0].passo}/1.`);
   return f;
 }
-// Uma frase só se refaz quando muda aquilo que a voz diz ou a maneira de o dizer.
-const assinar = (dito) => createHash('sha1').update([dito, motor, guiao.voz ?? '', opcoes.length_scale, opcoes.noise_w, opcoes.noise_scale].join('|')).digest('hex').slice(0, 12);
+// --- Lacunas que esta pessoa apontou (voz.json) ---------------------------------------------
+// Cada defeito ouvido fica como regra para os vídeos seguintes: "diz" muda o que a voz diz e
+// "tomadas" dá mais tomadas às frases onde ele aparece. Sem "voz", vale para todas as vozes;
+// sem "termo", para todas as frases.
+const TIPOS = ['pronuncia', 'estrangeirismo', 'palavra-comida', 'entoacao', 'fim-cortado', 'ruido'];
+const ultimaPalavra = (t) => (t.match(/[\p{L}\p{N}'-]+/gu) ?? []).at(-1) ?? '';
+const iLacuna = args.indexOf('--lacuna');
+if (iLacuna >= 0) {
+  const f = encontrar(args[iLacuna + 1] ?? '');
+  const tipo = args[iLacuna + 2];
+  if (!TIPOS.includes(tipo)) falhar(`--lacuna espera a frase e o tipo (${TIPOS.join(', ')}), por exemplo: node narrar.mjs --lacuna 9 fim-cortado`);
+  const extra = args[iLacuna + 3]?.startsWith('--') ? undefined : args[iLacuna + 3];
+  const [termo, diz] = extra?.includes('=') ? separar(extra, '--lacuna') : [extra ?? (tipo === 'fim-cortado' ? ultimaPalavra(f.texto) : undefined), undefined];
+  if (['pronuncia', 'estrangeirismo', 'entoacao'].includes(tipo) && !diz) falhar(`Uma lacuna de ${tipo} diz como se corrige: node narrar.mjs --lacuna ${f.numero} ${tipo} "termo=como se diz"`);
+  if (tipo === 'palavra-comida' && !termo) falhar(`Diz que palavra foi comida: node narrar.mjs --lacuna ${f.numero} palavra-comida palavra`);
+  if (termo && !fronteira(termo).test(f.texto)) falhar(`A frase ${f.numero} não tem «${termo}»: «${f.texto}»`);
+  const lacuna = {
+    tipo,
+    voz: ['pronuncia', 'estrangeirismo'].includes(tipo) ? undefined : vozAtual,
+    termo,
+    ...(diz ? { diz } : { tomadas: 8 }),
+    visto: `${guiao.nome ?? 'vídeo'}, frase ${f.numero}, ${new Date().toISOString().slice(0, 10)}`,
+  };
+  vozPessoal.lacunas = [...vozPessoal.lacunas.filter((l) => !(l.tipo === tipo && l.voz === lacuna.voz && l.termo === termo)), lacuna];
+  guardarVoz();
+  console.log(`Guardei a lacuna (${tipo}${termo ? `, «${termo}»` : ''}${diz ? `, dito «${diz}»` : ', mais tomadas'}${lacuna.voz ? `, voz ${lacuna.voz}` : ''}) em ${VOZ_PESSOAL}. Vale para este vídeo e para os seguintes.`);
+}
+const lacunas = vozPessoal.lacunas.filter((l) => !l.voz || l.voz === vozAtual);
+const aplicaSe = (l, f) => !l.termo || (l.tipo === 'fim-cortado' ? ultimaPalavra(f.texto).toLowerCase() === l.termo.toLowerCase() : fronteira(l.termo).test(f.texto));
+const PRONUNCIAS = { ...lerDicionario(DIC_SKILL), ...lerDicionario(DIC_PESSOAL), ...vozPessoal.pronuncias, ...Object.fromEntries(lacunas.filter((l) => l.diz).map((l) => [l.termo, l.diz])), ...guiao.pronuncias };
+for (const f of todas) {
+  Object.assign(f, comoSeDiz(f.texto));
+  f.tomadas = motor === 'piper' ? Math.max(nTomadas, ...lacunas.filter((l) => l.tomadas && aplicaSe(l, f)).map((l) => l.tomadas)) : 1;
+}
+
+// Uma frase só se refaz quando muda aquilo que a voz diz ou a maneira de o dizer, e também quando uma
+// lacuna lhe pede mais tomadas. Sem lacunas, a assinatura fica a de sempre e nada se refaz.
+const reforco = new Map(todas.filter((f) => f.tomadas > nTomadas).map((f) => [f.dito, f.tomadas]));
+const assinar = (dito) => createHash('sha1').update([dito, motor, guiao.voz ?? '', opcoes.length_scale, opcoes.noise_w, opcoes.noise_scale, ...(reforco.has(dito) ? [reforco.get(dito)] : [])].join('|')).digest('hex').slice(0, 12);
 
 // --- 2 e 3. Analisar e limpar ---------------------------------------------------------------
 // Envelope em janelas de 5 ms, em dB relativos à janela mais forte.
@@ -153,32 +200,30 @@ function caminhoAscii(caminho) {
   return execSync(`cmd /c for %I in ("${caminho}") do @echo %~sI`, { encoding: 'utf8' }).trim();
 }
 
-let piper = null;
-function prepararPiper() {
-  const voz = guiao.voz ?? 'pt_PT-tugao-medium';
+const pipers = {}; // um por voz: o --vozes usa a do Piper mesmo quando o guião narra com outra
+function prepararPiper(voz) {
   const exe = process.env.PIPER_EXE ?? resolve(pasta, '../../ferramentas/piper/piper/piper.exe');
   const modelo = process.env.PIPER_MODELO ?? resolve(pasta, `../../ferramentas/piper/${voz}.onnx`);
   const espeak = process.env.PIPER_ESPEAK ?? join(dirname(exe), 'espeak-ng-data');
   for (const f of [exe, modelo, espeak]) if (!existsSync(f)) falhar(`Não encontrei ${f}. Define PIPER_EXE, PIPER_MODELO e PIPER_ESPEAK.`);
   // O nome curto esconde a extensão .onnx, por isso o ficheiro de configuração vai explícito.
   // Sem silêncio no fim: vê-se assim se o modelo deixou a frase acabar ou a cortou.
-  piper = {
+  return {
     exe: caminhoAscii(exe), pastaAudio: caminhoAscii(join(pasta, 'audio')),
     args: ['--model', caminhoAscii(modelo), '--config', caminhoAscii(`${modelo}.json`), '--espeak_data', caminhoAscii(espeak), '--sentence_silence', '0',
       '--length_scale', String(opcoes.length_scale), '--noise_w', String(opcoes.noise_w), '--noise_scale', String(opcoes.noise_scale)],
   };
 }
-function tomadaPiper(dito, nome) {
-  if (!piper) prepararPiper();
+function tomadaPiper(dito, nome, voz = vozAtual) {
+  const piper = (pipers[voz] ??= prepararPiper(voz));
   execFileSync(piper.exe, [...piper.args, '--output_file', join(piper.pastaAudio, nome)], { input: dito + '\n', stdio: ['pipe', 'ignore', 'inherit'] });
   return lerWav(join(pasta, 'audio', nome));
 }
 
 // Azure AI Speech, API REST de texto para voz. A chave só vem do ambiente.
-async function tomadaAzure(dito, nome) {
+async function tomadaAzure(dito, nome, voz = vozAtual) {
   const chave = process.env.AZURE_SPEECH_KEY, regiao = process.env.AZURE_SPEECH_REGION;
   if (!chave || !regiao) falhar('Faltam as variáveis de ambiente AZURE_SPEECH_KEY e AZURE_SPEECH_REGION.');
-  const voz = guiao.voz ?? 'pt-PT-RaquelNeural';
   const xml = dito.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const r = await fetch(`https://${regiao}.tts.speech.microsoft.com/cognitiveservices/v1`, {
     method: 'POST',
@@ -203,7 +248,7 @@ async function gerar(f) {
   rmSync(pastaTomadas(f), { recursive: true, force: true });
   mkdirSync(pastaTomadas(f), { recursive: true });
   const tomadas = [];
-  for (let k = 1; k <= nTomadas; k++) {
+  for (let k = 1; k <= f.tomadas; k++) {
     const tomadaCrua = '_tomada.wav';
     const wav = motor === 'piper' ? tomadaPiper(f.dito, tomadaCrua) : await tomadaAzure(f.dito, tomadaCrua);
     if (wav.canais !== 1) throw new Error(`Esperava áudio mono em ${f.chave}`);
@@ -261,6 +306,30 @@ if (args.includes('--lista')) {
   process.exit(0);
 }
 
+// Vozes gratuitas em português de Portugal que os motores deste script sabem usar. Uma voz nova só
+// entra aqui depois de a entrada de voz confirmar a voz pt-PT e a licença (passo 3 da skill).
+const VOZES_GRATUITAS = [
+  { motor: 'piper', voz: 'pt_PT-tugao-medium' },
+  { motor: 'azure', voz: 'pt-PT-RaquelNeural' },
+  { motor: 'azure', voz: 'pt-PT-DuarteNeural' },
+  { motor: 'azure', voz: 'pt-PT-FernandaNeural' },
+];
+if (args.includes('--vozes')) {
+  const f = todas[0];
+  mkdirSync(join(pasta, 'audio', 'vozes'), { recursive: true });
+  console.log(`Frase de teste: «${f.texto}»`);
+  for (const { motor: m, voz } of VOZES_GRATUITAS) {
+    if (m === 'azure' && !(process.env.AZURE_SPEECH_KEY && process.env.AZURE_SPEECH_REGION)) { console.log(`  ${voz}: saltada, faltam AZURE_SPEECH_KEY e AZURE_SPEECH_REGION`); continue; }
+    const nome = join('vozes', `${voz}.wav`);
+    const wav = m === 'piper' ? tomadaPiper(f.dito, nome, voz) : await tomadaAzure(f.dito, nome, voz);
+    const s = amostras(wav);
+    gravarWav(join(pasta, 'audio', nome), limpar(s, wav.taxa, analisar(s, wav.taxa)), wav.taxa);
+    console.log(`  ${voz} (${m}): audio/vozes/${voz}.wav`);
+  }
+  console.log('\nOuve cada uma e põe a escolhida em "motorVoz" e "voz" no guiao.json; depois corre node narrar.mjs.');
+  process.exit(0);
+}
+
 const alvo = valor('--frase') ? encontrar(valor('--frase')) : null;
 const tomadaPedida = valor('--tomada');
 if (tomadaPedida && !alvo) falhar('--tomada precisa de --frase: node narrar.mjs --frase 9 --tomada 3');
@@ -294,6 +363,7 @@ for (const { f, e } of mexidas) {
   const cabe = espaco === null ? '' : e.segundos + 0.15 <= espaco ? `; cabe nos ${espaco.toFixed(1)} s gravados` : `; NÃO cabe nos ${espaco.toFixed(1)} s gravados`;
   console.log(`  ${String(f.numero).padStart(3)}  ${f.passo}/${f.n + 1}  tomada ${e.tomada} de ${e.tomadas}, ${e.segundos.toFixed(2)} s${e.fimCortado ? ', fim cortado pelo modelo' : ''}${e.ruidoRetirado ? ', ruído retirado' : ''}${cabe}`);
 }
+if (lacunas.length) console.log(`Lacunas do voz.json para esta voz: ${lacunas.length}; tocam ${todas.filter((f) => lacunas.some((l) => aplicaSe(l, f))).length} de ${todas.length} frases.`);
 console.log(`Fins que o modelo cortou e levaram desvanecer longo: ${todasAsFrases.filter((x) => x.fimCortado).length} de ${todas.length}. Ruído retirado antes da fala: ${todasAsFrases.filter((x) => x.ruidoRetirado).length} de ${todas.length}.`);
 const avisos = todas.flatMap((f) => f.avisos.map((a) => `frase ${f.numero} (${f.passo}/${f.n + 1}): ${a}`));
 if (avisos.length) {
