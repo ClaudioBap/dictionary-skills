@@ -40,10 +40,10 @@
     "https://www.khronos.org/gltf/": "2026-11-04",
     "https://gltf-transform.dev/": "2026-11-04",
     "https://gsap.com/docs/v3/Plugins/ScrollTrigger/": "2026-11-04",
-    "https://developers.google.com/search/updates": "2026-11-04",
-    "https://developers.google.com/search/blog": "2026-11-04",
-    "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history": "2026-11-04",
-    "https://ogp.me/": "2026-11-04",
+    "https://developers.google.com/search/updates": "2026-11-25",
+    "https://developers.google.com/search/blog": "2026-11-25",
+    "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history": "2026-11-25",
+    "https://ogp.me/": "2026-11-25",
     "https://spec.openapis.org/oas/latest.html": "2026-11-04",
     "https://graphql.org/learn/security/": "2026-11-04",
     "https://docs.pact.io/": "2026-11-04",
@@ -230,6 +230,16 @@
     "https://fish.audio/plan/": "2026-11-24",
     "https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits": "2026-11-24",
     "https://www.hostinger.com/vps-hosting": "2026-11-24",
-    "https://tailscale.com/pricing": "2026-11-24"
+    "https://tailscale.com/pricing": "2026-11-24",
+    "https://developers.google.com/search/docs/appearance/title-link": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/robots/intro": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/links-crawlable": "2026-11-25",
+    "https://developers.google.com/search/docs/appearance/core-web-vitals": "2026-11-25",
+    "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/block-indexing": "2026-11-25",
+    "https://developers.google.com/search/docs/crawling-indexing/control-what-you-share": "2026-11-25",
+    "https://developers.google.com/search/docs/specialty/international/localized-versions": "2026-11-25"
   }
 }
