@@ -1,4 +1,4 @@
-# Plano com o que temos — <projeto>
+# Plano com o que temos (<projeto>)
 
 > Saída da Fase 2. Usa só os recursos declarados (P9). Cada ação cita a sua base em `knowledge/` e, em «Responde a», as perguntas de `objetivo.md` (P/S) a que responde.
 

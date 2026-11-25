@@ -6,7 +6,8 @@ paginas: []
 fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-18
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Perguntas antes de construir um portal de agentes
@@ -38,7 +39,7 @@ Quem entra, e como se sabe quem é quem?
 
 O segundo fator também se decide aqui. No Cloudflare Access, a imposição do segundo fator pelo fornecedor de identidade só existe com Okta, Microsoft Entra ID, OIDC genérico e SAML 2.0 genérico. Com outro fornecedor, como o GitHub, o segundo fator fica a cargo da conta de cada pessoa, a não ser que se ligue o segundo fator do próprio Access.
 
-No projeto de origem: começou só com o dono e passou a equipa, todos a entrar pela conta do GitHub através do Cloudflare Access. A conta é o email que o Access valida, e cada PC tem o seu token de serviço.
+No projeto de origem: começou só com o dono e passou a equipa. Entra-se pelo fornecedor de acesso com uma conta Google ou com o email e um código de uso único; o GitHub saiu da entrada porque pedia leitura das organizações. Entrar só autentica: quem entra pela primeira vez fica à espera de aprovação, e os papéis (utilizador e administrador) e a lista de bloqueados vivem na base do portal e gerem-se no ecrã das pessoas, sem tocar no fornecedor. Cada PC liga-se com um token que o próprio portal cria ao adicionar o PC, sem tokens de serviço do fornecedor *(experiência do projeto, 2026-11-25)*.
 
 ### 2. O que é um projeto
 
@@ -63,7 +64,7 @@ No projeto de origem: o repositório git, adicionado à mão por cada pessoa ([U
 
 Duas perguntas vêm com esta. O administrador vê o trabalho de cada colega? Se sim, a equipa sabe antes de instalar os hooks. E quanto tempo fica cada coisa: eventos, perguntas, mensagens, notas ([Minimização e retenção](../privacidade/minimizacao-e-retencao.md))?
 
-No projeto de origem: privado por conta com o administrador a ver todos, e depois partilha por repositório. Perguntas, permissões, mensagens às sessões e instruções ficam sempre só de quem as fez. Eventos 7 dias, mensagens 24 horas, notas sem prazo.
+No projeto de origem: privado por conta com o administrador a ver todos; depois partilha por repositório, entre quem adicionou o mesmo repositório; e por fim um grupo por projeto, por convite: só quem aceita vê o projeto inteiro, e mexer pede privilégios do grupo (criar, alterar, apagar). Os projetos novos nascem por partilhar na vista comum, e cada PC escolhe o que manda ao portal (contas git, pedidos, atividade, tokens), tudo desligado por omissão. Perguntas, permissões, anexos e conversas com o Claude ficam sempre só de quem as fez. Eventos 7 dias, mensagens 24 horas, notas sem prazo *(experiência do projeto, 2026-11-25)*.
 
 ### 4. Quantos públicos
 
@@ -77,7 +78,7 @@ Quem vai olhar para isto, e o que vem cada um fazer?
 
 Cada público tem o seu mundo, e o de um não se estende a outro ([Escolher o mundo de cada público](um-mundo-por-publico.md)).
 
-No projeto de origem: três. Um jornal público que se folheia, com as notícias do conhecimento; uma administração com aspeto de ferramenta; e uma escola, onde cada pessoa acompanha as suas sessões.
+No projeto de origem: três. Um jornal público que se folheia, com as notícias do conhecimento; uma administração com aspeto de ferramenta, onde o conhecimento e as skills se veem por todos os que entram e só o administrador os muda; e uma cidade da equipa, onde cada pessoa acompanha as suas sessões e vê o que os colegas escolhem partilhar *(experiência do projeto, 2026-11-25)*.
 
 ### 5. Metáfora e nível
 
@@ -89,7 +90,7 @@ No projeto de origem: três. Um jornal público que se folheia, com as notícias
 
 Se o dono escolher o nível «topo», o 3D e o movimento ficam decididos e não se reabrem. Depois pergunta-se qual metáfora, com duas ou três propostas e uma maqueta.
 
-No projeto de origem: topo. Uma biblioteca com oficina na administração (estantes para o conhecimento, bancadas para as skills) e uma escola para o trabalho de cada pessoa.
+No projeto de origem: topo. Uma cidade 3D com um quarteirão por pessoa, um edifício por conta git, mais alto quanto mais projetos tem, e um andar por projeto; em cada andar, uma sala (de aula, escritório, oficina ou laboratório) onde os bonecos mostram as sessões e onde se entra a pé com um avatar. O conhecimento e as skills ficam num armazém da mesma cidade, com uma estante por categoria e as skills em plintos *(experiência do projeto, 2026-11-25)*.
 
 ### 6. Papéis
 
@@ -103,7 +104,7 @@ Que atores aparecem e que papel tem cada um?
 
 Pergunta também quem é o principal quando há várias sessões no mesmo projeto.
 
-No projeto de origem: a sessão mais antiga é o professor e as outras auxiliares, as skills são alunos, o orquestrador é o avaliador e os subagentes são ajudantes ([Papéis e aspeto dos agentes na cena](papeis-e-aspeto-dos-agentes.md)).
+No projeto de origem: cada sessão tem a sua sala e é o professor dela, e uma continuação que começa pouco depois de outra acabar fica com a sala dessa; as skills são alunos, o orquestrador é o avaliador, presente só na primeira sala, que nunca desaparece, e os subagentes são ajudantes ([Papéis e aspeto dos agentes na cena](papeis-e-aspeto-dos-agentes.md)) *(experiência do projeto, 2026-11-25)*.
 
 ### 7. Como se respondem as perguntas das sessões
 
@@ -203,3 +204,11 @@ No projeto de origem: construído e provado em local, publicado pelo dono com um
 - [W3C: WCAG 2.2](https://www.w3.org/TR/WCAG22/): 2.5.8 Target Size (Minimum), 24 por 24 px, e 2.5.5 Target Size (Enhanced), 44 por 44 px
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.
+
+## Histórico
+
+- **2026-11-25**: antes, «No projeto de origem: começou só com o dono e passou a equipa, todos a entrar pela conta do GitHub através do Cloudflare Access. A conta é o email que o Access valida, e cada PC tem o seu token de serviço.» (experiência do projeto de 2026-11-18). Mudou porque, no projeto de origem, o GitHub saiu da entrada quando entrou o primeiro colega (pedia leitura das organizações), os papéis passaram para a base do portal, com aprovação de quem entra pela primeira vez, e o dono recusou os tokens de serviço do fornecedor: cada PC passou a ligar-se com um token criado pelo portal. Editado a 2026-11-25.
+- **2026-11-25**: antes, «No projeto de origem: privado por conta com o administrador a ver todos, e depois partilha por repositório. Perguntas, permissões, mensagens às sessões e instruções ficam sempre só de quem as fez. Eventos 7 dias, mensagens 24 horas, notas sem prazo.» (experiência do projeto de 2026-11-18). Mudou porque o projeto de origem juntou um grupo por projeto, com convite aceite e privilégios para mexer, pôs os projetos novos a nascer por partilhar e deixou a cada PC a escolha do que manda ao portal, desligada por omissão; as mensagens às sessões deixaram de ser só de quem as fez, porque os membros do grupo as veem e, com o privilégio de criar, as mandam. Editado a 2026-11-25.
+- **2026-11-25**: antes, «No projeto de origem: três. Um jornal público que se folheia, com as notícias do conhecimento; uma administração com aspeto de ferramenta; e uma escola, onde cada pessoa acompanha as suas sessões.» (experiência do projeto de 2026-11-18). Mudou porque a escola de cada pessoa passou a uma cidade aberta a toda a equipa, e o conhecimento passou a ver-se por todos os que entram, com a mudança reservada ao administrador. Editado a 2026-11-25.
+- **2026-11-25**: antes, «No projeto de origem: topo. Uma biblioteca com oficina na administração (estantes para o conhecimento, bancadas para as skills) e uma escola para o trabalho de cada pessoa.» (experiência do projeto de 2026-11-18). Mudou porque a escola deu lugar a uma cidade com um edifício por conta git e um andar por projeto, a sala ganhou quatro tipos e entrada a pé, e a biblioteca com oficina deu lugar a um armazém do conhecimento dentro da cidade. Editado a 2026-11-25.
+- **2026-11-25**: antes, «No projeto de origem: a sessão mais antiga é o professor e as outras auxiliares, as skills são alunos, o orquestrador é o avaliador e os subagentes são ajudantes ([Papéis e aspeto dos agentes na cena](papeis-e-aspeto-dos-agentes.md)).» (experiência do projeto de 2026-11-18). Mudou porque o dono pediu uma sala por sessão, já que com várias sessões os bonecos ficavam uns em cima dos outros: deixou de haver uma sessão principal com auxiliares, e o avaliador ficou só na primeira sala, que nunca desaparece. Editado a 2026-11-25.

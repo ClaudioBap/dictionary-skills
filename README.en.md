@@ -15,7 +15,7 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | Part | What it is | For whom |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The full version of starting projects, in testing | People who build projects for clients (consultants, development teams) and install it by name |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->388 good-practice entries in 27 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->389 good-practice entries in 27 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill you start with: it asks what you want, proposes the delegation plan and spreads the work across sessions, with a model and effort per task. It also holds the shared rules, the questions and the knowledge path | Everyone |
 | `skills/<mini skill>/` | The fourteen mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
@@ -58,7 +58,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 ## Knowledge base
 
 <!-- conhecimento:inicio -->
-388 entries in 27 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
+389 entries in 27 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
 
 | Section | Entries | Section | Entries |
 |---|---|---|---|
@@ -71,7 +71,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 | [API design](knowledge/api/README.md) | 6 | [Cloud and identity](knowledge/nuvem/README.md) | 8 |
 | [Databases](knowledge/base-de-dados/README.md) | 18 | [Sessions, orchestration and cost efficiency](knowledge/custo/README.md) | 8 |
 | [Python](knowledge/python/README.md) | 13 | [Web publishing and hosting](knowledge/publicacao/README.md) (outside the PDF) | 10 |
-| [Java](knowledge/java/README.md) | 13 | [Building with AI](knowledge/ia/README.md) | 65 |
+| [Java](knowledge/java/README.md) | 13 | [Building with AI](knowledge/ia/README.md) | 66 |
 | [C#](knowledge/csharp/README.md) | 13 | [Remote access (SSH and RDP)](knowledge/acesso-remoto/README.md) (outside the PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](knowledge/plataformas/README.md) (outside the PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (outside the PDF) | 14 | [Modularisation and productisation](knowledge/produto/README.md) (outside the PDF) | 10 |
@@ -199,7 +199,37 @@ To update the knowledge:
 npx skills@latest update
 ```
 
+## Parent skills and sub skills
+
+Each skill states in the `metadata` of its `SKILL.md`:
+
+- `tipo`: `mãe` (parent) leads the others and splits the work among them; `sub` does one part of the work, on its own or called by a parent skill;
+- `usa`: the skills it asks for parts of the work (`[]` if none; `todas` only in a parent that can use any of them);
+- `impacto`: from 0 to 10, how useful it is for work in each area. 10 is the skill to use, 7 is a large part of the work, 4 to 6 helps in some cases, 1 to 3 is in passing and 0 does not help.
+
+The cases where each skill is used are in its `EXEMPLOS.md`, under «Quando usar», and the description says whether it is a parent or a sub skill. A new skill brings all of this: `node skills/update-knowledge/scripts/catalogo-skills.mjs .` checks it and writes the table of every skill in the [Portuguese README](README.md#skills-mãe-e-sub-skills), which is the only copy, so it never goes out of date.
+
+## State of each skill
+
+Each `SKILL.md` states its state in `metadata.estado`:
+
+- `produção`: it is ready. The Central Industry of Development portal takes it to the connected computers, without installing it.
+- `testes`: it is being tried out.
+- `demo`: it is only for showing.
+
+Skills in `testes` and `demo` do not go to the computers, and those with `metadata.internal` do not appear in the knowledge warehouse either. A skill without a state counts as `testes`. To change the state, change that line.
+
+Today, `correction-loop` and `start-project-with-trust` are in testing. The others are in production.
+
 ## In testing
+
+`skills/correction-loop/` is a skill in testing and is not installed with `--skill '*'`: the `metadata.internal` field of its `SKILL.md` leaves it out. It was a test to improve performance, looking for faster answers to problems: from little more than «it is giving an error», find how to reproduce the error, locate the cause with search methods chosen by the available signal and deliver the best fix, proven.
+
+In the trials, on an error with a failing test, a simple prompt reached the same fix in less than half the time and for about half the cost. The results are in [`medicao.md`](skills/correction-loop/medicao.md). The owner decided to close it on 2026-11-25, with no further investment. It only counts again if it beats a simple prompt in a case where locating by bisection (testing versions from the middle of the history) makes a difference, such as a regression with no test that points to the cause. Whoever wants to try it installs it by name:
+
+```bash
+npx skills@latest add ClaudioBap/dictionary-skills --skill correction-loop
+```
 
 `skills/start-project-with-trust/` is in testing and is not installed with `--skill '*'`: the `metadata.internal` field of its `SKILL.md` leaves it out. It is the full version of starting a client project, with the goal loop up to «Plano aprovado», the checkers and the hooks (see [start-project-with-trust](#start-project-with-trust) and [How the goal loop is enforced](#how-the-goal-loop-is-enforced)). It uses the rules, the questions and the knowledge path from `orchestrate-sessions`, so it is installed after the collection. It takes two commands, because the installer only brings a skill in testing when it is requested by name, without `'*'` in the same request:
 

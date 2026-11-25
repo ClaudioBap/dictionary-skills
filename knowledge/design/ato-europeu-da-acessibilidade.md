@@ -21,13 +21,13 @@ verificado_em: 2026-11-25
 - O que pede, em geral: o produto ou serviço, com o apoio ao cliente e os manuais que o acompanham, tem de servir pessoas com deficiência cognitiva; de funcionar com tecnologias de apoio, como o comando por voz e os leitores de ecrã; de aceitar mais do que uma forma de entrada e de saída (teclado, voz, toque); de ter navegação lógica e layout consistente; de dar tempo suficiente para acabar as tarefas; e de evitar conteúdo que possa provocar convulsões, como imagens a piscar. Fonte: [Your Europe](https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm)
 - Conformidade: entrega-se às autoridades uma declaração de que o produto cumpre os requisitos, com a descrição do produto ou serviço e de como os cumpre. Fonte: [Your Europe](https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm)
 - Portugal: a diretiva foi transposta pelo Decreto-Lei n.º 82/2022, de 6 de dezembro. Fonte: [mosaico.gov.pt: Decreto-Lei n.º 82/2022 (atualizado a 2025-11-25)](https://mosaico.gov.pt/legislacao-e-regulamentos/decreto-lei-82-2022). O texto no Diário da República não foi lido, porque só aparece depois de correr JavaScript.
-- Não confundir com o Decreto-Lei n.º 83/2018, que trata dos sítios web e das aplicações do setor público ([Acessibilidade (WCAG 2.1 AA)](acessibilidade-wcag.md)). *(interpretação)* As páginas lidas não citam a WCAG. A base usa os critérios de `acessibilidade-wcag.md` como forma verificável de cumprir os requisitos gerais.
+- Não confundir com o Decreto-Lei n.º 83/2018, que trata dos sítios web e das aplicações do setor público ([Acessibilidade (WCAG 2.2 AA)](acessibilidade-wcag.md)). *(interpretação)* As páginas lidas não citam a WCAG. A base usa os critérios de `acessibilidade-wcag.md` como forma verificável de cumprir os requisitos gerais.
 
 **Para uma skill:** num site ou numa aplicação para consumidores na UE (loja online, bilhética, banca, transporte, livros eletrónicos), pergunta se o cliente é uma microempresa de serviços (menos de 10 trabalhadores e menos de 2 milhões de euros de volume de negócios). Se não for, e o produto ou serviço está no âmbito acima, a acessibilidade é uma obrigação legal e não depende do nível pedido: aplica os critérios de `acessibilidade-wcag.md` e deixa na entrega a descrição de como o serviço cumpre os requisitos.
 
 ## Ver também
 
-- [Acessibilidade (WCAG 2.1 AA)](acessibilidade-wcag.md) (Design e experiência de utilizador)
+- [Acessibilidade (WCAG 2.2 AA)](acessibilidade-wcag.md) (Design e experiência de utilizador)
 
 ## Fontes oficiais
 

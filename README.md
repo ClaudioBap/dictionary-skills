@@ -13,7 +13,7 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | Parte | O que é | Para quem |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A versão completa do arranque de projetos, em testes | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) e a instala pelo nome |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->388 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->389 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill por onde se começa: pergunta o que queres, propõe o plano de delegação e distribui o trabalho por sessões, com modelo e effort por tarefa. Tem também as regras comuns, as perguntas e o caminho da base | Toda a gente |
 | `skills/<mini skill>/` | As catorze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
@@ -56,7 +56,7 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 ## Base de conhecimento
 
 <!-- conhecimento:inicio -->
-388 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
+389 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
@@ -69,7 +69,7 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 | [Desenho de API](knowledge/api/README.md) | 6 | [Nuvem e identidade](knowledge/nuvem/README.md) | 8 |
 | [Base de dados](knowledge/base-de-dados/README.md) | 18 | [Sessões, orquestração e custo-eficiência](knowledge/custo/README.md) | 8 |
 | [Python](knowledge/python/README.md) | 13 | [Publicação e alojamento web](knowledge/publicacao/README.md) (fora do PDF) | 10 |
-| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 65 |
+| [Java](knowledge/java/README.md) | 13 | [Construir com IA](knowledge/ia/README.md) | 66 |
 | [C#](knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](knowledge/plataformas/README.md) (fora do PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 10 |
@@ -210,7 +210,7 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 <!-- skills:inicio -->
 | Skill | Tipo | Usa | IA | Segurança | Nuvem | Desenvolvimento | Web |
 |---|---|---|---:|---:|---:|---:|---:|
-| `orchestrate-sessions` | mãe | qualquer uma | 10 | 0 | 3 | 4 | 0 |
+| `orchestrate-sessions` | mãe | qualquer uma | 10 | 7 | 7 | 7 | 7 |
 | `start-project-with-trust` | mãe | `orchestrate-sessions`, `operar`, `humanizar`, `documentacao`, `update-knowledge`, `portal-de-agentes` | 7 | 7 | 7 | 7 | 7 |
 | `backend-dados` | sub | `humanizar` | 0 | 5 | 5 | 10 | 0 |
 | `boas-praticas-codigo` | sub | `humanizar` | 0 | 4 | 0 | 10 | 3 |
@@ -225,7 +225,7 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 | `operar` | sub | `humanizar` | 2 | 3 | 10 | 2 | 0 |
 | `performance-verifier` | sub | `humanizar` | 6 | 0 | 7 | 6 | 7 |
 | `portal-de-agentes` | sub | `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |
-| `produtizar` | sub | `humanizar` | 0 | 0 | 3 | 10 | 0 |
+| `produtizar` | sub | `humanizar` | 0 | 4 | 3 | 10 | 4 |
 | `seguranca` | sub | `humanizar` | 4 | 10 | 5 | 5 | 2 |
 | `update-knowledge` | sub | nenhuma | 5 | 5 | 5 | 5 | 5 |
 <!-- skills:fim -->
@@ -241,7 +241,7 @@ Cada `SKILL.md` diz o seu estado em `metadata.estado`:
 As de `testes` e `demo` não vão para os computadores, e as que têm `metadata.internal` também não aparecem no armazém do conhecimento. Uma skill sem estado conta
 como `testes`. Para mudar o estado, muda-se essa linha.
 
-Hoje, `correction-loop` está em testes. As outras estão em produção.
+Hoje, a `correction-loop` e a `start-project-with-trust` estão em testes. As outras estão em produção.
 
 ## Em testes
 

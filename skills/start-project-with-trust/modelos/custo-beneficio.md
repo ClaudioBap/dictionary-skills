@@ -1,10 +1,10 @@
-# Plano custo-benefício — <projeto>
+# Plano custo-benefício (<projeto>)
 
 > Saída da Fase 3. Custos em dinheiro só com fonte (cliente ou `knowledge/`). Caso contrário, escala relativa marcada como *(estimativa)*.
 
 ## Decisões
 
-### D1 — <decisão>
+### D1. <decisão>
 
 **Responde a:** _por definir_ <!-- IDs de objetivo.md, ex.: P8, S2 -->
 
@@ -13,7 +13,7 @@
 
 **Recomendação:** _por definir_
 
-### D2 — Publicação e exposição
+### D2. Publicação e exposição
 
 **Responde a:** _por definir_ <!-- normalmente P14, P8 e P11 -->
 
@@ -24,7 +24,7 @@
 
 **Recomendação:** _por definir_
 
-### D3 — Adotar ou construir
+### D3. Adotar ou construir
 
 **Responde a:** _por definir_ <!-- normalmente P1, P5 e P10 -->
 
@@ -35,7 +35,7 @@
 
 **Recomendação:** _por definir_
 
-### D4 — Execução em paralelo e agentes
+### D4. Execução em paralelo e agentes
 
 **Responde a:** _por definir_ <!-- normalmente P7 (prazo), P8 (orçamento) e as perguntas de seguimento sobre o número de sessões e os agentes -->
 
@@ -46,7 +46,7 @@
 
 **Recomendação:** _por definir_
 
-### D5 — Específico ou modular
+### D5. Específico ou modular
 
 **Responde a:** _por definir_ <!-- normalmente P16 (reutilização), P5 (âmbito) e P8 (orçamento) -->
 

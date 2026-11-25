@@ -4,7 +4,8 @@ titulo: "Microsoft 365 e Graph"
 seccao: "Nuvem e identidade (AWS, Azure, Microsoft, OVH)"
 paginas: [62]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -16,8 +17,12 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - Produtividade (Exchange, SharePoint, Teams) e a Microsoft Graph como API única para os dados do tenant (utilizadores, email, ficheiros, calendário).
 - Integrar por app registration com permissões mínimas (delegadas ou de aplicação), consentidas explicitamente; enviar email por Graph quando o SMTP básico está bloqueado.
+- Cada página de API da Graph marca as permissões de menor privilégio; usam-se essas e só se sobe se a app precisar. Para enviar email (sendMail) a menor é Mail.Send.
+- Permissões de aplicação (sem utilizador com sessão) chegam a todos os dados que cobrem: com Files.Read.All de aplicação, a app lê qualquer ficheiro da organização. Com permissões delegadas, só o que o utilizador já pode ver.
+- Para limitar uma app a algumas caixas de correio, usa-se o RBAC for Applications do Exchange Online com âmbito de recursos (substitui as Application Access Policies) e retira-se a permissão sem âmbito dada no Entra ID; se ficarem as duas, somam-se e o âmbito deixa de valer.
+- Localização: no Microsoft 365, os tenants com local de registo num país da UE ou da EFTA ficam no EU Data Boundary, exceto os que compraram Multi-Geo; o país do tenant vê-se no centro de administração do Microsoft 365.
 
-**Para uma skill:** a integração com o Microsoft 365 usa a Graph com permissões mínimas e consentidas.
+**Para uma skill:** a integração com o Microsoft 365 usa a Graph com permissões mínimas e consentidas. Critérios a verificar: só as permissões marcadas como de menor privilégio na página de cada API, nenhuma permissão de aplicação sem âmbito quando a app só precisa de algumas caixas, e tenant dentro do EU Data Boundary.
 
 ## Fontes oficiais
 

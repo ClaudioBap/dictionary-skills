@@ -6,7 +6,7 @@ metadata:
   estado: produção
   tipo: sub
   usa: [humanizar]
-  impacto: { ia: 0, seguranca: 0, nuvem: 3, desenvolvimento: 10, web: 0 }
+  impacto: { ia: 0, seguranca: 4, nuvem: 3, desenvolvimento: 10, web: 4 }
 ---
 
 # Produtizar

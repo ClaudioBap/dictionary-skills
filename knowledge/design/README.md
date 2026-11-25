@@ -7,7 +7,7 @@ Fonte: págs. 13–19 (Dicionario-Boas-Praticas.pdf)
 ## Entradas
 
 - [Design system como código](design-system-como-codigo.md) — Tokens no `:root`, componentes construídos sobre os tokens e um catálogo com todos os estados. *(pág. 13)*
-- [Acessibilidade (WCAG 2.1 AA)](acessibilidade-wcag.md) — Alvo mínimo WCAG 2.1 AA: teclado, foco visível, leitor de ecrã, contraste e axe/pa11y no CI. *(pág. 13)*
+- [Acessibilidade (WCAG 2.2 AA)](acessibilidade-wcag.md) — Alvo mínimo WCAG 2.2 AA: teclado, foco visível, leitor de ecrã, contraste e axe/pa11y no CI. *(pág. 13)*
 - [Rotas por URL e estado recuperável](rotas-por-url-e-estado-recuperavel.md) — Cada vista importante tem o seu URL e o estado da interface sobrevive a um recarregamento. *(pág. 13)*
 - [Assets e fontes locais (sem CDN)](assets-e-fontes-locais.md) — Fontes e assets servidos pela própria aplicação, sem Google Fonts nem CDN. *(pág. 13)*
 - [Orçamento de desempenho](orcamento-de-desempenho.md) — Um orçamento por página verificado no CI, com compressão, caching e o pesado carregado tarde. *(pág. 14)*

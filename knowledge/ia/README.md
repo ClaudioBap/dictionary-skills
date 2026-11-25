@@ -55,6 +55,7 @@ Fonte: págs. 65–69 (Dicionario-Boas-Praticas.pdf)
 - [Gemini API: modelos, batch, cache, grounding e dados](fornecedores/gemini-api.md) — O que a API do Gemini oferece para trabalho em lote, cache, pesquisa na web, saída estruturada, ficheiros e voz, e a diferença entre o escalão grátis e o pago no uso dos dados. *(fora do PDF)*
 - [OpenAI API: batch, cache, saída estruturada e controlo de dados](fornecedores/openai-api.md) — O que a API da OpenAI oferece para trabalho em lote, cache, saída estruturada, pesquisa em ficheiros e voz, e em que condições guarda os dados e os mantém na Europa. *(fora do PDF)*
 - [Modelos sem restrições por API (abliteration.ai)](fornecedores/modelos-sem-restricoes-abliteration-ai.md) — A abliteration.ai vende acesso por API a modelos sem restrições («abliterated»), compatível com a API da OpenAI e com a da Anthropic e listado como integração do Claude Code; paga-se por token, os planos mensais dão o mesmo valor em crédito, e a promessa de não guardar perguntas nem respostas é do fornecedor e está por verificar. *(fora do PDF)*
+- [Mistral API: modelos, preços, dados e inferência na UE](fornecedores/mistral-api.md) — O que a API da Mistral oferece a um plano que pede um fornecedor europeu: os modelos em serviço e os descontinuados, o preço por milhão de tokens, a retenção de 30 dias e a retenção zero a pedido, o endpoint da UE com 10% a mais, os limites por escalão e o endpoint compatível com a OpenAI, ainda em preview. *(fora do PDF)*
 
 ### Modelos abertos e licenças
 
@@ -99,4 +100,4 @@ Fonte: págs. 65–69 (Dicionario-Boas-Praticas.pdf)
 ### Segurança de aplicações com LLM
 
 - [Injeção de prompt: ameaças e mitigações](seguranca/injecao-de-prompt-mitigacoes.md) — Há duas ameaças diferentes (o utilizador como atacante, ou conteúdo de terceiros que o modelo lê) e cada uma tem as suas mitigações; nenhuma camada sozinha resolve, por isso as defesas somam-se. *(fora do PDF)*
-- [OWASP Top 10 para aplicações com LLM](seguranca/owasp-top-10-llm.md) — A lista de referência dos dez riscos de uma aplicação com LLM, na versão de 2025, e os primeiros riscos publicados para agentes; serve de lista de verificação na revisão de segurança. *(fora do PDF)*
+- [OWASP Top 10 para aplicações com LLM](seguranca/owasp-top-10-llm.md) — A lista de referência dos dez riscos de uma aplicação com LLM, na versão de 2025, e os dez riscos de uma aplicação agêntica, na versão de 2026; serve de lista de verificação na revisão de segurança. *(fora do PDF)*

@@ -1,4 +1,4 @@
-# Necessidades — <projeto>
+# Necessidades (<projeto>)
 
 > Saída da Fase 1. Cada secção remete para as perguntas de `objetivo.md` que a alimentam.
 

@@ -4,7 +4,8 @@ titulo: "CI como portão do deploy"
 seccao: "Segurança"
 paginas: [6]
 fonte: Dicionario-Boas-Praticas.pdf
-verificado_em: 2026-11-03
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -18,7 +19,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - Ações de terceiros fixadas por SHA; a chave do CI só lê o repositório; cada job com limite de tempo.
 - Produção só do branch protegido, com aprovação; smoke-test depois de subir; rollback rápido.
 
-**Para uma skill:** nada chega a produção sem CI verde, revisão e caminho de rollback.
+**Para uma skill:** nada chega a produção sem CI verde, revisão e caminho de rollback. A prova faz-se como em [Pipeline como portão](../cicd/pipeline-como-portao.md): verificações obrigatórias, branch protegida e deploy só a partir do pipeline.
 
 ## Ver também
 

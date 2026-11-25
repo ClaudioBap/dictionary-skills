@@ -25,7 +25,7 @@ O conhecimento está em `knowledge/design/` e `knowledge/seo/`. Se `~/.start-pro
 
 Sabe fazer, com base em `design/` e `seo/`:
 - páginas, fluxos, formulários, navegação, pesquisa e painéis de administração com tabelas densas;
-- acessibilidade WCAG 2.1 AA, design responsivo, tema claro e escuro, internacionalização, estados de vazio, carregamento e erro, e micro-interações de botões e de estados;
+- acessibilidade WCAG 2.2 AA, design responsivo, tema claro e escuro, internacionalização, estados de vazio, carregamento e erro, e micro-interações de botões e de estados;
 - o desempenho da página que desenha (Core Web Vitals, imagens, fontes locais) e o SEO técnico de um site público (título, descrição, canonical, sitemap, dados estruturados).
 
 Não sabe fazer, e para onde vai:

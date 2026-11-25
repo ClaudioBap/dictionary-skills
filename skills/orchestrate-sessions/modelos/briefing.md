@@ -1,4 +1,4 @@
-# Briefing S<n> — <objetivo curto>
+# Briefing S<n> (<objetivo curto>)
 
 No VS Code, abrir uma conversa nova do Claude Code na pasta do projeto (paleta de comandos, «Open in New Tab») e escolher o modelo e o effort no seletor que abre ao clicar no nome do modelo, na parte de baixo da caixa de texto. Num terminal, na mesma pasta:
 

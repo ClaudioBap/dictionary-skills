@@ -6,7 +6,8 @@ paginas: []
 fonte: "Síntese das entradas ligadas, cada uma com as suas fontes oficiais; consultadas a 2026-11-10. Não vem do PDF."
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-10
+verificado_em: 2026-11-25
+editado_em: 2026-11-25
 ---
 
 # Prontidão operacional e passagem
@@ -26,7 +27,7 @@ Lista do que tem de existir antes da passagem a uma equipa sem conhecimento oper
 - Sondas de saúde em cada serviço, para o orquestrador reiniciar o que está preso e não enviar tráfego ao que não está pronto. Ver [Sondas de saúde (liveness, readiness, startup)](../docker/sondas-de-saude.md).
 - Um documento de operação no repositório que aponta para tudo isto e diz o estado atual. Ver [Documento de estado vivo](../estrutura/documento-de-estado-vivo.md).
 
-**Para uma skill:** a Fase 5 inclui um documento de operação com estes pontos, cada um com a sua prova (painel e alerta disparado, runbook executado por outra pessoa, reposição feita, exercício de incidente, registo de alterações, sondas a responder); a entrega não se aceita sem ele.
+**Para uma skill:** a passagem inclui um documento de operação com estes pontos, cada um com a sua prova (painel e alerta disparado, runbook executado por outra pessoa, reposição feita, exercício de incidente, registo de alterações, sondas a responder); a entrega não se aceita sem ele.
 
 ## Ver também
 
@@ -36,5 +37,9 @@ Lista do que tem de existir antes da passagem a uma equipa sem conhecimento oper
 - [Incidentes e postmortem sem culpa](incidentes-e-postmortem-sem-culpa.md) (Fiabilidade e resiliência)
 - [Sondas de saúde (liveness, readiness, startup)](../docker/sondas-de-saude.md) (Docker e orquestração)
 - [Documento de estado vivo](../estrutura/documento-de-estado-vivo.md) (Estrutura e documentação)
+
+## Histórico
+
+- **data não indicada**: antes, «**Para uma skill:** a Fase 5 inclui um documento de operação» (síntese de 2026-11-10). Mudou porque a entrada serve também a `operar` e a `orchestrate-sessions`, fora da Fase 5 da `start-project-with-trust`; o resto da linha não mudou. Editado a 2026-11-25.
 
 Fonte: síntese das entradas ligadas, cada uma com as suas fontes oficiais; consultadas a 2026-11-10. Não vem do PDF.

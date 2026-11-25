@@ -90,12 +90,7 @@ Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os t
    - o critério de sucesso, partindo da linha «Para uma skill:» da entrada usada;
    - a parte a que pertence, quando P16 indica reutilização: `núcleo` (igual em todos os casos) ou `específico` (só deste caso). Se P16 diz que é um caso só, escreve `—`. Base: `knowledge/produto/especifico-ou-modular.md`.
 3. **Só recursos declarados.** Se uma boa prática exige um recurso que o cliente não tem, não o dês como disponível. Regista-o em «Lacunas» e acrescenta a `objetivo.md` uma pergunta `aberta` sobre ele.
-4. **Sem base, vai às fontes antes de planear.** Se uma necessidade não tem entrada correspondente em `knowledge/` nem no conhecimento pessoal, não inventes uma prática e não a deixes só marcada:
-   1. usa o que sabes para escolher as fontes oficiais primárias mais adequadas ao pedido (o fornecedor, o organismo ou o autor do standard) e lê-as. Não contornes bloqueios: se uma fonte recusar o acesso automático, pede ao utilizador o conteúdo ou regista-a como não lida;
-   2. regista o que encontraste no conhecimento pessoal: a fonte em `FONTES.md`, a prática numa entrada nova em `knowledge/<secção>/<slug>.md` (frontmatter com `fonte`, `data_lancamento`, `confianca` e `verificado_em`, como na `update-knowledge`) e uma linha no `CHANGELOG.md` pessoal. A confiança segue os critérios da `update-knowledge`: `alta` (fonte oficial primária, lida diretamente, com data), `media` (indireta, lida em parte ou sem data) ou `baixa` (não oficial). Uma entrada `baixa` não serve de base ao plano;
-   3. só depois escreve a ação em `plano.md`, citando a entrada pessoal e o URL;
-   4. se não encontrares nenhuma fonte oficial, escreve a necessidade em «Fora do conhecimento».
-   Diz ao utilizador que fontes foste buscar e o que registaste.
+4. **Sem base, vai às fontes antes de planear.** Se uma necessidade não tem entrada em `knowledge/` nem no conhecimento pessoal, segue «Quando falta conhecimento» em `../update-knowledge/SKILL.md` antes de planear. O que é só desta skill: a ação em `plano.md` cita a entrada pessoal e o URL, e uma necessidade sem nenhuma fonte oficial vai para «Fora do conhecimento». Diz ao utilizador que fontes foste buscar e o que registaste.
 5. Mostra o resumo do plano e pede validação.
 
 ## Fase 3. Plano custo-benefício

@@ -192,7 +192,7 @@ export function verificar(pasta, substituir = {}) {
     else if (!linhas.some((c) => /orquestrador/i.test(c[colTipo] || ''))) falhas.push('custo-beneficio.md: nenhuma sessão do tipo «orquestrador»');
     falhas.push(...modeloEEffort(docs['custo-beneficio.md'], docs['plano.md']));
     for (const obrigatoria of ['Publicação e exposição', 'Adotar ou construir', 'Execução em paralelo', 'Específico ou modular']) {
-      if (!new RegExp(`^###\\s+D\\d+\\s+[—-]\\s+${obrigatoria}`, 'mi').test(docs['custo-beneficio.md'])) falhas.push(`custo-beneficio.md: falta a decisão «${obrigatoria}»`);
+      if (!new RegExp(`^###\\s+D\\d+\\s*[—.:-]\\s+${obrigatoria}`, 'mi').test(docs['custo-beneficio.md'])) falhas.push(`custo-beneficio.md: falta a decisão «${obrigatoria}»`);
     }
   }
 

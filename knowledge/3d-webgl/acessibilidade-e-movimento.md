@@ -23,7 +23,7 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 ## Ver também
 
-- [Acessibilidade (WCAG 2.1 AA)](../design/acessibilidade-wcag.md) (Design e experiência de utilizador)
+- [Acessibilidade (WCAG 2.2 AA)](../design/acessibilidade-wcag.md) (Design e experiência de utilizador)
 
 ## Fontes oficiais
 

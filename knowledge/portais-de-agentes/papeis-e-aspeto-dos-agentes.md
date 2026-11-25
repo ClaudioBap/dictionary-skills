@@ -94,7 +94,7 @@ O aspeto nunca se declara dentro da skill. O `SKILL.md` aceita um campo `metadat
 - [Um espaço por pessoa, um projeto por repositório](espaco-por-pessoa-e-projeto-por-repositorio.md) (Portais e mundos de agentes)
 - [Mundo 3D movido por agentes](../3d-webgl/mundo-3d-movido-por-agentes.md) (3D, WebGL e animação)
 - [Cor com significado](../design/cor-com-significado.md) (Design e experiência de utilizador)
-- [Acessibilidade (WCAG 2.1 AA)](../design/acessibilidade-wcag.md) (Design e experiência de utilizador)
+- [Acessibilidade (WCAG 2.2 AA)](../design/acessibilidade-wcag.md) (Design e experiência de utilizador)
 - [Configuração fora do código (os doze fatores)](../produto/configuracao-fora-do-codigo.md) (Modularização e produtização)
 - [Subagentes e orquestração](../ia/subagentes-e-orquestracao.md) (Construir com IA)
 

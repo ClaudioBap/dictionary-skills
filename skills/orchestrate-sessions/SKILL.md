@@ -6,7 +6,7 @@ metadata:
   estado: produção
   tipo: mãe
   usa: todas
-  impacto: { ia: 10, seguranca: 0, nuvem: 3, desenvolvimento: 4, web: 0 }
+  impacto: { ia: 10, seguranca: 7, nuvem: 7, desenvolvimento: 7, web: 7 }
 ---
 
 # OrchestrateSessions
@@ -69,7 +69,7 @@ Um trabalho avulso novo começa aqui, com um pedido claro, vago ou vazio. É um 
 2. A ordem segue a árvore de decisões, a partir de P1, cuja resposta diz que ramos interessam: uma auditoria de segurança dispensa P16, um portal novo precisa de quase todas. Uma pergunta que as respostas tornam inútil não se faz: fica `aberta`, com o pressuposto «não se aplica» e a razão na resposta, para o utilizador o aceitar no resumo.
 3. Quando se percebe que skills vão entrar (ver «Que skill faz cada tarefa»), junta a pergunta de cada uma, da tabela «O que cada skill precisa de saber» de `PERGUNTAS.md`, se as P indicadas lá ainda não lhe responderam. A resposta vai no briefing, e a sessão não volta a perguntar.
 4. Uma resposta vaga, um «não sei» ou uma resposta que abre um ramo novo seguem «Que pergunta fazer a seguir», em `regras.md`.
-5. Quando não houver perguntas `aberta` além das do pressuposto «não se aplica», mostra o resumo: o que se quer, o critério de sucesso, o que fica de fora, os pressupostos e as skills que vão entrar. Com a validação do utilizador, marca essas `assumida`, muda o estado para `Tarefas` e passa ao plano de delegação.
+5. Quando não houver perguntas `aberta` além das do pressuposto «não se aplica», mostra o resumo: o que se quer, o critério de sucesso, o que fica de fora, os pressupostos e as skills que vão entrar. Com a validação do utilizador, marca essas `assumida`, muda o estado para `Tarefas` e passa ao plano de delegação. Depois da validação, acrescenta a `~/.start-project-with-trust/perfil.md` os tipos de trabalho que ainda lá não estão (domínio, tecnologias, setor), sem dados do cliente, e uma linha no `CHANGELOG.md` pessoal. Se a pasta não existir, cria-a como diz a `update-knowledge` (`perfil.md`, `FONTES.md`, `CHANGELOG.md` e `pendentes.md` só com o título) e diz ao utilizador onde fica.
 
 As respostas e as pistas «Liga a» de `PERGUNTAS.md` dizem que secções de `knowledge/` se leem no passo 1.
 
@@ -82,7 +82,7 @@ Do questionário sai o plano de delegação, com quatro partes, que fica na sec�
 3. **Quantas sessões do VS Code se abrem.** Sai do passo 2.
 4. **Quantos agentes corre cada sessão**, com o modelo e o effort de cada um. Sai dos passos 3 e 4, e os agentes correm em lotes de 3 a 4 (passo 5).
 
-## Passo 1 — Tarefas
+## Passo 1. Tarefas
 
 1. O objetivo e o critério de sucesso vêm de P1 e P3 do questionário. «Funcionar» não chega: o critério tem de se poder provar com um comando, um teste, um URL ou um ficheiro.
 1a. Se P16 diz que é para voltar a ser usado noutros clientes, áreas ou dados, cada tarefa leva a parte a que pertence, `núcleo` ou `específico`, e as tarefas do núcleo ficam na mesma sessão, nunca em paralelo com outra que o altere. Base: `knowledge/produto/especifico-ou-modular.md`.
@@ -95,7 +95,7 @@ Do questionário sai o plano de delegação, com quatro partes, que fica na sec�
    - de que tarefas depende.
 5. Preenche «Skills no trabalho» (parte 1 do plano de delegação) com as skills da coluna «Mini skill» e as que entram no fim, como a `humanizar` e a `documentacao`, mostra as duas tabelas e pede validação.
 
-## Passo 2 — Quantas sessões em paralelo
+## Passo 2. Quantas sessões em paralelo
 
 1. Agrupa as tarefas: no mesmo grupo ficam as que dependem umas das outras ou mexem nos mesmos ficheiros. O número de grupos independentes é o máximo útil de sessões em paralelo (`knowledge/ia/subagentes-e-orquestracao.md`, pág. 68).
 2. Pergunta quantas sessões queres a trabalhar ao mesmo tempo. Opções, da mais barata e lenta à mais rápida:
@@ -105,7 +105,7 @@ Do questionário sai o plano de delegação, com quatro partes, que fica na sec�
    Para cada opção, diz que grupos vão para cada sessão e o que se ganha em tempo. O modelo e o effort de cada tarefa não mudam com o número de sessões; o que sobe é o custo de arranque, porque cada sessão nova lê o contexto do projeto *(interpretação)*. Recomenda a opção com menos sessões que cumpra o prazo do utilizador.
 3. Regista a resposta em «Decisões».
 
-## Passo 3 — Onde usar agentes
+## Passo 3. Onde usar agentes
 
 Pergunta onde se usam subagentes:
 
@@ -118,13 +118,13 @@ A recomendação segue `knowledge/ia/subagentes-e-orquestracao.md` (pág. 68): s
 
 Regista a resposta em «Decisões» e marca em «Quem executa» que tarefas vão para subagentes.
 
-## Passo 4 — Sessões e briefings
+## Passo 4. Sessões e briefings
 
 1. Preenche «Sessões». Cada sessão corre no modelo e no effort da tarefa mais exigente que faz ela própria. As tarefas de nível mais baixo vão para subagentes, se a decisão do passo 3 o permitir; se não, junta-as numa sessão do mesmo nível, sempre que as dependências o deixem. Na coluna «Subagentes», escreve quantos corre cada sessão, com o modelo e o effort de cada um: é a parte 4 do plano de delegação.
 2. Para cada sessão de 1 em diante, escreve `briefings/S<n>.md` a partir de `modelos/briefing.md`. As tarefas dos subagentes do orquestrador também levam briefing (`briefings/T<n>.md`), que é o prompt do subagente.
 3. Mostra o plano de delegação inteiro (as quatro partes), quem faz o quê, o nível, o modelo e o effort de cada tarefa, e as tarefas que ficam em `opus` ou `fable` com a razão. Pede validação, marca-a em «Validação» e muda o estado para `Execução`.
 
-## Passo 5 — Execução
+## Passo 5. Execução
 
 1. Para cada sessão que já pode arrancar (com as entradas prontas), diz ao utilizador o comando para a abrir e o texto a colar, como estão no briefing. As que dependem de outras ficam para quando as entradas existirem.
 2. Lança os subagentes do orquestrador com a ferramenta Agent, com o `model` e o `effort` da tarefa. Em paralelo, só os que não dependem uns dos outros, e em lotes de 3 a 4, para um limite de uso levar só o que está a meio. Cada subagente grava o resultado em `saidas/T<n>.md` antes de devolver, como diz o briefing dele.
@@ -132,7 +132,7 @@ Regista a resposta em «Decisões» e marca em «Quem executa» que tarefas vão
 4. Não repitas o trabalho de uma sessão enquanto ela corre.
 5. Em modo contínuo, atualiza `estado.json` a cada tarefa que começa ou acaba. Com quota abaixo de 100%, antes de lançar cada sessão ou subagente lê `~/.start-project-with-trust/estado-uso.json`; se a quota escolhida estiver gasta, escreve a hora de reposição em `pausado_ate` de `estado.json` e «pausado até <hora>» em `sessoes.md`, e pára de lançar trabalho. Quando um subagente ou sessão falhar por limite de uso, deixa a tarefa `em curso` e relança-a depois da pausa, a começar pelo que já está no disco. Ao retomar, começa pelos verificadores e pelas saídas que chegaram entretanto.
 
-## Passo 6 — Recolha
+## Passo 6. Recolha
 
 1. Quando o utilizador disser que uma sessão terminou, lê `saidas/S<n>.md`. Confirma a prova de cada tarefa; se a puderes reproduzir (correr o comando, abrir o URL), fá-lo. Uma tarefa sem prova volta à sessão ou passa a tarefa nova.
 2. Atualiza «Tarefas» (estado), «Sessões» (custo do `/usage`) e «Subidas de nível».

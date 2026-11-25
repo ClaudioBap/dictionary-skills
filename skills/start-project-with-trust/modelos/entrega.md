@@ -1,4 +1,4 @@
-# Entrega — <projeto>
+# Entrega (<projeto>)
 
 > Saída das Fases 4 e 5. Cada ação de `plano.md` tem aqui uma linha na execução e outra na verificação, com o mesmo número.
 > «Prova» é o que qualquer pessoa pode repetir: o comando corrido e a saída, um URL ou um ficheiro. «Funciona» ou «testado» não são prova.

@@ -1,4 +1,4 @@
-# Orquestração — <trabalho>
+# Orquestração de <trabalho>
 
 - **Estado:** Questionário <!-- Questionário | Tarefas | Sessões | Execução | Concluído -->
 - **Última atualização:** <data>

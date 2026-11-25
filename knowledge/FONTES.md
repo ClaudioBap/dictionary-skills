@@ -42,6 +42,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [EDPB](https://www.edpb.europa.eu/) | diretrizes europeias sobre RGPD, consentimento e cookies |
 | [EDPB: guia para PME](https://www.edpb.europa.eu/sme-data-protection-guide/home_en) | guia prático de conformidade com o RGPD |
 | [CNPD](https://www.cnpd.pt/) | autoridade portuguesa: orientações, AIPD, violações de dados |
+| [CNPD: Diretriz/2023/1](https://www.cnpd.pt/umbraco/surface/cnpdDecision/download/122048) | medidas organizativas e de segurança dos tratamentos de dados pessoais (PDF) |
 | [Comissão Europeia: RGPD](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en) | explicações oficiais de princípios, fundamentos e direitos |
 
 ## [Fiabilidade e resiliência](fiabilidade/README.md)
@@ -472,12 +473,14 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [karpathy/nanochat](https://github.com/karpathy/nanochat) | Treinar um LLM de raiz, de ponta a ponta |
 | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | Construir um LLM de raiz, capítulo a capítulo |
 | [Mistral: modelos](https://docs.mistral.ai/models/) | Modelos Mistral e licença de cada um |
+| [Mistral: preços](https://docs.mistral.ai/inference/pricing) | Preços da API Mistral por modelo, batch, cache e inferência regional na UE |
 | [Gemma: termos](https://ai.google.dev/gemma/terms) | Licença dos modelos Gemma |
 | [OSI: Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) | O que conta como IA open source |
 | [Comissão Europeia: perguntas e respostas sobre modelos GPAI](https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers) | Quem é fornecedor de um modelo de finalidade geral e o que deve |
 | [Código de Conduta GPAI](https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai) | Transparência, direitos de autor e segurança para fornecedores de modelos |
 | [A2A: especificação](https://a2a-protocol.org/latest/specification/) | Protocolo entre agentes, versões |
 | [OWASP Top 10 para LLM](https://genai.owasp.org/llm-top-10/) | Riscos de segurança de aplicações com LLM e de agentes |
+| [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Os dez riscos de aplicações agênticas, ASI01 a ASI10 |
 | [LiteLLM](https://docs.litellm.ai) | Gateway de LLM com orçamentos e chaves virtuais |
 | [Langfuse](https://langfuse.com/docs) | Observabilidade, avaliação e gestão de prompts |
 | [Piper: vozes](https://huggingface.co/rhasspy/piper-voices) | Vozes TTS locais, incluindo pt_PT |
