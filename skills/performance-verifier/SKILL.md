@@ -20,6 +20,7 @@ O conhecimento está em `knowledge/`. Lê só o que o pedido toca (passo 2). Se 
 - Seguem-se as regras de `../orchestrate-sessions/regras.md`, incluindo a autonomia depois da decisão: o que só o utilizador pode dar (acessos a painéis de consumo, chaves de administração) fica «Por preencher», e o resto continua.
 - Modelo e effort segundo `../orchestrate-sessions/modelo-e-effort.md`: medir e recolher números é «Ler»; decidir o que mudar é «Rever e decidir com risco»; aplicar uma melhoria já decidida é «Construir».
 - Sem medição não há proposta. Um número só entra com a forma como foi obtido (ferramenta, comando, data). O que for estimativa leva a marca *(estimativa)*.
+- Um antes e depois não se decide com uma corrida só, porque a medição varia de corrida para corrida. Compara-se a mediana de pelo menos 5 corridas nas mesmas condições (`design/desempenho-web-core-web-vitals.md`). Na latência de uma API ou no custo de uma solução com IA, o cuidado é o mesmo: várias corridas ou um período, e a mediana ou o percentil, nunca um valor sozinho *(interpretação)*.
 - O custo mede-se por tarefa concluída, não por pedido. Base: `ia/otimizacao-de-custo-da-ia.md`, `custo/custo-eficiencia-finops.md`.
 
 ## Âmbito
@@ -72,7 +73,7 @@ Quando nenhuma entrada cobre o que é preciso, ou a entrada está desatualizada 
 Antes de qualquer proposta, regista a linha de base numa tabela com as colunas métrica, valor, como foi medido e alvo:
 
 - Web: as métricas e as ferramentas que `design/desempenho-web-core-web-vitals.md` e `design/orcamento-de-desempenho.md` indicam, por página principal, em telemóvel e em computador.
-- API e base de dados: latência por endpoint e o plano de execução das queries mais frequentes, como em `base-de-dados/desempenho-de-queries.md`; quando o alvo é aguentar uma carga, o ponto onde o sistema parte num teste de carga (k6, Gatling ou Locust), como em `fiabilidade/testes-de-carga-e-resiliencia.md`.
+- API e base de dados: latência por endpoint e o plano de execução das queries mais frequentes, como em `base-de-dados/desempenho-de-queries.md`; numa base cobrada por linhas lidas, como a D1, também as linhas lidas por query e o total por dia face ao teto do plano, com o `wrangler d1 insights` (a mesma entrada); quando o alvo é aguentar uma carga, o ponto onde o sistema parte num teste de carga (k6, Gatling ou Locust), como em `fiabilidade/testes-de-carga-e-resiliencia.md`.
 - IA: por tipo de tarefa, os tokens de entrada, de saída, de escrita e de leitura da cache, o modelo e o effort usados, e o custo por tarefa concluída. A fonte dos números é o `/usage` da sessão, o relatório `usage_report` da entrada `ia/operacao/uso-e-custo-da-claude-api.md`, ou os registos do gateway. Marca que tarefas podiam esperar e ir em batch.
 - 3D: os contadores que `3d-webgl/orcamento-de-desempenho-3d.md` indica.
 - Infraestrutura: o uso real de CPU e de memória face ao que está dimensionado, o que fica ligado sem uso (ambientes de teste fora de horas) e o gasto por serviço, com o alerta de orçamento que existe ou a falta dele, como em `custo/dimensionar-e-escalar.md` e `custo/orcamento-e-alertas-de-custo.md`.
@@ -87,7 +88,7 @@ Mostra a tabela e pede ao utilizador que escolha o que aplicar. Numa solução c
 
 ## 6. Aplicar e voltar a medir
 
-Aplica as melhorias escolhidas, por ordem, até ao fim. Depois de cada uma, repete a medição do passo 4 e regista o antes e o depois na mesma tabela. Uma melhoria que não mede ganho reverte-se e fica registada como tal. O critério de fim é a métrica dentro do alvo, provada pela medição.
+Aplica as melhorias escolhidas, por ordem, até ao fim. Depois de cada uma, repete a medição do passo 4, com o mesmo número de corridas e nas mesmas condições, e regista o antes e o depois (as medianas) na mesma tabela. Uma melhoria que não mede ganho reverte-se e fica registada como tal. O critério de fim é a métrica dentro do alvo, provada pela medição.
 
 **Humanizar.** O código e a configuração que mudaste e o relatório das medições não podem deixar perceber que foram feitos por uma IA. Corre a mini skill `humanizar` (ou `node ../humanizar/scripts/humanizar.mjs <ficheiros tocados> --commits <n>`) e relê o que o verificador não apanha com as secções «Código» e «Commits, documentação e dados» de `../humanizar/marcas.md`. Corriges só com autorização, categoria a categoria, e a saída final entra no relatório.
 

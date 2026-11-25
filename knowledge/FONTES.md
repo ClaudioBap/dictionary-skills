@@ -87,6 +87,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [EUR-Lex: Diretiva (UE) 2019/882](https://eur-lex.europa.eu/eli/dir/2019/882/oj) | Texto da diretiva (não lida: bloqueia acesso automático) |
 | [Lighthouse CI: configuração](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md) | Asserções do orçamento de desempenho no CI |
 | [Chrome for Developers: Lighthouse 10](https://developer.chrome.com/blog/lighthouse-10-0) | Métricas do Lighthouse (o TTI saiu na versão 10) |
+| [Lighthouse: Score Variability](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md) | Variação entre corridas e a mediana de 5 corridas |
 
 ## [3D, WebGL e animação](3d-webgl/README.md)
 
@@ -159,6 +160,8 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [MongoDB: manual](https://www.mongodb.com/docs/manual/) | Modelo de dados, índices, agregação, transações, réplicas, sharding e segurança |
 | [MongoDB Atlas](https://www.mongodb.com/docs/atlas/) | Serviço gerido: escalões, limites do Free e backups |
 | [MongoDB: ciclos de vida](https://www.mongodb.com/legal/support-policy/lifecycles) | Datas de lançamento e de fim de vida das versões |
+| [Cloudflare D1: Pricing](https://developers.cloudflare.com/d1/platform/pricing/) | Linhas lidas como medida de custo e o teto do plano Free |
+| [Cloudflare D1: Metrics and analytics](https://developers.cloudflare.com/d1/observability/metrics-analytics/) | Linhas lidas por query e o `wrangler d1 insights` |
 
 ## [Boas práticas de Python](python/README.md)
 
