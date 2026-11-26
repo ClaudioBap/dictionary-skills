@@ -410,8 +410,6 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Odoo MCP](https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html) | servidor MCP oficial e requisitos |
 | [Preços Odoo](https://www.odoo.com/pricing) | planos e o que inclui a API externa |
 | [Dolibarr (releases)](https://github.com/Dolibarr/dolibarr/releases) | versões e estado do MCP experimental |
-| [Licença n8n](https://docs.n8n.io/n8n-community-license) | licença fair-code e limites de uso |
-| [Preços n8n](https://n8n.io/pricing/) | planos da cloud |
 | [Node-RED (releases)](https://github.com/node-red/node-red/releases) | versões do Node-RED |
 | [WordPress MCP Adapter](https://github.com/WordPress/mcp-adapter) | pacote MCP oficial do WordPress |
 | [Licença Directus](https://directus.com/mscl) | MSCL e passagem a GPL |
@@ -580,6 +578,55 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Node.js: crypto](https://nodejs.org/api/crypto.html) | Verificar no servidor a assinatura do browser com `dsaEncoding` |
 | [MDN: What is a URL?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL) | O fragmento depois de `#` não vai ao servidor |
 | [Claude Code: managed settings](https://code.claude.com/docs/en/managed-settings) | Pasta das definições e das skills geridas em cada sistema |
+
+## [n8n](n8n/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [n8n (releases)](https://github.com/n8n-io/n8n/releases) | versões das linhas 1.x, 2.x e 3.x e as etiquetas stable e beta |
+| [Release notes do n8n](https://docs.n8n.io/release-notes/) | novidades por versão e qual é a stable e a beta |
+| [Blog do n8n (feed RSS oficial)](https://blog.n8n.io/rss/) | anúncios e «New in n8n» com data; ler por aqui |
+| [Avisos de segurança do n8n](https://github.com/n8n-io/n8n/security/advisories) | gravidade, versões afetadas e corrigidas (não há feed) |
+| [Licença n8n](https://docs.n8n.io/n8n-community-license) | licença fair-code e limites de uso |
+| [LICENSE.md do n8n](https://github.com/n8n-io/n8n/blob/master/LICENSE.md) | texto da Sustainable Use License e ficheiros `.ee.` |
+| [Preços n8n](https://n8n.io/pricing/) | planos da cloud |
+| [Anúncio da versão 3.0](https://community.n8n.io/t/announcing-n8n-version-3-0/324016) | fim da 1.x e suporte da 2.x |
+| [Breaking changes da 3.0](https://docs.n8n.io/changelog/v30-breaking-changes) | o que muda ao passar para a 3.x |
+| [Alojar o n8n](https://docs.n8n.io/deploy/host-n8n/) | opções de instalação |
+| [Docker Compose](https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose) | requisitos e base de dados da instalação com Docker |
+| [Atualizar o n8n](https://docs.n8n.io/deploy/host-n8n/keep-n8n-running/update-n8n) | regras de atualização e reversão |
+| [Cópias de segurança](https://docs.n8n.io/deploy/host-n8n/keep-n8n-running/backup-and-restore) | o que copiar e como restaurar |
+| [Queue mode](https://docs.n8n.io/deploy/host-n8n/configure-n8n/scaling/enable-queue-mode) | Redis, workers e processadores de webhooks |
+| [Task runners](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-task-runners) | onde corre o código do nó Code |
+| [Segurança da instância](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security) | medidas de endurecimento |
+| [Bloquear nós](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/block-specific-nodes) | `NODES_EXCLUDE` e políticas por projeto |
+| [Auditoria de segurança](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits) | `n8n audit` e `POST /audit` |
+| [Políticas de segurança](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/manage-security-policies) | 2FA obrigatória e partilha, por plano |
+| [MCP da instância](https://docs.n8n.io/connect/connect-to-n8n-mcp-server/) | ligar clientes MCP ao n8n |
+| [Clientes MCP](https://docs.n8n.io/connect/connect-to-n8n-mcp-server/mcp-client-examples) | comandos para o Claude Code e outros clientes |
+| [IA no n8n](https://docs.n8n.io/build/integrate-ai) | agentes, modelos, avaliações e MCP |
+| [API pública: autenticação](https://docs.n8n.io/api/authentication/) | chave, âmbitos e base da API |
+| [Nó Webhook](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/) | URLs de teste e de produção e autenticação |
+
+## [Jarvis open source (OpenJarvis e Microsoft JARVIS)](jarvis/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [OpenJarvis](https://openjarvis.stanford.edu/) | site oficial: o que é e onde estão o repositório e a documentação |
+| [OpenJarvis no PyPI (feed RSS oficial)](https://pypi.org/rss/project/openjarvis/releases.xml) | versões publicadas do pacote oficial; ler por aqui (os releases do GitHub têm várias versões de desenvolvimento por hora) |
+| [OpenJarvis: instalação](https://open-jarvis.github.io/OpenJarvis/getting-started/installation/) | requisitos e modelo recomendado pela memória |
+| [OpenJarvis: motores](https://open-jarvis.github.io/OpenJarvis/architecture/engine/) | motores locais e na nuvem |
+| [OpenJarvis: agentes](https://open-jarvis.github.io/OpenJarvis/user-guide/agents/) | agentes incluídos e modos |
+| [OpenJarvis: servidores MCP](https://open-jarvis.github.io/OpenJarvis/user-guide/mcp-external-servers/) | configuração do cliente MCP |
+| [OpenJarvis: segurança](https://open-jarvis.github.io/OpenJarvis/user-guide/security/) | guardrails, auditoria e o que ainda não é aplicado |
+| [OpenJarvis: fronteiras dos dados](https://open-jarvis.github.io/OpenJarvis/user-guide/data-boundary-scan/) | o que pode sair da máquina e a configuração estritamente local |
+| [OpenJarvis: canais e conectores](https://open-jarvis.github.io/OpenJarvis/user-guide/channels-and-connectors/) | email, calendário e permissões |
+| [OpenJarvis: aprendizagem](https://open-jarvis.github.io/OpenJarvis/architecture/learning/) | registos das execuções e otimização |
+| [OpenJarvis: roadmap](https://open-jarvis.github.io/OpenJarvis/development/roadmap/) | o que está planeado |
+| [Artigo do OpenJarvis (arXiv)](https://arxiv.org/abs/2605.17172) | resultados e versões do artigo |
+| [Microsoft JARVIS](https://github.com/microsoft/JARVIS) | README: modos, requisitos e projetos irmãos |
+| [Microsoft JARVIS (commits, feed Atom)](https://github.com/microsoft/JARVIS/commits/main.atom) | atividade do repositório, que não publica versões; ler por aqui |
+| [HuggingGPT (arXiv)](https://arxiv.org/abs/2303.17580) | o artigo |
 
 ## A vigiar
 

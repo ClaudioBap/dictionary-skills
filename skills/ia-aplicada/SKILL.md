@@ -30,6 +30,7 @@ Não sabe fazer, e para onde vai:
 - Auditar a segurança da aplicação inteira, e não só da parte com LLM: `seguranca`.
 - Narrar ou gravar um vídeo: `gravacao-video`, que usa a entrada de voz desta base.
 - Construir um portal para acompanhar agentes: `portal-de-agentes`.
+- Instalar ou configurar o OpenJarvis, ou estudar o Microsoft JARVIS (HuggingGPT): `jarvis`. Um workflow ou um agente dentro do n8n: `n8n`.
 - Machine learning clássico (prever valores a partir de dados em tabela, visão computacional treinada de raiz, modelos de classificação fora dos LLM): fora da base. Diz-o ao utilizador e, se ele quiser continuar, vai às fontes oficiais da biblioteca em causa e regista o que encontrares, como no passo 3.
 
 Pedidos que se confundem:

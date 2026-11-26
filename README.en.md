@@ -2,10 +2,10 @@
 
 [Versão em português](README.md)
 
-A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two main skills and fourteen mini skills:
+A collection of my skills for coding agents (Claude Code, Codex, Cursor, GitHub Copilot), backed by a knowledge base of good practices that is kept up to date from official sources. There are currently two main skills and sixteen mini skills:
 
 - **`orchestrate-sessions`** is where you start. It asks one question at a time until it understands what you want, then proposes a delegation plan: which skills come in and when, how much autonomy they get (which decides whether questions reach you along the way or together at the end), how many VS Code sessions to open and how many agents run in each, with the cheapest model and effort that can do each task. It then hands out the work, collects the outputs with evidence and, at the end, gives a score to each skill it used.
-- **Mini skills**, one per topic, used on their own or in sessions launched by `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video`, `humanizar`, `portal-de-agentes` and `documentacao`. Each asks what the work is, reads only the relevant part of the knowledge and, if the library has no answer, goes to the official sources and records what it found. After the «Specific or modular» decision, `produtizar` turns what was built for one case into a reusable core. `humanizar` checks everything about to be delivered for AI tells (text, code, interface, commits) and only fixes with permission. `portal-de-agentes` is called by a parent skill when the work needs a portal where a team follows its AI agents (one world per audience, accounts, questions answered remotely, scores for the skills): it makes the decisions with the method in the «Portais e mundos de agentes» section, sketches the mock-up and hands the phased plan back to the parent skill, which splits the build. It can also recreate the original portal. `documentacao` is linked to all the others: each skill writes a report of its process, and from those it generates an Excel workbook of processes and statistics, the Word document «Entendimento do desenvolvimento» and the final report, in the house style when given sample files.
+- **Mini skills**, one per topic, used on their own or in sessions launched by `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video`, `humanizar`, `portal-de-agentes`, `documentacao`, `n8n` and `jarvis`. Each asks what the work is, reads only the relevant part of the knowledge and, if the library has no answer, goes to the official sources and records what it found. After the «Specific or modular» decision, `produtizar` turns what was built for one case into a reusable core. `humanizar` checks everything about to be delivered for AI tells (text, code, interface, commits) and only fixes with permission. `portal-de-agentes` is called by a parent skill when the work needs a portal where a team follows its AI agents (one world per audience, accounts, questions answered remotely, scores for the skills): it makes the decisions with the method in the «Portais e mundos de agentes» section, sketches the mock-up and hands the phased plan back to the parent skill, which splits the build. It can also recreate the original portal. `documentacao` is linked to all the others: each skill writes a report of its process, and from those it generates an Excel workbook of processes and statistics, the Word document «Entendimento do desenvolvimento» and the final report, in the house style when given sample files.
 - **`update-knowledge`** keeps the knowledge current: it goes through the official sources, finds what changed and applies it according to its confidence level. When a practice is replaced by a better one, it rewrites the entry, keeps the previous text in «Histórico» and updates the skills that used it.
 
 The skills and the knowledge base are written in Portuguese (Portugal).
@@ -15,9 +15,9 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | Part | What it is | For whom |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The full version of starting projects, in testing | People who build projects for clients (consultants, development teams) and install it by name |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->390 good-practice entries in 27 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->398 good-practice entries in 29 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill you start with: it asks what you want, proposes the delegation plan and spreads the work across sessions, with a model and effort per task. It also holds the shared rules, the questions and the knowledge path | Everyone |
-| `skills/<mini skill>/` | The fourteen mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
+| `skills/<mini skill>/` | The sixteen mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
 
 ## start-project-with-trust
@@ -58,7 +58,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 ## Knowledge base
 
 <!-- conhecimento:inicio -->
-390 entries in 27 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
+398 entries in 29 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
 
 | Section | Entries | Section | Entries |
 |---|---|---|---|
@@ -75,7 +75,8 @@ If you stop, calling the skill again for the same project resumes where it left 
 | [C#](knowledge/csharp/README.md) | 13 | [Remote access (SSH and RDP)](knowledge/acesso-remoto/README.md) (outside the PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](knowledge/plataformas/README.md) (outside the PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (outside the PDF) | 14 | [Modularisation and productisation](knowledge/produto/README.md) (outside the PDF) | 10 |
-| [Agent portals and worlds](knowledge/portais-de-agentes/README.md) (outside the PDF) | 9 | | |
+| [Agent portals and worlds](knowledge/portais-de-agentes/README.md) (outside the PDF) | 9 | [n8n](knowledge/n8n/README.md) (outside the PDF) | 5 |
+| [Open source Jarvis (OpenJarvis and Microsoft JARVIS)](knowledge/jarvis/README.md) (outside the PDF) | 3 | | |
 <!-- conhecimento:fim -->
 
 Reference files:
