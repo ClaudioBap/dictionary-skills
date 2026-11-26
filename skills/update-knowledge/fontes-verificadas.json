@@ -35,7 +35,7 @@
     "https://design-system.service.gov.uk/": "2026-11-26",
     "https://www.gov.uk/service-manual": "2026-11-26",
     "https://www.nngroup.com/articles/": "2026-11-26",
-    "https://threejs.org/manual/": "2026-11-04",
+    "https://threejs.org/manual/": "2026-11-26",
     "https://r3f.docs.pmnd.rs/getting-started/introduction": "2026-11-26",
     "https://www.khronos.org/gltf/": "2026-11-26",
     "https://gltf-transform.dev/": "2026-11-26",
@@ -65,7 +65,7 @@
     "https://devblogs.microsoft.com/dotnet/feed/": "2026-11-26",
     "https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json": "2026-11-26",
     "https://devblogs.microsoft.com/typescript/": "2026-11-26",
-    "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html": "2026-11-04",
+    "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html": "2026-11-26",
     "https://eslint.org/blog/": "2026-11-26",
     "https://nodejs.org/en/blog": "2026-11-26",
     "https://nodejs.org/en/blog/vulnerability": "2026-11-26",
@@ -559,6 +559,10 @@
     "https://github.com/apache/superset/releases.atom": "2026-11-26",
     "https://github.com/zammad/zammad/tags.atom": "2026-11-26",
     "https://github.com/strapi/strapi/releases.atom": "2026-11-26",
-    "https://github.com/novuhq/novu/releases.atom": "2026-11-26"
+    "https://github.com/novuhq/novu/releases.atom": "2026-11-26",
+    "https://eur-lex.europa.eu/eli/dir/2022/2555/oj": "2026-11-26",
+    "https://eur-lex.europa.eu/eli/reg/2024/2847/oj": "2026-11-26",
+    "https://eur-lex.europa.eu/eli/reg/2016/679/oj": "2026-11-26",
+    "https://eur-lex.europa.eu/eli/reg/2023/2854/oj": "2026-11-26"
   }
 }
