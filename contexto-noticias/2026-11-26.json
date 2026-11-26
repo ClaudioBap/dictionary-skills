@@ -1,0 +1,608 @@
+{
+  "gerado_em": "2026-11-26T19:24:06.809Z",
+  "itens": [
+    {
+      "id": "2026-11-26-postgresql-org-about-news-code-of-conduc-2c428066",
+      "o_que_muda": "O Comité de Código de Conduta da comunidade PostgreSQL procura até 3 voluntários para o mandato de 1 de janeiro a 31 de dezembro de 2027, com 5 a 10 horas por mês. As candidaturas fecham a 7 de dezembro de 2026, às 17h00 UTC.",
+      "porque_importa": "Não há ligação clara a nenhuma entrada da base de conhecimento; é um anúncio de governação da comunidade PostgreSQL.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-github-com-langfuse-langfuse-releases-ta-5f57f913",
+      "o_que_muda": "A versão 4.88.0 do Langfuse permite às organizações e instâncias desativar a partilha pública de traces e sessões. Acrescenta também um guardrail de redação no AI Gateway e registo das capacidades do cliente MCP nos spans.",
+      "porque_importa": "Quem usa observabilidade de LLM com Langfuse fica a saber de novas opções de privacidade e de rastreio de chamadas MCP; a entrada de observabilidade descreve o tipo de trace em causa.",
+      "entradas": [
+        {
+          "id": "ia/operacao/observabilidade-de-llm",
+          "titulo": "Observabilidade de aplicações com LLM"
+        },
+        {
+          "id": "ia/mcp-model-context-protocol",
+          "titulo": "MCP (Model Context Protocol)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-developers-cloudflare-com-changelog-post-9a734fc3",
+      "o_que_muda": "A linguagem Rules passa a ter funções HMAC (hmac_md5, hmac_sha1, hmac_sha256, hmac_sha512), derivação de chave SigV4 e formatação de datas em UTC. Permitem autenticar leituras de buckets privados do Amazon S3 e do Google Cloud Storage em regras de transformação de cabeçalhos. Os HMAC e SigV4 são para planos Pro, Business e Enterprise.",
+      "porque_importa": "Não há entrada candidata diretamente sobre Rules ou assinatura de pedidos a armazenamento; a ligação com a base é fraca.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-github-com-langfuse-langfuse-releases-ta-ce2b7036",
+      "o_que_muda": "A versão 4.87.0 do Langfuse traz guardrails com ação de bloquear ou registar pedidos, gestão de guardrails na interface, suporte a AWS Bedrock Guardrails, reposição de orçamento por utilizador ou chave de API e suporte a evaluators de decisão na API v2.",
+      "porque_importa": "Para quem usa observabilidade de LLM e controlo de custos e segurança em gateways, mostra novas formas de controlar pedidos, e a entrada de MCP cobre as ferramentas que estas trocas usam.",
+      "entradas": [
+        {
+          "id": "ia/operacao/observabilidade-de-llm",
+          "titulo": "Observabilidade de aplicações com LLM"
+        },
+        {
+          "id": "ia/mcp-model-context-protocol",
+          "titulo": "MCP (Model Context Protocol)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-blog-n8n-io-ai-test-case-generation-d7b67d99",
+      "o_que_muda": "O artigo explica a geração de casos de teste com IA: a partir de requisitos, código ou fluxos de utilizador, o modelo propõe cenários com passos e resultados esperados, valida-os em JSON e converte-os em scripts (PyTest, Jest, Playwright) executados no CI/CD.",
+      "porque_importa": "Quem mantém pipelines de QA vê como a IA pode gerar testes, mas o texto não diz quem aprova esses testes; as entradas sobre frameworks de teste e agentes no CI/CD dão o contexto de execução.",
+      "entradas": [
+        {
+          "id": "cicd/ferramentas-frameworks-de-teste",
+          "titulo": "Ferramentas: frameworks de teste"
+        },
+        {
+          "id": "cicd/agentes-de-ia-a-par-do-cicd",
+          "titulo": "Agentes de IA a par do CI/CD"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-inside-java-podcast-76-b21751d2",
+      "o_que_muda": "Episódio 76 do podcast Inside Java, com Paul Sandoz, sobre o suporte crescente do Java a cargas de trabalho de IA: funcionalidades para adicionar IA a aplicações existentes, código Java que corre em GPUs e modelos nativos em Java.",
+      "porque_importa": "Não há ligação clara às entradas candidatas; o texto é uma conversa geral, sem factos concretos sobre as entradas de Java disponíveis.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-10-edpb-europa-eu-documents-opinion-of-the-b0e6ba9f",
+      "o_que_muda": "O Comité Europeu para a Proteção de Dados publicou o Parecer 30/2026 sobre o projeto de decisão da autoridade belga relativo às regras vinculativas para empresas (BCR de responsável pelo tratamento) do grupo CCEP. O texto da página não inclui o conteúdo do parecer.",
+      "porque_importa": "Não há entrada candidata sobre BCR ou transferências de dados; a ligação com a base é nula.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-huggingface-co-blog-training-swarms-0778483e",
+      "o_que_muda": "Começa uma série sobre sistemas multiagente (swarms): a primeira parte introduz a questão de os agentes comunicarem e de se treinar essa comunicação, com um exemplo de quatro agentes e um modelo partilhado. Anuncia-se que o exemplo corre em Hugging Face Jobs, em cerca de cinco horas e 50 dólares.",
+      "porque_importa": "Quem constrói agentes encontra aqui a pergunta de quando vale a pena usar vários agentes em vez de um; as entradas sobre frameworks e formas de construir agentes ajudam a situar a escolha.",
+      "entradas": [
+        {
+          "id": "ia/agentes/frameworks-de-agentes",
+          "titulo": "Frameworks de agentes (OpenAI Agents SDK, Google ADK, LangGraph)"
+        },
+        {
+          "id": "ia/agentes-as-quatro-formas-de-construir",
+          "titulo": "Agentes: as quatro formas de construir"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-bunny-net-blog-earn-more-with-the-update-36807c3d",
+      "o_que_muda": "A bunny.net atualizou o seu programa de afiliados para recompensar melhor quem divulga a marca. O texto da página não foi obtido, só o resumo, pelo que não há detalhes de valores ou condições.",
+      "porque_importa": "Não há entrada candidata sobre programas de afiliados; a relação com a base é nula.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-developers-cloudflare-com-changelog-post-11a16aa1",
+      "o_que_muda": "Passa a ser possível substituir as credenciais de um sink do Basin Pipelines sem o apagar e recriar. Os pipelines mantêm as credenciais anteriores até à atualização, e atualizar um pipeline com falha reinicia-o automaticamente. Há atualização pelo painel e pela API.",
+      "porque_importa": "Quem usa Cloudflare Pipelines tem uma forma de renovar tokens expirados ou revogados. Nenhuma entrada candidata cobre este tema diretamente; os service tokens do Access são um caso distinto.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-huggingface-co-blog-ggml-org-llamacpp-am-3e2e94b9",
+      "o_que_muda": "Foi lançado o painel de benchmarks do llama.cpp para hardware AMD Ryzen e Radeon, com PP512, TG128, histórico de builds e escalonamento com contexto. Os resultados são públicos e atualizados semanalmente para as placas Radeon 8060S (gfx1151) e Radeon AI Pro R9700S (gfx1201).",
+      "porque_importa": "Quem corre modelos próprios em local com llama.cpp em AMD tem agora referências de desempenho para escolher hardware e quantização; a entrada de servir modelos próprios cobre o llama.cpp.",
+      "entradas": [
+        {
+          "id": "ia/modelos-proprios/servir-um-modelo-proprio",
+          "titulo": "Servir um modelo próprio"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-opensource-org-blog-ato-2026-is-open-sou-e2c5e054",
+      "o_que_muda": "A OSI publicou a transcrição de uma sessão do All Things Open 2026 sobre se o open source está em risco, com Jonathan Starr. A discussão foca a sustentabilidade, o financiamento de mantenedores por fundações e empresas, e o papel de agentes de IA na manutenção.",
+      "porque_importa": "Liga-se apenas de forma indireta à definição OSI de IA open source; o texto trata de sustentabilidade do open source e não define o que é um sistema de IA aberto.",
+      "entradas": [
+        {
+          "id": "ia/modelos-abertos/definicao-osi-de-ia-open-source",
+          "titulo": "Definição OSI de IA open source"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-digital-strategy-ec-europa-eu-en-news-co-7f53bbb5",
+      "o_que_muda": "A Comissão Europeia propôs o Quantum Act, um quadro para transformar a investigação em quântica em produtos e serviços, reforçar as cadeias de fornecimento e preparar os sistemas digitais para a criptografia pós-quântica. A proposta também prepara o Sovereign Tech Equity Fund.",
+      "porque_importa": "Não há ligação clara às entradas candidatas; a menção à criptografia pós-quântica não é tratada em nenhuma delas.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-nodejs-org-en-blog-release-v27-0-0-alpha-50fe5d7b",
+      "o_que_muda": "Saiu a alpha 27.0.0-alpha.0.2.0 do Node.js, com alterações como a depreciação de util.TextDecoder e util.TextEncoder, a documentação de depreciação da renegociação TLS com opt-in allowRenegotiation, o SQLite marcado como estável e a graduação da opção --process-timeout.",
+      "porque_importa": "Quem mantém aplicações Node.js deve notar a depreciação da renegociação TLS e as mudanças de SQLite e de TLS; a entrada de segurança em Node.js é a mais próxima do tema.",
+      "entradas": [
+        {
+          "id": "node/seguranca-em-node",
+          "titulo": "Segurança em Node.js"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-github-com-ollama-ollama-releases-tag-v0-39b5a6e5",
+      "o_que_muda": "Saiu a pré-lançamento v0.40.19-rc0 do Ollama, com um bump do llama-server, otimizações para o modelo inkling2 e compactação de buffers de histórico no mlxrunner.",
+      "porque_importa": "Quem corre modelos locais com Ollama recebe uma versão de pré-lançamento com atualização do motor llama-server; a entrada de servir modelos próprios cobre o Ollama.",
+      "entradas": [
+        {
+          "id": "ia/modelos-proprios/servir-um-modelo-proprio",
+          "titulo": "Servir um modelo próprio"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-26-huggingface-co-blog-nvidia-building-on-n-e4a1957e",
+      "o_que_muda": "A NVIDIA publicou três conjuntos de dados abertos para treino do Nemotron 3.5 Parse (gráficos, tabelas e OCR multilingue), uma receita de fine-tuning e um speculator DFlash. O modelo converte páginas de documentos em dados estruturados com ordem de leitura e caixas delimitadoras.",
+      "porque_importa": "Quem processa documentos e PDF para RAG pode usar estes dados e a abordagem para extração estruturada; a entrada de imagens e PDF descreve a leitura de documentos pelo Claude, mas não é o mesmo modelo.",
+      "entradas": [
+        {
+          "id": "ia/api-claude/visao-e-pdf",
+          "titulo": "Imagens e PDF"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-20cbe6e0",
+      "o_que_muda": "O ELB para Envoy fica disponível em geral em 14 regiões AWS, incluindo Irlanda, Frankfurt, Estocolmo e Espanha. A AWS aplica automaticamente patches de CVE e do sistema operativo, e os proxies correm em instâncias EC2 dedicadas dentro da VPC.",
+      "porque_importa": "Quem corre Envoy por conta própria passa a poder entregar as atualizações e a segurança dos proxies à AWS, mantendo configurações e extensões Envoy existentes.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-09946fa2",
+      "o_que_muda": "O AWS Device Farm passa a suportar emuladores Android e simuladores iOS, além de dispositivos reais, com as mesmas APIs. Os virtuais arrancam em segundos ou em cerca de um minuto, e para mudar basta alterar o tipo de dispositivo.",
+      "porque_importa": "Quem testa apps móveis pode mover testes rápidos para pull requests e merges, deixando os dispositivos reais para regressão e release; a entrada de frameworks de teste cobre este tipo de decisão.",
+      "entradas": [
+        {
+          "id": "cicd/ferramentas-frameworks-de-teste",
+          "titulo": "Ferramentas: frameworks de teste"
+        },
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-render-com-changelog-use-custom-base-ima-716ec0cf",
+      "o_que_muda": "Já é possível importar uma imagem Docker de um registo e usá-la como imagem base dos Render Sandboxes, com a CLI ou o SDK, incluindo credenciais para imagens privadas. A imagem fica disponível apenas no grupo de sandboxes onde foi importada.",
+      "porque_importa": "Quem corre agentes em sandboxes pode levar o seu ambiente próprio para o Render; a ligação com a entrada de agentes é indireta, porque o texto não fala de agentes em si.",
+      "entradas": [
+        {
+          "id": "ia/agentes-as-quatro-formas-de-construir",
+          "titulo": "Agentes: as quatro formas de construir"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-vercel-com-changelog-workflows-speculati-0e705b33",
+      "o_que_muda": "O Workflow SDK 5.8 corre os workflows num novo motor de execução. A latência entre passos desce 12 vezes, e fan-outs grandes usam 14 vezes menos tempo de função. Para ativar, é preciso atualizar para workflow@5.8.0 ou posterior; as execuções já iniciadas mantêm a versão antiga.",
+      "porque_importa": "Quem usa agentes duráveis com Workflow SDK vê tempos de resposta melhores, mas tem de garantir que os passos são idempotentes, ou marcá-los com maxRetries = 0, porque podem ser executados de forma especulativa.",
+      "entradas": [
+        {
+          "id": "ia/agentes-as-quatro-formas-de-construir",
+          "titulo": "Agentes: as quatro formas de construir"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-vercel-com-blog-how-cozey-turns-its-oper-a3cdcfbb",
+      "o_que_muda": "A Cozey, fabricante canadiano de sofás modulares, deixou que funcionários fora da engenharia (armazém, finanças, apoio ao cliente) criem apps e as publiquem na Vercel. Usou Vercel Flags para retirar uma ferramenta que custava cerca de 80 mil dólares por ano. Seis projetos, incluindo a loja, usam AI Gateway.",
+      "porque_importa": "Mostra como ferramentas internas podem ser criadas e publicadas por não-engenheiros na mesma plataforma. Liga-se às entradas sobre ferramentas internas e a feature flags como forma de substituir uma ferramenta paga.",
+      "entradas": [
+        {
+          "id": "plataformas/ferramentas-internas",
+          "titulo": "Ferramentas internas e back office (Appsmith, Directus)"
+        },
+        {
+          "id": "cicd/estrategias-de-deploy",
+          "titulo": "Estratégias de deploy"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-developers-cloudflare-com-changelog-post-950de048",
+      "o_que_muda": "Os nomes de dispatch namespaces (Workers for Platforms) passam a seguir as regras dos nomes de Workers: só minúsculas, números, _ e -, a começar por letra, número ou _, até 256 caracteres. Criar um nome inválido devolve o erro 100120 na API, no wrangler e no Terraform. Namespaces existentes não são afetados.",
+      "porque_importa": "Quem automatiza a criação de namespaces com nomes que tenham maiúsculas, / ou espaços vai ter falhas na criação. O texto não indica entradas da base de conhecimento diretamente ligadas a este tema.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-developers-cloudflare-com-changelog-post-010c8599",
+      "o_que_muda": "O Cloudflare Images passa a aceitar URLs de transformação diretamente em subdomínios workers.dev e em desenvolvimento local, através de uma configuração ao nível do Worker (enabled e allowed_origins, até 10 domínios). Antes, só funcionava com domínio próprio ligado.",
+      "porque_importa": "Permite otimizar imagens de qualquer origem sem domínio próprio, o que ajuda em testes. Liga-se à entrada sobre alojamento dinâmico de teste gratuito, pois o Workers é um dos escalões referidos.",
+      "entradas": [
+        {
+          "id": "publicacao/alojamento-dinamico-e-de-teste-gratuito",
+          "titulo": "Alojamento dinâmico e de teste gratuito"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-developers-cloudflare-com-changelog-post-052de57a",
+      "o_que_muda": "O D1 Insights passa a recomendar índices para bases de dados D1. Cada recomendação inclui uma instrução CREATE INDEX, as consultas que deve acelerar e métricas de uso. Pode ligar ou desligar as recomendações no dashboard, na CLI ou na API, e listá-las com npx cf@latest d1 insights recommendations.",
+      "porque_importa": "Ajuda a identificar índices úteis com base no uso real das consultas. O texto não indica entradas da base de conhecimento diretamente relacionadas com este tema.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-com-sigstore-cosign-releases-tag-3453561e",
+      "o_que_muda": "Publicada a versão 3.1.6 do cosign. A verificação passa a exigir o predicado https://sigstore.dev/cosign/sign/v1. Os manifestos locais são validados contra o digest declarado, o timestamp das attestations é lido do payload e a biblioteca sigstore-go passa para a v1.4.1.",
+      "porque_importa": "Quem verifica assinaturas e attestations com cosign pode ver verificações mais estritas e pode ter de ajustar pipelines. Liga-se à entrada sobre cadeia de fornecimento verificada, que inclui assinar imagens por release.",
+      "entradas": [
+        {
+          "id": "seguranca/cadeia-de-fornecimento-verificada",
+          "titulo": "Cadeia de fornecimento verificada"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-blog-ai-and-ml-github-copilot-how-14255973",
+      "o_que_muda": "O post propõe um método baseado em evidências para escolher o próximo passo seguro na modernização de aplicações legadas: inventário de manifestos, comandos, versões fixadas e contratos externos, com incertezas marcadas como documentado, inferido ou não verificado. Por componente, escolhe-se entre manter, atualizar, substituir, encapsular ou reescrever. O método é codificado numa skill do Copilot.",
+      "porque_importa": "Mostra como empacotar um procedimento repetível numa agent skill, mantendo as decisões de arquitetura com as pessoas responsáveis. Liga-se às entradas sobre agent skills e sobre escolher a superfície de IA.",
+      "entradas": [
+        {
+          "id": "ia/agent-skills",
+          "titulo": "Agent skills"
+        },
+        {
+          "id": "ia/escolher-a-superficie",
+          "titulo": "Escolher a superfície (do simples ao agente)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-blog-news-insights-company-news-a-18e9a1ce",
+      "o_que_muda": "Post de opinião sobre experimentação lúdica com IA. Indica que 40% dos pull requests foram iniciados por agentes até setembro, contra 17% em março. Descreve projetos feitos nos crachás da GitHub Universe e recomenda limitar o tempo de experimentação, saber parar, enviar e partilhar.",
+      "porque_importa": "Não traz alterações técnicas nem de produto. O texto não indica entradas da base de conhecimento diretamente relacionadas com este tema.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-blog-changelog-2026-11-25-copilot-f6700357",
+      "o_que_muda": "A partir de 30 de dezembro de 2026, as revisões de código do Copilot feitas por membros com licença paga passam a ser faturadas à organização dona do repositório, se não houver escolha guardada. Contas sem AI Credits, com bloqueio ou sem cliente faturável ficam em Member. Para manter a faturação atual, escolher Member antes dessa data.",
+      "porque_importa": "Pode aumentar os gastos da organização, porque a faturação à organização exige AI Credits e pode subir os custos. O texto não indica entradas da base de conhecimento diretamente relacionadas com este tema.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-docker-com-blog-prove-your-ai-agent-guar-2cb90da3",
+      "o_que_muda": "O post mostra como o Docker AI Governance controla agentes de código: política de rede, política de ficheiros, credenciais geridas e acesso MCP. Descreve dois incidentes com agentes que tiveram mais acesso do que a tarefa precisava e propõe testar os controlos com uma demonstração.",
+      "porque_importa": "Quem usa Claude Code ou servidores MCP com permissões amplas pode limitar rede e ficheiros e registar decisões. A política escrita precisa de controlos no software que corre o agente. Liga-se às entradas sobre Claude Code, MCP e riscos OWASP para LLM.",
+      "entradas": [
+        {
+          "id": "ia/claude-code-e-claude-agent-sdk",
+          "titulo": "Claude Code e Claude Agent SDK"
+        },
+        {
+          "id": "ia/mcp-model-context-protocol",
+          "titulo": "MCP (Model Context Protocol)"
+        },
+        {
+          "id": "ia/seguranca/owasp-top-10-llm",
+          "titulo": "OWASP Top 10 para aplicações com LLM"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-khronos-org-blog-from-portability-to-con-5164b19f",
+      "o_que_muda": "A Khronos está a descontinuar a Vulkan Portability Initiative e a remover a extensão provisória VK_KHR_portability_subset, porque o KosmicKrisp da LunarG é Vulkan 1.4 conforme em Apple silicon. Apps já lançadas com MoltenVK continuam a funcionar. O MoltenVK mantém-se para Intel Macs e iOS.",
+      "porque_importa": "Quem usa Vulkan em macOS passa a ter uma implementação totalmente conforme em Apple silicon, em vez de um subconjunto. O texto não indica entradas da base de conhecimento diretamente relacionadas com este tema.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-cisa-gov-news-events-alerts-2026-11-25-c-1df415f7",
+      "o_que_muda": "A CISA acrescentou 10 vulnerabilidades ao catálogo KEV, com evidência de exploração ativa: três da Danfoss AK-SM 800A, uma da HPE Juniper Session Smart, cinco da Mitel MiCollab e uma da Vates Xen Orchestra. O BOD 26-04 pede às agências federais civis dos EUA que deem prioridade a estas em ativos expostos; outras organizações são encorajadas a fazer o mesmo.",
+      "porque_importa": "Serve de lista de prioridades para correção de vulnerabilidades já exploradas. O texto não indica entradas da base de conhecimento diretamente relacionadas com estas vulnerabilidades.",
+      "entradas": [],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-azure-microsoft-com-updates-id-568586-464ae720",
+      "o_que_muda": "O suporte para Java 8, 11 e 17 no Azure Functions termina a 1 de setembro de 2027. As apps continuam a correr, mas deixam de receber atualizações de segurança e de apoio ao cliente para essas versões.",
+      "porque_importa": "Quem tem funções Azure em Java 8, 11 ou 17 tem de planear a migração antes de setembro de 2027. Liga-se à entrada sobre Microsoft Azure e Entra ID.",
+      "entradas": [
+        {
+          "id": "nuvem/microsoft-azure-e-entra-id",
+          "titulo": "Microsoft Azure e Entra ID"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-azure-microsoft-com-updates-id-582326-0a2fdeb4",
+      "o_que_muda": "O ECMP (Equal-Cost Multi-Path) para Azure Virtual Network entra em pré-visualização pública. Permite distribuir tráfego por vários appliances de rede com uma só rota definida pelo utilizador (UDR), com 2 a 16 next hops configuráveis.",
+      "porque_importa": "Interessa a quem usa Azure e precisa de distribuir tráfego por vários appliances de rede. Liga-se à entrada sobre Microsoft Azure e Entra ID.",
+      "entradas": [
+        {
+          "id": "nuvem/microsoft-azure-e-entra-id",
+          "titulo": "Microsoft Azure e Entra ID"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-a0b4134a",
+      "o_que_muda": "O AWS IAM estende a propagação de identidade de confiança (TIP) à federação IAM e ao IAM Roles Anywhere, e simplifica-a no IAM Identity Center. O IAM outbound identity federation passa a emitir um JWT assinado pela AWS com a identidade da sessão. Disponível em todas as regiões comerciais, GovCloud e AWS European Sovereign Cloud (Alemanha).",
+      "porque_importa": "Permite identificar no CloudTrail o humano ou a carga de trabalho de origem, sem alterar trust policies por role. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-9fa95579",
+      "o_que_muda": "O AWS IoT Core passa a publicar as quotas mais usadas e o uso atual na consola AWS Service Quotas, para as APIs de plano de dados e de controlo. Pode criar alarmes com métricas do CloudWatch antes de ser limitado. Sem custo adicional.",
+      "porque_importa": "Evita descobrir os limites só quando há throttling e permite pedir aumentos antes de crescer. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-bf917b1c",
+      "o_que_muda": "A ação HTTP do AWS IoT Core pode enviar dados para endpoints HTTPS através de uma faixa IPv6 dedicada e publicada. Pode configurar-se o endpoint para aceitar apenas tráfego do IoT Core, com AAAA e sem registos A. Sem custo adicional em todas as regiões onde o serviço existe, incluindo GovCloud.",
+      "porque_importa": "Reduz a exposição do endpoint à Internet pública, porque o controlo passa a ser feito por rede. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-c99bf7ac",
+      "o_que_muda": "O Amazon Transcribe Turbo está em pré-visualização pública (US East, Ohio), em batch e streaming, com melhor precisão e formatação de números, datas e moradas. Streaming inclui português; batch em português em pré-visualização. Sem alterações de API. Deteção semântica de turnos e hints em runtime, sem custo extra.",
+      "porque_importa": "Interessa a quem constrói agentes de voz em português, porque o streaming já inclui esta língua. O texto não indica preços. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-859547df",
+      "o_que_muda": "As instâncias EC2 M9g, com processadores Graviton5, ficam disponíveis em US West (N. California), Canada (Central), South America (São Paulo) e Asia Pacific (Seoul). Segundo a AWS, têm até 25% mais performance que as M8g e até 30% mais em bases de dados.",
+      "porque_importa": "Interessa a quem corre bases de dados, caches e análise em memória nestas regiões. Nenhuma região europeia está na lista. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-5b8da225",
+      "o_que_muda": "As instâncias EC2 C9g, com Graviton5, ficam disponíveis em Sydney, Irlanda, Espanha e São Paulo. Segundo a AWS, têm até 25% mais performance que as C8g, até 30% em bases de dados, 35% em aplicações web e 35% em machine learning.",
+      "porque_importa": "Inclui regiões europeias (Irlanda e Espanha), relevantes para quem opera na Europa. Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-408b12db",
+      "o_que_muda": "As instâncias EC2 C9gd, com Graviton5 e armazenamento NVMe local, ficam disponíveis nas regiões Europa (Irlanda e Espanha). Segundo a AWS, têm até 25% mais performance que as C8gd.",
+      "porque_importa": "Relevante para cargas que precisam de armazenamento local rápido em regiões europeias (scratch, ficheiros temporários, caches). Liga-se à entrada sobre AWS.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-570404e3",
+      "o_que_muda": "As instâncias Amazon EC2 M9gd, com processadores AWS Graviton5, passam a estar disponíveis na região Ásia-Pacífico (Seoul). Segundo a AWS, oferecem até 25% mais desempenho de computação do que as M8gd e até 35% mais em aplicações web e machine learning.",
+      "porque_importa": "Quem usa a AWS na região de Seoul ganha uma nova opção de instância para cargas gerais. Não há ligação direta às entradas da base; a entrada AWS é a mais próxima, mas o anúncio é sobre disponibilidade regional.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-3ce4be1d",
+      "o_que_muda": "As instâncias Amazon EC2 M8g, com processadores Graviton4, passam a estar disponíveis na região Israel (Tel Aviv). A AWS indica até 30% mais desempenho face às Graviton3 (M7g).",
+      "porque_importa": "Dá uma nova região para instâncias de uso geral na AWS. A entrada sobre AWS é a mais relacionada; as entradas de Core Web Vitals, multi-cloud e Cyber Resilience Act não têm ligação direta a este anúncio.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-ceca448e",
+      "o_que_muda": "Os alertas do Amazon CloudWatch Omni passam a criar automaticamente incidentes no PagerDuty, seguindo as escalas de piquete e as políticas de escalonamento existentes. Os alertas incluem gravidade, serviço afetado e ligação aos dados no Omni.",
+      "porque_importa": "Quem usa CloudWatch Omni para observabilidade pode encaminhar alertas diretamente para o PagerDuty sem passos manuais, o que a AWS diz reduzir o MTTR. Liga-se à entrada AWS e, de forma mais geral, à gestão de acessos e de incidentes.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-aws-amazon-com-about-aws-whats-new-2026-31658882",
+      "o_que_muda": "A AWS anunciou em pré-visualização para programadores uma extensão que permite orquestrar MicroVMs do Lambda com Lambda durable functions. Permite executar tarefas em MicroVMs isoladas, com checkpoints e novas tentativas automáticas. A pré-visualização não deve ser usada em produção.",
+      "porque_importa": "Quem constrói agentes ou pipelines que correm código não confiável ou gerado por IA em sandboxes encontra aqui uma primitiva nova na AWS. Liga-se à entrada AWS e à de Tool use, embora o anúncio não trate ferramentas de modelos.",
+      "entradas": [
+        {
+          "id": "nuvem/aws",
+          "titulo": "AWS (Amazon Web Services)"
+        },
+        {
+          "id": "ia/tool-use",
+          "titulo": "Tool use (ferramentas e function calling)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-com-huggingface-trl-releases-tag-a32df1a0",
+      "o_que_muda": "A versão 1.19.0 do TRL acrescenta DistillationTrainer com vários professores (escolhidos pela coluna teacher_id) e suporte a environment_factory, para destilar agentes em ambientes com estado. Também traz suporte ao Inkling 2 Mini, treino de SFT até 2x mais rápido com SDPA, e parar no fim do turno em vários modelos.",
+      "porque_importa": "Quem faz ajuste fino de modelos com LoRA ou destilação ganha novas opções. As entradas de adaptação LoRA e de Claude Code/Agent SDK são as mais próximas, pela ligação a treino e a agentes.",
+      "entradas": [
+        {
+          "id": "ia/modelos-proprios/adaptar-um-modelo-lora-e-qlora",
+          "titulo": "Adaptar um modelo (LoRA e QLoRA)"
+        },
+        {
+          "id": "ia/claude-code-e-claude-agent-sdk",
+          "titulo": "Claude Code e Claude Agent SDK"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-huggingface-co-blog-inkling-2-mini-infer-425618a0",
+      "o_que_muda": "Um teste de otimização de inferência do Inkling 2 Mini numa única RTX PRO 6000 96 GB subiu o debito de descodificação de 136 para 190,6 tok/s (+40%) e a produtividade agregada para 8 utilizadores de ~570 para 716 tok/s (+26%), com vLLM nightly e DSpark.",
+      "porque_importa": "Quem serve modelos próprios em hardware modesto tem aqui números de referência e uma configuração testada com vLLM e speculative decoding. Liga-se diretamente à entrada de servir modelos próprios.",
+      "entradas": [
+        {
+          "id": "ia/modelos-proprios/servir-um-modelo-proprio",
+          "titulo": "Servir um modelo próprio"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-huggingface-co-blog-allenai-where-scient-93b92e00",
+      "o_que_muda": "A Ai2 publicou um relatório técnico com entrevistas a 17 cientistas sobre o uso responsável de agentes de IA na investigação. Identifica cinco dimensões de confiança científica: validação, privacidade, objetividade, responsabilidade e transparência.",
+      "porque_importa": "Quem desenha agentes para trabalho científico ou com dados sensíveis tem aqui critérios de confiança e de supervisão humana. Liga-se de forma ténue à entrada de tool use e à de saída estruturada, mas o texto não trata destes temas técnicos.",
+      "entradas": [
+        {
+          "id": "ia/tool-use",
+          "titulo": "Tool use (ferramentas e function calling)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    },
+    {
+      "id": "2026-11-25-github-com-github-spec-kit-releases-tag-df766690",
+      "o_que_muda": "Saiu a versão 1.4.5 do Spec Kit, com correções em extensões (prompts TOML, BOM UTF-8, frontmatter), scripts em UTF-8 e integrações. Inclui também a extensão SpecKit Grill Me v1.0.3 e uma nova extensão Task Consolidation no catálogo comunitário.",
+      "porque_importa": "Quem usa o Spec Kit deve atualizar para a 1.4.5 para apanhar correções de codificação e de extensões. Não há ligação clara às entradas de hooks, alojamento ou SemVer, além de um possível paralelo com o registo de alterações da versão.",
+      "entradas": [
+        {
+          "id": "produto/versionamento-e-registo-de-alteracoes",
+          "titulo": "Versionamento e registo de alterações (SemVer, Conventional Commits, Keep a Changelog)"
+        }
+      ],
+      "modelo": "claude-haiku-5-5",
+      "gerado_em": "2026-11-26T19:24:06.809Z"
+    }
+  ]
+}
