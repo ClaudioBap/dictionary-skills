@@ -328,8 +328,10 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 
 | Fonte | Para quê |
 |---|---|
-| [AWS What's New](https://aws.amazon.com/new/) | novidades oficiais de serviços, funcionalidades e regiões AWS |
-| [Azure updates](https://azure.microsoft.com/en-us/updates) | novidades oficiais de produtos e funcionalidades Azure |
+| [AWS What's New](https://aws.amazon.com/new/) | novidades oficiais de serviços, funcionalidades e regiões AWS (não lida: só mostra texto depois de correr JavaScript) |
+| [Azure updates](https://azure.microsoft.com/en-us/updates) | novidades oficiais de produtos e funcionalidades Azure (não lida: só mostra texto depois de correr JavaScript) |
+| [AWS What's New (feed RSS oficial)](https://aws.amazon.com/about-aws/whats-new/recent/feed/) | Novidades da AWS com data; ler por aqui |
+| [Azure updates (feed RSS oficial)](https://www.microsoft.com/releasecommunications/api/v2/azure/rss) | Novidades do Azure com data; ler por aqui |
 | [Microsoft Entra releases](https://learn.microsoft.com/en-us/entra/fundamentals/whats-new) | novidades, depreciações e mudanças futuras do Entra |
 | [Google Cloud release notes](https://docs.cloud.google.com/release-notes) | alterações recentes (60 dias) dos serviços Google Cloud |
 | [Microsoft 365 Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap) | datas previstas de funcionalidades Microsoft 365 (agora focado em IA) |
@@ -408,7 +410,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Odoo MCP](https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html) | servidor MCP oficial e requisitos |
 | [Preços Odoo](https://www.odoo.com/pricing) | planos e o que inclui a API externa |
 | [Dolibarr (releases)](https://github.com/Dolibarr/dolibarr/releases) | versões e estado do MCP experimental |
-| [Licença n8n](https://docs.n8n.io/privacy-and-security/sustainable-use-license) | licença fair-code e limites de uso |
+| [Licença n8n](https://docs.n8n.io/n8n-community-license) | licença fair-code e limites de uso |
 | [Preços n8n](https://n8n.io/pricing/) | planos da cloud |
 | [Node-RED (releases)](https://github.com/node-red/node-red/releases) | versões do Node-RED |
 | [WordPress MCP Adapter](https://github.com/WordPress/mcp-adapter) | pacote MCP oficial do WordPress |
@@ -483,7 +485,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | Construir um LLM de raiz, capítulo a capítulo |
 | [Mistral: modelos](https://docs.mistral.ai/models/) | Modelos Mistral e licença de cada um |
 | [Mistral: preços](https://docs.mistral.ai/inference/pricing) | Preços da API Mistral por modelo, batch, cache e inferência regional na UE |
-| [Gemma: termos](https://ai.google.dev/gemma/terms) | Licença dos modelos Gemma |
+| [Gemma: termos](https://gemma.ai/resources/terms/) | Licença dos modelos Gemma |
 | [OSI: Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) | O que conta como IA open source |
 | [Comissão Europeia: perguntas e respostas sobre modelos GPAI](https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers) | Quem é fornecedor de um modelo de finalidade geral e o que deve |
 | [Código de Conduta GPAI](https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai) | Transparência, direitos de autor e segurança para fornecedores de modelos |
@@ -535,7 +537,7 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [Copier](https://copier.readthedocs.io) | Modelos de projeto que atualizam os projetos gerados |
 | [Stripe Entitlements](https://docs.stripe.com/billing/entitlements) | Direitos por funcionalidade ligados à subscrição; webhook e leitura dos direitos ativos |
 | [OpenFeature Specification](https://openfeature.dev/specification/) | Padrão aberto de avaliação de flags: contexto, targeting key e valor por omissão |
-| [OWASP Top 10:2025, A01](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/) | Controlo de acesso no servidor e negar por omissão |
+| [OWASP Top 10:2025, A01](https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/) | Controlo de acesso no servidor e negar por omissão |
 
 ## [Portais e mundos de agentes](portais-de-agentes/README.md)
 
@@ -589,7 +591,6 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | IA | Microsoft GraphRAG em modo de manutenção (3.3.0 a 2026-10-08): avisar se for descontinuado ou se a LazyGraphRAG entrar no pacote open source | [https://pypi.org/project/graphrag/](https://pypi.org/project/graphrag/) |
 | IA | Plataforma de fine-tuning da OpenAI em encerramento (já fechada a novos utilizadores): data final | [https://developers.openai.com/api/docs/guides/model-optimization](https://developers.openai.com/api/docs/guides/model-optimization) |
 | IA | Hugging Face TGI em modo de manutenção: avisar se for descontinuado | [https://huggingface.co/docs/text-generation-inference](https://huggingface.co/docs/text-generation-inference) |
-| IA | Preço do grounding com Google Search: duas páginas oficiais com valores diferentes; confirmar qual vale | [https://aistudio.google.com/docs/google-search](https://aistudio.google.com/docs/google-search) |
 | IA | Licença do Llama por ler (llama.com redireciona para outro site); ler o texto atual da licença | [https://www.llama.com/](https://www.llama.com/) |
 | IA | Fish Audio: o `drama-3` está a 10 USD por milhão de bytes até 2026-11-30 (até 1/12, às 08:00 UTC) e volta a 50 USD; confirmar o preço depois dessa data | [https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) |
 | IA | OpenAI: `tts-1`, `tts-1-hd` e `gpt-4o-mini-tts` desligam a 2027-01-06; a substituição é o `gpt-realtime-2.1-mini` pela Realtime API; confirmar a data e o preço | [https://developers.openai.com/api/docs/guides/text-to-speech](https://developers.openai.com/api/docs/guides/text-to-speech) |
@@ -605,7 +606,8 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | Publicação | Limite de 50 utilizadores no plano Free do Cloudflare Access | [https://www.cloudflare.com/zero-trust/products/access/](https://www.cloudflare.com/zero-trust/products/access/) |
 | Publicação | Hostinger VPS: preços de Black Friday sem data de fim na página (KVM 2 a 210,96 USD por 24 meses, renova a 14,99 USD/mês); confirmar os preços quando a promoção acabar | [https://www.hostinger.com/vps-hosting](https://www.hostinger.com/vps-hosting) |
 | Acesso remoto | Versão mais recente do OpenSSH e correções de segurança (10.6p2 a 2026-11-05, ainda a mais recente a 2026-11-25; a equipa anunciou lançamentos mais frequentes) | [https://www.openssh.org/releasenotes.html](https://www.openssh.org/releasenotes.html) |
-| Plataformas | Servidores MCP oficiais: novos projetos com MCP, saída do modo experimental no Dolibarr, MCP oficial no Zammad, Node-RED e LimeSurvey | [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/) |
+| Acesso remoto | NIST SP 800-46 Rev. 3 em rascunho: avisar quando sair a versão final, que substitui a Rev. 2 que a base cita | [https://csrc.nist.gov/pubs/sp/800/46/r2/final](https://csrc.nist.gov/pubs/sp/800/46/r2/final) |
+| Plataformas | Servidores MCP oficiais: novos projetos com MCP, saída do modo experimental no Dolibarr, MCP oficial no Node-RED e no LimeSurvey (o Zammad tem servidor MCP integrado desde a 7.3, de 2026-11-25) | [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/) |
 | Plataformas | Mudanças de licença (n8n, Directus, Strapi ee/, Odoo Enterprise) | [https://opensource.org/licenses](https://opensource.org/licenses) |
 | C# | Fim de suporte do .NET 10 (LTS) e do .NET 11 (STS), ambos a 2028-11-14 segundo o índice oficial (lido a 2026-11-25), e próximas datas de fim de suporte | [https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json](https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json) |
 | Soberania | Data Act: fim total dos custos de mudança de fornecedor de nuvem e de saída de dados a 2027-01-12 | [https://digital-strategy.ec.europa.eu/en/policies/data-act-explained](https://digital-strategy.ec.europa.eu/en/policies/data-act-explained) |
