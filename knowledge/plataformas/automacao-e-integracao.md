@@ -20,7 +20,7 @@ editado_em: 2026-11-26
 - Self-hosted ou cloud: Starter a 20 € por mês com 2 500 execuções e Pro a 50 € por mês, com faturação anual (a 2026-11-04). Fonte: [preços](https://n8n.io/pricing/)
 - API REST pública (não disponível no período experimental) e nó Webhook. Fontes: [API](https://docs.n8n.io/api/), [Webhook](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/)
 - MCP oficial: o nó MCP Server Trigger expõe um workflow como servidor MCP, o nó MCP Client Tool chama servidores MCP externos, e a própria instância pode ser servidor MCP. Fontes: [MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/), [MCP Client Tool](https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolmcp/), [MCP da instância](https://docs.n8n.io/connect/connect-to-n8n-mcp-server)
-- Versão 2.46.4, de 2026-11-02. Fonte: [releases](https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.4)
+- Versão 2.49.7, de 2026-11-26, no canal stable; a 2.50.2 e a 3.4.1 saem ao mesmo tempo como pré-lançamento. Fonte: [releases](https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.7). Os canais e as linhas estão em [Licença, versões e canais do n8n](../n8n/licenca-e-versoes.md).
 
 ### Node-RED
 
@@ -41,6 +41,7 @@ editado_em: 2026-11-26
 
 ## Histórico
 
+- **2026-11-26**: antes, «Versão 2.46.4, de 2026-11-02. Fonte: [releases](https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.4)» (releases do n8n, consultadas a 2026-11-04). Mudou porque a versão do canal stable passou a ser a 2.49.7, com a 2.50.2 e a 3.4.1 em pré-lançamento. Fonte: [n8n 2.49.7](https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.7). Confiança: alta. Editado a 2026-11-26.
 - **2026-11-17**: antes, «Versão 5.0.9, de 2026-10-21. Fonte: [releases](https://github.com/node-red/node-red/releases/tag/5.0.9)» (releases do Node-RED, consultadas a 2026-11-04). Mudou porque saíram o Node-RED 5.0.10 e o 4.1.18, com correções de validação de entradas e de caminhos. Fonte: [Node-RED 5.0.10](https://github.com/node-red/node-red/releases/tag/5.0.10). Confiança: alta. Editado a 2026-11-26.
 
 Fonte: Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF.
