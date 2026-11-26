@@ -56,6 +56,8 @@ Lê o `README.md` da subpasta escolhida, as entradas dela que o pedido toca e as
 
 Se o trabalho é acompanhar ou conduzir sessões do Claude Code a partir de outra aplicação (hooks que enviam eventos, perguntas respondidas à distância, notas às skills, um agente local), lê também `knowledge/portais-de-agentes/eventos-e-origem-das-skills.md`, `caixa-de-perguntas-a-distancia.md`, `avaliacao-de-skills-por-push.md` e `agente-local-licenca-e-emparelhamento.md`, na mesma pasta. Um portal inteiro é da `portal-de-agentes`.
 
+Se o trabalho de IA é em Rust (servir um modelo num binário, acelerar código Python, chamar a API do Claude ou um servidor MCP a partir de Rust), lê também as entradas `ia-*` de `knowledge/rust/`; o resto do código Rust é da `boas-praticas-codigo`.
+
 Se o trabalho é pôr o Claude Code ou uma aplicação a usar outro modelo (um fornecedor de modelos sem restrições por API, um modelo aberto em local ou na nuvem do Ollama), lê também `knowledge/ia/fornecedores/modelos-sem-restricoes-abliteration-ai.md`, `knowledge/ia/modelos-proprios/servir-um-modelo-proprio.md` e `memoria-e-hardware.md`, na mesma pasta. Se o modelo vai correr num servidor próprio, lê ainda `knowledge/publicacao/alojamento-pago-e-empresarial.md` (os VPS e a memória de cada plano) e `knowledge/acesso-remoto/acesso-por-identidade-sem-portas-abertas.md` (ligar o servidor por uma rede privada como a Tailscale, sem portas abertas).
 
 ## 3. Se a biblioteca não tem a resposta
