@@ -115,7 +115,7 @@ async function principal() {
     const entrada = JSON.stringify({ noticias: grupo.map(({ n, texto }) => ({ id: n.id, titulo: n.titulo, resumo: n.resumo, tema: n.tema, fonte_nome: n.fonte_nome, texto_da_pagina: texto, candidatas: rec.candidatas(`${n.titulo} ${n.resumo} ${texto.slice(0, 2000)}`, n.tema, 5).map(({ id, titulo, descricao }) => ({ id, titulo, descricao })) })) });
     const ids = new Set(grupo.map(({ n }) => n.id));
     const r = await chamarClaude({ modelo: 'haiku', effort: 'low', sistema: REGRAS, esquema: ESQUEMA, entrada, cwd: raiz, validar: (s) => { if (!Array.isArray(s.itens) || s.itens.some((x) => !ids.has(x.id))) throw new Error('ids que não pertencem ao grupo'); } });
-    chamadas.push(registoChamada('contexto', r));
+    chamadas.push(registoChamada('contexto-feeds', r));
     for (const x of r.saida.itens) itens.set(x.id, { id: x.id, o_que_muda: x.o_que_muda.slice(0, 400), porque_importa: x.porque_importa.slice(0, 400), entradas: limparEntradas(x.entradas, porId), modelo: r.modelo, gerado_em: agora });
   }
 
