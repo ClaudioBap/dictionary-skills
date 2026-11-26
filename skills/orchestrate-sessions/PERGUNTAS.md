@@ -47,5 +47,7 @@ Quando o questionário mostra que uma skill vai entrar, junta-se a pergunta dela
 | `humanizar` | O que verificar (a pasta, só os ficheiros alterados ou um conjunto) e se as mensagens de commit entram | nenhuma |
 | `documentacao` | Registar um processo ou gerar os documentos; para gerar, 2 a 3 ficheiros-padrão da casa (aconselha um Excel, um PowerPoint, um PDF e um Word) ou o estilo sóbrio | nenhuma |
 | `portal-de-agentes` | Recriar o portal de origem ou fazer um novo e, num novo, o que a pessoa quer ver dos agentes e porquê | P1, P4 |
+| `n8n` | O que se vai fazer com o n8n (decidir se serve, instalar ou atualizar, um workflow, IA e MCP, proteger), onde corre, e se é só para a empresa ou também para os clientes dela (a licença muda) | P1, P4, P14 |
+| `jarvis` | Que projeto (OpenJarvis ou Microsoft JARVIS) e para quê; para instalar, a máquina (RAM e GPU) e o que pode sair dela | P1, P11 |
 
 As skills em testes não estão nesta tabela: só entram num trabalho se o utilizador o aceitar.

@@ -20,6 +20,8 @@ Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler dire
 | `humanizar` | Verificar texto, código, interface, commits e dados à procura de marcas de IA, e corrigir só com autorização | (catálogo próprio em `../humanizar/marcas.md`) | produção |
 | `portal-de-agentes` | Construir um portal onde uma equipa acompanha os seus agentes de IA: mundos, contas, perguntas à distância, notas às skills, agente local | `portais-de-agentes/`, `3d-webgl/mundo-3d-movido-por-agentes.md` | produção |
 | `documentacao` | Relatório de cada processo e, no fim de uma fase ou da entrega, o livro Excel de processos e estatísticas, o Entendimento e o relatório final em Word | `estrutura/` (as entradas sobre documentação) | produção |
+| `n8n` | Decidir se o n8n serve, instalá-lo, atualizá-lo e protegê-lo, construir workflows e ligá-los à IA e ao Claude Code por MCP | `n8n/`, `plataformas/automacao-e-integracao.md` | produção |
+| `jarvis` | Os dois Jarvis open source: o OpenJarvis como assistente pessoal que corre no próprio computador, e o Microsoft JARVIS (HuggingGPT) como referência | `jarvis/`, `ia/modelos-proprios/memoria-e-hardware.md` | produção |
 
 Servem para decidir e não para executar, por isso lê-as esta skill, no questionário e no plano, pelas pistas «Liga a» de `PERGUNTAS.md`: `plataformas/`, `governacao/`, `estrutura/`.
 

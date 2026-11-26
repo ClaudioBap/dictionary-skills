@@ -2,10 +2,10 @@
 
 [English version](README.en.md)
 
-Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas skills principais e catorze mini skills:
+Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor, GitHub Copilot), apoiadas numa base de conhecimento de boas práticas que se mantém atualizada a partir de fontes oficiais. Neste momento há duas skills principais e dezasseis mini skills:
 
 - **`orchestrate-sessions`** é por onde se começa. Faz uma pergunta de cada vez até perceber o que queres e propõe um plano de delegação: que skills entram e quando, com que autonomia (que decide se as dúvidas te chegam pelo caminho ou juntas no fim), quantas sessões do VS Code se abrem e quantos agentes correm em cada uma, com o modelo e o effort mais baratos que fazem cada tarefa. Depois distribui o trabalho, recolhe as saídas com prova e, no fim, dá uma nota a cada skill que usou.
-- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video`, `humanizar`, `portal-de-agentes` e `documentacao`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável. A `humanizar` verifica tudo o que vai ser entregue à procura de marcas de IA (texto, código, interface, commits) e só corrige com autorização. A `portal-de-agentes` decide e desenha um portal onde uma equipa acompanha os seus agentes de IA (um mundo por público, contas, perguntas respondidas à distância, notas às skills), com o método da secção «Portais e mundos de agentes». A `documentacao` está ligada a todas as outras: cada skill escreve o relatório do seu processo, e ela gera daí um livro Excel de processos e estatísticas, o Word «Entendimento do desenvolvimento» e o relatório final, no estilo da casa quando lhe dão ficheiros-padrão.
+- **Mini skills**, uma por tema, usadas sozinhas ou em sessões lançadas pela `orchestrate-sessions`: `design-ux`, `design-3d-motion`, `seguranca`, `performance-verifier`, `backend-dados`, `infra-deploy`, `boas-praticas-codigo`, `ia-aplicada`, `produtizar`, `operar`, `gravacao-video`, `humanizar`, `portal-de-agentes`, `documentacao`, `n8n` e `jarvis`. Cada uma pergunta o que se vai fazer, lê só a parte do conhecimento que interessa e, se a biblioteca não tiver a resposta, vai às fontes oficiais e regista o que encontrou. Com a decisão «Específico ou modular», a `produtizar` transforma o que foi feito para um caso num núcleo reutilizável. A `humanizar` verifica tudo o que vai ser entregue à procura de marcas de IA (texto, código, interface, commits) e só corrige com autorização. A `portal-de-agentes` decide e desenha um portal onde uma equipa acompanha os seus agentes de IA (um mundo por público, contas, perguntas respondidas à distância, notas às skills), com o método da secção «Portais e mundos de agentes». A `documentacao` está ligada a todas as outras: cada skill escreve o relatório do seu processo, e ela gera daí um livro Excel de processos e estatísticas, o Word «Entendimento do desenvolvimento» e o relatório final, no estilo da casa quando lhe dão ficheiros-padrão.
 - **`update-knowledge`** mantém o conhecimento em dia: percorre as fontes oficiais, encontra o que mudou e aplica-o segundo o nível de confiança. Quando algo é substituído por uma prática melhor, reescreve a entrada, guarda o texto anterior no «Histórico» e atualiza as skills que o usavam.
 
 ## O que está neste repositório
@@ -13,9 +13,9 @@ Coleção das minhas skills para agentes de código (Claude Code, Codex, Cursor,
 | Parte | O que é | Para quem |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | A versão completa do arranque de projetos, em testes | Quem faz projetos para clientes (consultores, equipas de desenvolvimento) e a instala pelo nome |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->390 entradas de boas práticas em 27 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->398 entradas de boas práticas em 29 secções<!-- conhecimento:fim -->, cada uma com fonte | Usada pela skill; também se lê diretamente |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | A skill por onde se começa: pergunta o que queres, propõe o plano de delegação e distribui o trabalho por sessões, com modelo e effort por tarefa. Tem também as regras comuns, as perguntas e o caminho da base | Toda a gente |
-| `skills/<mini skill>/` | As catorze mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
+| `skills/<mini skill>/` | As dezasseis mini skills, uma por tema (ver [catálogo](skills/orchestrate-sessions/catalogo.md)) | Quem executa uma tarefa de um tema, sozinho ou numa sessão da orquestração |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | A skill que atualiza o conhecimento | Quem mantém a base (e cada utilizador, para o seu conhecimento pessoal) |
 
 ## start-project-with-trust
@@ -56,7 +56,7 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 ## Base de conhecimento
 
 <!-- conhecimento:inicio -->
-390 entradas em 27 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
+398 entradas em 29 secções. A maior parte foi extraída do PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), com a página de origem em cada ficheiro; as secções marcadas como «fora do PDF» foram escritas a partir de fontes oficiais. Cada entrada tem um resumo, o conteúdo, uma linha «Para uma skill» com o critério a verificar e as fontes oficiais que a apoiam.
 
 | Secção | Entradas | Secção | Entradas |
 |---|---|---|---|
@@ -73,7 +73,8 @@ Se interromperes, voltar a chamar a skill para o mesmo projeto retoma onde ficou
 | [C#](knowledge/csharp/README.md) | 13 | [Acesso remoto (SSH e RDP)](knowledge/acesso-remoto/README.md) (fora do PDF) | 4 |
 | [JavaScript](knowledge/javascript/README.md) (fora do PDF) | 14 | [Plataformas para adotar antes de construir](knowledge/plataformas/README.md) (fora do PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (fora do PDF) | 14 | [Modularização e produtização](knowledge/produto/README.md) (fora do PDF) | 10 |
-| [Portais e mundos de agentes](knowledge/portais-de-agentes/README.md) (fora do PDF) | 9 | | |
+| [Portais e mundos de agentes](knowledge/portais-de-agentes/README.md) (fora do PDF) | 9 | [n8n](knowledge/n8n/README.md) (fora do PDF) | 5 |
+| [Jarvis open source (OpenJarvis e Microsoft JARVIS)](knowledge/jarvis/README.md) (fora do PDF) | 3 | | |
 <!-- conhecimento:fim -->
 
 Ficheiros de referência:
@@ -222,6 +223,8 @@ Os casos em que se usa estão no `EXEMPLOS.md` de cada skill, em «Quando usar»
 | `humanizar` | sub | nenhuma | 0 | 0 | 0 | 10 | 10 |
 | `ia-aplicada` | sub | `humanizar` | 10 | 3 | 3 | 5 | 0 |
 | `infra-deploy` | sub | `humanizar` | 0 | 6 | 10 | 3 | 2 |
+| `jarvis` | sub | `humanizar` | 10 | 4 | 2 | 4 | 0 |
+| `n8n` | sub | `humanizar` | 5 | 5 | 7 | 6 | 2 |
 | `operar` | sub | `humanizar` | 2 | 3 | 10 | 2 | 0 |
 | `performance-verifier` | sub | `humanizar` | 6 | 0 | 7 | 6 | 7 |
 | `portal-de-agentes` | sub | `design-3d-motion`, `design-ux`, `backend-dados`, `seguranca`, `infra-deploy`, `ia-aplicada`, `operar`, `humanizar`, `documentacao` | 10 | 5 | 5 | 7 | 7 |

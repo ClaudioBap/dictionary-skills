@@ -37,6 +37,7 @@ editado_em: 2026-11-26
 
 - [Adotar antes de construir](adotar-antes-de-construir.md) (Plataformas para adotar antes de construir)
 - [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA)
+- [Licença, versões e canais do n8n](../n8n/licenca-e-versoes.md) (n8n)
 
 ## Histórico
 
