@@ -12,8 +12,8 @@ Enquanto uma mini skill estiver `por criar`, o briefing manda a sessão ler dire
 | `performance-verifier` | Velocidade e custo do site, custo e latência da IA | `custo/`, `ia/otimizacao-de-custo-da-ia.md`, `ia/escolher-o-modelo-claude.md`, `design/desempenho-web-core-web-vitals.md`, `design/orcamento-de-desempenho.md`, `base-de-dados/desempenho-de-queries.md`, `3d-webgl/orcamento-de-desempenho-3d.md` | produção |
 | `backend-dados` | API, base de dados, fiabilidade | `api/`, `base-de-dados/`, `fiabilidade/` | produção |
 | `infra-deploy` | CI/CD, contentores, alojamento, publicação | `cicd/`, `docker/`, `infraestrutura/`, `nuvem/`, `publicacao/`, `soberania/` | produção |
-| `boas-praticas-codigo` | Código numa das linguagens da base (lê só a pasta da linguagem do projeto) | `python/`, `java/`, `csharp/`, `javascript/`, `node/` | produção |
-| `ia-aplicada` | Qualquer trabalho com IA: APIs, RAG, agentes, modelo próprio, modelos abertos, voz, segurança, operação | `ia/` e as suas subpastas (a skill pergunta qual) | produção |
+| `boas-praticas-codigo` | Código numa das linguagens da base (lê só a pasta da linguagem do projeto) | `python/`, `java/`, `csharp/`, `javascript/`, `node/`, `rust/` | produção |
+| `ia-aplicada` | Qualquer trabalho com IA: APIs, RAG, agentes, modelo próprio, modelos abertos, voz, segurança, operação | `ia/` e as suas subpastas (a skill pergunta qual), e as entradas `ia-*` de `rust/` quando o código é Rust | produção |
 | `gravacao-video` | Vídeos de demonstração, teasers e explicações de um site, com voz | `ia/multimodal/` | produção |
 | `produtizar` | Transformar o que foi feito para um caso num núcleo reutilizável com adaptadores e configuração, ou num modelo de projeto; vender um produto por partes sem expor as que não se compraram | `produto/` | produção |
 | `operar` | Deixar uma plataforma pronta para quem a vai operar: monitorização, runbooks, cópias de segurança, incidentes | `fiabilidade/`, `docker/`, `cicd/` | produção |

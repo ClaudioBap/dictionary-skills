@@ -15,7 +15,7 @@ The skills and the knowledge base are written in Portuguese (Portugal).
 | Part | What it is | For whom |
 |---|---|---|
 | [`skills/start-project-with-trust/`](skills/start-project-with-trust/SKILL.md) | The full version of starting projects, in testing | People who build projects for clients (consultants, development teams) and install it by name |
-| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->398 good-practice entries in 29 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
+| [`knowledge/`](knowledge/INDEX.md) | <!-- conhecimento:inicio -->410 good-practice entries in 30 sections<!-- conhecimento:fim -->, each with its source | Used by the skill; can also be read directly |
 | [`skills/orchestrate-sessions/`](skills/orchestrate-sessions/SKILL.md) | The skill you start with: it asks what you want, proposes the delegation plan and spreads the work across sessions, with a model and effort per task. It also holds the shared rules, the questions and the knowledge path | Everyone |
 | `skills/<mini skill>/` | The sixteen mini skills, one per topic (see the [catalogue](skills/orchestrate-sessions/catalogo.md)) | Whoever runs a task on one topic, alone or in an orchestrated session |
 | [`skills/update-knowledge/`](skills/update-knowledge/SKILL.md) | The skill that updates the knowledge | Whoever maintains the base (and each user, for their personal knowledge) |
@@ -58,7 +58,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 ## Knowledge base
 
 <!-- conhecimento:inicio -->
-398 entries in 29 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
+410 entries in 30 sections. Most were extracted from the PDF «Dicionário de Boas Práticas e Possibilidades» (Cláudio Baptista, BSO Consulting, 2026-11-03), with the source page in each file; the sections marked «outside the PDF» were written from official sources. Each entry has a summary, the content, a «Para uma skill» line with the criterion to check, and the official sources that back it.
 
 | Section | Entries | Section | Entries |
 |---|---|---|---|
@@ -76,7 +76,7 @@ If you stop, calling the skill again for the same project resumes where it left 
 | [JavaScript](knowledge/javascript/README.md) (outside the PDF) | 14 | [Platforms to adopt before building](knowledge/plataformas/README.md) (outside the PDF) | 15 |
 | [Node.js](knowledge/node/README.md) (outside the PDF) | 14 | [Modularisation and productisation](knowledge/produto/README.md) (outside the PDF) | 10 |
 | [Agent portals and worlds](knowledge/portais-de-agentes/README.md) (outside the PDF) | 9 | [n8n](knowledge/n8n/README.md) (outside the PDF) | 5 |
-| [Open source Jarvis (OpenJarvis and Microsoft JARVIS)](knowledge/jarvis/README.md) (outside the PDF) | 3 | | |
+| [Open source Jarvis (OpenJarvis and Microsoft JARVIS)](knowledge/jarvis/README.md) (outside the PDF) | 3 | [Rust](knowledge/rust/README.md) (outside the PDF) | 12 |
 <!-- conhecimento:fim -->
 
 Reference files:

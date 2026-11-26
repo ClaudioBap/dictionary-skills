@@ -1,6 +1,6 @@
 ---
 name: boas-praticas-codigo
-description: "Mini skill para escrever ou rever código numa das linguagens da base (Python, Java, C#, JavaScript, Node.js). Deteta a linguagem do projeto pelo repositório e lê só a pasta de knowledge/ dessa linguagem: estilo, estrutura, erros, testes, segurança. Executa com o formatador, o linter e os testes do próprio projeto como prova, sem reformatar o que o pedido não tocou. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar sozinha ou numa sessão lançada pela orchestrate-sessions. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
+description: "Mini skill para escrever ou rever código numa das linguagens da base (Python, Java, C#, JavaScript, Node.js, Rust). Deteta a linguagem do projeto pelo repositório e lê só a pasta de knowledge/ dessa linguagem: estilo, estrutura, erros, testes, segurança. Executa com o formatador, o linter e os testes do próprio projeto como prova, sem reformatar o que o pedido não tocou. Se a biblioteca não tem a resposta, vai às fontes oficiais e regista. Usar sozinha ou numa sessão lançada pela orchestrate-sessions. É uma sub skill, que faz uma parte do trabalho, sozinha ou chamada por uma skill mãe."
 argument-hint: "O que fazer no código, ou nada para perguntar"
 metadata:
   estado: produção
@@ -13,7 +13,7 @@ metadata:
 
 O caminho do conhecimento obtém-se com `node ../orchestrate-sessions/scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
-O conhecimento está em `knowledge/python/`, `java/`, `csharp/`, `javascript/` e `node/`. Lê só a pasta da linguagem do projeto. Se `~/.start-project-with-trust/knowledge/<linguagem>/` tiver uma entrada com o mesmo caminho, vale a pessoal. API e base de dados são da `backend-dados`; interface, da `design-ux`.
+O conhecimento está em `knowledge/python/`, `java/`, `csharp/`, `javascript/`, `node/` e `rust/`. Lê só a pasta da linguagem do projeto. Se `~/.start-project-with-trust/knowledge/<linguagem>/` tiver uma entrada com o mesmo caminho, vale a pessoal. API e base de dados são da `backend-dados`; interface, da `design-ux`.
 
 ## Regras
 
@@ -24,7 +24,7 @@ O conhecimento está em `knowledge/python/`, `java/`, `csharp/`, `javascript/` e
 
 ## Âmbito
 
-Sabe fazer: escrever e rever código em Python, Java, C#, JavaScript no browser (com TypeScript) e Node.js, com as entradas da pasta da linguagem: estilo, estrutura, erros, testes, logging, segurança da linguagem, tipagem, código assíncrono e dependências. Prova com o formatador, o linter e os testes do projeto. Noutra linguagem também trabalha, mas primeiro vai às fontes oficiais (passo 3), por isso custa mais.
+Sabe fazer: escrever e rever código em Python, Java, C#, JavaScript no browser (com TypeScript), Node.js e Rust, com as entradas da pasta da linguagem: estilo, estrutura, erros, testes, logging, segurança da linguagem, tipagem, código assíncrono e dependências. Prova com o formatador, o linter e os testes do projeto. Noutra linguagem também trabalha, mas primeiro vai às fontes oficiais (passo 3), por isso custa mais.
 
 Não faz, e para onde vai:
 - contrato da API, esquema e migrações: `backend-dados`;
@@ -37,14 +37,14 @@ Não faz, e para onde vai:
 
 Pedidos que se confundem:
 - «Revê a segurança deste código»: sim, a verificação de `seguranca-em-<linguagem>.md` nos ficheiros tocados. «Audita a segurança do portal»: não, é da `seguranca`.
-- «Este código está lento»: sim, se o problema está no código (`python/desempenho-e-codigo-idiomatico.md`, `node/event-loop-e-trabalho-pesado.md`, `node/desempenho-e-escala.md`, `javascript/dom-e-desempenho.md`); se ainda ninguém mediu, primeiro a `performance-verifier`.
+- «Este código está lento»: sim, se o problema está no código (`python/desempenho-e-codigo-idiomatico.md`, `node/event-loop-e-trabalho-pesado.md`, `node/desempenho-e-escala.md`, `javascript/dom-e-desempenho.md`, `rust/posse-e-codigo-idiomatico.md`); se ainda ninguém mediu, primeiro a `performance-verifier`.
 - «Põe o serviço Node num contentor»: o processo Node lá dentro (`node/node-em-contentores.md`) é desta skill; a imagem e o pipeline são da `infra-deploy`.
 
 Quando parte do pedido é de outra skill, diz qual e porquê, como manda `../orchestrate-sessions/regras.md`.
 
 ## 1. Que linguagem, e o que fazer?
 
-Deteta a linguagem pelos ficheiros, sem perguntar: `pyproject.toml`, `requirements.txt` ou `setup.cfg` (Python); `pom.xml` ou `build.gradle` (Java); `*.csproj` ou `*.sln` (C#); `package.json` com `engines.node` ou dependências de servidor (Node.js); `package.json` com framework de browser, `*.html` ou bundler (JavaScript no browser). Um projeto pode ter mais de uma: lês cada pasta correspondente. Se não encontras nenhuma das cinco, segue o passo 3 para a linguagem do projeto.
+Deteta a linguagem pelos ficheiros, sem perguntar: `pyproject.toml`, `requirements.txt` ou `setup.cfg` (Python); `pom.xml` ou `build.gradle` (Java); `*.csproj` ou `*.sln` (C#); `package.json` com `engines.node` ou dependências de servidor (Node.js); `package.json` com framework de browser, `*.html` ou bundler (JavaScript no browser); `Cargo.toml` (Rust). Um projeto pode ter mais de uma: lês cada pasta correspondente. Se não encontras nenhuma das seis, segue o passo 3 para a linguagem do projeto.
 
 Se o pedido, o questionário da `orchestrate-sessions` ou a mãe que te chamou não dizem o objeto, o objetivo e o nível, pergunta o que falta, uma coisa de cada vez, no formato das perguntas de `../orchestrate-sessions/regras.md`, e pára quando tens os três:
 
@@ -63,7 +63,8 @@ Lê o `README.md` da pasta da linguagem e as entradas que o pedido toca. Em toda
 - Java: `design-oo-e-solid.md`, `imutabilidade-e-records.md`, `null-safety-e-optional.md`, `colecoes-generics-e-streams.md`, `concorrencia.md`, `gestao-de-recursos.md`;
 - C#: `nullable-reference-types.md`, `async-await.md`, `linq-e-colecoes.md`, `design-solid-e-injecao-de-dependencias.md`, `gestao-de-recursos-idisposable.md`, `pattern-matching-e-features-modernas.md`;
 - JavaScript: `typescript-e-tipagem.md`, `modulos-es.md`, `programacao-assincrona.md`, `fetch-e-respostas-http.md`, `dom-e-desempenho.md`, `imutabilidade-e-estado.md`, `dependencias-frontend.md`;
-- Node.js: `configuracao-e-segredos.md`, `erros-e-processo.md`, `event-loop-e-trabalho-pesado.md`, `encerramento-gracioso.md`, `gestao-de-pacotes.md`, `versoes-e-runtime.md`, `node-em-contentores.md`, `permissoes-do-processo.md`.
+- Node.js: `configuracao-e-segredos.md`, `erros-e-processo.md`, `event-loop-e-trabalho-pesado.md`, `encerramento-gracioso.md`, `gestao-de-pacotes.md`, `versoes-e-runtime.md`, `node-em-contentores.md`, `permissoes-do-processo.md`;
+- Rust: `toolchain-edicoes-e-dependencias.md`, `posse-e-codigo-idiomatico.md`, `concorrencia-e-assincrono.md` e, se o código serve ou chama modelos de IA, `ia-inferencia-em-rust.md`, `ia-rust-a-acelerar-python.md` ou `ia-chamar-llms-e-mcp-em-rust.md`.
 
 Não leias as outras linguagens.
 

@@ -231,6 +231,36 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [npm CLI: CHANGELOG](https://github.com/npm/cli/blob/latest/CHANGELOG.md) | Mudanças incompatíveis de cada versão do npm |
 | [OWASP: segurança em Node.js](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html) | Boas práticas de segurança em Node.js |
 
+## [Boas práticas de Rust](rust/README.md)
+
+| Fonte | Para quê |
+|---|---|
+| [Rust Blog (feed Atom oficial)](https://blog.rust-lang.org/feed.xml) | versões estáveis e anúncios com data; ler por aqui |
+| [The Rust Book](https://doc.rust-lang.org/book/) | posse, erros, testes, concorrência e o ciclo de lançamentos |
+| [Cargo Book](https://doc.rust-lang.org/cargo/) | manifesto, Cargo.lock, resolver, perfis, features, workspaces e [lints] |
+| [Edition Guide](https://doc.rust-lang.org/edition-guide/) | edições e migração com `cargo fix --edition` |
+| [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/) | nomes, erros e a lista para bibliotecas públicas |
+| [Clippy](https://doc.rust-lang.org/clippy/) | grupos de lints e uso no CI |
+| [rustfmt](https://github.com/rust-lang/rustfmt) | formatação e `cargo fmt --check` |
+| [Rustonomicon](https://doc.rust-lang.org/nomicon/) | `unsafe`, Send e Sync |
+| [Async Book](https://rust-lang.github.io/async-book/) | código assíncrono |
+| [rustup: overrides](https://rust-lang.github.io/rustup/overrides.html) | `rust-toolchain.toml` e precedência |
+| [Tokio: spawn_blocking](https://docs.rs/tokio/latest/tokio/task/fn.spawn_blocking.html) | trabalho bloqueante fora do runtime |
+| [tracing](https://github.com/tokio-rs/tracing) | logging estruturado |
+| [log](https://github.com/rust-lang/log) | fachada de logging da rust-lang |
+| [RustSec (feed Atom oficial)](https://rustsec.org/feed.xml) | avisos de segurança dos crates; ler por aqui |
+| [cargo-audit (releases)](https://github.com/rustsec/rustsec/releases) | versões do `cargo audit` |
+| [cargo-deny](https://github.com/EmbarkStudios/cargo-deny) | avisos, licenças, crates proibidos e origens |
+| [candle (releases)](https://github.com/huggingface/candle/releases) | versões do candle (Hugging Face) |
+| [burn (releases)](https://github.com/tracel-ai/burn/releases) | versões do burn (tem pré-lançamentos) |
+| [mistral.rs (releases)](https://github.com/EricLBuehler/mistral.rs/releases) | versões do mistral.rs e do servidor compatível com a OpenAI |
+| [ort](https://github.com/pykeio/ort) | ligações ao ONNX Runtime e quando sai a 2.0 estável |
+| [PyO3 (releases)](https://github.com/PyO3/pyo3/releases) | versões do PyO3 e versões mínimas de Rust e Python |
+| [maturin: distribuição](https://www.maturin.rs/distribution.html) | wheels, manylinux e publicação |
+| [SDKs da Anthropic](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) | se aparece um SDK oficial em Rust |
+| [Bibliotecas da OpenAI](https://developers.openai.com/api/docs/libraries) | SDKs oficiais e da comunidade |
+| [SDKs do MCP](https://modelcontextprotocol.io/docs/sdk) | nível e estado do SDK oficial `rmcp` |
+
 ## [Estrutura e documentação](estrutura/README.md)
 
 | Fonte | Para quê |
