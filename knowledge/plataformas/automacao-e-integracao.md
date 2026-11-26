@@ -4,7 +4,8 @@ titulo: "Automação e integração (n8n, Node-RED)"
 seccao: "Plataformas para adotar antes de construir"
 paginas: []
 fonte: "Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF."
-verificado_em: 2026-11-04
+verificado_em: 2026-11-26
+editado_em: 2026-11-26
 ---
 
 # Automação e integração (n8n, Node-RED)
@@ -28,7 +29,7 @@ verificado_em: 2026-11-04
 - Self-hosted (local, Docker, Raspberry Pi). A documentação lista opções de alojamento de terceiros, sem cloud do próprio projeto. Fonte: [começar](https://nodered.org/docs/getting-started/)
 - API HTTP de administração, e o nó HTTP In cria endpoints que recebem chamadas de outros sistemas. Fontes: [Admin API](https://nodered.org/docs/api/admin/), [endpoint HTTP](https://cookbook.nodered.org/http/create-an-http-endpoint)
 - MCP: só servidores da comunidade.
-- Versão 5.0.9, de 2026-10-21. Fonte: [releases](https://github.com/node-red/node-red/releases/tag/5.0.9)
+- Versão 5.0.10, de 2026-11-17 (com a 4.1.18 para a série 4), que reforça a validação do parâmetro `lang`, dos pacotes de comunicação, dos nomes e caminhos de chaves SSH nos projetos e do nome e da versão dos pacotes tarball, impede a escrita em protótipos e corrige a validação de caminhos no armazenamento de contexto. Fonte: [releases](https://github.com/node-red/node-red/releases/tag/5.0.10)
 
 **Para uma skill:** quando duas plataformas adotadas têm de trocar dados, o plano usa os webhooks e a API delas através do n8n ou do Node-RED antes de propor um serviço de integração escrito à medida.
 
@@ -36,5 +37,9 @@ verificado_em: 2026-11-04
 
 - [Adotar antes de construir](adotar-antes-de-construir.md) (Plataformas para adotar antes de construir)
 - [MCP (Model Context Protocol)](../ia/mcp-model-context-protocol.md) (Construir com IA)
+
+## Histórico
+
+- **2026-11-17**: antes, «Versão 5.0.9, de 2026-10-21. Fonte: [releases](https://github.com/node-red/node-red/releases/tag/5.0.9)» (releases do Node-RED, consultadas a 2026-11-04). Mudou porque saíram o Node-RED 5.0.10 e o 4.1.18, com correções de validação de entradas e de caminhos. Fonte: [Node-RED 5.0.10](https://github.com/node-red/node-red/releases/tag/5.0.10). Confiança: alta. Editado a 2026-11-26.
 
 Fonte: Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF.

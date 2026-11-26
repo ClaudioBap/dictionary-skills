@@ -6,7 +6,8 @@ paginas: []
 fonte: "Documentação oficial da OpenAI (developers.openai.com), ligada em cada ponto; consultada a 2026-11-10, páginas sem data. Não vem do PDF."
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-10
+verificado_em: 2026-11-26
+editado_em: 2026-11-26
 ---
 
 # OpenAI API: batch, cache, saída estruturada e controlo de dados
@@ -17,7 +18,7 @@ verificado_em: 2026-11-10
 
 - Batch API: «50% cost discount compared to synchronous APIs». A janela de conclusão é fixa: «For now, the completion window can only be set to `24h`.» Limites: «A single batch may include up to 50,000 requests, and a batch input file can be up to 200 MB in size» e «You can create up to 2,000 batches per hour». Para usar: carregar um `.jsonl` pela Files API com `purpose: "batch"` e criar o batch com `input_file_id`, `endpoint` e `completion_window` (`"24h"`). Aceita `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, `/v1/moderations`, `/v1/images/generations` e `/v1/images/edits`. Fonte: [Batch API](https://developers.openai.com/api/docs/guides/batch)
 - Responses API: «While Chat Completions remains supported, Responses is recommended for all new projects.» Na migração, `messages` passa a `input`, as instruções vão em `instructions`, `response_format` passa a `text.format`, e `previous_response_id` encadeia os turnos. Fonte: [Migrate to Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses)
-- Prompt caching: «Prompt caching is enabled by default for supported OpenAI models.» Mínimo: «The minimum cacheable prompt length is 1,024 tokens for GPT-5.6 and later.» A entrada em cache tem desconto até 95%. No GPT-5.6 e seguintes, ler da cache custa 0,1 vezes o preço normal de entrada, e 0,05 vezes no GPT-6.1 Sol e no GPT-6.1 Terra. A duração escolhe-se com `prompt_cache_options.ttl`: `"30m"` por omissão ou `"12h"`. Fonte: [Prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching)
+- Prompt caching: «Prompt caching is enabled by default for supported OpenAI models.» Mínimo: «The minimum cacheable prompt length is 1,024 tokens for GPT-5.6 and later.» A entrada em cache tem desconto até 95%. No GPT-5.6 e seguintes, ler da cache custa 0,1 vezes o preço normal de entrada, e 0,05 vezes no GPT-6.2 Astra, no GPT-6.2 Sol, no GPT-6.1 Sol e no GPT-6.1 Terra, «regardless of the selected lifetime». A duração escolhe-se com `prompt_cache_options.ttl`: `"30m"` por omissão, com a escrita na cache a 1,25 vezes a entrada, ou `"12h"`, com a escrita a 2,5 vezes. Fonte: [Prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching), [OpenAI API changelog, 2026-11-17](https://developers.openai.com/api/docs/changelog)
 - Saída estruturada: na Responses API, `text.format` com `{ type: "json_schema", strict: true, schema: ... }`. Na Chat Completions, `response_format` com JSON schema só é suportado em versões antigas específicas. Os limites dos esquemas suportados não foram lidos até ao fim. Fonte: [Structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 - Pesquisa em ficheiros: ferramenta `"file_search"` sobre vector stores. Preço: «File search storage: $0.10 / GB per day 1 GB free» e «File search tool calls: $2.50 / 1k calls». Fonte: [File search](https://developers.openai.com/api/docs/guides/tools-file-search), [Pricing](https://developers.openai.com/api/docs/pricing)
 - Realtime API: voz para voz com estado da conversa e chamadas a ferramentas, por WebRTC (no browser) ou WebSocket (no servidor). O servidor cria um segredo temporário com `POST /v1/realtime/client_secrets`. A página não dá preços. Fonte: [Realtime](https://developers.openai.com/api/docs/guides/realtime)
@@ -31,5 +32,9 @@ verificado_em: 2026-11-10
 - [Batch e cache entre fornecedores](batch-e-cache-entre-fornecedores.md) (Construir com IA)
 - [Gemini API](gemini-api.md) (Construir com IA)
 - [Otimização de custo da IA](../otimizacao-de-custo-da-ia.md) (Construir com IA)
+
+## Histórico
+
+- **2026-11-17**: antes, «No GPT-5.6 e seguintes, ler da cache custa 0,1 vezes o preço normal de entrada, e 0,05 vezes no GPT-6.1 Sol e no GPT-6.1 Terra. A duração escolhe-se com `prompt_cache_options.ttl`: `"30m"` por omissão ou `"12h"`.» (Prompt caching, consultada a 2026-11-10). Mudou porque saíram o GPT-6.2 Astra e o GPT-6.2 Sol, com a leitura da cache a 0,05 vezes, e a página dá agora o preço da escrita na cache. Fonte: [OpenAI API changelog](https://developers.openai.com/api/docs/changelog), [Prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching). Confiança: media. Editado a 2026-11-26.
 
 Fonte: documentação oficial da OpenAI (developers.openai.com), ligada em cada ponto; consultada a 2026-11-10, páginas sem data. Não vem do PDF.

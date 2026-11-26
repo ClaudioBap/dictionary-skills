@@ -6,8 +6,8 @@ paginas: []
 fonte: "https://code.claude.com/docs/en/hooks"
 data_lancamento: null
 confianca: media
-verificado_em: 2026-11-17
-editado_em: 2026-11-18
+verificado_em: 2026-11-26
+editado_em: 2026-11-26
 ---
 
 # Mundo 3D movido por agentes
@@ -56,7 +56,7 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 | Hook | Serve para | Traz (além de `session_id`, `cwd`, `hook_event_name`) |
 |---|---|---|
 | `SessionStart`, `SessionEnd`, `UserPromptSubmit` | começar, acabar, voltar ao trabalho | `source`, `reason`, `prompt` (este não se envia) |
-| `PreToolUse` com matcher `Skill\|Agent` | skill chamada, agente lançado | `tool_input.skill` com o nome da skill; `tool_input.subagent_type` no `Agent` (a ferramenta chama-se `Task` na lista, mas o hook recebe `Agent`) |
+| `PreToolUse` com matcher `Skill\|Agent` | skill chamada, agente lançado | `tool_input.skill` com o nome da skill; `tool_input.subagent_type` no `Agent` (a ferramenta chama-se `Agent` desde a v2.1.63; `Task(...)` continua a valer como alias nas settings e nas definições de agentes) |
 | `SubagentStart`, `SubagentStop` | ajudante entra e sai | `agent_id`, `agent_type` |
 | `Stop` | paragem | `stop_hook_active`, `last_assistant_message` (não se envia) |
 | `StopFailure`, `Notification` | falha, aviso | `error`, `notification_type` |
@@ -121,7 +121,7 @@ Dos hooks do Claude Code, comandos que a ferramenta corre em pontos do ciclo de 
 
 Na referência de hooks do Claude Code confirmam-se: os dez eventos usados, o matcher com `|` como nomes exatos, `async: true` («corre em segundo plano sem bloquear»), a forma exec (`command` mais `args`, sem shell; no Windows o `command` tem de ser um executável real e os `.cmd` e `.bat` pedem a forma com shell), `agent_id` e `agent_type` no `SubagentStart`, `error` (com `rate_limit`) no `StopFailure`, `notification_type` no `Notification`, `subagent_type` na entrada do `Agent` e `last_assistant_message` no `Stop`. O manual do three.js confirma o render a pedido: «render once at the start and then render only when something changes».
 
-Só vêm das corridas reais do projeto de origem, não da documentação lida: `tool_input.skill` na ferramenta `Skill`, o hook a receber `Agent` e não `Task`, e o `PermissionRequest` a disparar também para `AskUserQuestion`. `StopFailure` e `Notification` não apareceram nessas corridas.
+Só vêm das corridas reais do projeto de origem, não da documentação lida: `tool_input.skill` na ferramenta `Skill` e o `PermissionRequest` a disparar também para `AskUserQuestion`. `StopFailure` e `Notification` não apareceram nessas corridas.
 
 **Para uma skill:** antes de propor um mundo 3D de agentes, confirma que mostra algo que a lista não mostra e escolhe a metáfora a partir do que o produto é, validada com o dono. Os eventos vêm de hooks assíncronos sem conteúdo; um modelo sem 3D entre os eventos e a cena serve a cena, a lista HTML e a repetição. A vista carrega a pedido, pausa escondida, tem alternativa sem WebGL e com movimento reduzido, e prova-se com capturas de cada estado e medições com placa gráfica ligada.
 
@@ -140,10 +140,13 @@ Só vêm das corridas reais do projeto de origem, não da documentação lida: `
 *Lidas a 2026-11-17.*
 
 - [Claude Code: referência de hooks](https://code.claude.com/docs/en/hooks): eventos, entrada, saída e registo dos hooks
+- [Claude Code: sub-agents](https://code.claude.com/docs/en/sub-agents): a ferramenta `Agent` (antes `Task`, que fica como alias); lida a 2026-11-26
 - [Manual do Three.js: render a pedido](https://threejs.org/manual/pages/rendering-on-demand.html): desenhar só quando algo muda
 
 Fonte: experiência do projeto de origem e as fontes acima. Não vem do PDF.
 
 ## Histórico
 
+- **data não indicada**: antes, na tabela dos eventos, «(a ferramenta chama-se `Task` na lista, mas o hook recebe `Agent`)» (corridas do projeto de origem). Mudou porque a documentação diz que a ferramenta passou de `Task` a `Agent` na v2.1.63 e que `Task(...)` fica como alias. Fonte: [Claude Code: sub-agents](https://code.claude.com/docs/en/sub-agents). Confiança: media. Editado a 2026-11-26.
+- **data não indicada**: antes, «Só vêm das corridas reais do projeto de origem, não da documentação lida: `tool_input.skill` na ferramenta `Skill`, o hook a receber `Agent` e não `Task`, e o `PermissionRequest` a disparar também para `AskUserQuestion`.» (corridas do projeto de origem). Mudou porque o nome `Agent` passou a estar documentado. Fonte: [Claude Code: sub-agents](https://code.claude.com/docs/en/sub-agents). Confiança: media. Editado a 2026-11-26.
 - **2026-11-18**: antes, a origem dizia «padrão construído e medido na Oficina da administração do site-noticias (sessões S2-O2 e S3-O3, 2026-11-16 e 17)», o texto citava a administração do site-noticias e as corridas da S2-O2, o script `simular-agentes.mjs`, e o rodapé dizia «Fonte: implementação em `site-noticias/web-admin/src/oficina-3d/` e saídas S2-O2 e S3-O3 da orquestração da fase 2». Mudou porque o conhecimento deixou de citar o portal concreto de onde veio: o portal lê as skills, e não o contrário; o método passou para a secção Portais e mundos de agentes. Fonte: decisão de Cláudio Baptista a 2026-11-18. Editado a 2026-11-18.

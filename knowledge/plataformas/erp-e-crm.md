@@ -4,7 +4,8 @@ titulo: "ERP e CRM (Odoo, Dolibarr)"
 seccao: "Plataformas para adotar antes de construir"
 paginas: []
 fonte: "Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF."
-verificado_em: 2026-11-04
+verificado_em: 2026-11-26
+editado_em: 2026-11-26
 ---
 
 # ERP e CRM (Odoo, Dolibarr)
@@ -29,7 +30,7 @@ verificado_em: 2026-11-04
 - Self-hosted; não há cloud oficial única, só fornecedores parceiros listados no wiki. Fonte: [soluções cloud](https://wiki.dolibarr.org/index.php/Cloud_Solutions_for_Dolibarr_ERP_CRM)
 - API REST com explorador integrado, e módulo Webhook que envia JSON para um URL externo. Fontes: [API REST](https://wiki.dolibarr.org/index.php/Module_Web_Services_API_REST_(developer)), [webhook](https://wiki.dolibarr.org/index.php?title=Module_Webhook)
 - MCP: existe no core desde a 24.0.0, ainda em modo experimental. Fonte: [issue oficial](https://github.com/Dolibarr/dolibarr/issues/38356)
-- Versão 24.0.1, de 2026-09-07. Fonte: [releases](https://github.com/Dolibarr/dolibarr/releases/tag/24.0.1)
+- Versão 24.0.4, de 2026-11-25, que acrescenta verificações de autorização em falta na API REST dos módulos `mos` e `eventattendees` (acesso entre clientes) e um token CSRF em falta na configuração da agenda. Fonte: [releases](https://github.com/Dolibarr/dolibarr/releases/tag/24.0.4)
 
 **Para uma skill:** um pedido de faturação, CRM ou stocks tem o Dolibarr e o Odoo Community como opções na decisão «Adotar ou construir», e a coluna «Risco» indica o que no Odoo exige Enterprise ou o plano Custom.
 
@@ -37,5 +38,9 @@ verificado_em: 2026-11-04
 
 - [Adotar antes de construir](adotar-antes-de-construir.md) (Plataformas para adotar antes de construir)
 - [Tickets, ativos e contratos (GLPI, Zammad)](tickets-ativos-e-contratos.md) (Plataformas para adotar antes de construir)
+
+## Histórico
+
+- **2026-11-25**: antes, «Versão 24.0.1, de 2026-09-07. Fonte: [releases](https://github.com/Dolibarr/dolibarr/releases/tag/24.0.1)» (releases do Dolibarr, consultadas a 2026-11-04). Mudou porque saiu o Dolibarr 24.0.4, com verificações de autorização em falta na API REST. Fonte: [Dolibarr 24.0.4](https://github.com/Dolibarr/dolibarr/releases/tag/24.0.4). Confiança: alta. Editado a 2026-11-26.
 
 Fonte: Sites, documentação e repositórios oficiais de cada plataforma, ligados em cada ponto; consultados a 2026-11-04. Não vem do PDF.

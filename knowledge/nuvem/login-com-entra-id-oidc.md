@@ -6,7 +6,8 @@ paginas: []
 fonte: "Documentação oficial do Microsoft Learn, ligada em cada ponto; consultada a 2026-11-10. Não vem do PDF."
 data_lancamento: 2026-06-30
 confianca: alta
-verificado_em: 2026-11-10
+verificado_em: 2026-11-26
+editado_em: 2026-11-26
 ---
 
 # Login com Microsoft Entra ID (OpenID Connect)
@@ -17,7 +18,7 @@ verificado_em: 2026-11-10
 
 - Registar a aplicação: no Microsoft Entra admin center, «Entra ID > App registrations > New registration», dar um nome e escolher «Supported account types». A documentação recomenda «Single tenant only» para a maioria das aplicações; as outras opções são «Multiple Entra ID tenants», «Any Entra ID Tenant + Personal Microsoft accounts» e «Personal accounts only». Depois de registar, anotar o «Application (client) ID» da página Overview. Fonte: [Quickstart: register an application (2026-05-14)](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app)
 - Redirect URI: em «Authentication», «Add a platform», plataforma Web, e o URI exato da aplicação (o exemplo da documentação é `https://localhost:8080/`). Regras: «Don't use wildcard reply URLs or insecure URI schemes such as http»; manter a lista curta e ser dono de todos os URIs. Fonte: [OpenID Connect on the Microsoft identity platform (2026-06-30)](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc), [Security best practices for app registration (2026-10-01)](https://learn.microsoft.com/en-us/entra/identity-platform/security-best-practices-for-app-registration)
-- Credencial: «Microsoft recommends that you use a certificate instead of a client secret before moving the application to a production environment». Um segredo de cliente dura no máximo 24 meses, a recomendação é menos de 12, e o valor só se vê uma vez. Sempre que possível, uma identidade gerida em vez de credenciais. Fonte: [Add credentials (2025-03-26)](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials), [Security best practices for app registration](https://learn.microsoft.com/en-us/entra/identity-platform/security-best-practices-for-app-registration)
+- Credencial: «Client secrets are less secure than certificate or federated credentials and therefore should not be used in production environments». Para cargas fora do Azure (GitHub Actions, Kubernetes ou outro emissor OIDC), as credenciais federadas dispensam segredos. Um segredo de cliente dura no máximo 24 meses, a recomendação é menos de 12, e o valor só se vê uma vez. Sempre que possível, uma identidade gerida em vez de credenciais. Fonte: [Add credentials (2026-11-12)](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials), [Security best practices for app registration](https://learn.microsoft.com/en-us/entra/identity-platform/security-best-practices-for-app-registration)
 - Endpoints v2.0: authority `https://login.microsoftonline.com/{tenant}/v2.0` e documento de descoberta em `/.well-known/openid-configuration`, onde `{tenant}` é o «Directory (tenant) ID», o domínio da organização, ou `common`, `organizations` e `consumers`. O scope `openid` é obrigatório; `profile` e `email` dão os dados do utilizador. Os ID tokens não são emitidos por omissão: se o fluxo os pedir diretamente, ativa-se «ID tokens» em «Implicit grant and hybrid flows». Para aplicações web, `response_mode=form_post`, e a validação dos tokens faz-se com uma biblioteca. O logout usa `/oauth2/v2.0/logout` com um `post_logout_redirect_uri` registado. Fonte: [OpenID Connect on the Microsoft identity platform (2026-06-30)](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc)
 - Identificar o utilizador: `oid` é «The immutable identifier for an object, in this case, a user account» e identifica o utilizador em todas as aplicações do tenant; `sub` é imutável mas diferente por aplicação; `preferred_username` «can't be used to make authorization decisions». A chave do utilizador é `oid`, com `tid` quando há vários tenants. Fonte: [ID token claims reference (2023-05-30)](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference)
 - Bibliotecas: MSAL Node, Python, Java, .NET, MSAL.js e MSAL React. Com a MSAL «There's no need to directly use the OAuth libraries or code against the protocol in your application», e a cache e a renovação de tokens ficam a cargo dela. A ADAL deixou de ter suporte. Fonte: [MSAL overview (2024-11-13)](https://learn.microsoft.com/en-us/entra/identity-platform/msal-overview)
@@ -31,5 +32,9 @@ verificado_em: 2026-11-10
 
 - [Microsoft Azure e Entra ID](microsoft-azure-e-entra-id.md) (Nuvem e identidade)
 - [Autenticação e SSO (Keycloak, OpenID Connect)](../plataformas/autenticacao-e-sso.md) (Plataformas para adotar antes de construir)
+
+## Histórico
+
+- **2026-11-12**: antes, «Credencial: «Microsoft recommends that you use a certificate instead of a client secret before moving the application to a production environment».» (Add credentials, página de 2025-03-26). Mudou porque a página atual diz que os segredos de cliente não se usam em produção e põe as credenciais federadas ao lado dos certificados; a data é a da página, sem novidade datada. Fonte: [Add credentials](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials). Confiança: media. Editado a 2026-11-26.
 
 Fonte: documentação oficial do Microsoft Learn, ligada em cada ponto; consultada a 2026-11-10. Não vem do PDF.

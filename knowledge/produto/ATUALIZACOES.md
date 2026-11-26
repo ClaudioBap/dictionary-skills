@@ -1,0 +1,11 @@
+# Atualizações: Modularização e produtização
+
+Novidades com confiança alta ou média (as de média levam «Confiança: media»), organizadas por categoria e da mais recente para a mais antiga. Não alteram o texto das entradas. Cada linha tem o seu registo no [CHANGELOG](../CHANGELOG.md).
+
+## Microsoft Azure
+
+- **2026-11-16** em [Multi-inquilino (modelos de tenancy)](multi-inquilino.md): A página dos modelos de tenancy tem uma secção nova, «Choose a hosting and management model»: o alojamento e a gestão decidem-se à parte do isolamento, entre a instalação partilhada ou dedicada alojada pelo fornecedor, a instalação gerida pelo fornecedor na subscrição do inquilino, a instalação gerida pelo próprio inquilino a partir de artefactos do fornecedor e a instalação híbrida ou na borda. Cada modelo a mais acrescenta engenharia, testes, lançamento, suporte e documentação, por isso a página manda usar «a common codebase and deployment artifacts wherever possible» e evitar «permanent product forks for individual hosting models». Para cada modelo definem-se as fronteiras das alterações, da operação e resiliência, da segurança e do ciclo comercial, incluindo «how you activate entitlements and measure usage when components run outside your environment» e, no fim da relação, a remoção do acesso, das identidades, dos segredos e das ligações de telemetria do fornecedor. A data é a da última atualização da página. Fonte: [Azure Architecture Center: Tenancy models for a multitenant solution](https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/considerations/tenancy-models). Confiança: media. Adicionado a 2026-11-26.
+
+## Stripe
+
+- **data não indicada** em [Direitos por plano no servidor](direitos-por-plano-no-servidor.md): O resumo de direitos do webhook `entitlements.active_entitlement_summary.updated` traz no máximo 10 direitos em `entitlements.data`; se o cliente tiver mais de 10 direitos ativos, a lista completa e paginada lê-se no campo `entitlements.url` do evento ou na API List Active Entitlements (`GET /v1/entitlements/active_entitlements?customer=...`). Fonte: [Stripe: Entitlements](https://docs.stripe.com/billing/entitlements). Confiança: media. Adicionado a 2026-11-26.
