@@ -224,6 +224,12 @@ function correrClaude(args, entrada, cwd, prazoMs) {
   });
 }
 
+// O modelo que fez o trabalho: o de maior custo em modelUsage (o claude pode usar um modelo pequeno para tarefas auxiliares).
+export function modeloPrincipal(uso = {}) {
+  const e = Object.entries(uso).sort((a, b) => (b[1]?.costUSD ?? 0) - (a[1]?.costUSD ?? 0))[0];
+  return e ? e[0] : null;
+}
+
 // Uma chamada sem ferramentas, com resposta em JSON validada pelo esquema.
 // `validar(saida)` (opcional) lança um erro se a resposta não servir; há uma nova tentativa.
 // Devolve { saida, sessao, modelo, entrada, saida_tokens, escrita, leitura, ms, custo_usd }.
@@ -243,9 +249,9 @@ export async function chamarClaude({ modelo, effort, sistema, esquema, entrada, 
       if (validar) validar(saida);
       const u = r.usage || {};
       return {
-        saida, sessao: r.session_id ?? null, modelo: Object.keys(r.modelUsage || {})[0] ?? modelo,
+        saida, sessao: r.session_id ?? null, modelo: modeloPrincipal(r.modelUsage) ?? modelo,
         entrada: u.input_tokens ?? 0, saida_tokens: u.output_tokens ?? 0, escrita: u.cache_creation_input_tokens ?? 0, leitura: u.cache_read_input_tokens ?? 0,
-        ms: r.duration_ms ?? Date.now() - t0, custo_usd: r.total_cost_usd ?? null,
+        ms: r.duration_ms ?? Date.now() - t0, custo_usd: r.total_cost_usd ?? null, turnos: r.num_turns ?? null,
       };
     } catch (e) {
       ultimoErro = e;
@@ -258,4 +264,4 @@ export async function chamarClaude({ modelo, effort, sistema, esquema, entrada, 
 }
 
 // Linha do registo das chamadas, no formato de novidades.json.
-export const registoChamada = (etapa, r, entrada = null) => ({ etapa, modelo: r.modelo, sessao: r.sessao, entrada: r.entrada, saida: r.saida_tokens, escrita: r.escrita, leitura: r.leitura, ms: r.ms, custo_usd: r.custo_usd, ...(entrada ? { entrada_conhecimento: entrada } : {}) });
+export const registoChamada = (etapa, r, entrada = null) => ({ etapa, modelo: r.modelo, sessao: r.sessao, entrada: r.entrada, saida: r.saida_tokens, escrita: r.escrita, leitura: r.leitura, ms: r.ms, custo_usd: r.custo_usd, turnos: r.turnos, ...(entrada ? { entrada_conhecimento: entrada } : {}) });

@@ -24,6 +24,14 @@ const semPonto = (t) => String(t).trim().replace(/\.$/, '');
 // «A AWS WAF…» → «a AWS WAF…», mas «OpenAI…» e «AWS…» ficam.
 const minuscula = (t) => (/^[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]/.test(t) ? t[0].toLowerCase() + t.slice(1) : t);
 
+// A 1.ª frase (até ~220 carateres) para a linha do CHANGELOG, que se quer curta.
+export function primeiraFrase(t) {
+  const x = semPonto(String(t).replace(/\s+/g, ' '));
+  const m = x.match(/^(.{30,}?)(?<=[a-zà-ú0-9)»`])\. (?=[A-ZÀ-Ú])/);
+  const f = m ? m[1] : x;
+  return f.length > 220 ? `${f.slice(0, 217).replace(/\s+\S*$/, '')}…` : f;
+}
+
 export function tituloDe(md) {
   const fm = (lf(md).match(/^---\n([\s\S]*?)\n---/) || [])[1] || '';
   return ((fm.match(/^titulo:\s*(.*)$/m) || [])[1] || '').trim().replace(/^"|"$/g, '').replace(/\\"/g, '"');
@@ -207,7 +215,7 @@ export function aplicar(raiz, novidades, { hoje = hojeReal(), feitoPor = APROVAC
         if (atual.includes(prefixo)) { salta('já existe em ATUALIZACOES.md', n); continue; }
         const linha = linhaAtualizacao({ data: n.data_lancamento, tituloEntrada: tituloDe(ler(n.entrada)), caminho: relative(secao, n.entrada).replace(/\\/g, '/'), texto: n.texto, fonte_nome: n.fonte_nome, fonte_url: n.fonte_url, confianca: n.confianca, hoje });
         gravar(f, inserirAtualizacao(atual, n.categoria, linha, n.data_lancamento));
-        registar(n, 'atualizacao', `Atualização (${n.categoria}): ${minuscula(semPonto(n.texto))}`, f);
+        registar(n, 'atualizacao', `Atualização (${n.categoria}): ${minuscula(primeiraFrase(n.texto))}`, f);
       } else if (n.tipo === 'edicao') {
         const e = (novidades.edicoes || []).find((x) => x.novidade?.item === n.item && x.novidade?.texto === n.texto);
         if (!e) { salta('sem edição gerada para esta novidade', n); continue; }
@@ -215,7 +223,7 @@ export function aplicar(raiz, novidades, { hoje = hojeReal(), feitoPor = APROVAC
         const r = aplicarEdicaoTexto(ler(n.entrada), e, hoje);
         if (r.erro) { salta(`edição não aplicada: ${r.erro}`, n); continue; }
         gravar(n.entrada, r.texto);
-        registar(n, 'edicao', `Edição: ${minuscula(semPonto(n.texto))}`, n.entrada);
+        registar(n, 'edicao', `Edição: ${minuscula(primeiraFrase(n.texto))}`, n.entrada);
       } else if (n.tipo === 'fonte') {
         const vigiar = /^a_vigiar:/i.test(n.categoria ?? '');
         if (!vigiar && !seccaoExiste(n.seccao)) { salta('a secção não existe', n); continue; }

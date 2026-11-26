@@ -30,7 +30,7 @@ Para um item com «vigiar», responde primeiro à pergunta do ponto: se a págin
 
 DATA E CONFIANÇA. «data_lancamento» (AAAA-MM-DD) é a data que a fonte indica para a novidade; sem data na fonte, null. «confianca»: «alta» = fonte oficial primária (o próprio fornecedor, organismo ou autor), lida diretamente e com data explícita; «media» = fonte oficial mas indireta, lida só em parte, ou SEM data (sem data, nunca «alta»). Nunca devolvas novidades de confiança baixa (fonte não oficial, comunidade, sem fonte verificável): ficam de fora. Não inventes nada: cada facto vem do item. O que for interpretação tua leva a marca «(interpretação)» no texto.
 
-CAMPOS. «item»: o id do item de onde vem. «fonte_nome»: o nome da fonte (o do item, ou o título da página). «fonte_url»: o endereço do item (campo «url»), ou outra ligação do mesmo domínio que a página dê para a própria novidade. «seccao»: a secção da entrada (a pasta, ex.: «ia»); se a entrada está noutra secção, usa a dela. «contexto»: «o_que_muda» (até 400 carateres, para quem não conhece o produto) e «porque_importa» (até 400 carateres, para quem usa a base), e «entradas»: as entradas candidatas relacionadas, cada uma com «id» (caminho sem .md, ex.: «ia/escolher-o-modelo-claude») e «titulo».`;
+CAMPOS. «item»: o id do item de onde vem. «fonte_nome»: o nome da fonte (o do item, ou o título da página). «fonte_url»: o endereço do item (campo «url»), ou outra ligação do mesmo domínio que a página dê para a própria novidade. «seccao»: a secção da entrada (a pasta, ex.: «ia»); se a entrada está noutra secção, usa a dela. «contexto»: «o_que_muda» (no máximo 350 carateres, para quem não conhece o produto) e «porque_importa» (no máximo 350 carateres, para quem usa a base), e «entradas»: as entradas candidatas relacionadas, cada uma com «id» (caminho sem .md, ex.: «ia/escolher-o-modelo-claude») e «titulo».`;
 
 const ESQUEMA = {
   type: 'object', required: ['novidades'], additionalProperties: false,
@@ -42,7 +42,7 @@ const ESQUEMA = {
       texto: { type: 'string' }, fonte_nome: { type: 'string' }, fonte_url: { type: 'string' },
       data_lancamento: { type: ['string', 'null'] }, confianca: { enum: ['alta', 'media'] }, item: { type: 'string' },
       contexto: { type: 'object', additionalProperties: false, required: ['o_que_muda', 'porque_importa', 'entradas'], properties: {
-        o_que_muda: { type: 'string', maxLength: 400 }, porque_importa: { type: 'string', maxLength: 400 },
+        o_que_muda: { type: 'string' }, porque_importa: { type: 'string' },
         entradas: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['id', 'titulo'], properties: { id: { type: 'string' }, titulo: { type: 'string' } } } },
       } },
     },
@@ -100,6 +100,21 @@ function validarNovidades(saida, ids) {
   }
 }
 
+// Uma chamada por entrada: devolve { r, edicao } ou null se a entrada não existir.
+export async function gerarEdicao(raiz, n) {
+  const f = join(raiz, 'knowledge', n.entrada);
+  if (!existsSync(f)) return null;
+  const texto = readFileSync(f, 'utf8').replace(/\r\n/g, '\n');
+  const entrada = JSON.stringify({ hoje: hoje(), entrada: n.entrada, texto_da_entrada: texto, novidade: { texto: n.texto, data_lancamento: n.data_lancamento, confianca: n.confianca, fonte_nome: n.fonte_nome, fonte_url: n.fonte_url, contexto: n.contexto?.o_que_muda } });
+  const validar = (s) => {
+    const vezes = s.trecho_antes && texto.split(s.trecho_antes).length - 1;
+    if (vezes !== 1) throw new Error(`trecho_antes aparece ${vezes} vezes na entrada (tem de ser 1)`);
+    if (!/^- \*\*.+\*\*: antes, «/.test(s.historico)) throw new Error('historico fora do formato');
+  };
+  const r = await chamarClaude({ modelo: 'sonnet', effort: 'medium', sistema: REGRAS_EDICAO, esquema: ESQUEMA_EDICAO, entrada, cwd: raiz, validar });
+  return { r, edicao: { entrada: n.entrada, trecho_antes: r.saida.trecho_antes, trecho_depois: r.saida.trecho_depois, historico: r.saida.historico.replace(/\n/g, ' '), novidade: n } };
+}
+
 // ---------- principal ----------
 
 async function principal() {
@@ -136,18 +151,10 @@ async function principal() {
 
     // Uma chamada por entrada com «edicao» (várias novidades sobre a mesma entrada vão juntas, uma de cada vez).
     for (const n of saida.novidades.filter((x) => x.tipo === 'edicao' && x.entrada)) {
-      const f = join(raiz, 'knowledge', n.entrada);
-      if (!existsSync(f)) continue;
-      const texto = readFileSync(f, 'utf8').replace(/\r\n/g, '\n');
-      const entrada = JSON.stringify({ hoje: hoje(), entrada: n.entrada, texto_da_entrada: texto, novidade: { texto: n.texto, data_lancamento: n.data_lancamento, confianca: n.confianca, fonte_nome: n.fonte_nome, fonte_url: n.fonte_url, contexto: n.contexto.o_que_muda } });
-      const validar = (s) => {
-        const vezes = s.trecho_antes && texto.split(s.trecho_antes).length - 1;
-        if (vezes !== 1) throw new Error(`trecho_antes aparece ${vezes} vezes na entrada (tem de ser 1)`);
-        if (!/^- \*\*.+\*\*: antes, «/.test(s.historico)) throw new Error('historico fora do formato');
-      };
-      const r = await chamarClaude({ modelo: 'sonnet', effort: 'medium', sistema: REGRAS_EDICAO, esquema: ESQUEMA_EDICAO, entrada, cwd: raiz, validar });
-      saida.chamadas.push(registoChamada('edicao', r, n.entrada));
-      saida.edicoes.push({ entrada: n.entrada, trecho_antes: r.saida.trecho_antes, trecho_depois: r.saida.trecho_depois, historico: r.saida.historico.replace(/\n/g, ' '), novidade: n });
+      const g = await gerarEdicao(raiz, n);
+      if (!g) continue;
+      saida.chamadas.push(registoChamada('edicao', g.r, n.entrada));
+      saida.edicoes.push(g.edicao);
     }
   } catch (e) {
     console.error(`✗ ${e.message}`);

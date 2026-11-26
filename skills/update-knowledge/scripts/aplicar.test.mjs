@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { linhaAtualizacao, inserirAtualizacao, aplicarEdicaoTexto, linhaChangelog, aprovadoPor, inserirFonte, inserirVigiar, removerVigiar, validarEntradaNova, dominioConfirmado } from './aplicar.mjs';
+import { linhaAtualizacao, inserirAtualizacao, aplicarEdicaoTexto, linhaChangelog, aprovadoPor, inserirFonte, inserirVigiar, removerVigiar, validarEntradaNova, dominioConfirmado, primeiraFrase } from './aplicar.mjs';
 
 test('linha de atualização no formato da skill', () => {
   const l = linhaAtualizacao({ data: '2026-11-23', tituloEntrada: 'Escolher o modelo Claude', caminho: 'escolher-o-modelo-claude.md', texto: 'O Opus 4.5 é retirado a 2027-01-22.', fonte_nome: 'Notas', fonte_url: 'https://p.com/n', confianca: 'alta', hoje: '2026-11-26' });
@@ -56,4 +56,10 @@ test('entrada nova e domínios', () => {
   const n = { item_url: 'https://platform.claude.com/docs/x', item_fonte_url: 'https://platform.claude.com/docs/x', item_redirecionado_para: 'https://docs.claude.com/y' };
   assert.ok(dominioConfirmado('https://platform.claude.com/outra', n) && dominioConfirmado('https://docs.claude.com/z', n));
   assert.ok(!dominioConfirmado('https://claude-gratis.com/', n));
+});
+
+test('primeiraFrase para o CHANGELOG', () => {
+  assert.equal(primeiraFrase('A AWS WAF passa a cobrar por recurso a 2027-02-01. Há 2 500 WCU incluídas.'), 'A AWS WAF passa a cobrar por recurso a 2027-02-01');
+  assert.equal(primeiraFrase('Frase única sem ponto final'), 'Frase única sem ponto final');
+  assert.ok(primeiraFrase('palavra '.repeat(80)).length <= 221);
 });

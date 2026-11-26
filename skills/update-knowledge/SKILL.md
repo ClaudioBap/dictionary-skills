@@ -85,7 +85,18 @@ Os caminhos `scripts/...` e `fontes-verificadas.json` são relativos à pasta de
 
 ## 1. Procurar novidades
 
-Para cada tema (ou só o que o utilizador indicou) e para cada fonte do registo:
+**Primeiro, sem IA: `recolher.mjs`.** Não percorras as fontes à mão. Corre `node scripts/recolher.mjs <repo> --estado <pasta fora do repositório>` e lê só o dossier que ele escreve (`<estado>/dossier-AAAA-MM-DD.json`): os blocos de texto novos de cada página, os itens novos de cada feed e a lista de fontes por ler (bloqueadas ou que só mostram texto com JavaScript, nunca contornadas). A primeira corrida usa `--linha-de-base`, que só grava o estado. O estado (ETag, Last-Modified, hashes dos blocos, ids de feeds já vistos) fica fora do repositório. Cada corrida custa assim só o que mudou.
+
+O fluxo da corrida da noite, cada passo com o seu script em `scripts/`:
+1. `recolher.mjs`: vai às fontes de `FONTES.md` (e aos feeds do jornal, com `--feeds-jornal`) sem IA e escreve o dossier;
+2. `analisar.mjs --dossier <f> --saida <novidades.json>`: um modelo médio (`claude -p`, sem ferramentas) vê só o dossier e as 5 entradas candidatas de cada item (`recuperar.mjs`, BM25) e devolve as novidades no formato dos passos 2 e 3, mais uma chamada por entrada a editar;
+3. `aplicar.mjs --novidades <f> --saida <aplicadas.json>`: escreve as linhas, as edições, as fontes, as entradas novas e o `CHANGELOG.md`, e corre o índice e o verificador (passo 4, pontos 2 e 3);
+4. `publicar.mjs` (passo 4, ponto 4);
+5. `contexto.mjs --aplicadas <f> --estado <pasta> --jornal <url> --desde <ISO>`: depois de publicado, liga cada novidade à notícia do jornal e gera o contexto das notícias dos feeds para o CID (`contexto-noticias/AAAA-MM-DD.json`).
+
+A leitura a fundo, com agentes que percorrem as fontes (abaixo), só se faz se a pessoa a pedir, por exemplo para uma fonte que o dossier não cobre.
+
+**Leitura a fundo, a pedido.** Para cada tema (ou só o que o utilizador indicou) e para cada fonte do registo:
 
 - **Feed RSS/Atom** (por exemplo `openai.com/news/rss.xml`): corre `node scripts/novidades-rss.mjs <url> --desde <data>`. Para cada item relevante, lê a página do item para o resumo.
 - **Página normal:** lê-a e retira só as novidades com data posterior à última verificação.
