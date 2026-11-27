@@ -45,6 +45,7 @@ Três perguntas, uma de cada vez, no formato de `regras.md`. A primeira, o níve
 - **Na sessão aberta**, o orquestrador escreve `estado.json` a cada tarefa. Quando um subagente ou uma sessão morre por limite, a tarefa fica `em curso` e volta a ser lançada depois da pausa, pela sessão aberta se a espera automática a continuar, ou pela tarefa agendada.
 - **Subagentes e sessões em paralelo gastam a mesma quota.** Dez em paralelo gastam-na cerca de dez vezes mais depressa. Com quota curta, a skill reduz o número de sessões em paralelo antes de reduzir o trabalho.
 - **Ao retomar**, a primeira coisa é correr os verificadores e ler as saídas das sessões que terminaram entretanto, para não repetir trabalho.
+- **Uma sessão só, no portal.** Cada corrida da retoma guarda o id da sua sessão em `ultima_sessao` de `estado.json` e a seguinte diz ao portal de agentes que a continua, também quando passa para outra subscrição: lá fica a mesma sessão, com a subscrição nova, sem a anterior como fantasma.
 
 ## Quando uma subscrição acaba
 

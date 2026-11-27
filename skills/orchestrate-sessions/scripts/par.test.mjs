@@ -64,6 +64,9 @@ function cenario() {
     ANTHROPIC_API_KEY: "chave-de-teste",
     OPENAI_API_KEY: "chave-de-teste",
     MISTRAL_API_KEY: "chave-de-teste",
+    // O Claude Code põe o id da sessão no ambiente das ferramentas: os testes começam sem ele.
+    CLAUDE_CODE_SESSION_ID: "",
+    CLAUDE_SESSION_ID: "",
   };
   for (const v of ["CLAUDE_CONFIG_DIR", "CODEX_HOME", "CODEX_API_KEY", "CODEX_ACCESS_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"]) delete env[v];
   let n = 0;
@@ -286,6 +289,33 @@ test("--pode-escrever passa a acceptEdits; a principal não muda de pasta nem le
   assert.equal(chamada.args[chamada.args.indexOf("--permission-mode") + 1], "acceptEdits");
   assert.equal(chamada.conta, null);
   assert.equal(chamada.chave, false);
+});
+
+test("o par diz ao portal que é um par, e de que sessão, para não aparecer como uma sessão solta", () => {
+  const c = cenario();
+  const dona = "0f1e2d3c-4b5a-4968-8778-695a4b3c2d1e";
+  abrir(c, "comdona", ["--sessao", dona.toUpperCase()]);
+  assert.equal(dizer(c, "comdona", "Verifica.").codigo, 0);
+  abrir(c, "semdona", ["--sessao", "nao-e-um-uuid"]);
+  assert.equal(dizer(c, "semdona", "Verifica.").codigo, 0);
+  // Sem --sessao, vale o id que o Claude Code põe no ambiente da sessão que corre o script.
+  abrir(c, "doambiente", [], "claude:opus");
+  const ambiente = c.par(
+    ["dizer", "--trabalho", c.trabalho, "--nome", "doambiente", "--texto-ficheiro", c.mensagem("Verifica.")],
+    {},
+  );
+  assert.equal(ambiente.codigo, 0);
+  const [com, sem] = c.chamadas();
+  assert.equal(com.papel, "par");
+  assert.equal(com.parDe, dona);
+  assert.equal(sem.papel, "par");
+  assert.equal(sem.parDe, null);
+  const sozinho = c.par(
+    ["abrir", "--trabalho", c.trabalho, "--nome", "comid", "--par", "claude:opus", "--forma", "verificar", "--pasta", c.projeto],
+    { extra: { CLAUDE_CODE_SESSION_ID: dona } },
+  );
+  assert.equal(sozinho.codigo, 0);
+  assert.equal(sozinho.json.par_de, dona);
 });
 
 test("sem quota: código 3 com a reposição e as alternativas, registo em pares.json e retoma depois", () => {

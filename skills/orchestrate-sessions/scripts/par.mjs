@@ -6,7 +6,7 @@
 // Uso:
 //   node par.mjs abrir --trabalho <pasta> --nome <par> --par <fornecedor>:<modelo> [--subscricao <id> | --pasta-conta <pasta>]
 //                      --forma <verificar|consultar|debater> [--voltas 5] --pasta <pasta do projeto> [--pode-escrever]
-//                      [--servidor <url do Ollama>]   (só com local:)
+//                      [--servidor <url do Ollama>]   (só com local:)   [--sessao <id da sessão que trabalha>]
 //   node par.mjs dizer --trabalho <pasta> --nome <par> [--texto-ficheiro <ficheiro>]   (sem ficheiro, lê o stdin)
 //   node par.mjs estado --trabalho <pasta> [--nome <par>]
 //   node par.mjs fechar --trabalho <pasta> --nome <par>
@@ -84,6 +84,18 @@ export function terminaEmAprovado(resposta) {
   return linhas.length > 0 && linhas.at(-1).replace(/[*_`#.\s]/g, "") === "APROVADO";
 }
 
+const UUID_SESSAO = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
+ * O id da sessão que trabalha: o de --sessao, ou o que o Claude Code põe no ambiente das suas ferramentas, se puser.
+ * Só um UUID passa; sem nenhum, o par fica sem dono e o portal esconde-o na mesma.
+ */
+export function sessaoQueTrabalha(dado, env = process.env) {
+  for (const v of [dado, env.CLAUDE_CODE_SESSION_ID, env.CLAUDE_SESSION_ID])
+    if (typeof v === "string" && UUID_SESSAO.test(v)) return v.toLowerCase();
+  return null;
+}
+
 export function lerOpcoes(argv, { valores, flags = [] }) {
   const opcoes = {};
   for (let i = 0; i < argv.length; i++) {
@@ -138,7 +150,18 @@ function obterPar(trabalho, nome) {
 
 function abrir(argv) {
   const opcoes = lerOpcoes(argv, {
-    valores: ["trabalho", "nome", "par", "subscricao", "pasta-conta", "forma", "voltas", "pasta", "servidor"],
+    valores: [
+      "trabalho",
+      "nome",
+      "par",
+      "subscricao",
+      "pasta-conta",
+      "forma",
+      "voltas",
+      "pasta",
+      "servidor",
+      "sessao",
+    ],
     flags: ["pode-escrever"],
   });
   const trabalho = pastaDoTrabalho(opcoes);
@@ -190,6 +213,8 @@ function abrir(argv) {
     pasta,
     pode_escrever: Boolean(opcoes["pode-escrever"]),
     servidor,
+    // A sessão que trabalha, para o portal de agentes mostrar o par com ela e não como uma sessão solta.
+    par_de: sessaoQueTrabalha(opcoes.sessao),
     sessao: null,
     estado: "aberto",
     aprovado: false,
@@ -281,7 +306,12 @@ async function dizer(argv) {
   const r = await correr(execucao, {
     entrada: pedidoDaVolta(par, volta, texto),
     cwd: par.pasta,
-    env: ambienteDoPar(fornecedor, process.env, par.pasta_conta),
+    env: {
+      ...ambienteDoPar(fornecedor, process.env, par.pasta_conta),
+      // O portal de agentes (2026-11-27, sessões sem fantasmas): o par não é uma sessão solta, é o par desta.
+      CID_PAPEL: "par",
+      ...(par.par_de ? { CID_PAR_DE: par.par_de } : {}),
+    },
     prazoMs,
   });
   const leitura = r.expirou

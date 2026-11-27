@@ -14,6 +14,8 @@ if (process.env.CLAUDE_FALSO_REGISTO) {
     cwd: process.cwd(),
     conta: process.env.CLAUDE_CONFIG_DIR ?? null,
     chave: "ANTHROPIC_API_KEY" in process.env,
+    papel: process.env.CID_PAPEL ?? null,
+    parDe: process.env.CID_PAR_DE ?? null,
     pedido,
   };
   appendFileSync(process.env.CLAUDE_FALSO_REGISTO, JSON.stringify(chamada) + "\n");

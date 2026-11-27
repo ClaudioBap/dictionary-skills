@@ -190,13 +190,13 @@ async function principal() {
       registar(`a subscrição ${atual} está sem quota até ${escolha.sem_quota_ate}; passa para a ${escolha.id} (autonomia «Máxima»)`);
     }
     registar(`${silencio}; a relançar com o modelo ${modelo} na subscrição ${escolha.id}`);
-    await correr(retrato(estado), escolha.id, pastaDaConta(escolha.id));
+    await correr(retrato(estado), escolha.id, pastaDaConta(escolha.id), estado.ultima_sessao);
   } finally {
     rmSync(ficheiroTrinco, { force: true });
   }
 }
 
-async function correr(antes, subscricao, pastaConta) {
+async function correr(antes, subscricao, pastaConta, continua) {
   const inicio = Date.now();
   const filho = spawn(
     executavel(),
@@ -224,6 +224,9 @@ async function correr(antes, subscricao, pastaConta) {
         ...ambienteDaConta(FORNECEDORES.claude, process.env, pastaConta),
         RETOMA_SEM_INTERFACE: "1",
         CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS: "0",
+        // Cada corrida continua a anterior (2026-11-27): no portal de agentes é a mesma sessão, também quando passa
+        // para outra subscrição, sem deixar a de antes como fantasma.
+        ...(continua ? { CID_CONTINUA: continua } : {}),
       },
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
@@ -248,6 +251,9 @@ async function correr(antes, subscricao, pastaConta) {
   } catch {
     // saída que não é JSON: fica o texto no registo
   }
+  // O id desta corrida, para a seguinte dizer ao portal que a continua.
+  if (typeof resultado.session_id === "string" && /^[0-9a-f-]{36}$/i.test(resultado.session_id))
+    gravarEstado({ ultima_sessao: resultado.session_id.toLowerCase() });
   const minutos = Math.round((Date.now() - inicio) / 60000);
   const falhou = codigo !== 0 || resultado.is_error === true;
   const depois = lerEstado();
