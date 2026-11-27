@@ -1,5 +1,6 @@
-// Testes do par.mjs e do fornecedores.mjs. O par é um claude a fingir (teste/claude-falso.mjs), e cada cenário tem a
-// sua pasta temporária com o trabalho, o projeto e um contas-ia.json com uma subscrição além da principal.
+// Testes do par.mjs e do fornecedores.mjs. O par é um claude, um codex ou um vibe a fingir (teste/*-falso.mjs), e cada
+// cenário tem a sua pasta temporária com o trabalho, o projeto e um contas-ia.json com uma subscrição do Claude e uma
+// do Codex além da principal.
 // Correr: node --test skills/orchestrate-sessions/scripts/
 
 import { after, test } from "node:test";
@@ -12,18 +13,24 @@ import { fileURLToPath } from "node:url";
 import {
   FORNECEDORES,
   ambienteDaConta,
+  ambienteDoPar,
   escolherSubscricao,
+  lerContas,
   lerContasClaude,
   prepararExecucao,
   resolverSubscricao,
   subscricaoDaPasta,
 } from "./fornecedores.mjs";
-import { terminaEmAprovado } from "./par.mjs";
+import { instrucoes, terminaEmAprovado } from "./par.mjs";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const PAR = join(AQUI, "par.mjs");
 const FALSO = join(AQUI, "teste", "claude-falso.mjs");
+const CODEX_FALSO = join(AQUI, "teste", "codex-falso.mjs");
+const VIBE_FALSO = join(AQUI, "teste", "vibe-falso.mjs");
 const claude = FORNECEDORES.claude;
+const { codex, local, vibe } = FORNECEDORES;
+const WINDOWS = process.platform === "win32";
 const criadas = [];
 after(() => {
   for (const p of criadas) rmSync(p, { recursive: true, force: true });
@@ -36,20 +43,39 @@ function cenario() {
   const projeto = join(raiz, "projeto");
   const base = join(raiz, "base");
   const conta2 = join(raiz, "conta-2");
-  for (const p of [trabalho, projeto, base, conta2]) mkdirSync(p, { recursive: true });
-  writeFileSync(join(base, "contas-ia.json"), JSON.stringify([{ id: "conta-2", nome: "Conta 2", pasta: conta2 }]));
+  const contaCodex = join(raiz, "codex-2");
+  for (const p of [trabalho, projeto, base, conta2, contaCodex]) mkdirSync(p, { recursive: true });
+  writeFileSync(
+    join(base, "contas-ia.json"),
+    JSON.stringify([
+      { id: "conta-2", nome: "Conta 2", pasta: conta2 },
+      { id: "chatgpt-2", nome: "ChatGPT 2", pasta: contaCodex, fornecedor: "codex" },
+    ]),
+  );
   const registo = join(raiz, "registo.jsonl");
-  const env = { ...process.env, REMOTO_DIR: base, PAR_CLAUDE: FALSO, CLAUDE_FALSO_REGISTO: registo, ANTHROPIC_API_KEY: "chave-de-teste" };
-  delete env.CLAUDE_CONFIG_DIR;
+  const env = {
+    ...process.env,
+    REMOTO_DIR: base,
+    PAR_CLAUDE: FALSO,
+    PAR_CODEX: CODEX_FALSO,
+    PAR_VIBE: VIBE_FALSO,
+    CLAUDE_FALSO_REGISTO: registo,
+    FALSO_REGISTO: registo,
+    ANTHROPIC_API_KEY: "chave-de-teste",
+    OPENAI_API_KEY: "chave-de-teste",
+    MISTRAL_API_KEY: "chave-de-teste",
+  };
+  for (const v of ["CLAUDE_CONFIG_DIR", "CODEX_HOME", "CODEX_API_KEY", "CODEX_ACCESS_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"]) delete env[v];
   let n = 0;
   return {
     raiz,
     trabalho,
     projeto,
     conta2,
+    contaCodex,
     env,
     par(args, { modo = "normal", extra = {} } = {}) {
-      const r = spawnSync(process.execPath, [PAR, ...args], { env: { ...env, CLAUDE_FALSO_MODO: modo, ...extra }, encoding: "utf8" });
+      const r = spawnSync(process.execPath, [PAR, ...args], { env: { ...env, CLAUDE_FALSO_MODO: modo, FALSO_MODO: modo, ...extra }, encoding: "utf8" });
       return { codigo: r.status, json: r.stdout.trim() ? JSON.parse(r.stdout) : null, stderr: r.stderr };
     },
     chamadas: () => (existsSync(registo) ? readFileSync(registo, "utf8").trim().split("\n").map((l) => JSON.parse(l)) : []),
@@ -62,8 +88,8 @@ function cenario() {
   };
 }
 
-const abrir = (c, nome, extra = []) =>
-  c.par(["abrir", "--trabalho", c.trabalho, "--nome", nome, "--par", "claude:opus", "--forma", "verificar", "--pasta", c.projeto, ...extra]);
+const abrir = (c, nome, extra = [], par = "claude:opus") =>
+  c.par(["abrir", "--trabalho", c.trabalho, "--nome", nome, "--par", par, "--forma", "verificar", "--pasta", c.projeto, ...extra]);
 const dizer = (c, nome, texto, opcoes) => c.par(["dizer", "--trabalho", c.trabalho, "--nome", nome, "--texto-ficheiro", c.mensagem(texto)], opcoes);
 const real = (p) => realpathSync.native(p).toLowerCase();
 
@@ -150,6 +176,50 @@ test("leitura da saída: resposta, erro e as formas de limite", () => {
   const semHora = claude.lerSaida(linhas({ type: "result", is_error: true, result: "5-hour limit reached, resets 3pm" }), 1);
   assert.equal(semHora.limite.repoe_em, null);
   assert.match(semHora.limite.mensagem, /resets 3pm/);
+});
+
+test("limite semanal do claude, como saiu numa corrida real a 2026-11-27: o rate_limit_event primeiro, o texto depois", () => {
+  const linhas = (...o) => o.map((x) => JSON.stringify(x)).join("\n");
+  // O texto real traz um ponto médio entre o limite e a hora; fica escrito com o código, como na saída.
+  const aviso = `You've hit your weekly limit ${String.fromCharCode(0xb7)} resets 3am (Europe/Lisbon)`;
+  const evento = {
+    type: "rate_limit_event",
+    rate_limit_info: {
+      status: "rejected",
+      resetsAt: 1795834800,
+      rateLimitType: "seven_day",
+      overageStatus: "rejected",
+      overageDisabledReason: "out_of_credits",
+      isUsingOverage: false,
+      unifiedWindows: {
+        five_hour: { utilization: 0, resetsAt: 1795837200, status: "allowed" },
+        seven_day: { utilization: 1, resetsAt: 1795834800, status: "rejected", surpassedThreshold: 1 },
+      },
+    },
+    session_id: "s-123456789",
+  };
+  const saida = linhas(
+    { type: "system", subtype: "init", session_id: "s-123456789" },
+    evento,
+    { type: "assistant", message: { model: "<synthetic>", content: [{ type: "text", text: aviso }] }, session_id: "s-123456789" },
+    { type: "result", is_error: true, result: aviso, terminal_reason: "api_error", session_id: "s-123456789" },
+  );
+  const lida = claude.lerSaida(saida, 1);
+  assert.equal(lida.erro, null);
+  assert.equal(lida.limite.repoe_em, "2026-11-28T03:00:00.000Z");
+  assert.equal(lida.limite.tipo, "seven_day");
+  assert.match(lida.limite.mensagem, /weekly limit/);
+
+  // Sem o evento, o texto chega para dar pelo limite, mas sem hora de reposição.
+  const soTexto = claude.lerSaida(linhas({ type: "result", is_error: true, result: aviso, terminal_reason: "api_error" }), 1);
+  assert.equal(soTexto.erro, null);
+  assert.equal(soTexto.limite.repoe_em, null);
+  assert.equal(soTexto.limite.tipo, undefined);
+
+  // Um evento «allowed» não é limite.
+  const permitido = { ...evento, rate_limit_info: { ...evento.rate_limit_info, status: "allowed", unifiedWindows: {} } };
+  const erro = claude.lerSaida(linhas(permitido, { type: "result", is_error: true, result: "API Error: 500" }), 1);
+  assert.equal(erro.limite, null);
 });
 
 test("aprovação: só uma última linha APROVADO", () => {
@@ -270,7 +340,7 @@ test("erros de uso: código 2", () => {
   assert.equal(abrir(c, "x", ["--subscricao", "conta-9"]).codigo, 2);
   assert.equal(abrir(c, "Nome Mau").codigo, 2);
   assert.equal(abrir(c, "x", ["--voltas", "21"]).codigo, 2);
-  assert.equal(c.par(["abrir", "--trabalho", c.trabalho, "--nome", "y", "--par", "codex:gpt", "--forma", "verificar", "--pasta", c.projeto]).codigo, 2);
+  assert.equal(c.par(["abrir", "--trabalho", c.trabalho, "--nome", "y", "--par", "gemini:pro", "--forma", "verificar", "--pasta", c.projeto]).codigo, 2);
   assert.equal(abrir(c, "x").codigo, 0);
   assert.equal(abrir(c, "x").codigo, 2);
   assert.equal(c.par(["dizer", "--trabalho", c.trabalho, "--nome", "nao-ha", "--texto-ficheiro", c.mensagem("a")]).codigo, 2);
@@ -340,4 +410,193 @@ test("retoma: troca de subscrição só em «Máxima» e só para uma com quota"
   // A que está em uso só se dá por gasta quando uma corrida parou nela, não pela linha de estado.
   const usoPrincipal = { principal: { cinco_horas: { used_percentage: 100, resets_at: agora / 1000 + 3600 } } };
   assert.equal(escolherSubscricao({ ...base, autonomia: "Máxima" }, { agora, uso: usoPrincipal }).sem_quota_ate, null);
+});
+
+// Outros fornecedores: Codex (plano do ChatGPT), modelos do Ollama pelo Codex e Mistral Vibe.
+
+test("contas-ia.json: as contas do Codex não se misturam com as do Claude", () => {
+  const c = cenario();
+  assert.deepEqual(lerContasClaude(c.env), [{ id: "conta-2", nome: "Conta 2", pasta: c.conta2 }]);
+  assert.deepEqual(lerContas("codex", c.env), [{ id: "chatgpt-2", nome: "ChatGPT 2", pasta: c.contaCodex }]);
+  assert.deepEqual(resolverSubscricao(codex, { id: "chatgpt-2", env: c.env }), { id: "chatgpt-2", pasta: c.contaCodex });
+  assert.throws(() => resolverSubscricao(codex, { id: "conta-2", env: c.env }), /registadas: principal, chatgpt-2/);
+  assert.deepEqual(resolverSubscricao(vibe, { env: c.env }), { id: "principal", pasta: null });
+  assert.throws(() => resolverSubscricao(vibe, { id: "outra", env: c.env }), /só tem uma conta/);
+  assert.throws(() => resolverSubscricao(local, { pastaConta: c.raiz, env: c.env }), /só tem uma conta/);
+});
+
+test("argumentos do codex e do local: sandbox, resume antes do stdin e o servidor do Ollama", () => {
+  assert.deepEqual(codex.argumentos({ modelo: "gpt-5.5" }), ["exec", "--json", "--skip-git-repo-check", "--sandbox", "read-only", "-m", "gpt-5.5", "-"]);
+  const retomada = codex.argumentos({ modelo: "gpt-5.5", sessao: "019a2b3c-4d5e", soLeitura: false });
+  assert.deepEqual(retomada.slice(3, 5), ["--sandbox", "workspace-write"]);
+  assert.deepEqual(retomada.slice(-3), ["resume", "019a2b3c-4d5e", "-"]);
+  assert.throws(() => codex.argumentos({ modelo: "gpt 5" }), /modelo inválido/);
+  assert.throws(() => codex.argumentos({ modelo: "gpt-5.5", sessao: "a&b" }), /id de sessão inválido/);
+
+  assert.deepEqual(local.argumentos({ modelo: "qwen3-8b-16k:latest" }).slice(-4), ["--oss", "--local-provider", "ollama", "-"]);
+  const servidor = local.argumentos({ modelo: "qwen3-8b-16k:latest", servidor: "http://127.0.0.1:11435/v1" });
+  assert.ok(!servidor.includes("--oss"));
+  assert.ok(servidor.includes("model_providers.par_ollama.base_url=http://127.0.0.1:11435/v1"));
+  assert.ok(servidor.includes("model_provider=par_ollama"));
+  assert.throws(() => local.argumentos({ modelo: "qwen3-8b-16k:latest", servidor: "http://a b" }), /--servidor/);
+  assert.equal(local.padraoModelo.test("qwen3-8b-16k"), false);
+});
+
+test("argumentos do vibe: em leitura só ler e pesquisar, em escrita accept-edits, o modelo só na sessão nova", () => {
+  const primeira = vibe.argumentos({ modelo: "mistral-large-4-0", pastaVolta: "/t/01-exportacao" });
+  assert.deepEqual(primeira, ["-p", "--output", "text", "--output-dir", "/t/01-exportacao", "--enabled-tools", "read_file", "--enabled-tools", "grep", "--model", "mistral-large-4-0"]);
+  const seguinte = vibe.argumentos({ modelo: "mistral-large-4-0", sessao: "5e55a0b1-1111", soLeitura: false });
+  assert.deepEqual(seguinte, ["-p", "--output", "text", "--approval-policy", "accept-edits", "--resume", "5e55a0b1-1111"]);
+  assert.ok(!primeira.includes("--auto-approve") && !seguinte.includes("--auto-approve"));
+});
+
+test("ambiente do par: só a chave de que o fornecedor precisa, nunca a de outro", () => {
+  const env = { PATH: "x", ANTHROPIC_API_KEY: "a", OPENAI_API_KEY: "o", CODEX_API_KEY: "c", MISTRAL_API_KEY: "m" };
+  assert.deepEqual(ambienteDoPar(claude, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1" });
+  assert.deepEqual(ambienteDoPar(codex, env, "C:/contas/chatgpt-2"), { PATH: "x", RETOMA_SEM_INTERFACE: "1", CODEX_HOME: "C:/contas/chatgpt-2" });
+  assert.deepEqual(ambienteDoPar(local, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1" });
+  assert.deepEqual(ambienteDoPar(vibe, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1", MISTRAL_API_KEY: "m" });
+  // O ambienteDaConta (o do retomar.mjs) continua a tirar só as do próprio fornecedor.
+  assert.equal(ambienteDaConta(claude, env, null).OPENAI_API_KEY, "o");
+});
+
+test("leitura da saída do codex: resposta, erros pelo caminho, falha e limite", () => {
+  const linhas = (...o) => o.map((x) => JSON.stringify(x)).join("\n");
+  const inicio = [{ type: "thread.started", thread_id: "019a-0001-abcd" }, { type: "turn.started" }];
+  const normal = codex.lerSaida(
+    linhas(
+      ...inicio,
+      { type: "error", message: "Reconnecting... 1/5" },
+      { type: "item.completed", item: { type: "error", message: "Model metadata not found" } },
+      { type: "item.completed", item: { type: "agent_message", text: "Primeira." } },
+      { type: "item.completed", item: { type: "agent_message", text: "Está certo." } },
+      { type: "turn.completed", usage: {} },
+    ),
+    0,
+  );
+  assert.deepEqual(normal, { texto: "Está certo.", sessao: "019a-0001-abcd", limite: null, erro: null });
+
+  const falha = codex.lerSaida(linhas(...inicio, { type: "turn.failed", error: { message: "request exceeds the available context size" } }), 1);
+  assert.equal(falha.limite, null);
+  assert.match(falha.erro, /available context size/);
+  assert.equal(falha.sessao, "019a-0001-abcd");
+
+  const semResposta = codex.lerSaida(linhas(...inicio, { type: "turn.completed", usage: {} }), 0);
+  assert.match(semResposta.erro, /sem resposta/);
+
+  const limite = codex.lerSaida(linhas(...inicio, { type: "turn.failed", error: { message: "You've hit your usage limit. Try again at 2030-01-01T09:00:00Z." } }), 1);
+  assert.equal(limite.limite.repoe_em, "2030-01-01T09:00:00.000Z");
+  assert.match(codex.lerSaida("", 1, "Error: OSS setup failed: No running Ollama server detected.").erro, /No running Ollama server/);
+});
+
+test("par codex: conta pelo CODEX_HOME, sem chaves, resume na volta 2 e o que o par consegue fazer", () => {
+  const c = cenario();
+  const aberto = abrir(c, "gpt", ["--subscricao", "chatgpt-2"], "codex:gpt-5.5");
+  assert.equal(aberto.codigo, 0, aberto.stderr);
+  assert.equal(aberto.json.pasta_conta, c.contaCodex);
+  assert.equal(aberto.json.le_ficheiros, !WINDOWS);
+
+  const um = dizer(c, "gpt", "Fiz o endpoint.");
+  assert.equal(um.codigo, 0, um.stderr);
+  assert.equal(um.json.sessao, "019a2b3c-4d5e-7f60-8a9b-0c1d2e3f4a5b");
+  assert.match(um.json.resposta, /Falta o teste do caso vazio/);
+  const [primeira] = c.chamadas();
+  assert.deepEqual(primeira.args.slice(0, 7), ["exec", "--json", "--skip-git-repo-check", "--sandbox", "read-only", "-m", "gpt-5.5"]);
+  assert.ok(!primeira.args.includes("resume"));
+  assert.equal(primeira.conta, c.contaCodex);
+  assert.deepEqual(primeira.chaves, []);
+  assert.equal(primeira.sem_interface, "1");
+  assert.equal(real(primeira.cwd), real(c.projeto));
+  assert.match(primeira.pedido, /português de Portugal/);
+  assert.match(primeira.pedido, WINDOWS ? /não consegues ler ficheiros/ : /lês os ficheiros com comandos de leitura/);
+
+  const dois = dizer(c, "gpt", "Corrigi. APROVA-ME");
+  assert.equal(dois.codigo, 0, dois.stderr);
+  assert.equal(dois.json.aprovado, true);
+  const segunda = c.chamadas()[1];
+  assert.deepEqual(segunda.args.slice(-3), ["resume", "019a2b3c-4d5e-7f60-8a9b-0c1d2e3f4a5b", "-"]);
+  assert.doesNotMatch(segunda.pedido, /O teu papel/);
+});
+
+test("par codex: falha com código 1 e limite com código 3, com as outras contas do Codex", () => {
+  const c = cenario();
+  abrir(c, "gpt", [], "codex:gpt-5.5");
+  const falha = dizer(c, "gpt", "Olá.", { modo: "erro" });
+  assert.equal(falha.codigo, 1);
+  assert.match(falha.json.detalhe, /500 Internal Server Error/);
+  const limite = dizer(c, "gpt", "Olá.", { modo: "limite" });
+  assert.equal(limite.codigo, 3, limite.stderr);
+  assert.equal(limite.json.repoe_em, null);
+  assert.match(limite.json.mensagem, /usage limit/);
+  assert.deepEqual(limite.json.alternativas, [{ id: "chatgpt-2", nome: "ChatGPT 2" }]);
+  assert.ok(existsSync(join(c.trabalho, "par-gpt", "01-saida-bruta.txt")));
+  assert.equal(c.pares()[0].volta, 0);
+});
+
+test("par local: modelo com etiqueta, --oss ou o servidor, sem conta nem chaves", () => {
+  const c = cenario();
+  assert.equal(abrir(c, "sem-etiqueta", [], "local:qwen3-8b-16k").codigo, 2);
+  assert.equal(abrir(c, "conta", ["--subscricao", "conta-2"], "local:qwen3-8b-16k:latest").codigo, 2);
+  assert.equal(abrir(c, "servidor-mau", ["--servidor", "ftp://casa"], "local:qwen3-8b-16k:latest").codigo, 2);
+  assert.equal(abrir(c, "servidor-claude", ["--servidor", "http://127.0.0.1:11435"]).codigo, 2);
+
+  assert.equal(abrir(c, "pc", [], "local:qwen3-8b-16k:latest").codigo, 0);
+  const aqui = dizer(c, "pc", "Revê isto.");
+  assert.equal(aqui.codigo, 0, aqui.stderr);
+  const casa = abrir(c, "casa", ["--servidor", "http://127.0.0.1:11435/"], "local:qwen3-8b-16k:latest");
+  assert.equal(casa.json.servidor, "http://127.0.0.1:11435");
+  const la = dizer(c, "casa", "Revê isto.");
+  assert.equal(la.codigo, 0, la.stderr);
+
+  const [pc, servidor] = c.chamadas();
+  assert.ok(pc.args.includes("--oss"));
+  assert.equal(pc.args[pc.args.indexOf("-m") + 1], "qwen3-8b-16k:latest");
+  assert.equal(pc.conta, null);
+  assert.deepEqual(pc.chaves, []);
+  assert.ok(servidor.args.includes("model_providers.par_ollama.base_url=http://127.0.0.1:11435/v1"));
+});
+
+test("par vibe: só a chave da Mistral, sessão do export.json, resume e só leitura", () => {
+  const c = cenario();
+  assert.equal(abrir(c, "eu", [], "vibe:mistral-large-4-0").json.le_ficheiros, true);
+  const um = dizer(c, "eu", "Fiz o endpoint.");
+  assert.equal(um.codigo, 0, um.stderr);
+  assert.equal(um.json.sessao, "5e55a0b1-1111-2222-3333-444455556666");
+  assert.ok(existsSync(join(c.trabalho, "par-eu", "01-exportacao", "export.json")));
+  const [primeira] = c.chamadas();
+  assert.deepEqual(primeira.chaves, ["MISTRAL_API_KEY"]);
+  assert.equal(primeira.sem_interface, "1");
+  assert.ok(primeira.args.includes("--enabled-tools"));
+  assert.equal(primeira.args[primeira.args.indexOf("--output-dir") + 1], join(c.trabalho, "par-eu", "01-exportacao"));
+  assert.match(primeira.pedido, /ferramentas de ler ficheiros e de pesquisar/);
+
+  const dois = dizer(c, "eu", "Corrigi. APROVA-ME");
+  assert.equal(dois.json.aprovado, true);
+  const segunda = c.chamadas()[1];
+  assert.equal(segunda.args[segunda.args.indexOf("--resume") + 1], "5e55a0b1-1111-2222-3333-444455556666");
+  assert.ok(!segunda.args.includes("--model"));
+});
+
+test("par vibe: falha com código 1, limite com código 3 e sem alternativas", () => {
+  const c = cenario();
+  abrir(c, "eu", ["--pode-escrever"], "vibe:mistral-large-4-0");
+  const falha = dizer(c, "eu", "Olá.", { modo: "erro" });
+  assert.equal(falha.codigo, 1);
+  assert.match(falha.json.detalhe, /API error 500/);
+  const limite = dizer(c, "eu", "Olá.", { modo: "limite" });
+  assert.equal(limite.codigo, 3, limite.stderr);
+  assert.match(limite.json.mensagem, /Rate limit/);
+  assert.deepEqual(limite.json.alternativas, []);
+  const [chamada] = c.chamadas();
+  assert.equal(chamada.args[chamada.args.indexOf("--approval-policy") + 1], "accept-edits");
+});
+
+test("instruções: as do Claude ficam como estavam; o codex no Windows não lê ficheiros", () => {
+  const base = { pasta: "/p", voltas: 5, forma: "verificar", pode_escrever: false };
+  const doClaude = instrucoes({ ...base, fornecedor: "claude" });
+  assert.match(doClaude, /Estás em modo só de leitura: lês os ficheiros, mas não alteras nada\./);
+  assert.doesNotMatch(doClaude, /português de Portugal/);
+  assert.equal(codex.capacidades({ plataforma: "win32", soLeitura: true }).leFicheiros, false);
+  assert.equal(codex.capacidades({ plataforma: "linux", soLeitura: true }).leFicheiros, true);
+  assert.match(codex.capacidades({ plataforma: "win32", soLeitura: true }).linha, /pede o que faltar/);
 });

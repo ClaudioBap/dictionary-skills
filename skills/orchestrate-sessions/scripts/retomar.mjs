@@ -261,7 +261,7 @@ async function correr(antes, subscricao, pastaConta) {
     const pausa = new Date(Date.now() + espera * 60000).toISOString();
     const resumo = String(resultado.result ?? saida).replace(/\s+/g, " ").slice(0, 300);
     // Parou por limite de uso: a subscrição fica sem quota até à reposição (ou até ao fim da pausa, se a saída não a
-    // traz). A deteção não está confirmada numa corrida real (ver fornecedores.mjs).
+    // traz). A deteção foi confirmada numa corrida real a 2026-11-27 (ver fornecedores.mjs).
     const limite = falhou ? FORNECEDORES.claude.lerSaida(saida, codigo).limite : null;
     let nota = "";
     const mudancas = { falhas_seguidas: falhas, pausado_ate: pausa };

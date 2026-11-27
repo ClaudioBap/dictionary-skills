@@ -1,7 +1,7 @@
-// As ferramentas de IA com que o par.mjs fala, e as subscrições de cada uma neste PC.
-// Por agora só o Claude Code. Outra ferramenta (Codex, Mistral Vibe) entra com uma entrada nova em FORNECEDORES, com os
-// mesmos campos e funções, sem mudar o par.mjs. Antes de pôr um fornecedor novo a ver um projeto, a resposta à P11
-// (Dados e conformidade) tem de o permitir.
+// As ferramentas de IA com que o par.mjs fala, e as subscrições de cada uma neste PC: o Claude Code, o Codex CLI da
+// OpenAI (plano do ChatGPT), modelos abertos servidos pelo Ollama através do Codex (neste PC ou num servidor) e o
+// Mistral Vibe. Outra ferramenta entra com uma entrada nova em FORNECEDORES, com os mesmos campos e funções, sem mudar o
+// par.mjs. Antes de pôr um fornecedor a ver um projeto, a resposta à P11 (Dados e conformidade) tem de o permitir.
 
 import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -30,20 +30,24 @@ export function lerJson(ficheiro, omissao) {
 
 export const lerUsoPorConta = () => lerJson(ficheiroUsoPorConta(), {});
 
-// As subscrições do Claude registadas além da principal, na ordem do ficheiro. As entradas fora do formato ficam de fora.
-export function lerContasClaude(env = process.env) {
+// As subscrições de um fornecedor registadas além da principal, na ordem do ficheiro. Cada entrada diz o fornecedor em
+// `fornecedor`; as que não o dizem são do Claude, como eram antes de haver outros. As entradas fora do formato ficam de fora.
+export function lerContas(fornecedorId, env = process.env) {
   const lista = lerJson(join(pastaBase(env), "contas-ia.json"), []);
   if (!Array.isArray(lista)) return [];
   const vistas = new Set();
   const contas = [];
   for (const c of lista) {
-    if (!c || typeof c.id !== "string" || !ID_SUBSCRICAO.test(c.id) || c.id === PRINCIPAL || vistas.has(c.id)) continue;
+    if (!c || (c.fornecedor ?? "claude") !== fornecedorId) continue;
+    if (typeof c.id !== "string" || !ID_SUBSCRICAO.test(c.id) || c.id === PRINCIPAL || vistas.has(c.id)) continue;
     if (typeof c.pasta !== "string" || !isAbsolute(c.pasta)) continue;
     vistas.add(c.id);
     contas.push({ id: c.id, nome: typeof c.nome === "string" ? c.nome.trim() : c.id, pasta: c.pasta });
   }
   return contas;
 }
+
+export const lerContasClaude = (env = process.env) => lerContas("claude", env);
 
 const mesmaPasta = (a, b) => {
   const normal = (p) => (process.platform === "win32" ? resolve(p).toLowerCase() : resolve(p));
@@ -68,6 +72,8 @@ const claude = {
   // Numa corrida -p ganham ao login da subscrição: com elas no ambiente, a pasta da conta não contava e a sessão podia
   // faturar à API (knowledge/portais-de-agentes/agente-local-licenca-e-emparelhamento.md).
   variaveisQueGanham: ["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"],
+  // As chaves deste fornecedor, que nunca chegam ao par de outro (ambienteDoPar).
+  segredos: ["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"],
   // O par não tem a quem perguntar: os hooks do portal de agentes não esperam por ninguém, como no retomar.mjs. Sem
   // isto, o hook Stop ficava à escuta de instruções do portal e a volta nunca acabava (visto a 2026-11-27).
   ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
@@ -112,11 +118,20 @@ const claude = {
     const texto = typeof fim?.result === "string" ? fim.result : "";
     if (codigo === 0 && fim && fim.is_error !== true) return { texto, sessao, limite: null, erro: null };
 
-    // Não confirmado: a forma como uma paragem por limite de uso aparece em stream-json não foi vista numa corrida real.
-    // Contam o `rate_limit_info` com status «rejected» (é assim que as transcrições a guardam), o estado 429 e o texto
-    // do erro. Corrigir aqui depois de um teste a sério; a saída bruta de cada falha fica em par-<nome>/.
+    // Confirmado a 2026-11-27, numa subscrição Pro sem quota semanal: antes do `result` vem um `rate_limit_event` com
+    // `rate_limit_info.status` «rejected», o tipo em `rateLimitType` («seven_day», «five_hour») e a reposição em
+    // `resetsAt` (segundos desde 1970); depois, uma mensagem do modelo «<synthetic>» com «You've hit your weekly limit»
+    // e a hora, e o `result` com `terminal_reason` «api_error». O processo sai com 1 ao fim de segundos. Esse evento
+    // lê-se primeiro; outro objeto «rejected», o estado 429 e o texto ficam como segunda via. A saída bruta de cada
+    // falha fica em par-<nome>/.
     const indicios = [texto, fim?.subtype, fim?.error, ...soltas, stderr].filter((t) => typeof t === "string").join("\n");
     const resumo = indicios.replace(/\s+/g, " ").trim();
+    const recusa = eventos.findLast((e) => e.type === "rate_limit_event" && e.rate_limit_info?.status === "rejected")?.rate_limit_info;
+    if (recusa) {
+      const tipo = typeof recusa.rateLimitType === "string" ? recusa.rateLimitType : null;
+      const repoe_em = paraIso(recusa.resetsAt) ?? horaDeReposicao(eventos, indicios);
+      return { texto, sessao, limite: { repoe_em, tipo, mensagem: (resumo || `limite ${tipo ?? "de uso"} atingido`).slice(0, 300) }, erro: null };
+    }
     const rejeitado = eventos.some((e) => [...objetos(e)].some((o) => o.status === "rejected" && ("resetsAt" in o || "rateLimitType" in o)));
     if (rejeitado || fim?.api_error_status === 429 || SINAL_DE_LIMITE.test(indicios)) {
       return { texto, sessao, limite: { repoe_em: horaDeReposicao(eventos, indicios), mensagem: resumo.slice(0, 300) }, erro: null };
@@ -125,9 +140,208 @@ const claude = {
   },
 };
 
-export const FORNECEDORES = { claude };
+// Os nomes dos modelos que não vêm de uma lista fechada: só letras minúsculas, algarismos, ponto, hífen e sublinhado. Os do Ollama
+// levam sempre a etiqueta (qwen3-8b-16k:latest): sem ela, o Codex tenta descarregar o modelo e falha (visto a 2026-11-27).
+const MODELO_SIMPLES = /^[a-z0-9][a-z0-9._-]{0,63}$/;
+const MODELO_OLLAMA = /^[a-z0-9][a-z0-9._-]{0,63}:[a-z0-9][a-z0-9._-]{0,63}$/;
+// O Ollama de um servidor, normalmente por um túnel SSH (http://127.0.0.1:11435). Aceita o /v1 no fim, que se tira.
+const SERVIDOR_OLLAMA = /^(https?:\/\/[A-Za-z0-9.-]+(?::\d{1,5})?)(?:\/v1)?\/?$/;
 
-const SINAL_DE_LIMITE = /usage limit|rate[ _-]?limit|limit reached|limite de uso/i;
+export function urlDoServidor(valor) {
+  const m = SERVIDOR_OLLAMA.exec(String(valor ?? ""));
+  if (!m) throw new Error(`--servidor tem de ser http://<máquina>:<porta>, por exemplo http://127.0.0.1:11435: ${valor}`);
+  return m[1];
+}
+
+// Uma linha JSON por evento, e as linhas que não são JSON à parte.
+function linhasJson(stdout) {
+  const eventos = [];
+  const soltas = [];
+  for (const linha of String(stdout).split(/\r?\n/)) {
+    const texto = linha.trim();
+    if (!texto) continue;
+    try {
+      const evento = JSON.parse(texto);
+      if (evento && typeof evento === "object") eventos.push(evento);
+      else soltas.push(texto);
+    } catch {
+      soltas.push(texto);
+    }
+  }
+  return { eventos, soltas };
+}
+
+const resumir = (partes) => partes.filter((t) => typeof t === "string" && t.trim()).join("\n");
+
+// O fim de uma volta que não acabou bem: limite de uso ou erro. Não confirmado para o Codex e para o Vibe: a forma como
+// uma paragem por limite aparece não foi vista numa corrida real. Corrigir aqui depois de um teste a sério; a saída
+// bruta de cada falha fica em par-<nome>/.
+function falhaDaVolta(eventos, indicios, { texto = "", sessao = null, codigo }) {
+  const resumo = indicios.replace(/\s+/g, " ").trim();
+  if (SINAL_DE_LIMITE.test(indicios) || /\b429\b/.test(indicios)) {
+    return { texto, sessao, limite: { repoe_em: horaDeReposicao(eventos, indicios), mensagem: resumo.slice(0, 300) }, erro: null };
+  }
+  const omissao = codigo === 0 ? "o par acabou sem resposta" : `saiu com o código ${codigo}`;
+  return { texto, sessao, limite: null, erro: (resumo || omissao).slice(0, 500) };
+}
+
+// O que o par do Codex consegue fazer: no Windows, a sandbox só de leitura recusa todos os comandos («blocked by
+// policy»), por isso o par não lê ficheiros e tudo tem de ir na mensagem (visto a 2026-11-27, Codex 0.172.0, com o
+// windows_sandbox_service ainda «under development»). Em escrita, no Windows, não confirmado: conta-se com o mesmo.
+function capacidadesCodex({ plataforma, soLeitura }) {
+  if (plataforma === "win32") {
+    return {
+      leFicheiros: false,
+      linha: soLeitura
+        ? "Neste PC (Windows), a sandbox só de leitura recusa todos os comandos: não consegues ler ficheiros nem correr nada, e não alteras nada. O diff, o código que interessa e a saída dos testes vêm na mensagem. Onde o teu papel diz para confirmares nos ficheiros, confirma no que vem na mensagem, e pede o que faltar em vez de adivinhares."
+        : "Neste PC (Windows) não é certo que consigas ler ou alterar ficheiros: conta com o que vem na mensagem (o diff, o código que interessa e a saída dos testes) e pede o que faltar em vez de adivinhares. Se conseguires alterar ficheiros, fá-lo só quando a mensagem o pedir de forma explícita e isso couber no teu papel.",
+    };
+  }
+  return {
+    leFicheiros: true,
+    linha: soLeitura
+      ? "Estás em modo só de leitura: lês os ficheiros com comandos de leitura, mas não alteras nada."
+      : "Podes alterar ficheiros dentro da pasta do projeto, mas só quando a mensagem o pedir de forma explícita e isso couber no teu papel.",
+  };
+}
+
+// Uma volta do Codex: `codex exec` com as opções antes de `resume`, e o pedido pelo stdin (o `-` no fim). A pasta do
+// projeto é a pasta em que corre, por isso não vai nos argumentos.
+function argumentosCodex(fornecedor, ligacao, { modelo, sessao = null, soLeitura = true }) {
+  if (!fornecedor.padraoModelo.test(modelo)) throw new Error(`modelo inválido no ${fornecedor.nome}: ${modelo}`);
+  if (sessao !== null && !ID_SESSAO.test(sessao)) throw new Error(`id de sessão inválido: ${sessao}`);
+  const args = ["exec", "--json", "--skip-git-repo-check", "--sandbox", soLeitura ? "read-only" : "workspace-write", "-m", modelo, ...ligacao];
+  if (sessao) args.push("resume", sessao);
+  args.push("-");
+  return args;
+}
+
+// A saída de `codex exec --json`: `thread.started` traz o id da sessão, cada `item.completed` com um `agent_message`
+// traz texto (a resposta é o último), e a volta acaba em `turn.completed` ou `turn.failed`. Os eventos `error` pelo
+// caminho («Reconnecting...») e os avisos («Model metadata ... not found») não contam quando a volta acaba bem.
+function lerSaidaCodex(stdout, codigo, stderr = "") {
+  const { eventos, soltas } = linhasJson(stdout);
+  const sessao = eventos.find((e) => e.type === "thread.started" && typeof e.thread_id === "string")?.thread_id ?? null;
+  const respostas = eventos.filter((e) => e.type === "item.completed" && e.item?.type === "agent_message" && typeof e.item.text === "string");
+  const texto = respostas.at(-1)?.item.text ?? "";
+  const falhou = eventos.findLast((e) => e.type === "turn.failed");
+  const acabou = eventos.some((e) => e.type === "turn.completed");
+  if (codigo === 0 && acabou && !falhou && texto.trim()) return { texto, sessao, limite: null, erro: null };
+  const ultimoErro = eventos.findLast((e) => e.type === "error")?.message;
+  const indicios = resumir([falhou?.error?.message, ultimoErro, ...soltas, stderr]);
+  return falhaDaVolta(eventos, indicios, { texto, sessao, codigo });
+}
+
+const candidatosCodex = (env, plataforma) => {
+  if (plataforma !== "win32") return [join(homedir(), ".local", "bin", "codex")];
+  // A instalação pelo npm: o codex.js corre com o node, sem passar pelo cmd.exe.
+  return [env.APPDATA && join(env.APPDATA, "npm", "node_modules", "@openai", "codex", "bin", "codex.js")].filter(Boolean);
+};
+
+const CHAVES_OPENAI = ["OPENAI_API_KEY", "CODEX_API_KEY", "CODEX_ACCESS_TOKEN"];
+
+const codex = {
+  nome: "Codex",
+  comando: "codex",
+  variavelComando: "PAR_CODEX",
+  padraoModelo: MODELO_SIMPLES,
+  ajudaModelo: "o nome de um modelo do plano do ChatGPT no Codex",
+  // Cada conta do ChatGPT é uma pasta CODEX_HOME própria, com o login, a configuração e as sessões. A pasta tem de existir.
+  variavelConta: "CODEX_HOME",
+  // Com uma chave no ambiente, a volta podia faturar à API em vez de gastar o plano do ChatGPT da conta.
+  variaveisQueGanham: CHAVES_OPENAI,
+  segredos: CHAVES_OPENAI,
+  ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  contas: (env) => lerContas("codex", env),
+  candidatos: candidatosCodex,
+  argumentos: (pedido) => argumentosCodex(codex, [], pedido),
+  lerSaida: lerSaidaCodex,
+  capacidades: capacidadesCodex,
+};
+
+// Um modelo aberto servido pelo Ollama, pelo Codex. Sem --servidor, o Ollama deste PC (`--oss --local-provider ollama`);
+// com --servidor, um fornecedor próprio na configuração (`model_providers.<id>.base_url`, a forma documentada, porque o
+// id `ollama` é reservado). Nada passa por uma conta: não há subscrição nem quota.
+const local = {
+  nome: "Codex com um modelo do Ollama",
+  comando: "codex",
+  variavelComando: "PAR_CODEX",
+  padraoModelo: MODELO_OLLAMA,
+  ajudaModelo: "o nome completo no Ollama, com a etiqueta, por exemplo qwen3-8b-16k:latest",
+  aceitaServidor: true,
+  // Num PC sem GPU, a primeira volta levou 18 minutos, perto dos 20 dos outros: cerca de 10 minutos a ler os 10 833 tokens
+  // do pedido (17 a 20 tokens por segundo) e o resto a escrever 475, a pouco mais de 1 por segundo (visto a 2026-11-27).
+  prazoMinutos: 60,
+  variavelConta: null,
+  variaveisQueGanham: [],
+  segredos: [],
+  ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  contas: () => [],
+  candidatos: candidatosCodex,
+  argumentos({ servidor = null, ...pedido }) {
+    const ligacao = servidor
+      ? ["-c", "model_providers.par_ollama.name=Ollama", "-c", `model_providers.par_ollama.base_url=${urlDoServidor(servidor)}/v1`, "-c", "model_provider=par_ollama"]
+      : ["--oss", "--local-provider", "ollama"];
+    return argumentosCodex(local, ligacao, pedido);
+  },
+  lerSaida: lerSaidaCodex,
+  capacidades: capacidadesCodex,
+};
+
+// Mistral Vibe. Sem variável documentada para mudar a pasta ~/.vibe, e com a chave guardada no cofre do sistema: uma
+// conta da Mistral por PC. O id da sessão e o resultado vêm do export.json que o --output-dir escreve em cada saída.
+const vibe = {
+  nome: "Mistral Vibe",
+  comando: "vibe",
+  variavelComando: "PAR_VIBE",
+  padraoModelo: MODELO_SIMPLES,
+  ajudaModelo: "um alias de modelo da configuração do Vibe",
+  variavelConta: null,
+  variaveisQueGanham: [],
+  // A chave de que o Vibe precisa para entrar, quando não está no cofre do sistema: é a única que lhe chega.
+  segredos: ["MISTRAL_API_KEY"],
+  ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  contas: () => [],
+  candidatos: (env, plataforma) => [join(homedir(), ".local", "bin", plataforma === "win32" ? "vibe.exe" : "vibe")],
+
+  // Sem interface, o Vibe recusa o que precisa de aprovação, mas a política por omissão (accept-edits) aprova as
+  // edições: por isso, em leitura, só ficam as ferramentas de ler e pesquisar. Em escrita, accept-edits explícito (como o
+  // acceptEdits do Claude), e a shell continua recusada. O modelo só se escolhe numa sessão nova.
+  argumentos({ modelo, sessao = null, soLeitura = true, pastaVolta = null }) {
+    if (!MODELO_SIMPLES.test(modelo)) throw new Error(`modelo inválido no Mistral Vibe: ${modelo}`);
+    if (sessao !== null && !ID_SESSAO.test(sessao)) throw new Error(`id de sessão inválido: ${sessao}`);
+    const args = ["-p", "--output", "text"];
+    if (pastaVolta) args.push("--output-dir", pastaVolta);
+    if (soLeitura) args.push("--enabled-tools", "read_file", "--enabled-tools", "grep");
+    else args.push("--approval-policy", "accept-edits");
+    if (sessao) args.push("--resume", sessao);
+    else args.push("--model", modelo);
+    return args;
+  },
+
+  // A resposta é o stdout (--output text). O export.json diz como a volta acabou (`outcome`, «finished» quando acabou
+  // bem), o `session_id` e o `error`. Códigos: 0 acabou, 1 não arrancou, 2 falhou a API ou o runtime, 3 parou antes.
+  lerSaida(stdout, codigo, stderr = "", { pastaVolta = null } = {}) {
+    const exportacao = pastaVolta ? lerJson(join(pastaVolta, "export.json"), null) : null;
+    const sessao = typeof exportacao?.session_id === "string" ? exportacao.session_id : null;
+    const texto = String(stdout).trim();
+    const fim = exportacao?.outcome ?? null;
+    if (codigo === 0 && (fim === null || fim === "finished") && texto) return { texto, sessao, limite: null, erro: null };
+    const indicios = resumir([exportacao?.error?.message, exportacao?.error?.code != null ? `código ${exportacao.error.code}` : null, fim, stderr]);
+    return falhaDaVolta([exportacao].filter(Boolean), indicios, { texto, sessao, codigo });
+  },
+
+  capacidades: ({ soLeitura }) => ({
+    leFicheiros: true,
+    linha: soLeitura
+      ? "Estás em modo só de leitura: só tens as ferramentas de ler ficheiros e de pesquisar no projeto, sem comandos nem escrita."
+      : "Podes ler e editar ficheiros, mas só quando a mensagem o pedir de forma explícita e isso couber no teu papel. Os comandos da shell são recusados, porque não há ninguém para os aprovar.",
+  }),
+};
+
+export const FORNECEDORES = { claude, codex, local, vibe };
+
+const SINAL_DE_LIMITE = /usage limit|rate[ _-]?limit|limit reached|hit your (?:\w+ )?limit|limite de uso/i;
 
 function* objetos(valor, fundo = 0) {
   if (!valor || typeof valor !== "object" || fundo > 8) return;
@@ -142,7 +356,8 @@ function paraIso(valor) {
 }
 
 // A hora de reposição, quando a saída a traz: num campo `resetsAt` (de preferência o de um limite «rejected»), em
-// segundos desde 1970 depois de «limit reached|», ou numa data ISO no texto. Não confirmado, como a deteção.
+// segundos desde 1970 depois de «limit reached|», ou numa data ISO no texto. É a segunda via do Claude, depois do
+// `rate_limit_event`, e a única do Codex e do Vibe, onde não está confirmada.
 export function horaDeReposicao(eventos, texto) {
   let qualquer = null;
   for (const evento of eventos) {
@@ -202,8 +417,21 @@ export function ambienteDaConta(fornecedor, env, pastaConta) {
   return fora;
 }
 
+// O ambiente do par: o da conta e, além disso, sem as chaves dos outros fornecedores. O par só recebe a chave de que
+// precisa para entrar (a MISTRAL_API_KEY no Vibe); a de outro fornecedor nunca lhe chega.
+export function ambienteDoPar(fornecedor, env, pastaConta) {
+  const fora = ambienteDaConta(fornecedor, env, pastaConta);
+  for (const outro of Object.values(FORNECEDORES)) {
+    for (const v of outro.segredos) if (!fornecedor.segredos.includes(v)) delete fora[v];
+  }
+  return fora;
+}
+
 // A subscrição de um par ou de uma corrida: «principal» (sem pasta), uma registada pelo id, ou uma pasta indicada.
 export function resolverSubscricao(fornecedor, { id, pastaConta, env = process.env }) {
+  if (!fornecedor.variavelConta && (pastaConta || (id && id !== PRINCIPAL))) {
+    throw new Error(`o ${fornecedor.nome} só tem uma conta neste PC: tira o --subscricao e o --pasta-conta`);
+  }
   if (pastaConta) {
     if (!isAbsolute(pastaConta)) throw new Error("--pasta-conta tem de ser um caminho absoluto");
     return { id: id ?? null, pasta: pastaConta };

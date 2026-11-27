@@ -5,7 +5,7 @@ seccao: "Soberania digital"
 paginas: [57]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-25
-editado_em: 2026-11-25
+editado_em: 2026-11-27
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -21,6 +21,11 @@ fontes_oficiais_consultadas_em: 2026-11-04
 - Países e entidades com adequação (a 2026-11-25): Andorra, Argentina, Brasil, Canadá (organizações comerciais), Ilhas Faroé, Guernsey, Israel, Ilha de Man, Japão, Jersey, Nova Zelândia, Coreia do Sul, Suíça, Reino Unido, EUA (organizações do Data Privacy Framework), Uruguai e Organização Europeia de Patentes. A lista muda: confirmar na página da Comissão.
 
 **Para uma skill:** nenhuma integração externa entra sem uma linha nesta tabela; se passam dados pessoais para fora da UE, a linha diz o fundamento (decisão de adequação, participação no Data Privacy Framework nos EUA ou cláusulas contratuais-tipo).
+
+## Ver também
+
+- [Agentes de código sem interface (Claude Code, Codex, Mistral Vibe)](../ia/agentes/agentes-de-codigo-sem-interface.md) (Construir com IA)
+- [Modelos abertos em agentes de código (Ollama com o Codex)](../ia/agentes/modelos-abertos-em-agentes-de-codigo.md) (Construir com IA)
 
 ## Fontes oficiais
 
