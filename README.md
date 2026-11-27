@@ -285,7 +285,7 @@ skills/orchestrate-sessions/
 ├── modelo-e-effort.md  modelo e effort por tipo de tarefa, e quando subir de nível
 ├── modelos/            sessoes.md, briefing.md, estado.json e retoma-permissoes.json
 ├── modo-continuo.md    trabalhar até ao fim, esperar pela reposição do limite e retomar
-└── scripts/            conhecimento.mjs (caminho da base), verificar-publicacao.mjs, estado-uso.mjs (linha de estado que grava o uso do plano), retomar.mjs, retomar.vbs e agendar-retoma.mjs (retoma agendada)
+└── scripts/            conhecimento.mjs (caminho da base), verificar-publicacao.mjs, estado-uso.mjs (linha de estado que grava o uso do plano), retomar.mjs, retomar.vbs e agendar-retoma.mjs (retoma agendada), par.mjs e fornecedores.mjs (sessões em par)
 skills/<mini skill>/          design-ux, design-3d-motion, seguranca, performance-verifier, backend-dados, infra-deploy,
 │                             boas-praticas-codigo, ia-aplicada, produtizar, operar, gravacao-video, humanizar,
 │                             portal-de-agentes, documentacao

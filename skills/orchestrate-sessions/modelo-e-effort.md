@@ -47,6 +47,7 @@ Preços de referência por milhão de tokens (entrada/saída): Haiku 5.5 $0,10/$
 4. **Um modelo por sessão.** Uma tarefa que pede outro modelo vai para um subagente ou para outra sessão, para o custo de cada sessão continuar atribuível *(interpretação)*.
 5. **Paralelo só com trabalho independente** (`knowledge/ia/subagentes-e-orquestracao.md`, pág. 68). Duas sessões em paralelo nunca editam os mesmos ficheiros.
 6. **Mede.** No fim de cada sessão, corre `/usage` e regista o custo estimado e o uso por modelo.
+7. **Quem verifica.** Numa sessão em par (parte 3 do plano de delegação), quem verifica leva o modelo da linha «Rever e decidir com risco» no nível da tarefa. Se é o mesmo modelo de quem a fez, corre noutra subscrição ou um degrau acima na escada da regra 3 *(interpretação)*.
 
 ## Como se aplica no Claude Code
 

@@ -1,8 +1,12 @@
 {
   "trabalho": "<trabalho>",
+  "autonomia": "Executar e registar",
+  "subscricao": "principal",
+  "subscricoes": ["principal"],
   "terminado": false,
   "pausado_ate": null,
   "falhas_seguidas": 0,
+  "sem_quota": {},
   "atualizado_em": null,
   "tarefas": [
     {
@@ -10,6 +14,7 @@
       "onda": 1,
       "sessao": "S1",
       "modelo": "sonnet",
+      "subscricao": "principal",
       "briefing": "briefings/S1.md",
       "saida": "saidas/S1.md",
       "depende": [],

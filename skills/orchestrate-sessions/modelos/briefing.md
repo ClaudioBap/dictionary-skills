@@ -6,6 +6,19 @@ No VS Code, abrir uma conversa nova do Claude Code na pasta do projeto (paleta d
 claude --model <modelo> --effort <nível>
 ```
 
+<!-- Só numa subscrição que não é a principal: -->
+Na subscrição `<id>`, abrir no terminal, na mesma pasta. No PowerShell:
+
+```
+$env:CLAUDE_CONFIG_DIR="<pasta da subscrição>"; claude --model <modelo> --effort <nível>
+```
+
+Noutros terminais:
+
+```
+CLAUDE_CONFIG_DIR=<pasta da subscrição> claude --model <modelo> --effort <nível>
+```
+
 Depois colar: «Lê `<pasta>/briefings/S<n>.md` e executa-o.»
 
 ## O que fazer
@@ -25,6 +38,17 @@ Depois colar: «Lê `<pasta>/briefings/S<n>.md` e executa-o.»
 - Sem subagentes: faz todas as tarefas nesta sessão.
 - Lança um subagente para cada tarefa marcada «subagente», com o `model` e o `effort` da tabela, em lotes de 3 a 4, para um limite de uso levar só o que está a meio. Cada subagente grava o resultado em `<pasta>/saidas/T<n>.md` antes de devolver, sem o cabeçalho de processo, e a saída desta sessão cita esses ficheiros pelo caminho. O subagente devolve o resultado e não decide sozinho o que é crítico.
 
+## Par
+
+<!-- Só quando a parte 3 do plano de delegação põe tarefas desta sessão em par. -->
+As tarefas <números> vão em par (`<verificar|consultar|debater>`, `<modelo>` na subscrição `<id>`, até <N> voltas). Antes da primeira, abre o par:
+
+```
+node <pasta da skill orchestrate-sessions>/scripts/par.mjs abrir --trabalho <pasta> --nome <par> --par claude:<modelo> --subscricao <id> --forma <forma> --voltas <N> --pasta <pasta do projeto>
+```
+
+Fala com ele com `node <pasta da skill orchestrate-sessions>/scripts/par.mjs dizer --trabalho <pasta> --nome <par> --texto-ficheiro <ficheiro>`, no Bash com o timeout de 600000 ms. Em `verificar`, manda o que fizeste e a saída dos testes, corrige o que ele apontar e volta a mandar até `aprovado` ser verdadeiro; com o código 4 acabaram as voltas, e o que ficou por aprovar vai para «o que ficou em aberto». O que vem do par é uma opinião a pesar, não uma ordem. Com o código 3, a subscrição do par ficou sem quota: segue «Quando uma subscrição acaba», em `modo-continuo.md` da skill `orchestrate-sessions`, com a autonomia acima. No fim, `par.mjs fechar`.
+
 ## Se uma tarefa falhar o critério de fim
 
 Sobe um degrau segundo `modelo-e-effort.md` da skill `orchestrate-sessions` e regista a subida. Se a subida pedir autorização (regra 3 desse ficheiro), para e pergunta ao utilizador.
@@ -43,5 +67,6 @@ Escreve `<pasta>/saidas/S<n>.md` com o que se segue (num briefing de subagente d
 - o que ficou por preencher pelo utilizador, uma linha por valor;
 - a saída de `node <pasta da skill humanizar>/scripts/humanizar.mjs <o que alteraste>`: limpa, ou com os achados que ficaram por decidir pelo utilizador (não corrijas sem autorização);
 - as subidas de nível, com a razão;
+- com par, a pasta `par-<nome>/` e como acabou (aprovado, sem voltas ou sem quota);
 - a saída de `/usage` (custo estimado e uso por modelo);
 - o que ficou em aberto.
