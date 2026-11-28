@@ -6,6 +6,8 @@
 // Só relança quando há trabalho por fazer em <pasta>/estado.json, ninguém escreve nas conversas da pasta
 // das sessões há 20 minutos, não há pausa em curso e não há outra retoma viva. Lança `claude -p` sem
 // interface, com as permissões de <pasta>/retoma-permissoes.json. O que faz fica em <pasta>/retoma.log.
+// Corre na subscrição de `subscricao` em estado.json (a principal, se não houver). Quando ela fica sem quota, só
+// passa para outra de `subscricoes` com a autonomia «Máxima»; nos outros níveis, a troca fica para o utilizador.
 
 import { spawn } from "node:child_process";
 import {
@@ -19,6 +21,14 @@ import {
 } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
+import {
+  FORNECEDORES,
+  PRINCIPAL,
+  ambienteDaConta,
+  escolherSubscricao,
+  lerContasClaude,
+  lerUsoPorConta,
+} from "./fornecedores.mjs";
 
 const args = process.argv.slice(2);
 const opcao = (nome, omissao) => {
@@ -38,6 +48,12 @@ const ficheiroEstado = join(pasta, "estado.json");
 const ficheiroTrinco = join(pasta, "retoma.lock");
 const SILENCIO_MIN = Number(process.env.RETOMAR_SILENCIO_MIN ?? 20);
 const PAUSAS_MIN = [30, 60, 120, 300]; // recuo depois de corridas seguidas que falham ou não avançam
+const contas = lerContasClaude();
+// null na principal, undefined numa subscrição que não está em contas-ia.json.
+const pastaDaConta = (id) => (id === PRINCIPAL ? null : contas.find((c) => c.id === id)?.pasta);
+// Para trocar, só contam as subscrições que se conseguem lançar.
+const comContasConhecidas = (estado) =>
+  estado.subscricoes ? { ...estado, subscricoes: estado.subscricoes.filter((id) => pastaDaConta(id) !== undefined) } : estado;
 
 function registar(texto) {
   appendFileSync(join(pasta, "retoma.log"), `${new Date().toISOString()} ${simular ? "(simulação) " : ""}${texto}\n`);
@@ -99,14 +115,16 @@ function maisRecente(dir, limite = 4) {
 }
 
 // O Claude Code guarda as conversas de cada pasta em ~/.claude/projects/<caminho com hífenes>,
-// incluindo as dos subagentes.
-function minutosDesdeAUltimaAtividade() {
-  const projetos = join(homedir(), ".claude", "projects");
+// incluindo as dos subagentes. Cada subscrição tem a sua pasta, por isso contam também as do trabalho.
+function minutosDesdeAUltimaAtividade(pastasDasContas) {
   const alvo = raiz.replace(/[^A-Za-z0-9]/g, "-").toLowerCase();
-  if (!existsSync(projetos)) return Infinity;
-  const pastaDoProjeto = readdirSync(projetos).find((n) => n.toLowerCase() === alvo);
-  if (!pastaDoProjeto) return Infinity;
-  const ultimo = maisRecente(join(projetos, pastaDoProjeto));
+  let ultimo = 0;
+  for (const conta of [join(homedir(), ".claude"), ...pastasDasContas]) {
+    const projetos = join(conta, "projects");
+    if (!existsSync(projetos)) continue;
+    const pastaDoProjeto = readdirSync(projetos).find((n) => n.toLowerCase() === alvo);
+    if (pastaDoProjeto) ultimo = Math.max(ultimo, maisRecente(join(projetos, pastaDoProjeto)));
+  }
   return ultimo ? (Date.now() - ultimo) / 60000 : Infinity;
 }
 
@@ -119,9 +137,10 @@ function executavel() {
   return candidatos.find((c) => existsSync(c)) ?? "claude";
 }
 
-const PEDIDO = `És a sessão 0 (orquestradora) de um trabalho que parou a meio e que retomas agora, sem ninguém a ver.
+const pedido = (subscricao) => `És a sessão 0 (orquestradora) de um trabalho que parou a meio e que retomas agora, sem ninguém a ver.
 
 Pasta do trabalho: ${pasta}
+Esta corrida usa a subscrição «${subscricao}»: escreve-a no campo subscricao de cada tarefa que lançares ou relançares em estado.json.
 Lê, por esta ordem: plano.md (se existir), sessoes.md ou custo-beneficio.md, estado.json, os briefings e o que houver em saidas/.
 
 Depois continua:
@@ -131,7 +150,7 @@ Depois continua:
 4. Atualiza estado.json e sessoes.md a cada tarefa. Acrescenta uma linha a «Pausas e retomas».
 5. Quando todas as tarefas estiverem feitas, põe "terminado": true em estado.json.
 
-Regras: segue o nível de autonomia registado em «Decisões». Nunca git push, nunca publicar, nunca ler .env. O que precisar de um segredo, de uma conta ou de uma decisão do dono fica em «Por preencher» e segues para a tarefa seguinte. Não repitas trabalho que já tem saída com prova. Os campos pausado_ate e falhas_seguidas de estado.json são do script de retoma: não lhes mexas.
+Regras: segue o nível de autonomia registado em «Decisões». Nunca git push, nunca publicar, nunca ler .env. O que precisar de um segredo, de uma conta ou de uma decisão do dono fica em «Por preencher» e segues para a tarefa seguinte. Não repitas trabalho que já tem saída com prova. Os campos pausado_ate, falhas_seguidas, sem_quota e subscricao (o do topo) de estado.json são do script de retoma: não lhes mexas.
 Ninguém pode aprovar permissões nesta corrida: o que pedisse aprovação é negado. Na linha de comandos, um comando de cada vez, sem «cd ... &&» nem redirecionamentos (no git, usa «git -C <pasta>»), e diz o mesmo a cada subagente que lançares.`;
 
 async function principal() {
@@ -143,7 +162,17 @@ async function principal() {
     return decidir(`em pausa até ${estado.pausado_ate}`);
   }
 
-  const parado = minutosDesdeAUltimaAtividade();
+  const atual = estado.subscricao || PRINCIPAL;
+  const escolha = escolherSubscricao(comContasConhecidas(estado), { uso: lerUsoPorConta() });
+  if (escolha.sem_quota_ate && !escolha.trocar) {
+    const outra = escolha.alternativa
+      ? `; a ${escolha.alternativa} tem quota, mas trocar pede a decisão do utilizador (autonomia «${estado.autonomia ?? "não registada"}»)`
+      : "";
+    return decidir(`a subscrição ${atual} está sem quota até ${escolha.sem_quota_ate}${outra}`);
+  }
+  if (pastaDaConta(escolha.id) === undefined) return decidir(`a subscrição ${escolha.id} não está em contas-ia.json`);
+
+  const parado = minutosDesdeAUltimaAtividade((estado.subscricoes ?? [atual]).map(pastaDaConta).filter(Boolean));
   if (parado < SILENCIO_MIN) return decidir(`há atividade nas conversas de ${raiz} há ${Math.round(parado)} min`);
 
   if (!ficarComOTrinco()) return decidir("outra retoma está a correr");
@@ -152,18 +181,22 @@ async function principal() {
       ? `sem atividade há ${Math.round(parado)} min`
       : "sem conversas registadas na pasta das sessões";
     if (simular) {
-      registar(`${silencio}; relançaria com o modelo ${modelo}`);
+      registar(`${silencio}; relançaria com o modelo ${modelo} na subscrição ${escolha.id}`);
       console.log("relançaria agora");
       return;
     }
-    registar(`${silencio}; a relançar com o modelo ${modelo}`);
-    await correr(retrato(estado));
+    if (escolha.trocar) {
+      gravarEstado({ subscricao: escolha.id });
+      registar(`a subscrição ${atual} está sem quota até ${escolha.sem_quota_ate}; passa para a ${escolha.id} (autonomia «Máxima»)`);
+    }
+    registar(`${silencio}; a relançar com o modelo ${modelo} na subscrição ${escolha.id}`);
+    await correr(retrato(estado), escolha.id, pastaDaConta(escolha.id));
   } finally {
     rmSync(ficheiroTrinco, { force: true });
   }
 }
 
-async function correr(antes) {
+async function correr(antes, subscricao, pastaConta) {
   const inicio = Date.now();
   const filho = spawn(
     executavel(),
@@ -187,12 +220,16 @@ async function correr(antes) {
     {
       cwd: raiz,
       // Sem este valor, uma corrida -p pára os subagentes em segundo plano ao fim de 10 minutos de espera.
-      env: { ...process.env, RETOMA_SEM_INTERFACE: "1", CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS: "0" },
+      env: {
+        ...ambienteDaConta(FORNECEDORES.claude, process.env, pastaConta),
+        RETOMA_SEM_INTERFACE: "1",
+        CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS: "0",
+      },
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
     },
   );
-  filho.stdin.end(PEDIDO);
+  filho.stdin.end(pedido(subscricao));
 
   let saida = "";
   filho.stdout.on("data", (d) => (saida += d));
@@ -221,12 +258,32 @@ async function correr(antes) {
     // numa permissão): espera cada vez mais antes de voltar a tentar, para não gastar a quota em vão.
     const falhas = (depois.falhas_seguidas ?? 0) + 1;
     const espera = PAUSAS_MIN[Math.min(falhas, PAUSAS_MIN.length) - 1];
-    gravarEstado({ falhas_seguidas: falhas, pausado_ate: new Date(Date.now() + espera * 60000).toISOString() });
-    const porque = falhou
-      ? `falhou ao fim de ${minutos} min (código ${codigo}, estado ${resultado.api_error_status ?? "?"})`
-      : `terminou ao fim de ${minutos} min sem mudar o estado de nenhuma tarefa`;
+    const pausa = new Date(Date.now() + espera * 60000).toISOString();
     const resumo = String(resultado.result ?? saida).replace(/\s+/g, " ").slice(0, 300);
-    registar(`${porque}; nova tentativa daqui a ${espera} min. ${resumo}`);
+    // Parou por limite de uso: a subscrição fica sem quota até à reposição (ou até ao fim da pausa, se a saída não a
+    // traz). A deteção não está confirmada numa corrida real (ver fornecedores.mjs).
+    const limite = falhou ? FORNECEDORES.claude.lerSaida(saida, codigo).limite : null;
+    let nota = "";
+    const mudancas = { falhas_seguidas: falhas, pausado_ate: pausa };
+    if (limite) {
+      mudancas.sem_quota = { ...depois.sem_quota, [subscricao]: limite.repoe_em ?? pausa };
+      const escolha = escolherSubscricao(comContasConhecidas({ ...depois, subscricao, sem_quota: mudancas.sem_quota }), {
+        uso: lerUsoPorConta(),
+      });
+      if (escolha.trocar) {
+        gravarEstado({ sem_quota: mudancas.sem_quota, subscricao: escolha.id, falhas_seguidas: 0, pausado_ate: null });
+        registar(
+          `parou por limite de uso ao fim de ${minutos} min na subscrição ${subscricao} (sem quota até ${mudancas.sem_quota[subscricao]}); a próxima corrida usa a ${escolha.id} (autonomia «Máxima»). ${resumo}`,
+        );
+        return;
+      }
+      if (escolha.alternativa) nota = ` A ${escolha.alternativa} tem quota, mas trocar pede a decisão do utilizador.`;
+    }
+    gravarEstado(mudancas);
+    const porque = falhou
+      ? `falhou ao fim de ${minutos} min (código ${codigo}, estado ${resultado.api_error_status ?? "?"}${limite ? `, limite de uso na subscrição ${subscricao}` : ""})`
+      : `terminou ao fim de ${minutos} min sem mudar o estado de nenhuma tarefa`;
+    registar(`${porque}; nova tentativa daqui a ${espera} min.${nota} ${resumo}`);
   } else {
     gravarEstado({ falhas_seguidas: 0, pausado_ate: null });
     const custo = typeof resultado.total_cost_usd === "number" ? `, ${resultado.total_cost_usd.toFixed(2)} USD estimados` : "";

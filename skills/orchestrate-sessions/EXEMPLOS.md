@@ -42,3 +42,16 @@
 4. Quando o limite de 5 horas parou todas as sessões ao fim de cerca de 15 minutos, escreve a pausa e a hora de retoma em `sessoes.md` e retoma o trabalho depois da reposição.
 
 **Resultado:** É a orquestração que está a fazer o jornal e a Redação do site de notícias. Depois dessa pausa, a construção passou para subagentes `sonnet` e o `fable` ficou só no desenho.
+
+## Exemplo: uma API verificada por outro modelo
+
+**Pedido:** «Quero que a API seja verificada por outro modelo antes de a dar por feita. Tenho duas subscrições no PC.»
+
+**O que a skill faz:**
+
+1. Na parte 3 do plano de delegação, o utilizador escolhe «verificar até aprovar» para as tarefas de construir, com o `opus` da subscrição `conta-2` a verificar e 5 voltas no máximo.
+2. O briefing da sessão que constrói a API, em `sonnet` na principal, traz o comando que abre o par.
+3. No fim de cada tarefa, a sessão manda ao par o que mudou e a saída dos testes com `par.mjs dizer`, corrige o que ele aponta e volta a mandar até a resposta acabar em `APROVADO`.
+4. Com a autonomia «Executar e registar», se a `conta-2` ficar sem quota a meio, a sessão pergunta se espera pela reposição, abre o par na principal ou continua sem verificação.
+
+**Resultado:** Cada mensagem fica numerada em `orquestracao/<trabalho>/par-api/`, e `pares.json` diz em que volta o par ficou e se aprovou.

@@ -33,23 +33,39 @@ Três perguntas, uma de cada vez, no formato de `regras.md`. A primeira, o níve
 
 ## Como funciona nesta máquina
 
-- **Estado em disco.** `estado.json` na pasta da orquestração (modelo em `modelos/estado.json`) tem uma linha por tarefa: `id`, `onda`, `sessao`, `modelo`, `briefing`, `saida`, `depende` e `estado` (`por fazer`, `em curso` ou `feito`). O orquestrador atualiza-o a cada tarefa que começa ou acaba e põe `terminado: true` no fim. `pausado_ate` e `falhas_seguidas` são do script de retoma, salvo a pausa por quota. `sessoes.md`, os briefings e as saídas são para pessoas e para a retoma ler.
+- **Estado em disco.** `estado.json` na pasta da orquestração (modelo em `modelos/estado.json`) tem uma linha por tarefa: `id`, `onda`, `sessao`, `modelo`, `subscricao`, `briefing`, `saida`, `depende` e `estado` (`por fazer`, `em curso` ou `feito`). O orquestrador atualiza-o a cada tarefa que começa ou acaba e põe `terminado: true` no fim. No topo ficam ainda a `autonomia` do plano, a `subscricao` em que a retoma corre e as `subscricoes` que o trabalho pode usar. `pausado_ate`, `falhas_seguidas` e `sem_quota` (a hora a que cada subscrição volta a ter quota) são do script de retoma, salvo a pausa por quota e o que a sessão aberta regista quando uma subscrição acaba. Um `estado.json` sem estes campos novos funciona como antes, na principal. `sessoes.md`, os briefings e as saídas são para pessoas e para a retoma ler.
 - **Tarefa agendada.** O Agendador de Tarefas corre `scripts/retomar.mjs` de 15 em 15 minutos e ao iniciar sessão no Windows. O script só relança quando:
   - há tarefas que não estão `feito` e `terminado` é falso;
   - não há pausa em curso (`pausado_ate` no futuro);
-  - ninguém escreve nas conversas da pasta onde as sessões abrem há 20 minutos (lê `~/.claude/projects/`; muda-se com `RETOMAR_SILENCIO_MIN`);
+  - ninguém escreve nas conversas da pasta onde as sessões abrem há 20 minutos (lê `~/.claude/projects/` e o `projects/` da pasta de cada subscrição do trabalho; muda-se com `RETOMAR_SILENCIO_MIN`);
+  - a subscrição em que vai correr tem quota (ver «Quando uma subscrição acaba»);
   - não há outra retoma viva (`retoma.lock`, com o PID).
-- **O que lança.** `claude -p` sem interface, na pasta onde as sessões abrem, com o modelo do orquestrador (`--modelo`, por omissão `opus`) e as permissões de `retoma-permissoes.json`. O pedido manda ler o plano, `sessoes.md`, `estado.json`, os briefings e as saídas, relançar com o Agent as tarefas `em curso` sem saída, lançar as que já podem arrancar e atualizar o estado. Como numa corrida `-p` os subagentes em segundo plano param ao fim de 10 minutos de espera, o script põe `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0`.
+- **O que lança.** `claude -p` sem interface, na pasta onde as sessões abrem, com o modelo do orquestrador (`--modelo`, por omissão `opus`), na subscrição de `subscricao` (a principal, se não houver) e com as permissões de `retoma-permissoes.json`. O pedido manda ler o plano, `sessoes.md`, `estado.json`, os briefings e as saídas, relançar com o Agent as tarefas `em curso` sem saída, lançar as que já podem arrancar e atualizar o estado. Como numa corrida `-p` os subagentes em segundo plano param ao fim de 10 minutos de espera, o script põe `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0`.
 - **Pausas.** Uma corrida sem interface não espera pela reposição: se bate no limite, falha. Corridas seguidas que falham, ou que acabam sem mudar o estado de nenhuma tarefa (por exemplo, paradas numa permissão negada), dão pausas de 30, 60, 120 e 300 minutos, e depois de 300 em 300. Uma corrida que avança repõe o contador.
 - **Na sessão aberta**, o orquestrador escreve `estado.json` a cada tarefa. Quando um subagente ou uma sessão morre por limite, a tarefa fica `em curso` e volta a ser lançada depois da pausa, pela sessão aberta se a espera automática a continuar, ou pela tarefa agendada.
 - **Subagentes e sessões em paralelo gastam a mesma quota.** Dez em paralelo gastam-na cerca de dez vezes mais depressa. Com quota curta, a skill reduz o número de sessões em paralelo antes de reduzir o trabalho.
 - **Ao retomar**, a primeira coisa é correr os verificadores e ler as saídas das sessões que terminaram entretanto, para não repetir trabalho.
 
+## Quando uma subscrição acaba
+
+Com mais de uma subscrição registada (`contas-ia.json`, ver «Sessões em par» no `SKILL.md`), cada sessão e cada tarefa corre numa delas: a de cada sessão fica em «Sessões» de `sessoes.md`, a de cada tarefa em `subscricao` de `estado.json`. Quando uma fica sem quota, o nível de autonomia decide:
+
+| Nível | O par fica sem quota (`par.mjs` sai com 3) | A sessão que trabalha fica sem quota |
+|---|---|---|
+| Só executar o aprovado, Executar e registar, Decidir o pequeno | A sessão que continua ativa pergunta ao utilizador o que fazer, no formato de `regras.md`: esperar pela reposição, abrir o par noutra subscrição ou continuar sem verificação | A sessão pára, como com uma só subscrição. A retoma espera pela reposição dessa subscrição; passar a tarefa para outra pede a decisão do utilizador |
+| Máxima | A sessão continua sozinha, sem perguntar, até as duas subscrições acabarem | O orquestrador, ou a retoma, relança a tarefa parada numa subscrição que ainda tem quota |
+
+- A pergunta aparece no VS Code e, com o portal de agentes instalado, chega também ao telemóvel pelo hook que já leva as perguntas das sessões.
+- Em «Máxima», a sessão escreve em «Pausas e retomas» de `sessoes.md` quando o par parou, a hora de reposição e o que fez sem verificação.
+- Para abrir o par noutra subscrição, a sessão abre um par novo (`--nome <nome>-2 --subscricao <outra>`) e manda-lhe na primeira mensagem o resumo do que já se disse. Uma conversa não passa de uma subscrição para outra, porque cada uma guarda as suas sessões na sua pasta.
+- Na retoma, quando uma corrida pára por limite de uso, o script escreve em `sem_quota` a subscrição e a hora de reposição (ou o fim da pausa, se a saída não a traz). Em «Máxima», se outra das `subscricoes` tem quota, passa `subscricao` para essa e a corrida seguinte usa-a, sem pausa. Nos outros níveis faz a pausa de sempre e escreve no `retoma.log` que trocar pede a decisão do utilizador. A subscrição em uso só se dá por gasta quando uma corrida parou nela; as outras também pela linha de estado de cada uma (`estado-uso-contas.json`, ver «Vigiar o uso»).
+- Não confirmado: como uma paragem por limite aparece na saída de `claude -p` não foi visto numa corrida real. A deteção está em `scripts/fornecedores.mjs` e corrige-se aí depois do primeiro caso real; o `par.mjs` guarda a saída bruta de cada falha em `par-<nome>/`.
+
 ## Instalar
 
 Pré-requisito: a CLI autónoma (`npm install -g @anthropic-ai/claude-code`), com sessão iniciada na conta claude.ai. A extensão do VS Code traz uma cópia própria da CLI que não fica no PATH.
 
-1. Copia `modelos/estado.json` e `modelos/retoma-permissoes.json` para a pasta da orquestração e preenche as tarefas. Acrescenta a `deny` os comandos de publicação do projeto (por exemplo, `Bash(*wrangler deploy*)`).
+1. Copia `modelos/estado.json` e `modelos/retoma-permissoes.json` para a pasta da orquestração e preenche as tarefas, a `autonomia` do plano e, com mais de uma subscrição, a `subscricao` da retoma e as `subscricoes` que o utilizador aceitou para este trabalho. Acrescenta a `deny` os comandos de publicação do projeto (por exemplo, `Bash(*wrangler deploy*)`).
 2. Pede autorização ao utilizador e regista a tarefa:
    `node <pasta desta skill>/scripts/agendar-retoma.mjs <pasta da orquestração> <pasta onde as sessões abrem> --modelo opus` (ou `fable`).
    A pasta onde as sessões abrem é a que o utilizador abre no VS Code ou onde corre `claude`: a retoma arranca lá, com o `CLAUDE.md` e as skills dessa pasta, e é nas conversas dela que se mede o silêncio. O nome da tarefa é «Claude - retomar <nome da pasta da orquestração>», ou o que se der em `--nome`. Uma tarefa com o mesmo nome não é substituída sem `--substituir`.
@@ -82,6 +98,7 @@ Provado a 2026-11-16 nesta máquina: numa orquestração de teste com uma tarefa
 
 - A linha de estado recebe `rate_limits.five_hour` e `rate_limits.seven_day`, cada um com `used_percentage` e `resets_at` (segundos desde 1970). Só existem nos planos Pro, Max e Ultra da claude.ai, depois da primeira resposta da sessão, e cada janela desaparece quando passa o seu `resets_at`.
 - O script `scripts/estado-uso.mjs` grava esses valores em `~/.start-project-with-trust/estado-uso.json` e mostra-os na linha de estado. Com uma quota abaixo de 100%, o orquestrador lê esse ficheiro antes de lançar cada sessão ou subagente.
+- Com várias subscrições, a linha de estado instala-se no `settings.json` da pasta de cada uma. O `estado-uso.json` diz de que subscrição são os valores (`subscricao`), e o `estado-uso-contas.json`, na mesma pasta, guarda os últimos de cada uma.
 - Para instalar, a skill pergunta primeiro e junta a `~/.claude/settings.json`, com o caminho absoluto e barras `/` (no Windows com o Git Bash instalado, as barras invertidas perdem-se):
   ```json
   "statusLine": { "type": "command", "command": "node C:/caminho/para/orchestrate-sessions/scripts/estado-uso.mjs" }
