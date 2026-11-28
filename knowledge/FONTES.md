@@ -547,6 +547,19 @@ Sites oficiais que o agente de atualização percorre, por secção de `knowledg
 | [ElevenLabs: residência de dados](https://elevenlabs.io/docs/overview/administration/data-residency) | Onde ficam os dados e residência na UE |
 | [OpenAI: text to speech](https://developers.openai.com/api/docs/guides/text-to-speech) | Modelos de voz, línguas, aviso de voz gerada por IA e descontinuação |
 | [Azure: API de preços de retalho](https://prices.azure.com/api/retail/prices?currencyCode=EUR) | Preço por região das vozes neurais e HD, em euros |
+| [Claude Code: execução sem interface](https://code.claude.com/docs/en/headless) | `claude -p`, stream-json, `--resume` e permissões numa corrida sem interface |
+| [Claude Code: variáveis de ambiente](https://code.claude.com/docs/en/env-vars) | `CLAUDE_CONFIG_DIR` por conta e as chaves que ganham ao login da subscrição |
+| [Codex: modo não interativo](https://learn.chatgpt.com/docs/non-interactive-mode) | `codex exec`, eventos JSONL, `resume` e sandbox por omissão |
+| [Codex: variáveis de ambiente](https://learn.chatgpt.com/codex/config-file/environment-variables) | `CODEX_HOME` por conta e credenciais para automação |
+| [Codex: configuração avançada](https://learn.chatgpt.com/docs/config-file/config-advanced) | `--oss`, `oss_provider` e fornecedores próprios com `base_url` |
+| [Ollama: Codex](https://docs.ollama.com/integrations/codex) | Ligar o Codex ao Ollama e o contexto mínimo para o Codex |
+| [Ollama: tamanho do contexto](https://docs.ollama.com/context-length) | Contexto por omissão pela memória da placa e como o mudar |
+| [Ollama: tool calling](https://docs.ollama.com/capabilities/tool-calling) | Chamadas a ferramentas nos modelos do Ollama |
+| [Mistral Vibe: CLI](https://docs.mistral.ai/vibe/code/cli) | Instalação, chave e configuração do Vibe |
+| [Mistral Vibe: trabalhar na CLI](https://docs.mistral.ai/vibe/code/cli/work-with-cli) | Modo sem interface, formatos de saída, retoma e códigos de saída |
+| [Mistral Vibe: segurança e aprovações](https://docs.mistral.ai/vibe/code/safety-approvals-permissions) | Políticas de aprovação e o que se recusa sem interface |
+| [Anthropic: Consumer Terms](https://www.anthropic.com/legal/consumer-terms) | Contas pessoais, partilha de credenciais e acesso automatizado |
+| [OpenAI: Terms of Use (Europa)](https://openai.com/policies/eu-terms-of-use/) | Partilha de contas e limites nos serviços da OpenAI |
 
 ## [Modularização e produtização](produto/README.md)
 
@@ -672,6 +685,8 @@ Pontos que o agente de atualização verifica sempre, a pedido do dono do reposi
 | IA | Fish Audio: o `drama-3` está a 10 USD por milhão de bytes até 2026-11-30 (até 1/12, às 08:00 UTC) e volta a 50 USD; confirmar o preço depois dessa data | [https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits](https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits) |
 | IA | OpenAI: `tts-1`, `tts-1-hd` e `gpt-4o-mini-tts` desligam a 2027-01-06; a substituição é o `gpt-realtime-2.1-mini` pela Realtime API; confirmar a data e o preço | [https://developers.openai.com/api/docs/guides/text-to-speech](https://developers.openai.com/api/docs/guides/text-to-speech) |
 | IA | Google Cloud: o Gemini 3.8 Flash TTS (pré-visualização) passa de 0,50 e 9,00 USD para 1,00 e 18,00 USD por milhão de tokens de texto e de áudio a 2027-01-01; confirmar o preço e se o pt-PT sai da pré-visualização | [https://cloud.google.com/text-to-speech/pricing](https://cloud.google.com/text-to-speech/pricing) |
+| IA | Codex no Windows: com `--sandbox read-only` recusa todos os comandos (0.172.0, `windows_sandbox_service` «under development»); avisar quando um par do Codex passar a ler ficheiros no Windows | [https://learn.chatgpt.com/docs/non-interactive-mode](https://learn.chatgpt.com/docs/non-interactive-mode) |
+| IA | Formas vistas só em corridas a 2026-11-27 e não documentadas: o `rate_limit_event` do Claude Code numa paragem por limite, o `CODEX_OSS_BASE_URL` do Codex e o `VIBE_HOME` do Vibe; e, por confirmar, a paragem por limite no Codex e no Vibe e o id da sessão do Vibe numa corrida com chave | [https://code.claude.com/docs/en/headless](https://code.claude.com/docs/en/headless) |
 | IA (regulação) | Calendário de aplicação do AI Act e alterações do AI Omnibus (ex.: Anexo III a 2/12/2027, Anexo I a 2/8/2028) | [https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) |
 | Publicação | mudanças no plano grátis e nos créditos da Netlify | [https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/) |
 | Publicação | mudanças nos limites e na restrição comercial da Vercel Hobby | [https://vercel.com/docs/plans/hobby](https://vercel.com/docs/plans/hobby) |

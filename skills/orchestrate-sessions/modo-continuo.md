@@ -45,6 +45,7 @@ Três perguntas, uma de cada vez, no formato de `regras.md`. A primeira, o níve
 - **Na sessão aberta**, o orquestrador escreve `estado.json` a cada tarefa. Quando um subagente ou uma sessão morre por limite, a tarefa fica `em curso` e volta a ser lançada depois da pausa, pela sessão aberta se a espera automática a continuar, ou pela tarefa agendada.
 - **Subagentes e sessões em paralelo gastam a mesma quota.** Dez em paralelo gastam-na cerca de dez vezes mais depressa. Com quota curta, a skill reduz o número de sessões em paralelo antes de reduzir o trabalho.
 - **Ao retomar**, a primeira coisa é correr os verificadores e ler as saídas das sessões que terminaram entretanto, para não repetir trabalho.
+- **Uma sessão só, no portal.** Cada corrida da retoma guarda o id da sua sessão em `ultima_sessao` de `estado.json` e a seguinte diz ao portal de agentes que a continua, também quando passa para outra subscrição: lá fica a mesma sessão, com a subscrição nova, sem a anterior como fantasma.
 
 ## Quando uma subscrição acaba
 
@@ -59,7 +60,7 @@ Com mais de uma subscrição registada (`contas-ia.json`, ver «Sessões em par�
 - Em «Máxima», a sessão escreve em «Pausas e retomas» de `sessoes.md` quando o par parou, a hora de reposição e o que fez sem verificação.
 - Para abrir o par noutra subscrição, a sessão abre um par novo (`--nome <nome>-2 --subscricao <outra>`) e manda-lhe na primeira mensagem o resumo do que já se disse. Uma conversa não passa de uma subscrição para outra, porque cada uma guarda as suas sessões na sua pasta.
 - Na retoma, quando uma corrida pára por limite de uso, o script escreve em `sem_quota` a subscrição e a hora de reposição (ou o fim da pausa, se a saída não a traz). Em «Máxima», se outra das `subscricoes` tem quota, passa `subscricao` para essa e a corrida seguinte usa-a, sem pausa. Nos outros níveis faz a pausa de sempre e escreve no `retoma.log` que trocar pede a decisão do utilizador. A subscrição em uso só se dá por gasta quando uma corrida parou nela; as outras também pela linha de estado de cada uma (`estado-uso-contas.json`, ver «Vigiar o uso»).
-- Não confirmado: como uma paragem por limite aparece na saída de `claude -p` não foi visto numa corrida real. A deteção está em `scripts/fornecedores.mjs` e corrige-se aí depois do primeiro caso real; o `par.mjs` guarda a saída bruta de cada falha em `par-<nome>/`.
+- Confirmado a 2026-11-27, numa subscrição Pro sem quota semanal: o `claude -p` em stream-json manda, antes do resultado, um `rate_limit_event` com o estado «rejected», o tipo de limite (`rateLimitType`, por exemplo «seven_day») e a hora de reposição (`resetsAt`), e sai com 1 ao fim de segundos. A deteção está em `scripts/fornecedores.mjs`, que lê esse evento primeiro e o texto do erro como segunda via. No Codex e no Mistral Vibe continua por confirmar; o `par.mjs` guarda a saída bruta de cada falha em `par-<nome>/`.
 
 ## Instalar
 

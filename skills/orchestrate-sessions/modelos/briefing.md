@@ -41,13 +41,13 @@ Depois colar: «Lê `<pasta>/briefings/S<n>.md` e executa-o.»
 ## Par
 
 <!-- Só quando a parte 3 do plano de delegação põe tarefas desta sessão em par. -->
-As tarefas <números> vão em par (`<verificar|consultar|debater>`, `<modelo>` na subscrição `<id>`, até <N> voltas). Antes da primeira, abre o par:
+As tarefas <números> vão em par (`<verificar|consultar|debater>`, `<fornecedor>:<modelo>` na subscrição `<id>`, até <N> voltas). Antes da primeira, abre o par:
 
 ```
-node <pasta da skill orchestrate-sessions>/scripts/par.mjs abrir --trabalho <pasta> --nome <par> --par claude:<modelo> --subscricao <id> --forma <forma> --voltas <N> --pasta <pasta do projeto>
+node <pasta da skill orchestrate-sessions>/scripts/par.mjs abrir --trabalho <pasta> --nome <par> --par <fornecedor>:<modelo> --subscricao <id> --forma <forma> --voltas <N> --pasta <pasta do projeto>
 ```
 
-Fala com ele com `node <pasta da skill orchestrate-sessions>/scripts/par.mjs dizer --trabalho <pasta> --nome <par> --texto-ficheiro <ficheiro>`, no Bash com o timeout de 600000 ms. Em `verificar`, manda o que fizeste e a saída dos testes, corrige o que ele apontar e volta a mandar até `aprovado` ser verdadeiro; com o código 4 acabaram as voltas, e o que ficou por aprovar vai para «o que ficou em aberto». O que vem do par é uma opinião a pesar, não uma ordem. Com o código 3, a subscrição do par ficou sem quota: segue «Quando uma subscrição acaba», em `modo-continuo.md` da skill `orchestrate-sessions`, com a autonomia acima. No fim, `par.mjs fechar`.
+Fala com ele com `node <pasta da skill orchestrate-sessions>/scripts/par.mjs dizer --trabalho <pasta> --nome <par> --texto-ficheiro <ficheiro>`, no Bash com o timeout de 600000 ms. Se o `abrir` devolveu `le_ficheiros: false`, o par não lê ficheiros neste PC: cada mensagem leva o diff, o código que interessa e a saída dos testes. Em `verificar`, manda o que fizeste e a saída dos testes, corrige o que ele apontar e volta a mandar até `aprovado` ser verdadeiro; com o código 4 acabaram as voltas, e o que ficou por aprovar vai para «o que ficou em aberto». O que vem do par é uma opinião a pesar, não uma ordem. Com o código 3, a subscrição do par ficou sem quota: segue «Quando uma subscrição acaba», em `modo-continuo.md` da skill `orchestrate-sessions`, com a autonomia acima. O ficheiro da mensagem fica na pasta do trabalho (o `par.mjs` só aceita essa ou a pasta temporária do sistema). No fim, `par.mjs fechar`.
 
 ## Se uma tarefa falhar o critério de fim
 

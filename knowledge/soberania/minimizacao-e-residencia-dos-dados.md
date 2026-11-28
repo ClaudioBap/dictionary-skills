@@ -5,6 +5,7 @@ seccao: "Soberania digital"
 paginas: [58]
 fonte: Dicionario-Boas-Praticas.pdf
 verificado_em: 2026-11-03
+editado_em: 2026-11-27
 fontes_oficiais_consultadas_em: 2026-11-04
 ---
 
@@ -23,6 +24,8 @@ fontes_oficiais_consultadas_em: 2026-11-04
 
 - [Minimização e retenção](../privacidade/minimizacao-e-retencao.md) (Privacidade e conformidade)
 - [Dados de teste sintéticos e minimização](../seguranca/dados-de-teste-sinteticos-e-minimizacao.md) (Segurança)
+- [Modelos abertos em agentes de código (Ollama com o Codex)](../ia/agentes/modelos-abertos-em-agentes-de-codigo.md) (Construir com IA)
+- [Várias contas de agentes de código no mesmo PC](../ia/agentes/varias-contas-no-mesmo-pc.md) (Construir com IA)
 
 ## Fontes oficiais
 
