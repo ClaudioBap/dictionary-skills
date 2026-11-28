@@ -3,6 +3,7 @@
   "autonomia": "Executar e registar",
   "subscricao": "principal",
   "subscricoes": ["principal"],
+  "papeis_contas": {},
   "terminado": false,
   "pausado_ate": null,
   "falhas_seguidas": 0,

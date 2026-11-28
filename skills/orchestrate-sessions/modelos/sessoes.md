@@ -33,6 +33,8 @@
 
 ### Decisões
 
+Registar o nível de autonomia, as ações que autoriza e quando pede decisão. Com várias contas, guardar o fornecedor, a conta e os papéis de planeamento, execução e verificação. Indicar quem executa o plano aprovado e, se for publicado no portal, o ID do plano na Oficina 3D.
+
 - **Fable:** _por definir_ <!-- sim | não (usa opus com o effort um nível acima) -->
 - **Autonomia:** _por definir_ <!-- um dos quatro níveis de modo-continuo.md; em «Só executar o aprovado», uma dúvida pára a sua tarefa e vai logo ao utilizador; nos outros, as perguntas juntam-se para o fim e o trabalho continua -->
 - **Verificação por outro modelo:** _por definir_ <!-- sem par, e a razão | a forma (consultar a pedido, debater no planeamento, verificar até aprovar), os tipos de tarefa, o modelo e a subscrição de quem verifica e as voltas no máximo; só se pergunta com mais de uma subscrição ou mais de um modelo aceite. --pode-escrever só com a razão aqui -->

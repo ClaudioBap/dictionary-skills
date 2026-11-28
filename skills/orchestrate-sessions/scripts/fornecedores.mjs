@@ -65,6 +65,7 @@ export function subscricaoDaPasta(pasta, contas) {
 }
 
 const claude = {
+  skillsNativas: true,
   nome: "Claude Code",
   comando: "claude",
   // Para os testes: um caminho para outro comando (um .mjs corre com o node).
@@ -270,6 +271,7 @@ const candidatosCodex = (env, plataforma) => {
 const CHAVES_OPENAI = ["OPENAI_API_KEY", "CODEX_API_KEY", "CODEX_ACCESS_TOKEN"];
 
 const codex = {
+  skillsNativas: true,
   nome: "Codex",
   comando: "codex",
   variavelComando: "PAR_CODEX",
@@ -295,6 +297,7 @@ const codex = {
 // com --servidor, um fornecedor próprio na configuração (`model_providers.<id>.base_url`, a forma documentada, porque o
 // id `ollama` é reservado). Nada passa por uma conta: não há subscrição nem quota.
 const local = {
+  skillsNativas: true,
   nome: "Codex com um modelo do Ollama",
   comando: "codex",
   variavelComando: "PAR_CODEX",
@@ -520,7 +523,8 @@ export function escolherSubscricao(estado, { uso = {}, agora = Date.now() } = {}
   const ate = semQuotaAte(atual, estado, {}, agora);
   if (!ate) return { id: atual, trocar: false, sem_quota_ate: null, alternativa: null };
   const lista = Array.isArray(estado.subscricoes) ? estado.subscricoes : [atual];
-  const alternativa = lista.find((id) => id !== atual && !semQuotaAte(id, estado, uso, agora)) ?? null;
+  const podeExecutar = (id) => !["planeador", "verificador"].includes(estado.papeis_contas?.["claude:" + id]);
+  const alternativa = lista.find((id) => id !== atual && podeExecutar(id) && !semQuotaAte(id, estado, uso, agora)) ?? null;
   const trocar = Boolean(alternativa) && MAXIMA.test(String(estado.autonomia ?? "").trim());
   return { id: trocar ? alternativa : atual, trocar, sem_quota_ate: ate, alternativa };
 }

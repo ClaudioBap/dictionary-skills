@@ -747,3 +747,29 @@ test("instruções: as do Claude ficam como estavam; o codex no Windows não lê
   assert.equal(codex.capacidades({ plataforma: "linux", soLeitura: true }).leFicheiros, true);
   assert.match(codex.capacidades({ plataforma: "win32", soLeitura: true }).linha, /pede o que faltar/);
 });
+
+test("o questionário explica os quatro níveis e pede os papéis de contas elegíveis antes de lançar um par", async () => {
+  const { perguntasDaDelegacao } = await import("./delegacao.mjs");
+  const unica = [{ fornecedor: "claude", id: "principal", nome: "Claude" }];
+  const contas = [...unica, { fornecedor: "codex", id: "principal", nome: "Codex" }];
+  assert.deepEqual(perguntasDaDelegacao(unica).map(({id}) => id), ["autonomia"]);
+  const [autonomia, papeis] = perguntasDaDelegacao(contas);
+  assert.equal(autonomia.opcoes.length, 4);
+  assert.ok(autonomia.opcoes.every(({acoes, pergunta}) => acoes && pergunta));
+  assert.deepEqual(papeis.opcoes.map(({id}) => id), ["separar", "planear-em-conjunto", "personalizar"]);
+  assert.deepEqual(perguntasDaDelegacao(contas, "Máxima").map(({id}) => id), ["papeis_contas"]);
+});
+
+test("uma conta planeadora participa no debate em leitura e a executora não substitui a planeadora", () => {
+  const c = cenario();
+  writeFileSync(join(c.trabalho, "estado.json"), JSON.stringify({ papeis_contas: {
+    "claude:principal": "executor",
+    "codex:chatgpt-2": "planeador",
+  } }));
+  const pode = abrir(c, "plano-codex", ["--subscricao", "chatgpt-2", "--forma", "debater"], "codex:gpt-5.5");
+  assert.equal(pode.codigo, 0);
+  assert.equal(pode.json.pode_escrever, false);
+  const executora = abrir(c, "plano-claude", ["--forma", "debater"]);
+  assert.equal(executora.codigo, 2);
+  assert.match(executora.stderr, /escolhida para executar/);
+});

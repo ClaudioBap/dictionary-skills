@@ -32,6 +32,7 @@ import {
   ambienteDoPar,
   executavel,
   lerJson,
+  pastaBase,
   prepararExecucao,
   resolverSubscricao,
   urlDoServidor,
@@ -204,6 +205,15 @@ function abrir(argv) {
     throw new ErroUso(erro.message);
   }
 
+  const papeis = lerJson(join(trabalho, "estado.json"), {}).papeis_contas;
+  const papel = papeis?.[fornecedorId + ":" + (subscricao.id ?? PRINCIPAL)];
+  if (papel === "planeador" && (opcoes.forma !== "debater" || opcoes["pode-escrever"])) {
+    throw new ErroUso("Esta conta foi escolhida só para planear em leitura. Usa --forma debater sem escrita.");
+  }
+  if (papel === "executor" && opcoes.forma === "debater") {
+    throw new ErroUso("Esta conta foi escolhida para executar. Para debater o plano, escolhe uma conta planeadora.");
+  }
+
   const dados = lerPares(trabalho);
   if (dados.pares.some((p) => p.nome === nome)) throw new ErroUso(`já existe um par «${nome}» neste trabalho: usa outro --nome`);
   const agora = new Date().toISOString();
@@ -332,13 +342,21 @@ async function dizer(argv) {
     definicoes,
   });
   const execucao = prepararExecucao(executavel(fornecedor), args);
+  const textoDoPar = pedidoDaVolta(par, volta, texto);
+  const ficheiroSkills = join(pastaBase(), "cid", "agente", "skills.mjs");
+  const entrega = existsSync(ficheiroSkills) && !par.sessao
+    ? await import(pathToFileURL(ficheiroSkills).href).then(({ prepararSkillsParaSessao }) => prepararSkillsParaSessao({
+      texto: textoDoPar, leFicheiros: par.le_ficheiros, nativas: fornecedor.skillsNativas && par.le_ficheiros,
+    })).catch(() => null)
+    : null;
   // O prazo de uma volta: 20 minutos, ou o do fornecedor quando o diz (um modelo local sem GPU é mais lento).
   const prazoMs = (fornecedor.prazoMinutos ?? PRAZO_MS / 60_000) * 60_000;
   const r = await correr(execucao, {
-    entrada: pedidoDaVolta(par, volta, texto),
+    entrada: entrega?.texto ?? textoDoPar,
     cwd: par.pasta,
     env: {
       ...ambienteDoPar(fornecedor, process.env, par.pasta_conta),
+      ...entrega?.env,
       // O portal de agentes (2026-11-27, sessões sem fantasmas): o par não é uma sessão solta, é o par desta.
       CID_PAPEL: "par",
       ...(par.par_de ? { CID_PAR_DE: par.par_de } : {}),
