@@ -7,7 +7,8 @@
 //   node par.mjs abrir --trabalho <pasta> --nome <par> --par <fornecedor>:<modelo> [--subscricao <id> | --pasta-conta <pasta>]
 //                      --forma <verificar|consultar|debater> [--voltas 5] --pasta <pasta do projeto> [--pode-escrever]
 //                      [--servidor <url do Ollama>]   (só com local:)   [--sessao <id da sessão que trabalha>]
-//   node par.mjs dizer --trabalho <pasta> --nome <par> [--texto-ficheiro <ficheiro>]   (sem ficheiro, lê o stdin)
+//   node par.mjs dizer --trabalho <pasta> --nome <par> [--texto-ficheiro <ficheiro>]   (sem ficheiro, lê o stdin; o
+//                      ficheiro tem de estar na pasta do trabalho ou na pasta temporária do sistema)
 //   node par.mjs estado --trabalho <pasta> [--nome <par>]
 //   node par.mjs fechar --trabalho <pasta> --nome <par>
 //
@@ -16,12 +17,14 @@
 //
 // Códigos de saída: 0 feito; 1 o par falhou; 2 erro de uso; 3 a subscrição do par está sem quota; 4 acabaram as voltas.
 //
-// O par só lê por omissão (no Claude, --permission-mode plan): quem verifica não deve mudar o que está a julgar, duas
-// sessões a escrever na mesma pasta pisam-se, e o que chega da outra sessão podia levá-lo a mexer onde não devia.
+// O par só lê por omissão (no Claude, --permission-mode plan e só as ferramentas de ler e pesquisar): quem verifica não
+// deve mudar o que está a julgar, duas sessões a escrever na mesma pasta pisam-se, e o que chega da outra sessão podia
+// levá-lo a mexer onde não devia.
 
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, realpathSync, renameSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import {
   FORNECEDORES,
@@ -185,6 +188,9 @@ function abrir(argv) {
       throw new ErroUso(erro.message);
     }
   }
+  if (opcoes["pode-escrever"] && fornecedor.semEscritaNoWindows && process.platform === "win32") {
+    throw new ErroUso(`--pode-escrever não serve para um par ${fornecedorId}: no Windows, a sandbox de escrita do Codex não está confirmada`);
+  }
   if (!FORMAS.includes(opcoes.forma)) throw new ErroUso(`--forma tem de ser uma de: ${FORMAS.join(", ")}`);
   const voltas = opcoes.voltas === undefined ? VOLTAS_OMISSAO : Number(opcoes.voltas);
   if (!Number.isInteger(voltas) || voltas < 1 || voltas > VOLTAS_MAX) throw new ErroUso(`--voltas vai de 1 a ${VOLTAS_MAX}`);
@@ -261,8 +267,29 @@ function correr({ ficheiro, argumentos, opcoes }, { entrada, cwd, env, prazoMs }
   });
 }
 
-function lerTexto(opcoes) {
-  const texto = opcoes["texto-ficheiro"] ? readFileSync(resolve(opcoes["texto-ficheiro"]), "utf8") : readFileSync(0, "utf8");
+// A mensagem só vem de um ficheiro da pasta do trabalho ou da pasta temporária do sistema, onde as sessões a escrevem.
+// Outro caminho podia mandar ao par um ficheiro que ele não deve ver (um .env, uma chave). O caminho resolve-se até ao
+// fim, com as ligações, antes de se comparar.
+function ficheiroDaMensagem(caminho, trabalho) {
+  let real;
+  try {
+    real = realpathSync.native(resolve(caminho));
+  } catch {
+    throw new ErroUso(`o ficheiro da mensagem não existe: ${caminho}`);
+  }
+  const dentro = (pasta) => {
+    const relativo = relative(realpathSync.native(pasta), real);
+    return relativo !== "" && relativo !== ".." && !relativo.startsWith(`..${sep}`) && !isAbsolute(relativo);
+  };
+  if (![trabalho, tmpdir()].some(dentro)) {
+    throw new ErroUso(`--texto-ficheiro tem de estar na pasta do trabalho ou na pasta temporária do sistema (${tmpdir()}): ${real}`);
+  }
+  if (!statSync(real).isFile()) throw new ErroUso(`--texto-ficheiro não é um ficheiro: ${real}`);
+  return real;
+}
+
+function lerTexto(opcoes, trabalho) {
+  const texto = opcoes["texto-ficheiro"] ? readFileSync(ficheiroDaMensagem(opcoes["texto-ficheiro"], trabalho), "utf8") : readFileSync(0, "utf8");
   if (!texto.trim()) throw new ErroUso("a mensagem está vazia");
   if (texto.length > MAX_CARACTERES) {
     throw new ErroUso(`a mensagem tem ${texto.length} caracteres e o máximo é ${MAX_CARACTERES}: resume-a ou aponta ficheiros e linhas`);
@@ -281,7 +308,7 @@ async function dizer(argv) {
     imprimir({ erro: "acabaram as voltas", volta: par.volta, voltas: par.voltas, aprovado: par.aprovado });
     return SAIDA.semVoltas;
   }
-  const texto = lerTexto(opcoes);
+  const texto = lerTexto(opcoes, trabalho);
 
   const volta = par.volta + 1;
   const numero = String(volta).padStart(2, "0");
@@ -293,12 +320,16 @@ async function dizer(argv) {
   const fornecedor = FORNECEDORES[par.fornecedor];
   // Onde o fornecedor deixa o relatório da volta, quando o escreve (o export.json do Vibe).
   const pastaVolta = join(pastaPar, `${numero}-exportacao`);
+  // As definições do fornecedor, quando as tem (no Claude, o que as ferramentas não podem ler), num ficheiro.
+  const definicoes = fornecedor.definicoes ? join(pastaPar, "definicoes.json") : null;
+  if (definicoes) writeFileSync(definicoes, JSON.stringify(fornecedor.definicoes, null, 2) + "\n");
   const args = fornecedor.argumentos({
     modelo: par.modelo,
     sessao: par.sessao,
     soLeitura: !par.pode_escrever,
     servidor: par.servidor ?? null,
     pastaVolta,
+    definicoes,
   });
   const execucao = prepararExecucao(executavel(fornecedor), args);
   // O prazo de uma volta: 20 minutos, ou o do fornecedor quando o diz (um modelo local sem GPU é mais lento).

@@ -6,7 +6,7 @@
 import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,6 +20,7 @@ import {
   prepararExecucao,
   resolverSubscricao,
   subscricaoDaPasta,
+  urlDoServidor,
 } from "./fornecedores.mjs";
 import { instrucoes, terminaEmAprovado } from "./par.mjs";
 
@@ -64,6 +65,9 @@ function cenario() {
     ANTHROPIC_API_KEY: "chave-de-teste",
     OPENAI_API_KEY: "chave-de-teste",
     MISTRAL_API_KEY: "chave-de-teste",
+    // Tokens que não são de nenhum fornecedor: nunca chegam ao par.
+    GH_TOKEN: "token-de-teste",
+    CLOUDFLARE_API_TOKEN: "token-de-teste",
     // O Claude Code põe o id da sessão no ambiente das ferramentas: os testes começam sem ele.
     CLAUDE_CODE_SESSION_ID: "",
     CLAUDE_SESSION_ID: "",
@@ -127,13 +131,27 @@ test("subscrição para pasta: principal, registada, indicada e desconhecida", (
   assert.equal(subscricaoDaPasta(c.raiz, contas), c.raiz);
 });
 
-test("argumentos do claude: só leitura por omissão e --resume só com sessão", () => {
-  const primeira = claude.argumentos({ modelo: "opus" });
-  assert.deepEqual(primeira, ["-p", "--output-format", "stream-json", "--verbose", "--model", "opus", "--permission-mode", "plan"]);
-  const seguinte = claude.argumentos({ modelo: "sonnet", sessao: "0a1b2c3d-1111", soLeitura: false });
-  assert.deepEqual(seguinte.slice(-4), ["--permission-mode", "acceptEdits", "--resume", "0a1b2c3d-1111"]);
-  assert.throws(() => claude.argumentos({ modelo: "gpt" }), /modelo desconhecido/);
-  assert.throws(() => claude.argumentos({ modelo: "opus", sessao: "abc & del" }), /id de sessão inválido/);
+test("argumentos do claude: só leitura por omissão, só as ferramentas do papel, sem MCP, as definições e --resume só com sessão", () => {
+  const definicoes = "C:\\t\\par-x\\definicoes.json";
+  const primeira = claude.argumentos({ modelo: "opus", definicoes });
+  assert.deepEqual(primeira, [
+    ...["-p", "--output-format", "stream-json", "--verbose", "--model", "opus", "--permission-mode", "plan"],
+    ...["--tools", "Read,Grep,Glob", "--strict-mcp-config", "--settings", definicoes],
+  ]);
+  const seguinte = claude.argumentos({ modelo: "sonnet", sessao: "0a1b2c3d-1111", soLeitura: false, definicoes });
+  assert.deepEqual(seguinte.slice(-9), [
+    ...["--permission-mode", "acceptEdits", "--tools", "Read,Grep,Glob,Edit,Write", "--strict-mcp-config", "--settings", definicoes],
+    ...["--resume", "0a1b2c3d-1111"],
+  ]);
+  assert.throws(() => claude.argumentos({ modelo: "opus" }), /definições/);
+  assert.throws(() => claude.argumentos({ modelo: "gpt", definicoes }), /modelo desconhecido/);
+  assert.throws(() => claude.argumentos({ modelo: "opus", sessao: "abc & del", definicoes }), /id de sessão inválido/);
+  // As regras que a volta real de 2026-11-28 provou: o .env do projeto e a pasta acima dele recusados.
+  const { permissions } = claude.definicoes;
+  assert.equal(permissions.blockReadsOutsideWorkingDirectories, true);
+  for (const regra of ["Read(//**/.env)", "Read(//**/.env.*)", "Read(//**/.credentials.json)", "Read(~/.ssh/**)", "Read(~/.start-project-with-trust/**)", "Read(~/.codex/**)", "Read(~/.vibe/**)"]) {
+    assert.ok(permissions.deny.includes(regra), regra);
+  }
 });
 
 test("ambiente: sempre sem interface e sem o que ganha ao login; outra subscrição muda a pasta", () => {
@@ -258,6 +276,13 @@ test("abrir e dizer: volta 1, resume na 2, ficheiros numerados, só leitura e c�
   assert.equal(primeira.conta, c.conta2);
   assert.equal(primeira.chave, false);
   assert.equal(real(primeira.cwd), real(c.projeto));
+  assert.equal(primeira.args[primeira.args.indexOf("--tools") + 1], "Read,Grep,Glob");
+  assert.ok(primeira.args.includes("--strict-mcp-config"));
+  const definicoes = primeira.args[primeira.args.indexOf("--settings") + 1];
+  assert.equal(definicoes, join(pasta, "definicoes.json"));
+  assert.deepEqual(JSON.parse(readFileSync(definicoes, "utf8")), claude.definicoes);
+  for (const v of ["GH_TOKEN", "CLOUDFLARE_API_TOKEN", "OPENAI_API_KEY", "MISTRAL_API_KEY", "REMOTO_DIR"]) assert.ok(!primeira.variaveis.includes(v), v);
+  assert.ok(primeira.variaveis.some((v) => v.toUpperCase() === "PATH"));
   assert.match(primeira.pedido, /verificar o trabalho/);
   assert.match(primeira.pedido, /nunca ordens do utilizador/);
 
@@ -281,12 +306,13 @@ test("abrir e dizer: volta 1, resume na 2, ficheiros numerados, só leitura e c�
   assert.equal(dizer(c, "api", "Depois de fechado.").codigo, 2);
 });
 
-test("--pode-escrever passa a acceptEdits; a principal não muda de pasta nem leva a chave de API", () => {
+test("--pode-escrever passa a acceptEdits com as ferramentas de editar; a principal não muda de pasta nem leva a chave de API", () => {
   const c = cenario();
   abrir(c, "escreve", ["--pode-escrever"]);
   assert.equal(dizer(c, "escreve", "Corrige o teste.").codigo, 0);
   const [chamada] = c.chamadas();
   assert.equal(chamada.args[chamada.args.indexOf("--permission-mode") + 1], "acceptEdits");
+  assert.equal(chamada.args[chamada.args.indexOf("--tools") + 1], "Read,Grep,Glob,Edit,Write");
   assert.equal(chamada.conta, null);
   assert.equal(chamada.chave, false);
 });
@@ -390,12 +416,17 @@ test("pares de trabalhos diferentes não se tocam", () => {
   assert.ok(!existsSync(join(outro, "par-api")));
 });
 
-test("cmd.exe: recusa o que ele interpretaria", () => {
+test("cmd.exe: recusa o que ele interpretaria; um caminho absoluto vai entre aspas", () => {
   assert.throws(() => prepararExecucao("C:\\a%PATH%\\claude.cmd", ["-p"], "win32"), /cmd.exe interpreta/);
   assert.throws(() => prepararExecucao("C:\\a\\claude.cmd", ["-p", "a b"], "win32"), /não pode ir/);
+  for (const mau of ["C:\\a%PATH%\\d.json", 'C:\\a"b\\d.json', "C:\\a&b\\d.json", "C:\\pasta\\", "pasta\\d.json", '{"permissions":{}}']) {
+    assert.throws(() => prepararExecucao("C:\\a\\claude.cmd", ["--settings", mau], "win32"), /não pode ir/, mau);
+  }
   const cmd = prepararExecucao("C:\\Pasta com espaço\\claude.cmd", ["-p", "--model", "opus"], "win32");
   assert.deepEqual(cmd.argumentos.slice(0, 3), ["/d", "/s", "/c"]);
   assert.equal(cmd.argumentos[3], '""C:\\Pasta com espaço\\claude.cmd" -p --model opus"');
+  const comCaminho = prepararExecucao("C:\\a\\claude.cmd", ["--tools", "Read,Grep,Glob", "--settings", "C:\\Trabalho com espaço\\par-x\\definicoes.json"], "win32");
+  assert.equal(comCaminho.argumentos[3], '""C:\\a\\claude.cmd" --tools Read,Grep,Glob --settings "C:\\Trabalho com espaço\\par-x\\definicoes.json""');
   assert.equal(prepararExecucao("/x/falso.mjs", ["-p"], "linux").ficheiro, process.execPath);
 });
 
@@ -407,11 +438,18 @@ test("cmd.exe: um .cmd com espaço e acento no caminho corre de ponta a ponta", 
   mkdirSync(bin);
   const comando = join(bin, "claude.cmd");
   writeFileSync(comando, `@"${process.execPath}" "%~dp0..\\claude-falso.mjs" %*\r\n`);
-  abrir(c, "cmd");
-  const r = dizer(c, "cmd", "Pelo cmd.exe. APROVA-ME", { extra: { PAR_CLAUDE: comando } });
+  // O ficheiro das definições também numa pasta com espaço e acento: vai entre aspas pelo cmd.exe.
+  const trabalho = join(c.raiz, "trabalho com espaço");
+  mkdirSync(trabalho);
+  const aberto = c.par(["abrir", "--trabalho", trabalho, "--nome", "cmd", "--par", "claude:opus", "--forma", "verificar", "--pasta", c.projeto]);
+  assert.equal(aberto.codigo, 0, aberto.stderr);
+  const r = c.par(["dizer", "--trabalho", trabalho, "--nome", "cmd", "--texto-ficheiro", c.mensagem("Pelo cmd.exe. APROVA-ME")], { extra: { PAR_CLAUDE: comando } });
   assert.equal(r.codigo, 0, r.stderr);
   assert.equal(r.json.aprovado, true);
-  assert.equal(c.chamadas()[0].args.join(" "), "-p --output-format stream-json --verbose --model opus --permission-mode plan");
+  assert.deepEqual(c.chamadas()[0].args, [
+    ...["-p", "--output-format", "stream-json", "--verbose", "--model", "opus", "--permission-mode", "plan"],
+    ...["--tools", "Read,Grep,Glob", "--strict-mcp-config", "--settings", join(trabalho, "par-cmd", "definicoes.json")],
+  ]);
 });
 
 test("retoma: troca de subscrição só em «Máxima» e só para uma com quota", () => {
@@ -480,13 +518,39 @@ test("argumentos do vibe: em leitura só ler e pesquisar, em escrita accept-edit
   assert.ok(!primeira.includes("--auto-approve") && !seguinte.includes("--auto-approve"));
 });
 
-test("ambiente do par: só a chave de que o fornecedor precisa, nunca a de outro", () => {
-  const env = { PATH: "x", ANTHROPIC_API_KEY: "a", OPENAI_API_KEY: "o", CODEX_API_KEY: "c", MISTRAL_API_KEY: "m" };
-  assert.deepEqual(ambienteDoPar(claude, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1" });
-  assert.deepEqual(ambienteDoPar(codex, env, "C:/contas/chatgpt-2"), { PATH: "x", RETOMA_SEM_INTERFACE: "1", CODEX_HOME: "C:/contas/chatgpt-2" });
-  assert.deepEqual(ambienteDoPar(local, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1" });
-  assert.deepEqual(ambienteDoPar(vibe, env, null), { PATH: "x", RETOMA_SEM_INTERFACE: "1", MISTRAL_API_KEY: "m" });
-  // O ambienteDaConta (o do retomar.mjs) continua a tirar só as do próprio fornecedor.
+test("ambiente do par: lista fechada, com as variáveis do próprio fornecedor e nenhum token de fora", () => {
+  const base = { Path: "x", SystemRoot: "C:\\Windows", "ProgramFiles(x86)": "C:\\PF86", XDG_CONFIG_HOME: "/h/.config", https_proxy: "http://p:3128", LANG: "pt_PT.UTF-8" };
+  const env = {
+    ...base,
+    ANTHROPIC_API_KEY: "a",
+    OPENAI_API_KEY: "o",
+    CODEX_API_KEY: "c",
+    MISTRAL_API_KEY: "m",
+    GH_TOKEN: "g",
+    CLOUDFLARE_API_TOKEN: "cf",
+    AWS_SECRET_ACCESS_KEY: "aws",
+    CLAUDE_CODE_MESSAGING_TOKEN: "t",
+    CID_PAR_DE: "outra",
+    CLAUDE_CONFIG_DIR: "C:/contas/c3",
+    CODEX_HOME: "C:/contas/codex",
+    OLLAMA_HOST: "127.0.0.1:11434",
+    CODEX_OSS_BASE_URL: "http://127.0.0.1:11434/v1",
+    FALSO_MODO: "normal",
+  };
+  // O modo sem interface vai sempre, e a variável dos testes passa.
+  const sempre = { RETOMA_SEM_INTERFACE: "1", FALSO_MODO: "normal" };
+  assert.deepEqual(ambienteDoPar(claude, env, null), { ...base, ...sempre, CLAUDE_CONFIG_DIR: "C:/contas/c3" });
+  assert.deepEqual(ambienteDoPar(claude, env, "C:/contas/c2"), { ...base, ...sempre, CLAUDE_CONFIG_DIR: "C:/contas/c2" });
+  assert.deepEqual(ambienteDoPar(codex, env, "C:/contas/chatgpt-2"), { ...base, ...sempre, CODEX_HOME: "C:/contas/chatgpt-2" });
+  assert.deepEqual(ambienteDoPar(local, env, null), {
+    ...base,
+    ...sempre,
+    CODEX_HOME: "C:/contas/codex",
+    OLLAMA_HOST: "127.0.0.1:11434",
+    CODEX_OSS_BASE_URL: "http://127.0.0.1:11434/v1",
+  });
+  assert.deepEqual(ambienteDoPar(vibe, env, null), { ...base, ...sempre, MISTRAL_API_KEY: "m" });
+  // O ambienteDaConta (o do retomar.mjs, a sessão do próprio utilizador) continua a tirar só as do próprio fornecedor.
   assert.equal(ambienteDaConta(claude, env, null).OPENAI_API_KEY, "o");
 });
 
@@ -535,6 +599,7 @@ test("par codex: conta pelo CODEX_HOME, sem chaves, resume na volta 2 e o que o 
   assert.ok(!primeira.args.includes("resume"));
   assert.equal(primeira.conta, c.contaCodex);
   assert.deepEqual(primeira.chaves, []);
+  assert.ok(!primeira.variaveis.includes("GH_TOKEN") && !primeira.variaveis.includes("CLOUDFLARE_API_TOKEN"));
   assert.equal(primeira.sem_interface, "1");
   assert.equal(real(primeira.cwd), real(c.projeto));
   assert.match(primeira.pedido, /português de Portugal/);
@@ -584,6 +649,58 @@ test("par local: modelo com etiqueta, --oss ou o servidor, sem conta nem chaves"
   assert.equal(pc.conta, null);
   assert.deepEqual(pc.chaves, []);
   assert.ok(servidor.args.includes("model_providers.par_ollama.base_url=http://127.0.0.1:11435/v1"));
+});
+
+test("--servidor: em http só esta máquina, outra só por https", () => {
+  assert.equal(urlDoServidor("http://localhost:11434"), "http://localhost:11434");
+  assert.equal(urlDoServidor("http://127.0.0.1:11435/v1"), "http://127.0.0.1:11435");
+  assert.equal(urlDoServidor("http://[::1]:11435/"), "http://[::1]:11435");
+  assert.equal(urlDoServidor("https://ollama.exemplo.pt"), "https://ollama.exemplo.pt");
+  assert.equal(urlDoServidor("https://ollama.exemplo.pt:8443/v1"), "https://ollama.exemplo.pt:8443");
+  for (const mau of ["http://192.168.1.10:11434", "http://casa:11434", "http://localhost.exemplo.pt", "http://127.0.0.1.nip.io", "http://[::2]:11434", "ftp://localhost"]) {
+    assert.throws(() => urlDoServidor(mau), /--servidor/, mau);
+  }
+  const c = cenario();
+  const r = abrir(c, "rede", ["--servidor", "http://192.168.1.10:11434"], "local:qwen3-8b-16k:latest");
+  assert.equal(r.codigo, 2);
+  assert.match(r.stderr, /https/);
+  assert.equal(abrir(c, "tunel", ["--servidor", "http://[::1]:11435"], "local:qwen3-8b-16k:latest").codigo, 0);
+});
+
+test("--pode-escrever: recusado no codex e no local no Windows, aceite no claude e no vibe", () => {
+  const c = cenario();
+  for (const [nome, par] of [["gpt", "codex:gpt-5.5"], ["oss", "local:qwen3-8b-16k:latest"]]) {
+    const r = abrir(c, nome, ["--pode-escrever"], par);
+    assert.equal(r.codigo, WINDOWS ? 2 : 0, r.stderr);
+    if (WINDOWS) assert.match(r.stderr, /sandbox de escrita do Codex/);
+  }
+  assert.equal(abrir(c, "claude", ["--pode-escrever"]).codigo, 0);
+  assert.equal(abrir(c, "eu", ["--pode-escrever"], "vibe:mistral-large-4-0").codigo, 0);
+  assert.equal(codex.semEscritaNoWindows && local.semEscritaNoWindows, true);
+  assert.ok(!claude.semEscritaNoWindows && !vibe.semEscritaNoWindows);
+});
+
+test("--texto-ficheiro: só da pasta do trabalho ou da pasta temporária, resolvido até ao fim", () => {
+  const c = cenario();
+  abrir(c, "msg");
+  // A mensagem do cenário fica na pasta temporária, e passa.
+  const temporaria = dizer(c, "msg", "x");
+  assert.equal(temporaria.codigo, 0, temporaria.stderr);
+  // Um ficheiro que existe fora das duas pastas (o próprio par.mjs) não passa, nem um que não existe, nem uma pasta.
+  const recusado = c.par(["dizer", "--trabalho", c.trabalho, "--nome", "msg", "--texto-ficheiro", join(AQUI, "par.mjs")]);
+  assert.equal(recusado.codigo, 2);
+  assert.match(recusado.stderr, /pasta do trabalho ou na pasta temporária/);
+  assert.equal(c.par(["dizer", "--trabalho", c.trabalho, "--nome", "msg", "--texto-ficheiro", join(c.raiz, "nao-existe.md")]).codigo, 2);
+  assert.equal(c.par(["dizer", "--trabalho", c.trabalho, "--nome", "msg", "--texto-ficheiro", c.raiz]).codigo, 2);
+  // Uma ligação dentro do trabalho para fora dele conta pelo sítio para onde aponta (junção no Windows, que não pede
+  // privilégios).
+  symlinkSync(AQUI, join(c.trabalho, "ligacao"), "junction");
+  const ligado = c.par(["dizer", "--trabalho", c.trabalho, "--nome", "msg", "--texto-ficheiro", join(c.trabalho, "ligacao", "par.mjs")]);
+  assert.equal(ligado.codigo, 2);
+  // Dentro do trabalho passa.
+  writeFileSync(join(c.trabalho, "mensagem.md"), "Do trabalho.");
+  assert.equal(c.par(["dizer", "--trabalho", c.trabalho, "--nome", "msg", "--texto-ficheiro", join(c.trabalho, "mensagem.md")]).codigo, 0);
+  assert.equal(c.chamadas().length, 2);
 });
 
 test("par vibe: só a chave da Mistral, sessão do export.json, resume e só leitura", () => {

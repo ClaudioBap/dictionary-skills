@@ -11,7 +11,10 @@ export const PRINCIPAL = "principal";
 const ID_SUBSCRICAO = /^[a-z0-9][a-z0-9-]{0,29}$/;
 const ID_SESSAO = /^[A-Za-z0-9][A-Za-z0-9-]{7,63}$/;
 // O que pode ir na linha de comandos do cmd.exe: valores das listas fechadas e ids de sessão.
-const ARGUMENTO_SEGURO = /^[A-Za-z0-9._:=-]+$/;
+const ARGUMENTO_SEGURO = /^[A-Za-z0-9._:=,-]+$/;
+// E um caminho absoluto do Windows, entre aspas, sem o que o cmd.exe interpreta mesmo entre aspas e sem uma barra no
+// fim (que tiraria o valor à aspa de fecho).
+const CAMINHO_SEGURO = /^[A-Za-z]:\\[^"%^&|<>!\r\n]*[^"%^&|<>!\r\n\\]$/;
 const MAXIMA = /^m[aá]xima$/i;
 
 // A pasta do agente do portal neste PC; o registo das subscrições é o contas-ia.json dela.
@@ -72,11 +75,28 @@ const claude = {
   // Numa corrida -p ganham ao login da subscrição: com elas no ambiente, a pasta da conta não contava e a sessão podia
   // faturar à API (knowledge/portais-de-agentes/agente-local-licenca-e-emparelhamento.md).
   variaveisQueGanham: ["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"],
-  // As chaves deste fornecedor, que nunca chegam ao par de outro (ambienteDoPar).
-  segredos: ["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN"],
+  // As variáveis do próprio fornecedor que chegam ao par, além das de base (ambienteDoPar).
+  ambiente: ["CLAUDE_CONFIG_DIR"],
   // O par não tem a quem perguntar: os hooks do portal de agentes não esperam por ninguém, como no retomar.mjs. Sem
   // isto, o hook Stop ficava à escuta de instruções do portal e a volta nunca acabava (visto a 2026-11-27).
   ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  // O que vai em --settings, num ficheiro da pasta do par (o JSON não passava pelo cmd.exe): as ferramentas de
+  // ficheiros recusam o que está fora da pasta do projeto e, em qualquer sítio, os .env, as credenciais das contas e as
+  // pastas das chaves. As regras seguem o gitignore: «//» é a raiz do disco e «~/» a pasta do utilizador.
+  definicoes: {
+    permissions: {
+      blockReadsOutsideWorkingDirectories: true,
+      deny: [
+        "Read(//**/.env)",
+        "Read(//**/.env.*)",
+        "Read(//**/.credentials.json)",
+        "Read(~/.ssh/**)",
+        "Read(~/.start-project-with-trust/**)",
+        "Read(~/.codex/**)",
+        "Read(~/.vibe/**)",
+      ],
+    },
+  },
   contas: lerContasClaude,
 
   candidatos(env, plataforma) {
@@ -87,12 +107,16 @@ const claude = {
     ].filter(Boolean);
   },
 
-  // Uma volta: o pedido vai sempre pelo stdin, e nos argumentos só entram valores das listas fechadas.
-  argumentos({ modelo, sessao = null, soLeitura = true }) {
+  // Uma volta: o pedido vai sempre pelo stdin, e nos argumentos só entram valores das listas fechadas e o caminho do
+  // ficheiro das definições. O par só tem as ferramentas de ler e pesquisar (mais as de editar com --pode-escrever),
+  // sem a shell nem a web, e nenhum servidor MCP do utilizador.
+  argumentos({ modelo, sessao = null, soLeitura = true, definicoes = null }) {
     if (!claude.modelos.includes(modelo)) throw new Error(`modelo desconhecido no Claude Code: ${modelo}`);
     if (sessao !== null && !ID_SESSAO.test(sessao)) throw new Error(`id de sessão inválido: ${sessao}`);
+    if (!definicoes) throw new Error("falta o ficheiro das definições do par");
     const args = ["-p", "--output-format", "stream-json", "--verbose", "--model", modelo];
     args.push("--permission-mode", soLeitura ? "plan" : "acceptEdits");
+    args.push("--tools", soLeitura ? "Read,Grep,Glob" : "Read,Grep,Glob,Edit,Write", "--strict-mcp-config", "--settings", definicoes);
     if (sessao) args.push("--resume", sessao);
     return args;
   },
@@ -144,12 +168,17 @@ const claude = {
 // levam sempre a etiqueta (qwen3-8b-16k:latest): sem ela, o Codex tenta descarregar o modelo e falha (visto a 2026-11-27).
 const MODELO_SIMPLES = /^[a-z0-9][a-z0-9._-]{0,63}$/;
 const MODELO_OLLAMA = /^[a-z0-9][a-z0-9._-]{0,63}:[a-z0-9][a-z0-9._-]{0,63}$/;
-// O Ollama de um servidor, normalmente por um túnel SSH (http://127.0.0.1:11435). Aceita o /v1 no fim, que se tira.
-const SERVIDOR_OLLAMA = /^(https?:\/\/[A-Za-z0-9.-]+(?::\d{1,5})?)(?:\/v1)?\/?$/;
+// O Ollama de um servidor, normalmente por um túnel SSH (http://127.0.0.1:11435). Em http só esta máquina, porque o
+// pedido leva o código do projeto; outra máquina só por https. Aceita o /v1 no fim, que se tira.
+const SERVIDOR_OLLAMA = /^((?:http:\/\/(?:localhost|127\.0\.0\.1|\[::1\])|https:\/\/[A-Za-z0-9.-]+)(?::\d{1,5})?)(?:\/v1)?\/?$/;
 
 export function urlDoServidor(valor) {
   const m = SERVIDOR_OLLAMA.exec(String(valor ?? ""));
-  if (!m) throw new Error(`--servidor tem de ser http://<máquina>:<porta>, por exemplo http://127.0.0.1:11435: ${valor}`);
+  if (!m) {
+    throw new Error(
+      `--servidor tem de ser http://localhost, http://127.0.0.1 ou http://[::1] com a porta (por exemplo o túnel SSH em http://127.0.0.1:11435), ou um endereço https://: ${valor}`,
+    );
+  }
   return m[1];
 }
 
@@ -187,14 +216,14 @@ function falhaDaVolta(eventos, indicios, { texto = "", sessao = null, codigo }) 
 
 // O que o par do Codex consegue fazer: no Windows, a sandbox só de leitura recusa todos os comandos («blocked by
 // policy»), por isso o par não lê ficheiros e tudo tem de ir na mensagem (visto a 2026-11-27, Codex 0.172.0, com o
-// windows_sandbox_service ainda «under development»). Em escrita, no Windows, não confirmado: conta-se com o mesmo.
+// windows_sandbox_service ainda «under development»). Em escrita, no Windows, não confirmado: o par.mjs recusa-a
+// (semEscritaNoWindows).
 function capacidadesCodex({ plataforma, soLeitura }) {
   if (plataforma === "win32") {
     return {
       leFicheiros: false,
-      linha: soLeitura
-        ? "Neste PC (Windows), a sandbox só de leitura recusa todos os comandos: não consegues ler ficheiros nem correr nada, e não alteras nada. O diff, o código que interessa e a saída dos testes vêm na mensagem. Onde o teu papel diz para confirmares nos ficheiros, confirma no que vem na mensagem, e pede o que faltar em vez de adivinhares."
-        : "Neste PC (Windows) não é certo que consigas ler ou alterar ficheiros: conta com o que vem na mensagem (o diff, o código que interessa e a saída dos testes) e pede o que faltar em vez de adivinhares. Se conseguires alterar ficheiros, fá-lo só quando a mensagem o pedir de forma explícita e isso couber no teu papel.",
+      linha:
+        "Neste PC (Windows), a sandbox só de leitura recusa todos os comandos: não consegues ler ficheiros nem correr nada, e não alteras nada. O diff, o código que interessa e a saída dos testes vêm na mensagem. Onde o teu papel diz para confirmares nos ficheiros, confirma no que vem na mensagem, e pede o que faltar em vez de adivinhares.",
     };
   }
   return {
@@ -250,8 +279,11 @@ const codex = {
   variavelConta: "CODEX_HOME",
   // Com uma chave no ambiente, a volta podia faturar à API em vez de gastar o plano do ChatGPT da conta.
   variaveisQueGanham: CHAVES_OPENAI,
-  segredos: CHAVES_OPENAI,
+  // O login fica na pasta CODEX_HOME: nenhuma chave da OpenAI chega ao par.
+  ambiente: ["CODEX_HOME"],
   ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  // A sandbox de escrita do Codex no Windows não está confirmada: o par.mjs recusa --pode-escrever.
+  semEscritaNoWindows: true,
   contas: (env) => lerContas("codex", env),
   candidatos: candidatosCodex,
   argumentos: (pedido) => argumentosCodex(codex, [], pedido),
@@ -274,8 +306,11 @@ const local = {
   prazoMinutos: 60,
   variavelConta: null,
   variaveisQueGanham: [],
-  segredos: [],
+  // A pasta do Codex e onde está o Ollama: o --oss do Codex lê CODEX_OSS_BASE_URL e CODEX_OSS_PORT (vistos no binário
+  // do Codex 0.172.0), e o OLLAMA_HOST é o do próprio Ollama.
+  ambiente: ["CODEX_HOME", "CODEX_OSS_BASE_URL", "CODEX_OSS_PORT", "OLLAMA_HOST"],
   ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
+  semEscritaNoWindows: true,
   contas: () => [],
   candidatos: candidatosCodex,
   argumentos({ servidor = null, ...pedido }) {
@@ -299,7 +334,7 @@ const vibe = {
   variavelConta: null,
   variaveisQueGanham: [],
   // A chave de que o Vibe precisa para entrar, quando não está no cofre do sistema: é a única que lhe chega.
-  segredos: ["MISTRAL_API_KEY"],
+  ambiente: ["MISTRAL_API_KEY"],
   ambienteSemInterface: { RETOMA_SEM_INTERFACE: "1" },
   contas: () => [],
   candidatos: (env, plataforma) => [join(homedir(), ".local", "bin", plataforma === "win32" ? "vibe.exe" : "vibe")],
@@ -390,17 +425,18 @@ export function executavel(fornecedor, env = process.env, plataforma = process.p
 }
 
 // Como lançar o comando. Um .cmd só corre pelo cmd.exe, que lê a linha inteira: por isso o caminho não pode ter o que o
-// cmd.exe interpreta, e os argumentos só podem ser os das listas fechadas.
+// cmd.exe interpreta, e os argumentos só podem ser os das listas fechadas ou um caminho absoluto, que vai entre aspas.
 export function prepararExecucao(caminho, args, plataforma = process.platform) {
   const extensao = extname(caminho).toLowerCase();
   if (extensao === ".mjs" || extensao === ".js") return { ficheiro: process.execPath, argumentos: [caminho, ...args], opcoes: {} };
   if (plataforma === "win32" && (extensao === ".cmd" || extensao === ".bat")) {
     if (/["%^&|<>!\r\n]/.test(caminho)) throw new Error(`o caminho do comando tem caracteres que o cmd.exe interpreta: ${caminho}`);
-    const fora = args.find((a) => !ARGUMENTO_SEGURO.test(a));
+    const fora = args.find((a) => !ARGUMENTO_SEGURO.test(a) && !CAMINHO_SEGURO.test(a));
     if (fora !== undefined) throw new Error(`argumento que não pode ir para o cmd.exe: ${fora}`);
+    const linha = args.map((a) => (ARGUMENTO_SEGURO.test(a) ? a : `"${a}"`)).join(" ");
     return {
       ficheiro: process.env.ComSpec || "cmd.exe",
-      argumentos: ["/d", "/s", "/c", `""${caminho}" ${args.join(" ")}"`],
+      argumentos: ["/d", "/s", "/c", `""${caminho}" ${linha}"`],
       opcoes: { windowsVerbatimArguments: true },
     };
   }
@@ -417,13 +453,32 @@ export function ambienteDaConta(fornecedor, env, pastaConta) {
   return fora;
 }
 
-// O ambiente do par: o da conta e, além disso, sem as chaves dos outros fornecedores. O par só recebe a chave de que
-// precisa para entrar (a MISTRAL_API_KEY no Vibe); a de outro fornecedor nunca lhe chega.
+// O que qualquer destas ferramentas precisa para correr no Windows, no Linux e no macOS: onde estão os programas, as
+// pastas do sistema e do utilizador, a língua, o terminal e o proxy (com os certificados de um proxy que abre o TLS).
+// No Windows os nomes não distinguem maiúsculas, por isso comparam-se em maiúsculas.
+const AMBIENTE_DE_BASE = new Set([
+  ...["PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "COMSPEC", "TEMP", "TMP", "TMPDIR", "NUMBER_OF_PROCESSORS", "PROCESSOR_ARCHITECTURE", "OS"],
+  ...["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "APPDATA", "LOCALAPPDATA", "USERNAME", "USER", "LOGNAME", "SHELL"],
+  ...["PROGRAMDATA", "PROGRAMFILES", "PROGRAMFILES(X86)", "PROGRAMW6432", "COMMONPROGRAMFILES"],
+  ...["LANG", "LC_ALL", "TERM", "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY", "NODE_EXTRA_CA_CERTS", "SSL_CERT_FILE"],
+]);
+// Os testes (par.test.mjs) dizem aos fornecedores a fingir o que fazer e onde registar cada chamada.
+const AMBIENTE_DOS_TESTES = ["CLAUDE_FALSO_MODO", "CLAUDE_FALSO_REGISTO", "FALSO_MODO", "FALSO_REGISTO"];
+
+// O ambiente do par é uma lista fechada: o de base, as variáveis do próprio fornecedor (a pasta da conta, a
+// MISTRAL_API_KEY no Vibe) e o modo sem interface. Tudo o resto fica de fora: as chaves dos outros fornecedores, as
+// que fariam a volta faturar à API e os tokens que não são de nenhum (GitHub, Cloudflare). O par.mjs junta depois o
+// CID_PAPEL e o CID_PAR_DE.
 export function ambienteDoPar(fornecedor, env, pastaConta) {
-  const fora = ambienteDaConta(fornecedor, env, pastaConta);
-  for (const outro of Object.values(FORNECEDORES)) {
-    for (const v of outro.segredos) if (!fornecedor.segredos.includes(v)) delete fora[v];
+  const fora = {};
+  for (const [nome, valor] of Object.entries(env)) {
+    const maiusculas = nome.toUpperCase();
+    if (AMBIENTE_DE_BASE.has(maiusculas) || maiusculas.startsWith("XDG_") || fornecedor.ambiente.includes(nome) || AMBIENTE_DOS_TESTES.includes(nome)) {
+      fora[nome] = valor;
+    }
   }
+  Object.assign(fora, fornecedor.ambienteSemInterface);
+  if (pastaConta) fora[fornecedor.variavelConta] = pastaConta;
   return fora;
 }
 

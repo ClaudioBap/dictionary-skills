@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Um codex a fingir, para os testes do par.mjs (pares codex: e local:). O que faz escolhe-se em FALSO_MODO: normal
 // (responde), erro (falha) ou limite (pára por limite de uso). Cada chamada acrescenta uma linha a FALSO_REGISTO com os
-// argumentos, a pasta, a conta, as chaves que lhe chegaram e o pedido. Os eventos seguem os de `codex exec --json`
-// vistos no Codex 0.172.0; o texto do limite segue relatos da comunidade (não confirmado).
+// argumentos, a pasta, a conta, as chaves e os nomes das variáveis que lhe chegaram e o pedido. Os eventos seguem os de
+// `codex exec --json` vistos no Codex 0.172.0; o texto do limite segue relatos da comunidade (não confirmado).
 
 import { appendFileSync, readFileSync } from "node:fs";
 
@@ -16,6 +16,7 @@ if (process.env.FALSO_REGISTO) {
     cwd: process.cwd(),
     conta: process.env.CODEX_HOME ?? null,
     chaves: CHAVES.filter((c) => c in process.env),
+    variaveis: Object.keys(process.env),
     sem_interface: process.env.RETOMA_SEM_INTERFACE ?? null,
     pedido,
   };
