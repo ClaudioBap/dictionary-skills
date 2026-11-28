@@ -142,6 +142,7 @@ const pedido = (subscricao) => `És a sessão 0 (orquestradora) de um trabalho q
 Pasta do trabalho: ${pasta}
 Esta corrida usa a subscrição «${subscricao}»: escreve-a no campo subscricao de cada tarefa que lançares ou relançares em estado.json.
 Lê, por esta ordem: plano.md (se existir), sessoes.md ou custo-beneficio.md, estado.json, os briefings e o que houver em saidas/.
+Se estado.json tiver orquestracao com agente e manifesto, consulta o manifesto pelo comando orquestracao estado e continua a revisão aprovada pelo comando orquestracao executar quando aplicável. As sessões desse manifesto continuam pelo agente ou são abertas manualmente pela pessoa. A ferramenta Agent só pode retomar as tarefas dos pontos seguintes que estejam fora desse manifesto.
 
 Depois continua:
 1. Para cada tarefa «em curso» em estado.json: se a saída existe e tem as provas pedidas no briefing, confirma as que puderes reproduzir e marca «feito»; se não existe, relança-a com a ferramenta Agent, com o modelo indicado em estado.json e o pedido «lê o briefing <caminho> e executa-o até ao fim», dizendo-lhe para começar por ver o que já está feito no disco.

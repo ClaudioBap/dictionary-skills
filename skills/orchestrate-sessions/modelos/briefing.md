@@ -1,6 +1,12 @@
 # Briefing S<n> (<objetivo curto>)
 
-No VS Code, abrir uma conversa nova do Claude Code na pasta do projeto (paleta de comandos, «Open in New Tab») e escolher o modelo e o effort no seletor que abre ao clicar no nome do modelo, na parte de baixo da caixa de texto. Num terminal, na mesma pasta:
+**Sessão:** <id>, para <planear, executar ou verificar>, em <fornecedor>, <conta> (<subscrição, chave de API ou modelo local>), com o modelo <modelo>.
+
+**Abertura:** <manual ou delegada>.
+
+<!-- Nas sessões delegadas, passa o briefing ao agente. Nas manuais, indica como abrir ou associar a sessão com a conta e o modelo escolhidos. Adapta os exemplos seguintes ao fornecedor. -->
+
+Para uma sessão manual Claude, abrir ou escolher uma conversa na pasta do projeto no VS Code e selecionar o modelo e o effort. Num terminal, na mesma pasta:
 
 ```
 claude --model <modelo> --effort <nível>

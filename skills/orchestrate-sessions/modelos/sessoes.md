@@ -33,9 +33,12 @@
 
 ### Decisões
 
-Registar o nível de autonomia, as ações que autoriza e quando pede decisão. Com várias contas, guardar o fornecedor, a conta e os papéis de planeamento, execução e verificação. Indicar quem executa o plano aprovado e, se for publicado no portal, o ID do plano na Oficina 3D.
+Registar o nível de autonomia, as ações que autoriza e quando pede decisão. Guardar a origem do inventário, o fornecedor, a conta, o tipo de acesso, o modelo e os papéis. Indicar quem executa o plano aprovado, a revisão e, se publicado, o ID do plano na Oficina 3D.
 
-- **Fable:** _por definir_ <!-- sim | não (usa opus com o effort um nível acima) -->
+- **Inventário confirmado:** _por definir_ <!-- Ligações, com máquina, ou local. Regista as combinações escolhidas e as indisponíveis. -->
+- **Papéis por modelo:** _por definir_ <!-- Planeamento, execução, verificação ou ficar de fora. -->
+- **Abertura de sessões:** _por definir_ <!-- Manual, delegada ou mista. Em modo misto, guarda a escolha por sessão. -->
+- **Fable (se proposto):** _por definir_
 - **Autonomia:** _por definir_ <!-- um dos quatro níveis de modo-continuo.md; em «Só executar o aprovado», uma dúvida pára a sua tarefa e vai logo ao utilizador; nos outros, as perguntas juntam-se para o fim e o trabalho continua -->
 - **Verificação por outro modelo:** _por definir_ <!-- sem par, e a razão | a forma (consultar a pedido, debater no planeamento, verificar até aprovar), os tipos de tarefa, o modelo e a subscrição de quem verifica e as voltas no máximo; só se pergunta com mais de uma subscrição ou mais de um modelo aceite. --pode-escrever só com a razão aqui -->
 - **Sessões do VS Code:** _por definir_ <!-- quantas trabalham ao mesmo tempo além da sessão 0; o detalhe de cada uma fica em «Sessões» -->
@@ -53,9 +56,9 @@ Registar o nível de autonomia, as ações que autoriza e quando pede decisão. 
 
 <!-- Subscrição: principal, ou o id em contas-ia.json. Como abrir, noutra subscrição: no PowerShell `$env:CLAUDE_CONFIG_DIR="<pasta>"; claude --model <modelo> --effort <nível>`, noutros terminais `CLAUDE_CONFIG_DIR=<pasta> claude --model <modelo> --effort <nível>`. -->
 
-| # | Tipo | Tarefas | Mini skill | Modelo | Effort | Subagentes | Em paralelo com | Subscrição | Como abrir | Critério de fim | Custo (/usage) |
-|---|------|---------|------------|--------|--------|------------|-----------------|------------|------------|-----------------|----------------|
-| 0 | orquestrador | Dividir, preparar briefings, integrar | — | _por definir_ | _por definir_ | _por definir_ | — | _por definir_ | É a sessão que corre esta skill | Todas as tarefas com prova | |
+| # | Tipo | Tarefas | Mini skill | Fornecedor | Conta e tipo de acesso | Modelo | Effort | Subagentes | Em paralelo com | Modo | Como abrir | Critério de fim | Custo (/usage) |
+|---|------|---------|------------|------------|------------------------|--------|--------|------------|-----------------|------|------------|-----------------|----------------|
+| 0 | orquestrador | Dividir, preparar briefings, integrar | — | _por definir_ | _por definir_ | _por definir_ | _por definir_ | _por definir_ | — | — | É a sessão que corre esta skill | Todas as tarefas com prova | |
 
 ## Subidas de nível
 
@@ -75,5 +78,5 @@ Registar o nível de autonomia, as ações que autoriza e quando pede decisão. 
 
 ## Validação
 
-- [ ] Plano de delegação validado pelo utilizador em _por definir_
+- [ ] Plano de delegação, revisão _por definir_, aprovado pelo utilizador em _por definir_
 - [ ] Resultado aceite pelo utilizador em _por definir_
