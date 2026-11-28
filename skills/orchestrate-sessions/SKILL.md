@@ -13,7 +13,7 @@ metadata:
 
 É por aqui que se começa um trabalho. A sessão que corre esta skill é o orquestrador (sessão 0): percebe contigo o que queres, com o questionário, faz o plano de delegação, prepara os briefings, lança os subagentes que lhe cabem e integra o que cada sessão devolve.
 
-Os caminhos `catalogo.md`, `modelo-e-effort.md`, `modo-continuo.md`, `regras.md`, `PERGUNTAS.md`, `modelos/` e `scripts/` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
+Os caminhos `catalogo.md`, `modelo-e-effort.md`, `modo-continuo.md`, `arranque-de-sessoes.md`, `regras.md`, `PERGUNTAS.md`, `modelos/` e `scripts/` são relativos à pasta deste `SKILL.md`. O caminho do conhecimento obtém-se com `node scripts/conhecimento.mjs`; as referências `knowledge/...` são relativas a esse caminho.
 
 ## Regras
 
@@ -58,10 +58,7 @@ A pasta de trabalho depende de onde vem o pedido:
 - **Trabalho avulso:** `orquestracao/<trabalho>/`, no diretório atual. Se existe, lê `sessoes.md`, diz em que passo ficou e retoma. Se não existe, cria-a com uma cópia de `modelos/sessoes.md`. Sem nome no pedido, mostra os trabalhos a meio em `orquestracao/`, para retomar um. Num trabalho novo, a primeira pergunta é P1: com a resposta, propõe um nome curto e cria a pasta, com P1 já `respondida`, antes de qualquer outra pergunta.
 - **Projeto da start-project-with-trust** (`arranque/<projeto>/` com o estado `Fase 4`): as tarefas, as sessões e os briefings já foram decididos na Fase 3 e estão em `custo-beneficio.md` e `briefings/`. Lê-os e passa diretamente ao passo 5. Onde este ficheiro diz `sessoes.md`, usa `custo-beneficio.md`.
 
-Num trabalho avulso, antes do questionário (sem nome no pedido, logo a seguir a P1):
-
-1. Pergunta se o utilizador tem acesso ao Fable e aceita o custo dele nos planos e nas tarefas de topo. Regista a resposta em «Decisões».
-2. A sessão 0 planeia, por isso corre em `fable` ou, sem Fable, em `opus` (`modelo-e-effort.md`). Se estiver noutro modelo, pede ao utilizador para mudar com `/model` antes de continuar.
+Se a sessão 0 for usar Claude, aplica a recomendação de modelo em `modelo-e-effort.md`. Pergunta sobre o acesso e custo do Fable se o propuseres. Nos outros fornecedores, escolhe com o utilizador entre os modelos elegíveis do inventário.
 ## Questionário
 
 Um trabalho avulso novo começa aqui, com um pedido claro, vago ou vazio. É um questionário ao estilo «grill me»: uma pergunta de cada vez, no formato de `regras.md`, e cada resposta decide a seguinte, ramo a ramo, até não haver dúvidas sobre o que a pessoa quer. O estado fica em «Perguntas» de `sessoes.md`.
@@ -76,25 +73,25 @@ As respostas e as pistas «Liga a» de `PERGUNTAS.md` dizem que secções de `kn
 
 ## Plano de delegação
 
-Do questionário sai o plano de delegação, com cinco partes, que fica na secção do mesmo nome de `sessoes.md`. As partes 2 e 3 perguntam-se logo a seguir ao questionário, porque não dependem das tarefas; as outras preenchem-se nos passos 1 a 4, a partir das respostas. No fim do passo 4, o utilizador valida o plano inteiro.
+Do questionário sai o plano de delegação, com cinco partes, que fica na secção do mesmo nome de `sessoes.md`. Logo a seguir ao questionário, deteta o agente e a ligação ao portal e apresenta a lista completa de modelos antes de perguntar se estão todos os que a pessoa quer usar. Diz que vais preparar um plano para aprovação e mostra onde corrigir uma ligação em falta. Segue `arranque-de-sessoes.md` para a deteção, inventário e perguntas. Depois confirma autonomia, papéis e modo de abertura, uma decisão de cada vez. Preenche as outras partes nos passos 1 a 4. No fim do passo 4, o utilizador valida o plano inteiro.
 
 1. **Que skills entram.** A tabela «Skills no trabalho»: cada skill, quando entra (a fase ou o sinal que a chama), o que faz, o que entrega e o critério de saída. A escolha segue «Que skill faz cada tarefa», com o «Quando usar» do `EXEMPLOS.md` de cada uma e o `impacto` do `metadata`. Sai do passo 1.
 2. **Que autonomia tem.** Um dos quatro níveis de `modo-continuo.md`, de «Só executar o aprovado» a «Máxima», com «Executar e registar» como recomendação. Pergunta em todos os trabalhos em que a pessoa ainda não escolheu explicitamente, mesmo com um pedido claro. Ao apresentar cada opção, explica as ações concretas autorizadas, as decisões que ainda exigem confirmação e quando surgem perguntas. Confirma em voz alta o efeito da escolha para este projeto e grava-o em «Decisões». O nível decide as perguntas pelo caminho: em «Só executar o aprovado», uma dúvida pára a sua tarefa e vai logo ao utilizador; nos outros três, as perguntas juntam-se e fazem-se no fim, uma de cada vez, e o trabalho continua. Pergunta também se o trabalho deve continuar sozinho depois de um limite de uso. Se sim, faz as outras duas perguntas de `modo-continuo.md` (onde corre e quota), cria `estado.json` e `retoma-permissoes.json` a partir de `modelos/`, propõe registar a tarefa agendada que retoma o trabalho parado (e, com quota abaixo de 100%, instalar a linha de estado) e regista tudo em «Decisões». A partir daí, cada pausa por limite e cada retoma ficam escritas em `sessoes.md`.
-3. **Verificação por outro modelo.** Uma sessão trabalha e outra, de outro modelo, de outra subscrição ou de outro fornecedor, verifica, responde ou debate, e as duas falam diretamente («Sessões em par», abaixo). Pergunta-se logo a seguir à parte 2, e só quando há mais de uma subscrição registada, o utilizador aceita mais de um modelo ou há outro fornecedor instalado no PC; se não, regista «sem par» e a razão em «Decisões». Faz uma pergunta de cada vez.
-   - Usa "node scripts/delegacao.mjs claude codex" para obter as perguntas e o inventário de contas registadas, passando apenas os fornecedores com login confirmado que a P11 permite. Com duas ou mais contas que a P11 permite, pergunta primeiro como repartir os papéis. Mostra os nomes das contas e o fornecedor. Dá a escolher uma conta planeadora e outra executora, duas contas a planear antes de uma executar, ou uma distribuição personalizada. Faz um seguimento para confirmar a conta de cada papel e, se duas planearem, quem executa o plano conjunto. Regista os papéis em «Decisões» e em "papeis_contas" de "estado.json", por fornecedor e id, como "codex:conta-pessoal": "planeador". Os valores são "planeador", "executor", "ambos" e "verificador". A conta só de planeamento trabalha em leitura. Se uma conta ficar sem quota, uma troca respeita os papéis e o nível de autonomia escolhido.
+3. **Papéis dos modelos e verificação.** Depois de confirmar o inventário e a autonomia, pergunta o que vai fazer cada combinação elegível de fornecedor, conta e modelo: planeamento, execução, verificação, vários papéis ou ficar de fora. Com dois planeadores, reúne as propostas e confirma quem executa o plano conjunto. O planeamento e a verificação usam leitura quando as tarefas o permitem. Grava a escolha em «Decisões» e `papeis_modelos` de `estado.json`, conforme `arranque-de-sessoes.md`. Uma troca respeita o papel, as regras do projeto e a autonomia.
+   - Se a pessoa escolher uma sessão para conversar com outra durante o trabalho, confirma como vão trabalhar em par (abaixo). Quando houver só um modelo, confirma o seu papel e regista «sem par» se for a decisão.
    - A forma da conversa. Opções, da mais barata à mais cara: sem par (cada sessão prova o seu trabalho com os testes e os verificadores); consultar a pedido (a sessão pergunta ao par só quando tem uma dúvida); debater no planeamento (o plano e as decisões de arquitetura passam pelo par antes da validação); verificar até aprovar (no fim de cada tarefa, o par verifica e a sessão corrige até ele aprovar ou acabarem as voltas). As tarefas ainda não existem, por isso a resposta diz que tipos de tarefa de `modelo-e-effort.md` vão em par, e o passo 1 marca-as em «Tarefas». Recomendação *(interpretação)*: verificar até aprovar nas tarefas de «Rever e decidir com risco» e nas de nível topo, sem par nas outras.
    - Que fornecedor, modelo e subscrição verificam, só entre os fornecedores que a P11 deixa (abaixo). No Claude, a regra 7 de `modelo-e-effort.md`; outro fornecedor conta, para essa regra, como outro modelo.
    - Quantas voltas no máximo: 5 por omissão, até 20.
 
    A P11 (Dados e conformidade) decide que fornecedores podem ver o projeto, e só esses entram nas opções. Do que menos expõe ao que mais expõe:
-   - `local`, sem `--servidor`: o modelo corre no Ollama deste PC e nada sai dele;
+   - `ollama` no inventário (ou `local` no par sem `--servidor`): o modelo corre no Ollama deste PC;
    - `local`, com `--servidor`: o código vai até ao servidor da casa, por um túnel SSH, e fica em máquinas da casa;
    - `vibe`: a Mistral é uma empresa da UE, mas o Vibe usa por omissão o endpoint global `api.mistral.ai`, em que a Mistral não se compromete com uma região. Para a inferência ficar na UE, o fornecedor do Vibe aponta para `api.eu.mistral.ai` (por confirmar no Vibe);
    - `codex` (OpenAI) e `claude` (Anthropic): EUA.
 
-   Um projeto cujos dados não podem sair do PC fica com `local` sem servidor, ou sem par.
+   Um projeto cujos dados têm de ficar no PC usa o inventário local e modelos que correm localmente. Usa `--local` e aplica a P11 antes de propor os papéis.
    Em todos os percursos com planeamento, reúne as propostas, regista as divergências e apresenta o plano final para aprovação, usando o modo de plano da ferramenta quando disponível. Guarda-o no projeto e, se o portal do projeto oferecer «Planos» na Oficina 3D e a partilha estiver autorizada, confirma que o plano aprovado aparece aí associado à sessão que o preparou. A conta executora recebe o plano aprovado e os critérios de verificação.
-4. **Quantas sessões do VS Code se abrem.** Sai do passo 2.
+4. **Quem abre as sessões e quantas correm em paralelo.** No passo 2, escolhe com a pessoa entre abertura manual, delegada ou mista, conforme as capacidades do inventário. No modo misto, confirma a escolha por sessão. A autonomia e o modo de abertura são duas decisões.
 5. **Quantos agentes corre cada sessão**, com o modelo e o effort de cada um. Sai dos passos 3 e 4, e os agentes correm em lotes de 3 a 4 (passo 5).
 
 ### Sessões em par
@@ -169,13 +166,13 @@ Regista a resposta em «Decisões» e marca em «Quem executa» que tarefas vão
 
 ## Passo 4. Sessões e briefings
 
-1. Preenche «Sessões». Cada sessão corre no modelo e no effort da tarefa mais exigente que faz ela própria. As tarefas de nível mais baixo vão para subagentes, se a decisão do passo 3 o permitir; se não, junta-as numa sessão do mesmo nível, sempre que as dependências o deixem. Na coluna «Subagentes», escreve quantos corre cada sessão, com o modelo e o effort de cada um: é a parte 5 do plano de delegação. Com mais de uma subscrição, cada sessão leva a sua na coluna «Subscrição», e o comando para a abrir nela em «Como abrir».
+1. Preenche «Sessões». Cada sessão corre no modelo e no effort da tarefa mais exigente que faz ela própria. As tarefas de nível mais baixo vão para subagentes, se a decisão do passo 3 o permitir; se não, junta-as numa sessão do mesmo nível, sempre que as dependências o deixem. Na coluna «Subagentes», escreve quantos corre cada sessão, com o modelo e o effort de cada um: é a parte 5 do plano de delegação. Indica o fornecedor, conta, modelo e modo de abertura de cada sessão. Nas sessões manuais, dá o comando ou o caminho para a abrir no VS Code e indica como associar uma sessão existente.
 2. Para cada sessão de 1 em diante, escreve `briefings/S<n>.md` a partir de `modelos/briefing.md`, com a parte «Par» quando tem tarefas em par. As tarefas dos subagentes do orquestrador também levam briefing (`briefings/T<n>.md`), que é o prompt do subagente.
-3. Mostra o plano de delegação inteiro (as cinco partes), quem faz o quê, o nível, o modelo e o effort de cada tarefa, e as tarefas que ficam em `opus` ou `fable` com a razão. Pede validação, marca-a em «Validação» e muda o estado para `Execução`.
+3. Mostra o plano de delegação inteiro, com a autonomia, papéis, modelo e effort de cada tarefa, modo de abertura, dependências e provas de aceitação. Prepara o manifesto se o agente participar no arranque ou na recolha. Pede aprovação da versão apresentada. Quando a pessoa aprovar, marca a versão em «Validação», grava o manifesto aprovado e muda o estado para `Execução`.
 
 ## Passo 5. Execução
 
-1. Para cada sessão que já pode arrancar (com as entradas prontas), diz ao utilizador o comando para a abrir e o texto a colar, como estão no briefing. As que dependem de outras ficam para quando as entradas existirem.
+1. Corre o manifesto aprovado com o agente, conforme `arranque-de-sessoes.md`. O agente abre as sessões delegadas quando as dependências estiverem prontas. Para cada sessão manual que já pode arrancar, dá ao utilizador o modo de a abrir ou associar e o texto do briefing. Regista o estado das sessões no trabalho.
 2. Lança os subagentes do orquestrador com a ferramenta Agent, com o `model` e o `effort` da tarefa. Em paralelo, só os que não dependem uns dos outros, e em lotes de 3 a 4, para um limite de uso levar só o que está a meio. Cada subagente grava o resultado em `saidas/T<n>.md` antes de devolver, como diz o briefing dele.
 3. Faz as tarefas que cabem à sessão 0.
 4. Não repitas o trabalho de uma sessão enquanto ela corre.
@@ -183,7 +180,7 @@ Regista a resposta em «Decisões» e marca em «Quem executa» que tarefas vão
 
 ## Passo 6. Recolha
 
-1. Quando o utilizador disser que uma sessão terminou, lê `saidas/S<n>.md`. Confirma a prova de cada tarefa; se a puderes reproduzir (correr o comando, abrir o URL), fá-lo. Uma tarefa sem prova volta à sessão ou passa a tarefa nova.
+1. Consulta o estado do agente para as sessões do manifesto. Quando uma sessão manual terminar, recolhe `saidas/S<n>.md` e entrega-a ao agente se a sessão constar do manifesto. Confirma a prova de cada tarefa e reproduz o que for possível. Uma tarefa sem prova volta à sessão ou passa a tarefa nova.
 2. Atualiza «Tarefas» (estado), «Sessões» (custo do `/usage`) e «Subidas de nível».
 3. Uma subida que pede autorização (regra 3 de `modelo-e-effort.md`), ou uma tarefa que não se consegue fazer como planeado, vai ao utilizador. Num projeto da start-project-with-trust, passa a pergunta `aberta` em `objetivo.md` e segue a regra 4 da Fase 4 dessa skill.
 4. Diz ao utilizador que sessões podem agora arrancar com as saídas recebidas.
